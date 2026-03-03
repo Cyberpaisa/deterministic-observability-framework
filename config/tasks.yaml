@@ -1,0 +1,115 @@
+# ============================================
+# TAREAS DEL EQUIPO - Flujo de trabajo completo
+# ============================================
+
+# FASE 1: Estrategia (Product Manager + BizDev)
+definir_producto:
+  description: >
+    Analizar el requerimiento del usuario: {objetivo}.
+    Definir las features principales, escribir user stories con criterios
+    de aceptación, y priorizar usando el framework RICE.
+    Entregar un documento claro con: visión del producto, features priorizadas,
+    y user stories para el equipo técnico.
+  expected_output: >
+    Documento con: 1) Visión del producto, 2) Lista de features priorizadas
+    con score RICE, 3) User stories con criterios de aceptación
+  agent: product_manager
+
+analizar_negocio:
+  description: >
+    Para el producto definido, crear un modelo de negocio:
+    Business Model Canvas, análisis de competencia (mínimo 3 competidores),
+    estrategia de monetización y go-to-market inicial.
+    Contexto del producto: {objetivo}
+  expected_output: >
+    Business Model Canvas completo, análisis competitivo, estrategia de
+    monetización con unit economics básicos, y plan go-to-market
+  agent: bizdev
+
+# FASE 2: Planificación (Director Ops + Arquitecto)
+planificar_ejecucion:
+  description: >
+    Con las features priorizadas y el modelo de negocio, crear un plan
+    de ejecución detallado: sprints, dependencias, milestones, riesgos
+    identificados y plan de mitigación. Asignar tareas a cada agente.
+  expected_output: >
+    Plan de ejecución con: sprints definidos, tareas asignadas por agente,
+    dependencias mapeadas, riesgos con mitigación, y timeline
+  agent: director_operaciones
+
+disenar_arquitectura:
+  description: >
+    Diseñar la arquitectura técnica del proyecto: stack tecnológico,
+    estructura de directorios, diseño de APIs, modelo de datos,
+    y decisiones de infraestructura. Justificar cada decisión.
+  expected_output: >
+    Documento de arquitectura con: diagrama de componentes, stack elegido
+    con justificación, diseño de API (endpoints), modelo de datos,
+    y plan de infraestructura
+  agent: arquitecto
+
+# FASE 3: Research (Investigador)
+investigar_tecnologias:
+  description: >
+    Investigar las tecnologías, APIs y herramientas necesarias para
+    implementar la arquitectura definida. Buscar mejores prácticas,
+    librerías recomendadas, y posibles problemas conocidos.
+  expected_output: >
+    Informe de research con: tecnologías evaluadas, pros/cons de cada una,
+    librerías recomendadas con versiones, links a docs, y advertencias
+  agent: investigador
+
+# FASE 4: Implementación (Developer + Organizador)
+organizar_proyecto:
+  description: >
+    Crear la estructura de directorios del proyecto según la arquitectura
+    definida. Establecer naming conventions, crear archivos base,
+    configurar linters y formatters. Documentar la estructura.
+  expected_output: >
+    Estructura de directorios creada, README con convenciones,
+    archivos de configuración (eslint, prettier, etc.), y guía de estructura
+  agent: organizador_archivos
+
+implementar_codigo:
+  description: >
+    Implementar las features según las user stories y la arquitectura
+    definida. Escribir código limpio, modular y siguiendo las convenciones
+    del proyecto. Crear PRs enfocados por feature.
+  expected_output: >
+    Código implementado, funcional, siguiendo la arquitectura y convenciones
+    definidas. Cada feature en su módulo correspondiente.
+  agent: developer
+
+# FASE 5: Calidad (QA)
+testear_proyecto:
+  description: >
+    Escribir y ejecutar tests para todo el código implementado:
+    tests unitarios (>80% coverage), tests de integración para APIs,
+    y tests e2e para flujos críticos. Reportar bugs encontrados.
+  expected_output: >
+    Suite de tests completa, reporte de coverage, lista de bugs encontrados
+    con severidad, y recomendaciones de mejora
+  agent: qa_engineer
+
+# FASE 6: Deploy (DevOps)
+desplegar_proyecto:
+  description: >
+    Configurar CI/CD pipeline, dockerizar la aplicación si es necesario,
+    configurar el deployment en Railway, variables de entorno,
+    monitoreo básico y health checks.
+  expected_output: >
+    Pipeline CI/CD configurado, Dockerfile (si aplica), deployment exitoso,
+    variables de entorno documentadas, health checks activos
+  agent: devops
+
+# TAREA CONTINUA: Orquestación (Líder)
+orquestar_equipo:
+  description: >
+    Supervisar todo el flujo de trabajo. Revisar los outputs de cada fase,
+    asegurar coherencia entre las decisiones del PM, BizDev, Arquitecto
+    y Developer. Resolver conflictos y tomar decisiones finales.
+    Entregar un resumen ejecutivo al finalizar.
+  expected_output: >
+    Resumen ejecutivo con: estado de cada fase, decisiones tomadas,
+    problemas resueltos, y resultado final del proyecto
+  agent: lider_orquestador

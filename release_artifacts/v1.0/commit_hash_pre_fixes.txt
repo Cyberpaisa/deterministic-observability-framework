@@ -1,0 +1,4 @@
+pre-fix-snapshot-20260303T021033
+No git repo initialized yet. This file records the pre-fix state timestamp.
+SHA256 of core/experiment.py at snapshot time:
+7625b5da358700f2936d98137dc6bf2d9c7713b3073e910e8a5eb8d9d4881b00  /Users/jquiceva/equipo de agentes/core/experiment.py

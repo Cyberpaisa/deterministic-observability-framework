@@ -1,0 +1,32 @@
+# ============================================
+# REGISTRO DE PROYECTOS ACTIVOS — Cyber Paisa
+# ============================================
+# Los agentes leen este archivo para contextualizar sus outputs.
+# Usa --project "NOMBRE" en main.py para activar contexto.
+
+projects:
+  - name: "FLARE"
+    ecosystem: "Avalanche"
+    description: >
+      Web3 startup building on ERC-8004 standard — smart contracts,
+      indexer, frontend dashboard. CoinMarketCap para Agentes Autonomos.
+    team:
+      - "Daniel Luque (CSO)"
+      - "Kevin (CTO)"
+      - "Josue (Dev Lead Frontend)"
+    status: "active"
+
+  - name: "AgentNet"
+    ecosystem: "Base"
+    description: >
+      AI agent orchestration infrastructure for consumer applications.
+      Plataforma para desplegar agentes autonomos en blockchain.
+    team: []
+    status: "concept"
+
+  # Agrega mas proyectos aqui:
+  # - name: "NuevoProyecto"
+  #   ecosystem: "Polygon"
+  #   description: "Descripcion del proyecto"
+  #   team: ["Persona 1", "Persona 2"]
+  #   status: "active"

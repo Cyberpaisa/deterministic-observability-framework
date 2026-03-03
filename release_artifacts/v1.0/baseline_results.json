@@ -1,0 +1,42 @@
+{
+  "experiment_id": "80001252-e312-4358-b14b-7bd77e894a83",
+  "hypothesis": "Baseline freeze: pre-fix reference",
+  "n_runs": 10,
+  "mode": "research",
+  "deterministic": true,
+  "aggregated": {
+    "total_runs": 10,
+    "statuses": {
+      "ok": 10
+    },
+    "stability_score": {
+      "mean": 1.0,
+      "stddev": 0.0
+    },
+    "provider_fragility_index": {
+      "mean": 0.0,
+      "stddev": 0.0
+    },
+    "retry_pressure": {
+      "mean": 0.0,
+      "stddev": 0.0
+    },
+    "governance_compliance_rate": {
+      "mean": 1.0,
+      "stddev": 0.0
+    },
+    "supervisor_strictness_ratio": 0.0,
+    "supervisor_score": {
+      "mean": 6.3,
+      "stddev": 0.0
+    },
+    "latency_ms": {
+      "mean": 0.0,
+      "stddev": 0.0
+    },
+    "tokens": {
+      "input_total": 320,
+      "output_total": 1180
+    }
+  }
+}
