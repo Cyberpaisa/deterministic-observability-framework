@@ -1,0 +1,52 @@
+{
+  "name": "DOF — Deterministic Observability Framework",
+  "description": "Z3 formal verification + immutable on-chain attestations. Math proofs, not promises. 0% FPR across 12,229 adversarial payloads.",
+  "version": "0.4.1",
+  "url": "https://dof.cyberpaisa.zo.computer",
+  "documentationUrl": "https://github.com/Cyberpaisa/deterministic-observability-framework",
+  "provider": {
+    "organization": "Colombia Blockchain",
+    "url": "https://colombiablockchain.com"
+  },
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false,
+    "stateTransitionHistory": true
+  },
+  "authentication": {"schemes": ["none", "bearer"]},
+  "defaultInputModes": ["text/plain", "application/json"],
+  "defaultOutputModes": ["application/json"],
+  "skills": [
+    {
+      "id": "verify-code",
+      "name": "Verify Code",
+      "description": "Z3 formal verification of Solidity contracts. Returns proof_hash + on-chain TX.",
+      "tags": ["security", "z3", "formal-verification", "solidity"]
+    },
+    {
+      "id": "publish-attestation",
+      "name": "Publish On-Chain Attestation",
+      "description": "Publish immutable proof to DOFProofRegistry on Avalanche mainnet.",
+      "tags": ["blockchain", "attestation", "avalanche"]
+    },
+    {
+      "id": "audit-solidity",
+      "name": "Solidity Security Audit",
+      "description": "Full audit: CRITICAL/HIGH/MEDIUM/LOW + Z3 proof + Avalanche attestation.",
+      "tags": ["solidity", "audit", "security", "defi"]
+    }
+  ],
+  "extensions": {
+    "erc8004": {
+      "agentId": 1686,
+      "registry": "eip155:43114:0x8004A169FB4a3325136EB29fA0ceB6D2e539a432"
+    },
+    "dofContract": "eip155:43114:0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6",
+    "x402": {
+      "supported": true,
+      "price": "0.05",
+      "currency": "USDC",
+      "network": "eip155:8453"
+    }
+  }
+}

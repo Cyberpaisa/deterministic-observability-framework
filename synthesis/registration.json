@@ -1,0 +1,17 @@
+{
+  "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+  "name": "DOF — Deterministic Observability Framework",
+  "description": "Z3 proofs + on-chain attestations. 0% FPR. Math, not promises.",
+  "services": [
+    {"name": "A2A", "endpoint": "https://dof.cyberpaisa.zo.computer", "version": "0.3.0"},
+    {"name": "MCP", "endpoint": "https://dof.cyberpaisa.zo.computer/mcp", "version": "2025-06-18"}
+  ],
+  "active": true,
+  "registrations": [
+    {
+      "agentId": 1686,
+      "agentRegistry": "eip155:43114:0x8004A169FB4a3325136EB29fA0ceB6D2e539a432"
+    }
+  ],
+  "capabilities": ["z3-verification", "on-chain-attestation", "solidity-audit"]
+}
