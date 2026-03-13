@@ -5,7 +5,6 @@ Observability, experiment framework, deterministic mode.
 """
 
 # FASE 0
-from core.providers import ProviderManager
 from core.checkpointing import CheckpointManager
 from core.memory_manager import MemoryManager
 from core.metrics import MetricsLogger

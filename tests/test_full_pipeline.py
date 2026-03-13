@@ -17,7 +17,7 @@ import json
 import time
 import tempfile
 import unittest
-from datetime import datetime, timedelta
+from datetime import datetime, UTC, timedelta
 from unittest.mock import MagicMock
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -31,7 +31,7 @@ class TestFullPipelineAcceptFlow(unittest.TestCase):
     def setUpClass(cls):
         """Shared state across all stages — simulates a single pipeline run."""
         cls.report = {
-            "timestamp": datetime.now().isoformat(),
+            "timestamp": datetime.now(UTC).isoformat(),
             "stages": {},
             "modules_tested": 0,
             "checks_passed": 0,
@@ -435,14 +435,14 @@ class TestFullPipelineAcceptFlow(unittest.TestCase):
 
             # TemporalGraph operations
             graph = TemporalGraph(store)
-            snapshot = graph.snapshot(as_of=datetime.now())
+            snapshot = graph.snapshot(as_of=datetime.now(UTC))
             self.assertIsInstance(snapshot, list)
 
             timeline = graph.timeline()
             self.assertIsInstance(timeline, list)
 
-            past = datetime.now() - timedelta(hours=1)
-            diff = graph.diff(past, datetime.now())
+            past = datetime.now(UTC) - timedelta(hours=1)
+            diff = graph.diff(past, datetime.now(UTC))
             self.assertIsInstance(diff, dict)
 
             # MemoryClassifier

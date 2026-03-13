@@ -32,7 +32,7 @@ import uuid
 import json
 import logging
 from dataclasses import dataclass, field, asdict
-from datetime import datetime
+from datetime import datetime, UTC
 from typing import Optional
 
 logger = logging.getLogger("core.memory_governance")
@@ -77,7 +77,7 @@ class ConflictError(Exception):
 # ─────────────────────────────────────────────────────────────────────
 
 def _now_iso() -> str:
-    return datetime.utcnow().isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def _parse_iso(s: str) -> datetime:
@@ -508,6 +508,9 @@ class TemporalGraph:
     # ─── snapshot ─────────────────────────────────────────────────
 
     def snapshot(self, as_of: datetime) -> list[MemoryEntry]:
+        from datetime import UTC
+        if as_of.tzinfo is None:
+            as_of = as_of.replace(tzinfo=UTC)
         """Return the complete memory state at a specific point in time.
 
         For versioned memories, returns only the version that was active
@@ -518,11 +521,11 @@ class TemporalGraph:
         for e in self._store._entries:
             if e.governance_status == "rejected":
                 continue
-            vf = _parse_iso(e.valid_from)
+            vf = _parse_iso(e.valid_from); from datetime import UTC; vf = vf.replace(tzinfo=UTC) if vf.tzinfo is None else vf
             if vf > as_of:
                 continue
             if e.valid_to is not None:
-                vt = _parse_iso(e.valid_to)
+                vt = _parse_iso(e.valid_to); from datetime import UTC; vt = vt.replace(tzinfo=UTC) if vt.tzinfo is None else vt
                 if vt <= as_of:
                     continue
             candidates.append(e)
@@ -638,7 +641,7 @@ class TemporalGraph:
 
         Buckets: <1h, 1h-24h, 1d-7d, 7d-30d, >30d.
         """
-        now = datetime.utcnow()
+        now = datetime.now(UTC)
         buckets = {
             "<1h": 0,
             "1h-24h": 0,
@@ -775,7 +778,7 @@ class ConstitutionalDecay:
 
         Returns {processed, decayed, archived, protected}.
         """
-        now = datetime.utcnow()
+        now = datetime.now(UTC)
         processed = 0
         decayed = 0
         archived = 0

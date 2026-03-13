@@ -12,7 +12,7 @@ import sys
 import unittest
 import tempfile
 import shutil
-from datetime import datetime, timedelta
+from datetime import datetime, UTC, timedelta
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, PROJECT_ROOT)
@@ -275,9 +275,9 @@ class TestTemporalQuery(unittest.TestCase):
         self.tmpdir = tempfile.mkdtemp()
         self.store = make_store(self.tmpdir)
         # Add entry and record the time before it
-        self.before = datetime.utcnow()
+        self.before = datetime.now(UTC)
         self.entry = self.store.add(APPROVED_CONTENT, category="knowledge")
-        self.after = datetime.utcnow()
+        self.after = datetime.now(UTC)
 
     def tearDown(self):
         shutil.rmtree(self.tmpdir, ignore_errors=True)
@@ -292,7 +292,7 @@ class TestTemporalQuery(unittest.TestCase):
 
     def test_query_as_of_after_delete_returns_empty(self):
         self.store.delete(self.entry.id)
-        future = datetime.utcnow() + timedelta(seconds=1)
+        future = datetime.now(UTC) + timedelta(seconds=1)
         results = self.store.query(as_of=future)
         self.assertFalse(any(e.id == self.entry.id for e in results))
 
@@ -451,9 +451,9 @@ class TestSnapshot(unittest.TestCase):
         self.tmpdir = tempfile.mkdtemp()
         self.store = make_store(self.tmpdir)
         self.graph = TemporalGraph(self.store)
-        self.before_add = datetime.utcnow()
+        self.before_add = datetime.now(UTC)
         self.e1 = self.store.add(APPROVED_CONTENT, category="knowledge")
-        self.after_add = datetime.utcnow()
+        self.after_add = datetime.now(UTC)
 
     def tearDown(self):
         shutil.rmtree(self.tmpdir, ignore_errors=True)
@@ -469,7 +469,7 @@ class TestSnapshot(unittest.TestCase):
 
     def test_snapshot_after_delete_excludes_entry(self):
         self.store.delete(self.e1.id)
-        future = datetime.utcnow() + timedelta(seconds=1)
+        future = datetime.now(UTC) + timedelta(seconds=1)
         snap = self.graph.snapshot(as_of=future)
         ids = [e.id for e in snap]
         self.assertNotIn(self.e1.id, ids)
@@ -477,7 +477,7 @@ class TestSnapshot(unittest.TestCase):
     def test_snapshot_returns_correct_version(self):
         """After update, snapshot before the update returns v1, after returns v2."""
         v2 = self.store.update(self.e1.id, WARNING_CONTENT)
-        after_update = datetime.utcnow()
+        after_update = datetime.now(UTC)
 
         # Snapshot between original add and update → v1
         snap_before = self.graph.snapshot(as_of=self.after_add)
@@ -493,7 +493,7 @@ class TestSnapshot(unittest.TestCase):
 
     def test_snapshot_excludes_rejected(self):
         self.store.add(REJECTED_CONTENT, category="knowledge")
-        snap = self.graph.snapshot(as_of=datetime.utcnow() + timedelta(seconds=1))
+        snap = self.graph.snapshot(as_of=datetime.now(UTC) + timedelta(seconds=1))
         for e in snap:
             self.assertNotEqual(e.governance_status, "rejected")
 
@@ -566,9 +566,9 @@ class TestDiff(unittest.TestCase):
         shutil.rmtree(self.tmpdir, ignore_errors=True)
 
     def test_diff_detects_added_entry(self):
-        before = datetime.utcnow()
+        before = datetime.now(UTC)
         self.store.add(APPROVED_CONTENT, category="knowledge")
-        after = datetime.utcnow()
+        after = datetime.now(UTC)
         d = self.graph.diff(before, after)
         self.assertEqual(len(d["added"]), 1)
         self.assertEqual(len(d["deleted"]), 0)
@@ -576,29 +576,29 @@ class TestDiff(unittest.TestCase):
 
     def test_diff_detects_deleted_entry(self):
         e = self.store.add(APPROVED_CONTENT, category="knowledge")
-        after_add = datetime.utcnow()
+        after_add = datetime.now(UTC)
         self.store.delete(e.id)
-        after_delete = datetime.utcnow() + timedelta(seconds=1)
+        after_delete = datetime.now(UTC) + timedelta(seconds=1)
         d = self.graph.diff(after_add, after_delete)
         self.assertEqual(len(d["deleted"]), 1)
 
     def test_diff_detects_updated_entry(self):
         e = self.store.add(APPROVED_CONTENT, category="decisions")
-        after_add = datetime.utcnow()
+        after_add = datetime.now(UTC)
         self.store.update(e.id, WARNING_CONTENT)
-        after_update = datetime.utcnow()
+        after_update = datetime.now(UTC)
         d = self.graph.diff(after_add, after_update)
         self.assertEqual(len(d["updated"]), 1)
 
     def test_diff_unchanged_count(self):
         self.store.add(APPROVED_CONTENT, category="knowledge")
-        t1 = datetime.utcnow()
-        t2 = datetime.utcnow()
+        t1 = datetime.now(UTC)
+        t2 = datetime.now(UTC)
         d = self.graph.diff(t1, t2)
         self.assertEqual(d["unchanged"], 1)
 
     def test_diff_has_required_keys(self):
-        d = self.graph.diff(datetime.utcnow(), datetime.utcnow())
+        d = self.graph.diff(datetime.now(UTC), datetime.now(UTC))
         for key in ("added", "updated", "deleted", "unchanged"):
             self.assertIn(key, d)
 
@@ -691,7 +691,7 @@ class TestConstitutionalDecay(unittest.TestCase):
         """Decay cycle should reduce score for old memories."""
         entry = self.store.add(APPROVED_CONTENT, category="knowledge")
         # Simulate aging: set valid_from to 100 hours ago
-        entry.valid_from = (datetime.utcnow() - timedelta(hours=100)).isoformat()
+        entry.valid_from = (datetime.now(UTC) - timedelta(hours=100)).isoformat()
         original_score = entry.relevance_score
 
         self.decay.decay_cycle()
@@ -705,7 +705,7 @@ class TestConstitutionalDecay(unittest.TestCase):
             "Next step: integrate with the governance module.",
             category="decisions",
         )
-        entry.valid_from = (datetime.utcnow() - timedelta(hours=500)).isoformat()
+        entry.valid_from = (datetime.now(UTC) - timedelta(hours=500)).isoformat()
         original_score = entry.relevance_score
 
         result = self.decay.decay_cycle()
@@ -732,7 +732,7 @@ class TestConstitutionalDecay(unittest.TestCase):
         entry = self.store.add(APPROVED_CONTENT, category="knowledge")
         # Set score just above threshold, then age enough so decay drops it below
         entry.relevance_score = 0.12
-        entry.valid_from = (datetime.utcnow() - timedelta(hours=200)).isoformat()
+        entry.valid_from = (datetime.now(UTC) - timedelta(hours=200)).isoformat()
 
         result = self.decay.decay_cycle()
         self.assertGreater(result["archived"], 0)

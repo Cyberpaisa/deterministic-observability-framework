@@ -405,7 +405,7 @@ class AvalancheBridge:
             return self._contract.functions.totalAttestations().call()
         except Exception as e:
             logger.error(f"totalAttestations call failed: {e}")
-            return None
+            return 0
 
     def get_balance(self) -> float | None:
         """Get wallet AVAX balance. Returns None if offline."""

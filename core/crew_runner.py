@@ -21,7 +21,7 @@ import uuid
 import logging
 from typing import Any
 
-from core.providers import ProviderManager, BayesianProviderSelector
+from core.providers import BayesianProviderSelector
 from core.checkpointing import CheckpointManager
 from core.metrics import MetricsLogger
 from core.governance import ConstitutionEnforcer
@@ -67,7 +67,6 @@ def run_crew(crew_name: str, crew: Any, input_text: str = "",
         retries, elapsed_ms, trace_path, adversarial (if enabled),
         contract (if contract_path provided), attestation (if oracle_mode)
     """
-    pm = ProviderManager()
     bayesian = BayesianProviderSelector()
     metrics = MetricsLogger()
     checkpoint = CheckpointManager()

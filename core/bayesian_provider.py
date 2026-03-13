@@ -48,55 +48,41 @@ class BayesianProviderSelector:
         self._ensure(provider)
         self._providers[provider].beta += 1
 
-    def _apply_decay(self):
+    def _apply_decay(self, p: BetaParams):
         now = time.time()
-        for p in self._providers.values():
-            if now - p.last_decay > self.decay_interval:
-                p.alpha = max(1.0, p.alpha * self.decay_factor)
-                p.beta = max(1.0, p.beta * self.decay_factor)
-                p.last_decay = now
+        if now - p.last_decay > self.decay_interval:
+            p.alpha = max(1.0, p.alpha * self.decay_factor)
+            p.beta = max(1.0, p.beta * self.decay_factor)
+            p.last_decay = now
 
     def get_confidence(self, provider):
         if provider not in self._providers:
             return 0.5
-        self._apply_decay()
-        return self._providers[provider].mean()
+        p = self._providers[provider]
+        self._apply_decay(p)
+        return p.mean()
 
     def get_all_confidences(self):
-        self._apply_decay()
-        return {p: self._providers[p].mean() for p in self._providers}
+        return {k: self.get_confidence(k) for k in self._providers}
 
     def get_status(self):
-        self._apply_decay()
-        status = {}
+        total = sum((p.alpha + p.beta - 2) for p in self._providers.values())
+        return {
+            "providers": len(self._providers),
+            "total_observations": int(total),
+        }
 
-        for name, p in self._providers.items():
-            status[name] = {
-                "alpha": p.alpha,
-                "beta": p.beta,
-                "confidence": p.mean(),
-                "variance": p.variance(),
-                "total_observations": p.alpha + p.beta - 2,
-            }
-
-        return status
-
-    def select_provider(self, providers=None):
-
-        if providers is None:
-            candidates = self.providers
-        else:
-            candidates = providers
-
+    def select(self, providers=None):
+        candidates = providers or self.providers
         if not candidates:
             raise ValueError("No providers available")
-
-        self._apply_decay()
 
         scores = {}
 
         for p in candidates:
             self._ensure(p)
-            scores[p] = self._providers[p].sample()
+            params = self._providers[p]
+            self._apply_decay(params)
+            scores[p] = params.sample()
 
         return max(scores, key=scores.get)

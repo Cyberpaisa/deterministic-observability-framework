@@ -24,7 +24,7 @@ from core.observability import (
 )
 from core.governance import ConstitutionEnforcer
 from core.supervisor import MetaSupervisor
-from core.providers import ProviderManager
+
 
 logger = logging.getLogger("core.experiment")
 
@@ -202,7 +202,6 @@ def run_experiment(
 
     try:
         # Reset shared state for experiment isolation
-        ProviderManager().reset_all()
         session_id = reset_session()
 
         store = RunTraceStore()
