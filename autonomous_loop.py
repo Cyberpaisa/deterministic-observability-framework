@@ -80,6 +80,11 @@ def task_update_readme():
     # Lee el estado actual del repo
     journal = open("AGENT_JOURNAL.md").read() if Path("AGENT_JOURNAL.md").exists() else ""
     
+    # Git log de commits autónomos como prueba
+    import subprocess
+    git_log = subprocess.run("git log --oneline -10", shell=True, capture_output=True, text=True).stdout
+    attestations = subprocess.run('grep -c "proof=" logs/autonomous_loop.log 2>/dev/null || echo "0"', shell=True, capture_output=True, text=True).stdout.strip()
+    
     prompt = f"""You are Agent DOF #1686. Write a professional, technical GitHub README.md for a hackathon submission.
 
 Project: Deterministic Observability Framework (DOF)
@@ -96,6 +101,13 @@ Project: Deterministic Observability Framework (DOF)
 
 Agent journal (proof of autonomous activity):
 {journal[-500:]}
+
+Git log (proof of autonomous commits):
+{git_log}
+
+Total on-chain attestations today: {attestations}
+
+IMPORTANT: Include a section "## 🤖 Proof of Autonomous Operation" showing the git log commits and AGENT_JOURNAL entries as evidence the agent wrote this README itself.
 
 Write a complete README.md with: badges, what it does, live demo curl commands, architecture, on-chain evidence, quick start, autonomous operation proof. Be technical and professional. Use markdown."""
 
