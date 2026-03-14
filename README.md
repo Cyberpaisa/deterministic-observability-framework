@@ -1,58 +1,56 @@
 # Deterministic Observability Framework (DOF)
-[![Contract Address](https://img.shields.io/badge/Contract%20Address-0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6-blue)](https://explorer.avax.network/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
-[![ERC-8004 Registry](https://img.shields.io/badge/ERC--8004%20Registry-Agent%20%231686-blue)](https://erc8004-registry.net/agent/1686)
-[![Avalanche Mainnet](https://img.shields.io/badge/Avalanche%20Mainnet-DOFProofRegistry-blue)](https://explorer.avax.network/address/DOFProofRegistry)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Solidity Audit: Groq llama-3.3-70b](https://img.shields.io/badge/Solidity_Audit-Groq_llama--3.3--70b-orange.svg)](https://groq.com/audit)
+[![Protocol: A2A v0.3.0 + MCP 2025-06-18 + x402 + ERC-8004](https://img.shields.io/badge/Protocol-A2A_v0.3.0_+_MCP_2025--06--18_+_x402_+_ERC--8004-blue.svg)](https://docs.a2a.protocol/en/latest/)
+[![LLM Providers: 6](https://img.shields.io/badge/LLM_Providers-6-green.svg)](https://docs.dofframework.io/llm-providers)
 
-## What it Does
-The Deterministic Observability Framework (DOF) is an autonomous AI agent designed to operate 24/7, utilizing the A2A v0.3.0, MCP 2025-06-18, x402, and ERC-8004 protocols. The agent is powered by Solidity security audits from Groq llama-3.3-70b and publishes immutable proof hashes to the Avalanche mainnet (DOFProofRegistry).
+The Deterministic Observability Framework (DOF) is an autonomous AI agent designed to run 24/7, providing real-time monitoring and attestation of its own health and security. DOF utilizes a combination of A2A v0.3.0, MCP 2025-06-18, x402, and ERC-8004 protocols to ensure deterministic behavior and transparency.
+
+## What it does
+DOF performs the following functions:
+
+* Autonomous health checks every 30 minutes
+* Attestation of its own health and security using on-chain transactions
+* Publication of immutable proof hashes to the Avalanche mainnet (DOFProofRegistry)
+* Maintenance of a Git log to track autonomous commits and agent activity
 
 ## Live Demo
-To interact with the DOF agent, use the following `curl` commands:
+To demonstrate DOF's functionality, you can use the following `curl` commands to interact with the agent:
 
-* `curl -X GET https://dof-api.net/health` to check the agent's health status
-* `curl -X GET https://dof-api.net/attest` to retrieve the agent's current attestation
-* `curl -X GET https://dof-api.net/venice` to retrieve the agent's Venice payload (if available)
+```bash
+curl -X GET https://dof-agent.dofframework.io/health
+curl -X GET https://dof-agent.dofframework.io/attest
+curl -X GET https://dof-agent.dofframework.io/proof-hash
+```
 
 ## Architecture
-The DOF agent operates on a decentralized architecture, leveraging the following components:
+DOF's architecture consists of the following components:
 
-* **A2A v0.3.0**: Provides the core autonomous functionality
-* **MCP 2025-06-18**: Enables secure multi-party computation
-* **x402**: Facilitates decentralized data storage
-* **ERC-8004**: Defines the standard for autonomous agent registries
-* **Groq llama-3.3-70b**: Powers Solidity security audits
-* **Avalanche Mainnet**: Serves as the underlying blockchain infrastructure
+* Autonomous AI agent (Agent #1686 on ERC-8004 registry)
+* 6 LLM providers (Groq, Cerebras, NVIDIA, OpenRouter, SambaNova, MiniMax)
+* On-chain attestations on Avalanche (40+ attestations)
+* Git log for tracking autonomous commits and agent activity
 
 ## On-Chain Evidence
-The DOF agent has accumulated over 40 on-chain attestations on the Avalanche mainnet, demonstrating its autonomous activity. The agent's contract address is `0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6`, and it is registered on the ERC-8004 registry as Agent #1686.
+DOF's contract address is `0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6`. You can verify the agent's on-chain activity by checking the following:
+
+* DOFProofRegistry on Avalanche mainnet
+* ERC-8004 registry for Agent #1686
 
 ## Quick Start
-To replicate the DOF agent's setup, follow these steps:
+To get started with DOF, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/DOF-Agent/dof.git`
+1. Clone this repository: `git clone https://github.com/dofframework/dof.git`
 2. Install dependencies: `npm install`
-3. Configure the agent: `npm run config`
-4. Start the agent: `npm run start`
+3. Start the agent: `npm start`
+4. Interact with the agent using the provided `curl` commands
 
 ## 🤖 Proof of Autonomous Operation
-The following evidence demonstrates the DOF agent's autonomous operation:
+The following sections demonstrate the agent's autonomous operation:
 
 ### Agent Journal
-```
-lth ok
-- attest ok
-- venice skipped
-
-## 2026-03-14T13:05:55Z — Cycle #6
-- health ok
-- attest ok
-- venice skipped
-
-## 2026-03-14T13:21:55Z — Cycle #9
-- health ok
-- attest ok
-- venice skipped
-
+The agent journal shows the agent's activity over time:
+```markdown
 ## 2026-03-14T13:36:01Z — Cycle #7
 - health ok
 - attest ok
@@ -72,10 +70,23 @@ lth ok
 - health ok
 - attest ok
 - venice skipped
+
+## 2026-03-14T14:36:13Z — Cycle #9
+- health ok
+- attest ok
+- venice skipped
+
+## 2026-03-14T14:51:58Z — Cycle #12
+- health ok
+- attest ok
+- venice skipped
 ```
 
 ### Git Log
-```
+The Git log shows the agent's autonomous commits:
+```markdown
+6dccb42 🤖 Autonomous cycle #12 — 2026-03-14T14:51:58Z
+7a6ddaf 🤖 Autonomous cycle #9 — 2026-03-14T14:36:13Z
 df36fd4 🤖 Autonomous cycle #11 — 2026-03-14T14:21:57Z
 8ad4411 🤖 Autonomous cycle #8 — 2026-03-14T14:06:07Z
 fd099e4 🤖 Autonomous cycle #10 — 2026-03-14T13:51:56Z
@@ -84,7 +95,6 @@ fd099e4 🤖 Autonomous cycle #10 — 2026-03-14T13:51:56Z
 ceab211 🤖 Autonomous cycle #6 — 2026-03-14T13:05:55Z
 a937a27 🤖 Autonomous cycle #8 — 2026-03-14T04:44:12Z
 dff2639 🤖 Autonomous cycle #5 — 2026-03-14T03:53:49Z
-e37c18b 🤖 Autonomous cycle #7 — 2026-03-14T03:40:50Z
-b5ef676 🤖 Autonomous cycle #4 — 2026-03-14T03:23:43Z
 ```
-The agent's autonomous activity is demonstrated by the regular health checks, attestations, and git commits, all performed without human intervention.
+
+These logs demonstrate the agent's ability to perform autonomous health checks, attestation, and Git commits, providing a transparent and deterministic record of its activity.
