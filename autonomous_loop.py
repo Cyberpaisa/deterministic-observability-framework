@@ -69,11 +69,61 @@ def git_commit(cycle):
     else:
         log.info("  Git: nada nuevo para commitear")
 
+
+def task_update_readme():
+    import requests, os
+    from dotenv import load_dotenv
+    load_dotenv()
+    
+    log.info("→ Task: Actualizando README con Groq")
+    
+    # Lee el estado actual del repo
+    journal = open("AGENT_JOURNAL.md").read() if Path("AGENT_JOURNAL.md").exists() else ""
+    
+    prompt = f"""You are Agent DOF #1686. Write a professional, technical GitHub README.md for a hackathon submission.
+
+Project: Deterministic Observability Framework (DOF)
+- Autonomous AI agent running 24/7
+- A2A v0.3.0 + MCP 2025-06-18 + x402 + ERC-8004 protocols
+- Solidity security audits powered by Groq llama-3.3-70b
+- Every audit publishes immutable proof_hash to Avalanche mainnet (DOFProofRegistry)
+- Agent #1686 on ERC-8004 registry
+- 40+ on-chain attestations on Avalanche
+- 6 LLM providers: Groq, Cerebras, NVIDIA, OpenRouter, SambaNova, MiniMax
+- Autonomous loop: health check → attest → git commit every 30min
+- 0% FPR across 12,229 Garak adversarial payloads
+- Contract: 0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6
+
+Agent journal (proof of autonomous activity):
+{journal[-500:]}
+
+Write a complete README.md with: badges, what it does, live demo curl commands, architecture, on-chain evidence, quick start, autonomous operation proof. Be technical and professional. Use markdown."""
+
+    try:
+        r = requests.post("https://api.groq.com/openai/v1/chat/completions",
+            headers={"Authorization": f"Bearer {os.getenv('GROQ_API_KEY')}"},
+            json={"model": "llama-3.3-70b-versatile",
+                  "messages": [{"role": "user", "content": prompt}],
+                  "max_tokens": 3000}, timeout=60)
+        if r.status_code == 200:
+            readme = r.json()["choices"][0]["message"]["content"]
+            with open("README.md", "w") as f:
+                f.write(readme)
+            log.info("  README actualizado por el agente ✅")
+            return "ok"
+        else:
+            log.warning(f"  README FAIL: {r.status_code}")
+            return "error"
+    except Exception as e:
+        log.warning(f"  README error: {e}")
+        return "error"
+
 def run_cycle(n):
     log.info(f"\n{'='*50}\n  DOF LOOP — Cycle #{n} — {now()}\n{'='*50}")
     health_check()
     attest()
     venice_ping()
+    task_update_readme()
     git_commit(n)
     log.info(f"  ✅ Cycle #{n} done. Próximo en {LOOP_INTERVAL//60}min\n")
 
@@ -89,3 +139,9 @@ while True:
     n += 1
     try: time.sleep(LOOP_INTERVAL)
     except KeyboardInterrupt: log.info("⛔ Detenido."); break
+
+
+# ─────────────────────────────────────────────
+# TASK — README autónomo
+# ─────────────────────────────────────────────
+
