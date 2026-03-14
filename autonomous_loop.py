@@ -64,7 +64,7 @@ def git_commit(cycle):
     cmd("git add AGENT_JOURNAL.md autonomous_loop.py")
     r = cmd(f'git commit -m "🤖 Autonomous cycle #{cycle} — {now()}"')
     if r.returncode == 0:
-        r2 = cmd("git push origin main")
+        r2 = cmd("git push origin hackathon")
         log.info(f"  Git: {'commit+push OK' if r2.returncode==0 else 'commit OK / push failed: '+r2.stderr[:50]}")
     else:
         log.info("  Git: nada nuevo para commitear")
