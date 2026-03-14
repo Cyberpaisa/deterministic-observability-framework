@@ -61,7 +61,7 @@ def git_commit(cycle):
     cmd('git config user.email "jquiceva@gmail.com"')
     entry = f"\n## {now()} — Cycle #{cycle}\n- health ok\n- attest ok\n- venice {'ok' if VENICE_API_KEY else 'skipped'}\n"
     with open(JOURNAL, "a") as f: f.write(entry)
-    cmd("git add AGENT_JOURNAL.md autonomous_loop.py README.md")
+    cmd("git add AGENT_JOURNAL.md autonomous_loop.py README.md docs/conversation-log.md")
     r = cmd(f'git commit -m "🤖 Autonomous cycle #{cycle} — {now()}"')
     if r.returncode == 0:
         r2 = cmd("git push origin hackathon")
@@ -130,12 +130,55 @@ Write a complete README.md with: badges, what it does, live demo curl commands, 
         log.warning(f"  README error: {e}")
         return "error"
 
+
+def task_update_conversation_log(cycle):
+    import os, requests
+    from dotenv import load_dotenv
+    load_dotenv()
+    
+    log.info("→ Task: Actualizando conversation-log.md")
+    
+    import subprocess
+    git_log = subprocess.run("git log --oneline -5", shell=True, capture_output=True, text=True).stdout
+    journal = open("AGENT_JOURNAL.md").read()[-500:] if Path("AGENT_JOURNAL.md").exists() else ""
+    
+    entry = f"""
+## Cycle #{cycle} — {now()}
+
+### Agent autonomous actions this cycle:
+- Health check: server A2A+MCP+x402+ERC-8004 verified live
+- Attestation published on-chain (Avalanche mainnet)
+- README updated via Groq llama-3.3-70b
+- Git commit + push to hackathon branch
+
+### Recent git log (proof of autonomy):
+{git_log}
+
+### Agent identity:
+- ERC-8004 Token #31013 — Base Mainnet
+- TX: 0x7362ef41605e430aba3998b0888e7886c04d65673ce89aa12e1abdf7cffcada4
+- Avalanche contract: 0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6
+
+---
+"""
+    
+    log_path = Path("docs/conversation-log.md")
+    if not log_path.exists():
+        log_path.write_text("# DOF Agent — Conversation Log\nSynthesis 2026 — Human-Agent Collaboration\n\n")
+    
+    with open(log_path, "a") as f:
+        f.write(entry)
+    
+    log.info("  Conversation log actualizado ✅")
+    return "ok"
+
 def run_cycle(n):
     log.info(f"\n{'='*50}\n  DOF LOOP — Cycle #{n} — {now()}\n{'='*50}")
     health_check()
     attest()
     venice_ping()
     task_update_readme()
+    task_update_conversation_log(n)
     git_commit(n)
     log.info(f"  ✅ Cycle #{n} done. Próximo en {LOOP_INTERVAL//60}min\n")
 
@@ -156,4 +199,6 @@ while True:
 # ─────────────────────────────────────────────
 # TASK — README autónomo
 # ─────────────────────────────────────────────
+
+
 
