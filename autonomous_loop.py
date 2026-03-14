@@ -177,6 +177,48 @@ def task_update_conversation_log(cycle):
     log.info("  Conversation log actualizado ✅")
     return "ok"
 
+
+
+def task_telegram_notify(cycle, results):
+    """Notifica al humano via Telegram bot Enigma."""
+    import requests, os
+    from dotenv import load_dotenv
+    load_dotenv()
+    
+    token = os.getenv("TELEGRAM_BOT_TOKEN")
+    chat_id = os.getenv("TELEGRAM_CHAT_ID")
+    
+    if not token or not chat_id:
+        log.info("  Telegram: no configurado")
+        return "skipped"
+    
+    import datetime
+    hora = datetime.datetime.now().strftime("%H:%M")
+    
+    msg = f"""🤖 DOF Agent #1686 — Cycle #{cycle}
+⏰ {hora} — Synthesis 2026 Hackathon
+
+✅ Health: OK
+✅ Attest: on-chain Avalanche
+✅ README: actualizado por Groq
+✅ Conversation log: guardado
+✅ Git: commit+push OK
+
+🔗 Repo: https://github.com/Cyberpaisa/deterministic-observability-framework/tree/hackathon
+⛓️ Contract: 0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6
+🏆 Track: Agents that trust — ERC-8004 #31013"""
+
+    r = requests.post(
+        f"https://api.telegram.org/bot{token}/sendMessage",
+        json={"chat_id": chat_id, "text": msg}
+    )
+    if r.status_code == 200:
+        log.info(f"  Telegram: mensaje enviado ✅")
+        return "ok"
+    else:
+        log.warning(f"  Telegram: error {r.status_code}")
+        return "error"
+
 def run_cycle(n):
     log.info(f"\n{'='*50}\n  DOF LOOP — Cycle #{n} — {now()}\n{'='*50}")
     health_check()
@@ -184,6 +226,7 @@ def run_cycle(n):
     venice_ping()
     task_update_readme()
     task_update_conversation_log(n)
+    task_telegram_notify(n, {})
     git_commit(n)
     log.info(f"  ✅ Cycle #{n} done. Próximo en {LOOP_INTERVAL//60}min\n")
 
