@@ -61,7 +61,7 @@ def git_commit(cycle):
     cmd('git config user.email "jquiceva@gmail.com"')
     entry = f"\n## {now()} — Cycle #{cycle}\n- health ok\n- attest ok\n- venice {'ok' if VENICE_API_KEY else 'skipped'}\n"
     with open(JOURNAL, "a") as f: f.write(entry)
-    cmd("git add AGENT_JOURNAL.md autonomous_loop.py")
+    cmd("git add AGENT_JOURNAL.md autonomous_loop.py README.md")
     r = cmd(f'git commit -m "🤖 Autonomous cycle #{cycle} — {now()}"')
     if r.returncode == 0:
         r2 = cmd("git push origin hackathon")
