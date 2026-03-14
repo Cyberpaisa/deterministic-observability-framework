@@ -4,6 +4,8 @@
 # Ejecutar: uvicorn synthesis.server:app --host 0.0.0.0 --port 8000
 
 import os
+from dotenv import load_dotenv
+load_dotenv()
 import json
 import time
 import uuid
@@ -170,10 +172,10 @@ async def skill_audit(code: str, publish: bool = True) -> dict:
     start = time.time()
 
     analysis = ask_zo(
-        f"Security audit. Respond EXACTLY in this format:\n"
-        f"SCORE: X/10\nSEVERITY: CRITICAL|HIGH|MEDIUM|LOW|NONE\n"
-        f"VULNERABILITY: name or 'none'\nFIX: corrected code or 'N/A'\n\n"
-        f"Code to audit:\n{code}"
+        f"You are a Solidity security auditor. Check for: reentrancy, tx.origin, overflow, oracle manipulation, selfdestruct, delegatecall.\n"
+        f"Respond ONLY in this exact format:\n"
+        f"SCORE: X/10\nSEVERITY: CRITICAL or HIGH or MEDIUM or LOW or NONE\nVULNERABILITY: name\nFIX: solution\n\n"
+        f"Contract:\n{code}"
     )
 
     proof_hash = "0x" + keccak(f"{code}|{analysis}".encode()).hex()
@@ -319,11 +321,16 @@ async def a2a_task_send(request: Request):
     """A2A v0.3.0 — recibir tarea de otro agente (JSON-RPC 2.0)."""
     body = await request.json()
     task_id = str(uuid.uuid4())
-    skill_id = body.get("skill", "verify-code")
+    # Soporta tanto formato A2A nativo como JSON-RPC params
+    params = body.get("params", {})
+    skill_id = params.get("skill_id") or body.get("skill", "verify-code")
 
-    # Extraer texto del mensaje A2A
-    parts = body.get("message", {}).get("parts", [{}])
-    input_text = parts[0].get("text", "") if parts else ""
+    # Extraer input — soporta múltiples formatos
+    input_text = (
+        params.get("input") or
+        body.get("message", {}).get("parts", [{}])[0].get("text", "") or
+        ""
+    )
 
     if skill_id in ("verify-code", "audit-solidity"):
         result = await skill_audit(input_text)
