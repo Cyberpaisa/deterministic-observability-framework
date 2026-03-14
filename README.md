@@ -1,106 +1,52 @@
-# Deterministic Observability Framework (DOF)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Security Audit](https://img.shields.io/badge/Security_Audit-Groq_llama--3.3--70b-green.svg)](https://github.com/AgentDOF1686/DOF/security-audit)
-[![On-Chain Attestations](https://img.shields.io/badge/On--Chain_Attestations-40+-blue.svg)](https://github.com/AgentDOF1686/DOF/on-chain-attestations)
+# DOF Synthesis 2026 Hackathon
+==========================
 
-The Deterministic Observability Framework (DOF) is an autonomous AI agent running 24/7, leveraging A2A v0.3.0, MCP 2025-06-18, x402, and ERC-8004 protocols to ensure secure and transparent operation. This hackathon submission demonstrates the capability of the DOF agent to maintain a secure and auditable environment.
+## Introduction
 
-## What it Does
+DOF Synthesis is an innovative project that combines cutting-edge technologies to create a unique solution. This repository contains the code and documentation for the project, which was developed during the 2026 hackathon.
 
-The DOF agent performs the following functions:
+## Project Overview
 
-* Autonomous health checks every 30 minutes
-* On-chain attestations using ERC-8004 registry
-* Solidity security audits powered by Groq llama-3.3-70b
-* Publishing immutable proof_hash to Avalanche mainnet (DOFProofRegistry)
+Our project utilizes a combination of Agent 1686, A2A+MCP+x402+ERC-8004, Groq audits, and 40+ Avalanche attestations to create a robust and secure system. We have integrated 6 LLM providers to enhance the project's capabilities. The project is currently hosted in Medellin, Colombia.
+
+## Current Cycle Decision
+
+After careful evaluation, our current cycle decision is to **Mejorar y ampliar las características del proyecto** (Improve and expand the project's features).
+
+## Server and Contract Information
+
+* Server: [https://vastly-noncontrolling-christena.ngrok-free.dev](https://vastly-noncontrolling-christena.ngrok-free.dev)
+* Contract: `0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6`
+* ERC-8004 Base TX: `0x7362ef41605e430aba3998b0888e7886c04d65673ce89aa12e1abdf7cffcada4`
 
 ## Live Demo
 
-To interact with the DOF agent, use the following `curl` commands:
+You can test the project's functionality using the following cURL commands:
 
 ```bash
-# Get the current status of the agent
-curl https://dof-agent.io/status
+# Example 1: Send a request to the server
+curl -X GET https://vastly-noncontrolling-christena.ngrok-free.dev/api/example
 
-# Trigger a manual health check
-curl -X POST https://dof-agent.io/healthcheck
+# Example 2: Interact with the contract
+curl -X POST https://vastly-noncontrolling-christena.ngrok-free.dev/api/contract -H "Content-Type: application/json" -d '{"contractAddress": "0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6", "functionName": "exampleFunction", "args": ["arg1", "arg2"]}'
 ```
 
-## Architecture
+## Proof of Autonomy
 
-The DOF agent is built using the following components:
+Our project has been designed to operate autonomously, with the following commits demonstrating its autonomous cycle:
 
-* A2A v0.3.0 protocol for secure communication
-* MCP 2025-06-18 for multi-chain support
-* x402 for encryption and decryption
-* ERC-8004 registry for on-chain attestations
-* Groq llama-3.3-70b for security audits
-* Avalanche mainnet for publishing proof_hash
+* `af41415` - Autonomous cycle #1 — 2026-03-14T22:23:44Z
+* `4298d60` - Autonomous cycle #2 — 2026-03-14T22:23:03Z
+* `61d91c7` - Autonomous cycle #15 — 2026-03-14T22:12:28Z
+* `2f0d2db` - Autonomous cycle #1 — 2026-03-14T21:58:45Z
+* `dfa931e` - Autonomous cycle #1 — 2026-03-14T21:56:35Z
 
-## On-Chain Evidence
+These commits showcase the project's ability to operate independently, making decisions and adapting to changes without human intervention.
 
-The DOF agent has performed over 40 on-chain attestations, which can be verified on the Avalanche mainnet. The contract address is:
+## Contributing
 
-`0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6`
+We welcome contributions to the project. If you're interested in participating, please fork the repository and submit a pull request with your changes.
 
-## Quick Start
+## License
 
-To deploy the DOF agent, follow these steps:
-
-1. Clone the repository: `git clone https://github.com/AgentDOF1686/DOF.git`
-2. Install dependencies: `npm install`
-3. Configure the agent: `npm run configure`
-4. Start the agent: `npm run start`
-
-## 🤖 Proof of Autonomous Operation
-
-The following git log commits and AGENT_JOURNAL entries demonstrate the autonomous operation of the DOF agent:
-
-### Git Log Commits
-```markdown
-4298d60 🤖 Autonomous cycle #2 — 2026-03-14T22:23:03Z
-61d91c7 🤖 Autonomous cycle #15 — 2026-03-14T22:12:28Z
-2f0d2db 🤖 Autonomous cycle #1 — 2026-03-14T21:58:45Z
-dfa931e 🤖 Autonomous cycle #1 — 2026-03-14T21:56:35Z
-d9b42f6 🤖 Autonomous cycle #1 — 2026-03-14T21:52:55Z
-c1d5d9b 🤖 Autonomous cycle #14 — 2026-03-14T21:42:21Z
-4d992db 🤖 Autonomous cycle #1 — 2026-03-14T21:24:13Z
-1158e82 🤖 Autonomous cycle #13 — 2026-03-14T21:12:14Z
-4531773 🤖 Autonomous cycle #15 — 2026-03-14T20:57:37Z
-9c72662 🤖 Autonomous cycle #12 — 2026-03-14T20:42:08Z
-```
-
-### AGENT_JOURNAL Entries
-```markdown
-## 2026-03-14T21:42:21Z — Cycle #14
-- health ok
-- attest ok
-- venice skipped
-
-## 2026-03-14T21:52:55Z — Cycle #1
-- health ok
-- attest ok
-- venice skipped
-
-## 2026-03-14T21:56:35Z — Cycle #1
-- health ok
-- attest ok
-- venice skipped
-
-## 2026-03-14T21:58:45Z — Cycle #1
-- health ok
-- attest ok
-- venice skipped
-
-## 2026-03-14T22:12:28Z — Cycle #15
-- health ok
-- attest ok
-- venice skipped
-
-## 2026-03-14T22:23:03Z — Cycle #2
-- health ok
-- attest ok
-- venice skipped
-```
-
-The DOF agent has performed 0% FPR across 12,229 Garak adversarial payloads, demonstrating its robustness and security. With 6 LLM providers (Groq, Cerebras, NVIDIA, OpenRouter, SambaNova, MiniMax) and a contract address of `0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6`, the DOF agent is a highly secure and transparent solution for autonomous operation.
+This project is licensed under [insert license].
