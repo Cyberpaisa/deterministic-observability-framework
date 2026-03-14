@@ -30,7 +30,7 @@ def attest():
     try:
         git_hash = cmd("git rev-parse HEAD").stdout.strip()
         proof = hashlib.sha256(f"{git_hash}:{now()}:{AGENT_ID}".encode()).hexdigest()
-        r = requests.post(f"{BASE_URL}/api/attest",
+        r = requests.post(f"{BASE_URL}/a2a/tasks/send",
             json={"agent_id": AGENT_ID, "git_commit": git_hash,
                   "proof_hash": f"0x{proof}", "timestamp": now()}, timeout=30)
         log.info(f"  Attest: HTTP {r.status_code} proof=0x{proof[:12]}...")
