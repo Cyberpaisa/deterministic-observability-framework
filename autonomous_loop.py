@@ -199,14 +199,16 @@ def task_telegram_notify(cycle, results):
 ⏰ {hora} — Synthesis 2026 Hackathon
 
 ✅ Health: OK
-✅ Attest: on-chain Avalanche
+✅ Attest: on-chain Avalanche mainnet
+✅ ERC-8004 Token #31013 — Base Mainnet
 ✅ README: actualizado por Groq
 ✅ Conversation log: guardado
 ✅ Git: commit+push OK
 
 🔗 Repo: https://github.com/Cyberpaisa/deterministic-observability-framework/tree/hackathon
-⛓️ Contract: 0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6
-🏆 Track: Agents that trust — ERC-8004 #31013"""
+⛓️ Avalanche: 0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6
+🔵 Base: https://basescan.org/tx/0x7362ef41605e430aba3998b0888e7886c04d65673ce89aa12e1abdf7cffcada4
+🏆 Track: Agents that trust — Prize target: $30,000+"""
 
     r = requests.post(
         f"https://api.telegram.org/bot{token}/sendMessage",
