@@ -27,20 +27,34 @@ class EvolutionEngine:
         recent_cycles = cycles[-cycle_limit:] if len(cycles) > 1 else cycles
         return "\n".join(recent_cycles)
 
-    def generate_instruction_update(self, analysis_context, current_soul):
-        """Uses as much context as possible to suggest a SOUL update."""
-        # This would typically call a model, but we'll structure it for the loop to use
-        log.info("Generating evolutionary suggestions...")
+    def generate_instruction_update(self, analysis_context, current_soul, llm_caller=None):
+        """Uses the LLM to analyze the context and suggest a new rule for the SOUL."""
+        log.info("Generating evolutionary suggestions using LLM...")
         
-        # Placeholder for heuristic-based refinement
-        suggestions = []
-        if "JSON error" in analysis_context:
-            suggestions.append("Refinar Regla: 'Responde SIEMPRE en un único JSON válido' -> Añadir 'Sin texto pre/post'.")
-        
-        if "error" in analysis_context.lower():
-            suggestions.append("Nueva Regla: 'Si encuentras un error de importación, verifica el sys.path'.")
+        if not llm_caller:
+            log.warning("No LLM caller provided to EvolutionEngine. Returning empty suggestions.")
+            return []
+
+        prompt = [
+            {"role": "system", "content": "You are the evolutionary metacognition core of an autonomous AI agent for a hackathon. Your job is to analyze the agent's recent journal/logs and its current system prompt (SOUL), and propose ONE highly specific, actionable new rule to improve its performance, avoid repeated errors, or optimize its decision-making. Respond ONLY with a JSON array of strings containing the suggested rules. Example: [\"Nueva Regla: Siempre verifica X antes de hacer Y\"]"},
+            {"role": "user", "content": f"CURRENT SOUL PROMPT:\n{current_soul[:2000]}\n\nRECENT CYCLE ANALYSIS:\n{analysis_context[:3000]}\n\nBased on failures or patterns in the recent cycles, propose 1 or 2 new evolutionary rules in Spanish."}
+        ]
+
+        try:
+            response = llm_caller(prompt, max_tokens=500)
+            if response:
+                # Basic JSON extraction
+                clean = response.strip()
+                for marker in ["```json", "```"]:
+                    if marker in clean:
+                        clean = clean.split(marker)[1].split("```")[0]
+                suggestions = json.loads(clean.strip())
+                if isinstance(suggestions, list):
+                    return suggestions
+        except Exception as e:
+            log.error(f"Failed to generate evolutionary update: {e}")
             
-        return suggestions
+        return []
 
     def apply_evolution(self, suggestion):
         """Programmatically updates the SOUL_AUTONOMOUS.md with a new rule."""
