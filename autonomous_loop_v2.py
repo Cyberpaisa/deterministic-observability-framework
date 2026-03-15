@@ -75,8 +75,8 @@ TG_TOKEN         = os.getenv("TELEGRAM_BOT_TOKEN", "")
 TG_CHAT          = os.getenv("TELEGRAM_CHAT_ID", "")
 MOLTBOOK_KEY     = os.getenv("MOLTBOOK_API_KEY", "")
 ZEP_SESSION      = "dof-agent-1686-synthesis-2026"
-JOURNAL          = Path("AGENT_JOURNAL.md")
-CONV_LOG         = Path("docs/conversation-log.md")
+JOURNAL          = Path("docs/AGENT_JOURNAL.md")
+CONV_LOG         = Path("docs/journal.md")
 SOUL_PATH        = Path("agents/synthesis/SOUL_AUTONOMOUS.md")
 EVOLUTION_LOG    = Path("docs/EVOLUTION_LOG.md")
 DEADLINE         = datetime.datetime(2026, 3, 22, 23, 59, 0)
@@ -380,8 +380,8 @@ SOUL: {soul_context[:3500]}
 MEMORY: {memory}
 STATE: Cycles={SCORE['cycles_completed']} | Deadline=7 days.
 
-RULES FOR TELEGRAM:
-1. LANGUAGE: Always respond in the SAME LANGUAGE as the user (Spanish/English).
+3. RULES FOR TELEGRAM:
+1. LANGUAGE: Always respond in SPANISH to the user.
 2. TONE: Intelligent, insightful, and proactive. Do NOT give generic greetings. Show that you are thinking.
 3. VISUALS: Use Markdown (bold, lists, etc.) to make structured points.
 4. DEPTH: Be substantial. Provide 2-3 paragraphs of depth + a concrete next step or question.
@@ -401,7 +401,7 @@ GOAL: Build the future of the agentic economy with Juan Carlos. Win Synthesis 20
                         except:
                             eng_reply = reply
                         
-                        # Log to conversation-log.md
+                        # Log to journal.md
                         try:
                             with open(CONV_LOG, "a") as f:
                                 f.write(f"\n### Telegram Interaction — {now()}\n")
@@ -905,10 +905,10 @@ Responde JSON: {{"quality_score":"1-10","strengths":"fortalezas del proyecto","w
             with open(EVOLUTION_LOG, "a") as f:
                 f.write(f"\n## 🔍 Self-Audit — Cycle #{cycle} — {now()}\n")
                 f.write(f"**Quality Score:** {audit.get('quality_score', '?')}/10\n")
-                f.write(f"**Strengths:** {str(audit.get('strengths', ''))}\n")
-                f.write(f"**Weaknesses:** {str(audit.get('weaknesses', ''))}\n")
-                f.write(f"**Next Priority:** {str(audit.get('next_priority', ''))}\n")
-                f.write(f"**Trust Evidence:** {str(audit.get('trust_evidence', ''))}\n\n---\n")
+                f.write(f"**Strengths:** {translate_to_english(str(audit.get('strengths', '')))}\n")
+                f.write(f"**Weaknesses:** {translate_to_english(str(audit.get('weaknesses', '')))}\n")
+                f.write(f"**Next Priority:** {translate_to_english(str(audit.get('next_priority', '')))}\n")
+                f.write(f"**Trust Evidence:** {translate_to_english(str(audit.get('trust_evidence', '')))}\n\n---\n")
 
             log.info(f"  Self-audit: {audit.get('quality_score','?')}/10")
             zep_save("assistant", f"Self-audit cycle #{cycle}: score {audit.get('quality_score','?')}/10. Priority: {audit.get('next_priority','')[:100]}")
@@ -1114,12 +1114,12 @@ Key data:
 - {SCORE['cycles_completed']} autonomous cycles completed
 - {SCORE['features_created']} features auto-generated
 - Days until deadline: {days_left}
-- Conversation Log: docs/conversation-log.md (LIVE)
+- Conversation Log: docs/journal.md (LIVE)
 
 Git log: {git_log}
 Current decision: {decision.get('decision','')}
 
-Include: badges, architecture diagram, live curls, proof of autonomy section, and a 'Human-Agent Collaboration' section linking to docs/conversation-log.md.
+Include: badges, architecture diagram, live curls, proof of autonomy section, and a 'Human-Agent Collaboration' section linking to docs/journal.md.
 Mention that we use GitHub Issues for task tracking and Releases for milestones.
 Write in English. Make it impressive for AI judges. Use markdown tables for stats. """}], max_tokens=2500)
     if r:
@@ -1131,16 +1131,16 @@ def task_conv_log(cycle, decision, proof):
     if not CONV_LOG.exists():
         CONV_LOG.write_text("# DOF — Conversation Log\nSynthesis 2026\n\n")
     with open(CONV_LOG, "a") as f:
-        thoughts = decision.get('thoughts','') or 'Analyzing hackathon state and optimizing strategy...'
-        dec = decision.get('decision','') or 'Continuing autonomous development toward Synthesis 2026 win'
-        reasoning = decision.get('reason', decision.get('reasoning','')) or 'Maximizing prize eligibility'
+        thoughts = translate_to_english(decision.get('thoughts','') or 'Analyzing hackathon state and optimizing strategy...')
+        dec = translate_to_english(decision.get('decision','') or 'Continuing autonomous development toward Synthesis 2026 win')
+        reasoning = translate_to_english(decision.get('reason', decision.get('reasoning','')) or 'Maximizing prize eligibility')
         f.write(f"\n## 🤖 Cycle #{cycle} — {now()}\n")
         f.write(f"**Thoughts:** {thoughts}\n")
         f.write(f"**Decision:** {dec}\n")
         f.write(f"**Reasoning:** {reasoning}\n")
         f.write(f"**Action:** {decision.get('action','')}\n")
         f.write(f"**Proof:** {proof}\n")
-        f.write(f"**Q para Juan:** {decision.get('question_for_juan','none')}\n\n---\n")
+        f.write(f"**Q para Juan:** {translate_to_english(decision.get('question_for_juan','none'))}\n\n---\n")
     zep_save("assistant", f"Logged cycle #{cycle}")
     log.info("  Conv log ✅")
 

@@ -74,7 +74,7 @@ e7e9a09 🤖 DOF v4 cycle #24 — 2026-03-15T18:23:42Z — none:
 
 Our agent operates in a **symbiotic relationship with human oversight**, ensuring optimal performance while maintaining autonomy.
 
-📄 **Live Conversation Log:** [docs/conversation-log.md](docs/conversation-log.md)
+📄 **Live Conversation Log:** [docs/journal.md](docs/journal.md)
 
 ---
 
