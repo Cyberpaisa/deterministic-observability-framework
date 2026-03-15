@@ -929,10 +929,36 @@ REGLAS ABSOLUTAS:
             continue
 
     if reply:
+        # Guardar en conversation log en inglés
+        try:
+            import requests as _rq2
+            _tr = _rq2.post(
+                "https://api.groq.com/openai/v1/chat/completions",
+                headers={"Authorization": f"Bearer {os.getenv('GROQ_API_KEY','')}", "Content-Type": "application/json"},
+                json={"model": "llama-3.3-70b-versatile", "max_tokens": 500,
+                      "messages": [{"role": "system", "content": "Translate to English. Only reply with the translation, nothing else."},
+                                   {"role": "user", "content": reply}]},
+                timeout=10)
+            reply_en = _tr.json()["choices"][0]["message"]["content"] if _tr.status_code == 200 else reply
+        except:
+            reply_en = reply
+
+        # Log en inglés para los jueces
+        try:
+            conv_log = "logs/conversation-log.md"
+            import datetime
+            with open(conv_log, "a") as _f:
+                _f.write(f"\n### Telegram — {datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')}\n")
+                _f.write(f"**Human:** {text[:200]}\n")
+                _f.write(f"**Enigma (EN):** {reply_en[:500]}\n")
+                _f.write("\n---\n")
+        except:
+            pass
+
+        # Responder en español en Telegram
         try:
             bot.reply_to(message, f"🤖 *Enigma:*\n\n{reply}", parse_mode="Markdown")
         except Exception:
-            # Si Markdown falla, enviar sin formato
             bot.reply_to(message, f"🤖 Enigma:\n\n{reply}")
     else:
         bot.reply_to(message, "⚠️ LLMs no disponibles ahora. Reintenta en 30s.")
