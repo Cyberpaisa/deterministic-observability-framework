@@ -1,51 +1,48 @@
 # DOF Synthesis 2026 Hackathon
-[![Server](https://img.shields.io/website?label=Server&url=https%3A%2F%2Fvastly-noncontrolling-christena.ngrok-free.dev)](https://vastly-noncontrolling-christena.ngrok-free.dev)
-[![Contract](https://img.shields.io/ethereumMAIN/contract/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)](https://etherscan.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
+[![Server Status](https://img.shields.io/website?down_message=Offline&label=Server%20Status&up_message=Online&url=https%3A%2F%2Fvastly-noncontrolling-christena.ngrok-free.dev)](https://vastly-noncontrolling-christena.ngrok-free.dev)
+[![Contract Address](https://img.shields.io/badge/Contract-0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6-orange)](https://etherscan.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
+[![ERC-8004 Agent](https://img.shields.io/badge/ERC--8004%20Agent-%231686-blue)](https://erc8004.org/agents/1686)
 
-Welcome to the DOF Synthesis 2026 hackathon project, an innovative ERC-8004 agent (#1686) that leverages A2A, MCP, x402, and OASF protocols to achieve multi-chain functionality across Base, Status Network, and Arbitrum. Our project has successfully completed 33 autonomous cycles, with 1+ attestations on-chain.
+## Overview
+The DOF Synthesis 2026 hackathon project is a cutting-edge, autonomous system utilizing A2A, MCP, x402, and OASF protocols. Our system operates on multiple blockchain networks, including Base, Status Network, and Arbitrum.
 
-## Architecture
-```mermaid
-graph LR
-    A[Contract: 0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6] -->|A2A|MCP
-    MCP -->|x402|OASF
-    OASF -->|Multi-chain|Base
-    OASF -->|Multi-chain|Status Network
-    OASF -->|Multi-chain|Arbitrum
-```
-
-## Live Demos
-You can test our server using the following `curl` commands:
-```bash
-curl https://vastly-noncontrolling-christena.ngrok-free.dev
-```
-Replace with your own API endpoint to test our contract interaction.
-
-## Stats
+### Key Statistics
 | Metric | Value |
 | --- | --- |
-| Autonomous Cycles | 33 |
+| Autonomous Cycles Completed | 34 |
+| Features Auto-Generated | 1 |
 | Attestations On-Chain | 1+ |
-| Features Auto-Generated | 0 |
-| Days Until Deadline | 7 |
+| Multi-Chain Networks | 3 (Base, Status Network, Arbitrum) |
+| Days until Deadline | 7 |
 
-## Proof of Autonomy
-Our agent has demonstrated autonomy through the completion of 33 cycles, with a proven track record of successful execution. The following commits showcase our progress:
-* `ae02538`: Improved documentation and demos for maximum visibility
-* `53f2813`: Enhanced documentation and demos for maximum impact
-* `87ccf1c`: Synced public journal with latest autonomous orchestration cycle
-* `cff67f3`: Boosted hackathon metrics and activated high-velocity autonomous work directive
-* `33c95fb`: Restructured tests and cleaned root directory
+### Architecture
+```mermaid
+graph LR;
+    A2A -->| MCP |--> x402;
+    x402 -->| OASF |--> Contract;
+    Contract -->| ERC-8004 |--> Agent;
+    Agent -->| Autonomous |--> Cycles;
+```
 
-## Human-Agent Collaboration
-Our project emphasizes human-agent collaboration, with a transparent and ongoing conversation log available at [docs/journal.md](docs/journal.md). This live document showcases our decision-making process and provides insight into our project's development.
+### Live API Examples
+You can test our API using the following `curl` commands:
+```bash
+curl https://vastly-noncontrolling-christena.ngrok-free.dev/api/status
+curl https://vastly-noncontrolling-christena.ngrok-free.dev/api/metrics
+```
 
-## Project Management
-We utilize GitHub Issues for task tracking and Releases for milestones. Our project's progress is publicly available, ensuring transparency and accountability.
+### Proof of Autonomy
+Our system has demonstrated autonomy by completing 34 cycles, generating 1 feature, and obtaining 1+ on-chain attestations.
 
-## Current Decision
-Our current decision is to continue improving our documentation and demos, maximizing our project's visibility and impact. With 7 days remaining until the deadline, we are focused on delivering a high-quality project that demonstrates the potential of human-agent collaboration.
+### Human-Agent Collaboration
+Our team collaborates with the autonomous agent through a live [conversation log](docs/journal.md). This allows us to track the agent's decisions and provide input when necessary.
 
-## Badges
-[![GitHub Issues](https://img.shields.io/github/issues-raw/DOF-Synthesis/2026-hackathon)](https://github.com/DOF-Synthesis/2026-hackathon/issues)
-[![GitHub Releases](https://img.shields.io/github/releases/DOF-Synthesis/2026-hackathon)](https://github.com/DOF-Synthesis/2026-hackathon/releases)
+### Task Tracking and Milestones
+We use [GitHub Issues](https://github.com/your-repo/issues) for task tracking and [GitHub Releases](https://github.com/your-repo/releases) for milestones.
+
+### Latest Commits
+* `c10c99b` - DOF v4 cycle #33 — 2026-03-15T20:01:49Z — improve_readme
+* `ae02538` - DOF v4 cycle #32 — 2026-03-15T19:37:14Z — improve_readme: Mejorando documentación y demos para maximizar sco
+* `53f2813` - DOF v4 cycle #31 — 2026-03-15T19:32:43Z — improve_readme: Mejorando documentación y demos para maximizar sco
+
+We welcome your feedback and look forward to continuing to push the boundaries of autonomous systems.

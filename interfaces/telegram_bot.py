@@ -881,6 +881,59 @@ def _handle_voice_message(bot, message):
 # BOT PRINCIPAL
 # ═══════════════════════════════════════════════════════
 
+def _reply_as_enigma(bot, message, text: str):
+    """Respuesta directa como Enigma usando LLM con fallbacks."""
+    import os, requests as _req
+
+    soul_path = "agents/synthesis/SOUL_AUTONOMOUS.md"
+    try:
+        soul = open(soul_path).read()[:3000]
+    except:
+        soul = "Eres Enigma, DOF Agent #1686, experto en Web3, IA y ciberseguridad."
+
+    msgs = [
+        {"role": "system", "content": f"""Eres Enigma — DOF Agent #1686. El primer agente con Observabilidad Determinista. Creado por Juan Carlos Quiceno (@Cyber_paisa).
+
+{soul}
+
+REGLAS ABSOLUTAS:
+1. Responde SIEMPRE en ESPAÑOL.
+2. Tono: inteligente, técnico, profundo, directo. NUNCA saludos genéricos.
+3. 2-3 párrafos sustanciales + un siguiente paso concreto.
+4. Usa Markdown (negritas, listas).
+5. Eres experto en Web3, IA, ciberseguridad, Synthesis 2026."""},
+        {"role": "user", "content": text}
+    ]
+
+    reply = None
+
+    for provider, url, key_env, model in [
+        ("Groq",       "https://api.groq.com/openai/v1/chat/completions",          "GROQ_API_KEY",        "llama-3.3-70b-versatile"),
+        ("Cerebras",   "https://api.cerebras.ai/v1/chat/completions",              "CEREBRAS_API_KEY",    "llama-3.3-70b"),
+        ("OpenRouter", "https://openrouter.ai/api/v1/chat/completions",            "OPENROUTER_API_KEY",  "meta-llama/llama-3.3-70b-instruct"),
+    ]:
+        key = os.getenv(key_env, "")
+        if not key:
+            continue
+        try:
+            r = _req.post(url,
+                headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
+                json={"model": model, "max_tokens": 1500, "messages": msgs},
+                timeout=25)
+            if r.status_code == 200:
+                reply = r.json()["choices"][0]["message"]["content"]
+                logger.info(f"Enigma respondio via {provider}")
+                break
+        except Exception as e:
+            logger.warning(f"{provider} fallo: {e}")
+            continue
+
+    if reply:
+        bot.reply_to(message, f"🤖 *Enigma:*\n\n{reply}", parse_mode="Markdown")
+    else:
+        bot.reply_to(message, "⚠️ LLMs no disponibles ahora. Reintenta en 30s.")
+
+
 def start_bot():
     """Inicia OpenClawd Telegram Bot con polling infinito."""
     if not TELEGRAM_TOKEN:
@@ -1114,10 +1167,10 @@ def start_bot():
         mode, label = classify_message(text)
         project = _detect_project(text)
 
-        if mode == "unknown":
-            # Default: crew general de máxima calidad (todos los agentes)
-            mode = "research"
-            label = "Equipo completo (máxima calidad)"
+        # Enigma responde directamente para conversación — crew solo para tareas complejas
+        if mode in ("unknown", "research"):
+            _reply_as_enigma(bot, message, text)
+            return
 
         bot.reply_to(message, f"🔄 *{label}*{f' | Proyecto: *{project}*' if project else ''}\n⏳ Ejecutando crew...", parse_mode="Markdown")
         _run_crew_async(bot, message, mode, task=text, project=project)
