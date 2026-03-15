@@ -232,6 +232,17 @@ def telegram_poll_task():
     _upd_file = Path(".telegram_offset")
     last_update = int(_upd_file.read_text()) if _upd_file.exists() else 0
     log.info("  📡 Telegram Polling Thread Started")
+    # Force skip all pending messages on startup
+    try:
+        r = requests.get(f"https://api.telegram.org/bot{TG_TOKEN}/getUpdates",
+            params={"offset": -1, "timeout": 3}, timeout=5)
+        if r.status_code == 200:
+            results = r.json().get("result", [])
+            if results:
+                last_update = results[-1]["update_id"]
+                Path(".telegram_offset").write_text(str(last_update))
+                log.info(f"  📡 Offset sincronizado: {last_update}")
+    except: pass
     while True:
         try:
             r = requests.get(
