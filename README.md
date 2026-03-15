@@ -1,55 +1,48 @@
 # DOF Synthesis 2026 Hackathon
-[![Server Status](https://img.shields.io/website?down_message=Offline&up_message=Online&url=https%3A%2F%2Fvastly-noncontrolling-christena.ngrok-free.dev)](https://vastly-noncontrolling-christena.ngrok-free.dev)
-[![Contract Address](https://img.shields.io/badge/Contract-0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6-blue)](https://etherscan.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
-[![ERC-8004 Agent](https://img.shields.io/badge/ERC--8004%20Agent-%231686-blue)]()
-[![Multi-Chain](https://img.shields.io/badge/Multi--Chain-Base%2C%20Status%20Network%2C%20Arbitrum-blue)]()
+[![Server](https://img.shields.io/website?down_color=red&down_message=Offline&up_color=green&up_message=Online&url=https://vastly-noncontrolling-christena.ngrok-free.dev)](https://vastly-noncontrolling-christena.ngrok-free.dev)
+[![Contract](https://img.shields.io/ethereum/mainnet/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)](https://etherscan.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
+[![ERC-8004 Agent](https://img.shields.io/badge/ERC--8004%20Agent-%231686-blue)](https://erc8004.io/agents/1686)
 
 ## Overview
-Our project utilizes the A2A, MCP, x402, and OASF protocols to achieve seamless interaction across multiple blockchain networks, including Base, Status Network, and Arbitrum. With 1+ on-chain attestations and 31 completed autonomous cycles, our system demonstrates a high level of autonomy and reliability.
-
-## Statistics
-| Metric | Value |
-| --- | --- |
-| Autonomous Cycles Completed | 31 |
-| On-Chain Attestations | 1+ |
-| Features Auto-Generated | 0 |
-| Days until Deadline | 7 |
+We are proud to present our DOF Synthesis 2026 hackathon project, leveraging cutting-edge technologies such as A2A, MCP, x402, and OASF protocols. Our project is built on a multi-chain architecture, supporting Base, Status Network, and Arbitrum.
 
 ## Architecture
 ```mermaid
 graph LR
-    A[Client] -->| HTTPS |> B(Server)
-    B -->| Web3 |> C[Contract]
-    C -->| Event |> D[Agent]
-    D -->| A2A/MCP/x402/OASF |> E[Multi-Chain Network]
-    E -->| Attestation |> C
+    A[Base] -->| A2A |->> B[Status Network]
+    B -->| MCP |->> C[Arbitrum]
+    C -->| x402 |->> D[OASF]
+    D -->| OASF |->> E[Autonomous Agent]
+    E -->| Autonomy |->> F[Autonomous Cycles]
 ```
 
-## Live API Endpoints
-You can test our API endpoints using the following `curl` commands:
+## Live Curls
+To interact with our server, you can use the following curl commands:
 ```bash
 curl https://vastly-noncontrolling-christena.ngrok-free.dev/healthcheck
-curl https://vastly-noncontrolling-christena.ngrok-free.dev/metrics
+curl https://vastly-noncontrolling-christena.ngrok-free.dev/stats
 ```
 
+## Statistics
+| Metric | Value |
+| --- | --- |
+| Autonomous Cycles | 32 |
+| On-Chain Attestations | 1+ |
+| Features Auto-Generated | 0 |
+| Days until Deadline | 7 |
+
 ## Proof of Autonomy
-Our system has completed 31 autonomous cycles, demonstrating its ability to operate independently. We have also implemented a range of protocols to ensure seamless interaction across multiple blockchain networks.
+Our autonomous agent has completed 32 cycles, demonstrating its ability to operate independently. We have also secured 1+ on-chain attestations, verifying the integrity of our system.
 
 ## Human-Agent Collaboration
-Our team collaborates closely with the ERC-8004 Agent #1686 to ensure the successful execution of our project. You can view our conversation log [here](docs/journal.md), which is updated live.
+Our team collaborates closely with our autonomous agent, ensuring seamless integration and maximum efficiency. You can view our live conversation log at [docs/journal.md](docs/journal.md).
 
-## Task Tracking and Milestones
-We use [GitHub Issues](https://github.com/your-repo/issues) for task tracking and [GitHub Releases](https://github.com/your-repo/releases) for milestones.
+## Development
+We use GitHub Issues for task tracking and Releases for milestones. Our recent commits include:
+* `53f2813`: Improved documentation and demos for maximizing score in Synthesis 2026
+* `87ccf1c`: Synced public journal with latest autonomous orchestration cycle
+* `cff67f3`: Boosted hackathon metrics and activated high-velocity autonomous work directive
+* `33c95fb`: Restructured tests and cleaned root directory
+* `24842b7`: Finalized Track 5 walkthrough translation and professionalization
 
-## Current Decision
-Our current focus is on **Mejorando documentación y demos para maximizar score en Synthesis 2026**, ensuring that our documentation and demos are of the highest quality to maximize our score in the Synthesis 2026 hackathon.
-
-## Commit History
-Our recent commits include:
-* `87ccf1c`: Sync public journal with latest autonomous orchestration cycle
-* `cff67f3`: Boost hackathon metrics and activate high-velocity autonomous work directive
-* `33c95fb`: Restructure tests and clean root directory
-* `24842b7`: Finalize Track 5 walkthrough translation and professionalization
-* `e6118e2`: Rephrase weaknesses into scalability opportunities and abstract script names
-
-We are committed to delivering a high-quality project and are excited to showcase our work in the Synthesis 2026 hackathon.
+Join us on this exciting journey, and let's work together to push the boundaries of autonomous systems!

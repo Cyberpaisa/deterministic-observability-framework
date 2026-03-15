@@ -31,6 +31,7 @@ class BayesianProviderSelector:
         self.providers = providers or []
         self.decay_interval = decay_interval
         self.decay_factor = decay_factor
+        self._providers = {}
         self.reset()
 
     def reset(self):
@@ -100,3 +101,51 @@ class BayesianProviderSelector:
             scores[p] = self._providers[p].sample()
 
         return max(scores, key=scores.get)
+
+
+class ProviderManager:
+    """Manager to coordinate LLM providers, health checks and exhaustion status."""
+    def __init__(self):
+        # Lazy imports to avoid circular dependencies
+        import llm_config
+        self.config = llm_config
+
+    def get_active(self) -> list[str]:
+        """Returns list of non-exhausted provider names."""
+        return self.config._get_active_providers()
+
+    def get_status(self) -> dict:
+        """Returns the health status of all keys."""
+        try:
+            keys_status = self.config.validate_keys()
+            # Map simple boolean to a more detailed status expected by some callers
+            status = {}
+            for k, v in keys_status.items():
+                status[k] = {
+                    "healthy": v,
+                    "exhausted": not self.config._is_available(k),
+                    "recovery_in": 0 # Simplified
+                }
+            return status
+        except Exception:
+            return {}
+
+    def mark_exhausted(self, provider: str, error: str = ""):
+        """Marks a provider as exhausted."""
+        self.config.mark_provider_exhausted(provider)
+
+    def detect_provider(self, error_str: str) -> str | None:
+        """Detects which provider failed from error string."""
+        # Simple heuristic
+        providers = ["groq", "nvidia", "cerebras", "minimax", "zhipu", "gemini", "sambanova", "openrouter"]
+        for p in providers:
+            if p in error_str.lower():
+                return p
+        return None
+
+    def classify_error(self, error_str: str) -> str:
+        """Classifies error type."""
+        err_lower = error_str.lower()
+        if "limit" in err_lower or "429" in err_lower:
+            return "rate_limit"
+        return "api_error"

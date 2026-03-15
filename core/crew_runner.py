@@ -67,7 +67,9 @@ def run_crew(crew_name: str, crew: Any, input_text: str = "",
         retries, elapsed_ms, trace_path, adversarial (if enabled),
         contract (if contract_path provided), attestation (if oracle_mode)
     """
+    from core.providers import BayesianProviderSelector, ProviderManager
     bayesian = BayesianProviderSelector()
+    pm = ProviderManager()
     metrics = MetricsLogger()
     checkpoint = CheckpointManager()
     enforcer = ConstitutionEnforcer()
