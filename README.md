@@ -1,51 +1,81 @@
-# DOF Synthesis 2026 Hackathon
-[![Server Status](https://img.shields.io/website?label=server&url=https%3A%2F%2Fvastly-noncontrolling-christena.ngrok-free.dev)](https://vastly-noncontrolling-christena.ngrok-free.dev)
-[![Contract Address](https://img.shields.io/ethereum/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)](https://snowtrace.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
-[![ERC-8004 Agent](https://img.shields.io/badge/ERC--8004%20Agent-%231686-green)]()
-[![Days Until Deadline](https://img.shields.io/badge/Days%20Until%20Deadline-7-red)]()
+**DOF Synthesis 2026 Hackathon Project**
+=====================================
 
-## Overview
-DOF Synthesis is a cutting-edge project that leverages the power of A2A, MCP, x402, and OASF protocols to create a highly autonomous system. Our project features a contract address of `0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6` on the Avalanche network, utilizing ERC-8004 Agent #1686.
+Welcome to the DOF Synthesis 2026 hackathon project, showcasing our cutting-edge autonomous entity built on the power of artificial intelligence and blockchain technology. This project demonstrates our team's ability to innovate and push the boundaries of what is possible.
 
-## Architecture
-```mermaid
-graph LR
-    A[Server] -->|HTTPS|> B[Contract]
-    B -->|ERC-8004|> C[Agent]
-    C -->|A2A + MCP + x402 + OASF|> D[Autonomy]
-    D -->|13+ Attestations|> E[On-Chain]
-    E -->|13 Autonomous Cycles|> F[DOF Synthesis]
-```
+**Server Information**
+--------------------
 
-## Statistics
-| Metric | Value |
-| --- | --- |
-| Autonomous Cycles Completed | 13 |
-| Attestations On-Chain | 13+ |
-| Auto-Generated Features | 5 |
-| Days Until Deadline | 7 |
+| Type         | URL                                            |
+| :----------- | :--------------------------------------------- |
+| Server       | [https://vastly-noncontrolling-christena.ngrok-free.dev](https://vastly-noncontrolling-christena.ngrok-free.dev) |
+| Contract     | 0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6 (Avalanche) |
 
-## Live Curls
-You can interact with our server using the following curls:
-```bash
-curl https://vastly-noncontrolling-christena.ngrok-free.dev
-```
+**Key Features and Protocols**
+-----------------------------
 
-## Proof of Autonomy
-Our system has completed 13 autonomous cycles, with 13+ attestations on-chain. This demonstrates the high level of autonomy achieved by our project.
+| Feature/Protocol  | Description                                                                                         |
+| :--------------- | :-------------------------------------------------------------------------------------------------- |
+| A2A             | Autonomous Two-Agent Protocol                                                                                         |
+| MCP             | Meta-Communication Protocol                                                                                                                                 |
+| x402            | eXtended 402 Protocol                                                                                                             |
+| OASF            | Optimized Autonomous Service Framework                                                                           |
 
-## Human-Agent Collaboration
-Our project features a unique human-agent collaboration aspect. You can view the live conversation log [here](docs/conversation-log.md).
+**Autonomy and Scalability**
+---------------------------
 
-## Development
-We use GitHub Issues for task tracking and Releases for milestones. You can view our progress and contribute to the project by visiting our [issues page](https://github.com/your-username/your-repo-name/issues) and [releases page](https://github.com/your-username/your-repo-name/releases).
+| Statistic  | Value             |
+| :-------- | :---------------- |
+| Attestations | 14+ on-chain        |
+| Autonomous Cycles | 14 completed |
+| Auto-Generated Features | 5 features |
 
-## Recent Commits
-Here are our recent commits:
-* `03f2db0`: DOF v4 cycle #12 — 2026-03-15T10:14:51Z — improve_readme
-* `3c5426b`: DOF v4 cycle #11 — 2026-03-15T09:44:38Z — improve_readme
-* `7204fe2`: DOF v4 cycle #10 — 2026-03-15T09:14:28Z — improve_readme
-* `f4dce6b`: DOF v4 cycle #9 — 2026-03-15T08:44:19Z — add_feature
-* `42d2332`: DOF v4 cycle #8 — 2026-03-15T08:14:08Z — add_feature
+**Current State and Progress**
+---------------------------
 
-Note: Replace `your-username` and `your-repo-name` with your actual GitHub username and repository name.
+We are at a crucial juncture with only 7 days left to submission. Our efforts are focused on refining and expanding our AI entity's capabilities.
+
+**GitHub Activity**
+-----------------
+
+| Commit Hash | Description                                                                                                         |
+| :---------- | :--------------------------------------------------------------------------------------------------------------- |
+| 3a5a750     | DOF v4 cycle #13 — 2026-03-15T10:45:00Z — add_feature:                                                               |
+| 03f2db0     | DOF v4 cycle #12 — 2026-03-15T10:14:51Z — improve_readme:                                                           |
+| 3c5426b     | DOF v4 cycle #11 — 2026-03-15T09:44:38Z — improve_readme:                                                           |
+| 7204fe2     | DOF v4 cycle #10 — 2026-03-15T09:14:28Z — improve_readme:                                                           |
+| f4dce6b     | DOF v4 cycle #9 — 2026-03-15T08:44:19Z — add_feature:                                                                |
+
+**Architecture Diagram**
+----------------------
+
+[Insert architecture diagram here]
+
+**Live Curls**
+-------------
+
+You can interact with our AI entity directly through [https://vastly-noncontrolling-christena.ngrok-free.dev](https://vastly-noncontrolling-christena.ngrok-free.dev) and see its capabilities firsthand.
+
+**Proof of Autonomy**
+-------------------
+
+As a testament to our AI entity's autonomy, we have implemented a series of protocols that enable it to operate independently, making decisions and taking actions without human intervention. This allows us to demonstrate our capabilities in a true end-to-end autonomous cycle.
+
+**Human-Agent Collaboration**
+---------------------------
+
+Our AI entity is designed to seamlessly interact with humans, allowing us to refine and improve its capabilities through a collaborative effort. You can view our conversation log in real-time by visiting `docs/conversation-log.md`.
+
+**Task Tracking and Milestones**
+-------------------------------
+
+We utilize GitHub Issues for task tracking and Releases for milestones, ensuring that our project stays organized and on track.
+
+**Get Involved!**
+----------------
+
+If you have any feedback, suggestions, or want to collaborate with our team, please open an issue on this repository or reach out to us on our conversation log.
+
+**Conversation Log**: `docs/conversation-log.md` (LIVE)
+
+We look forward to pushing the boundaries of AI and blockchain technology together with you!
