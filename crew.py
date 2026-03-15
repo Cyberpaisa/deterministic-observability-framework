@@ -17,6 +17,7 @@ from tools.code_tools import AnalyzeCodeTool, ListProjectFilesTool
 from tools.data_tools import ReadExcelTool, QueryDatabaseTool, AnalyzeDataTool
 from tools.file_tools import OrganizeProjectTool, ScanDirectoryTool
 from tools.research_tools import WebResearchTool, WebSearchTool, TechStackAnalyzerTool
+from tools.social_tools import XPostTool
 from tools.blockchain_tools import (
     CheckAgentEndpointTool,
     AnalyzeAgentMetadataTool,
@@ -321,9 +322,9 @@ def create_narrative_content(project_ctx: str = "", use_mcp: bool = False) -> Ag
     feedback = _read_file("shared-context/FEEDBACK-LOG.md", max_chars=300)
     kwargs = dict(
         role="Narrative & Growth Strategist",
-        goal="Crear contenido, narrativas para grants, growth strategy.",
+        goal="Crear contenido, narrativas para grants, growth strategy y publicación en RRSS.",
         backstory=f"{CONSTITUTION}\n{load_soul('narrative')}\n{signals}\n{feedback}\n{project_ctx}",
-        tools=[WebSearchTool(), WebResearchTool()],
+        tools=[WebSearchTool(), WebResearchTool(), XPostTool()],
         llm=get_llm_for_role("narrative_content"),
         verbose=True,
     )

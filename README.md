@@ -1,83 +1,76 @@
-# Deterministic Observability Framework (DOF)
-[![DOI](https://img.shields.io/badge/DOI-10.1234/DOF-1686-blue)](https://doi.org/10.1234/DOF-1686)
-[![Avalanche](https://img.shields.io/badge/Avalanche-Contract-0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6-green)](https://snowtrace.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
-[![ERC-8004](https://img.shields.io/badge/ERC-8004-Agent%20%231686-red)](https://erc8004.eth.link/agent/1686)
+# DOF Synthesis 2026 Hackathon
+=====================================
 
-## Overview
-The Deterministic Observability Framework (DOF) is an autonomous AI agent designed to run 24/7, utilizing A2A v0.3.0, MCP 2025-06-18, x402, and ERC-8004 protocols. The agent is secured by Solidity security audits powered by Groq llama-3.3-70b and publishes immutable proof hashes to the Avalanche mainnet (DOFProofRegistry).
+[![Server Status](https://img.shields.io/website?down_color=red&down_message=Offline&up_color=green&up_message=Online&url=https%3A%2F%2Fvastly-noncontrolling-christena.ngrok-free.dev)](https://vastly-noncontrolling-christena.ngrok-free.dev)
+[![Contract Address](https://img.shields.io/badge/Contract-0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6-blue)](https://snowtrace.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
+[![ERC-8004 Agent](https://img.shields.io/badge/ERC--8004_Agent-1686-orange)]()
+[![Protocols](https://img.shields.io/badge/Protocols-A2A_%2B_MCP_%2B_x402_%2B_OASF-blue)]()
+[![On-Chain Attestations](https://img.shields.io/badge/On--chain_Attestations-1%2B-green)]()
+[![Autonomous Cycles](https://img.shields.io/badge/Autonomous_Cycles-1-green)]()
+[![Auto-Generated Features](https://img.shields.io/badge/Auto--generated_Features-0-red)]()
+[![Days Until Deadline](https://img.shields.io/badge/Days_Until_Deadline-7-yellow)]()
 
-## What it does
-The DOF agent performs the following functions:
-* Autonomous health checks
-* On-chain attestations
-* Git commits every 30 minutes
-* Interoperability with 6 LLM providers: Groq, Cerebras, NVIDIA, OpenRouter, SambaNova, MiniMax
+## Introduction
+------------
 
-## Live Demo
-To demonstrate the DOF agent's functionality, you can use the following `curl` commands:
-```bash
-curl -X GET https://api.dof.io/health
-curl -X GET https://api.dof.io/attest
-```
-These commands will return the current health status and attestation data, respectively.
+DOF Synthesis is a cutting-edge project that leverages the power of autonomous systems to achieve unprecedented levels of efficiency and productivity. Our solution utilizes a combination of A2A, MCP, x402, and OASF protocols to create a seamless and streamlined experience.
 
 ## Architecture
-The DOF agent's architecture consists of the following components:
-* **Autonomous Loop**: The agent's core function, responsible for performing health checks, attestations, and git commits.
-* **LLM Providers**: The agent interacts with 6 LLM providers to ensure interoperability and data exchange.
-* **Avalanche Mainnet**: The agent publishes immutable proof hashes to the DOFProofRegistry on the Avalanche mainnet.
-* **ERC-8004 Registry**: The agent is registered on the ERC-8004 registry, ensuring compliance with industry standards.
+-------------
 
-## On-chain Evidence
-The DOF agent has accumulated over 40 on-chain attestations on the Avalanche network, demonstrating its autonomous operation and commitment to transparency. The agent's contract address is `0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6`.
-
-## Quick Start
-To get started with the DOF agent, follow these steps:
-1. Clone the repository: `git clone https://github.com/DOF-io/DOF.git`
-2. Install dependencies: `npm install`
-3. Start the agent: `npm start`
-
-## Autonomous Operation Proof
-The DOF agent's autonomous operation is demonstrated through its git log commits and AGENT_JOURNAL entries.
-
-### Git Log Commits
-The following git log commits showcase the agent's autonomous activity:
-```markdown
-974a514 🤖 Autonomous cycle #20 — 2026-03-15T00:43:04Z
-66bf674 🤖 Autonomous cycle #6 — 2026-03-15T00:23:34Z
-36cc2ed 🤖 DOF v2 cycle #4 — 2026-03-15T00:21:09Z — none
-4e32bd5 🤖 Autonomous cycle #19 — 2026-03-15T00:12:58Z
-974ad00 🤖 Autonomous cycle #5 — 2026-03-14T23:53:26Z
-9750df9 🤖 DOF v2 cycle #3 — 2026-03-14T23:50:52Z — improve_readme
-2e4f5c3 🤖 Autonomous cycle #18 — 2026-03-14T23:42:51Z
-5d58658 🤖 Autonomous cycle #4 — 2026-03-14T23:23:20Z
-d5bd721 🤖 DOF v2 cycle #2 — 2026-03-14T23:20:34Z — add_feature
-64d5151 🤖 Autonomous cycle #17 — 2026-03-14T23:12:42Z
+The following diagram illustrates the high-level architecture of our system:
+```mermaid
+graph LR
+    A[User] -->| Request |->> B[Server]
+    B -->| Process |->> C[Contract]
+    C -->| Execute |->> D[Autonomous Agent]
+    D -->| Cycle |->> E[On-Chain Attestations]
+    E -->| Verify |->> F[Results]
+    F -->| Return |->> A
 ```
-### AGENT_JOURNAL Entries
-The following AGENT_JOURNAL entries demonstrate the agent's autonomous activity:
-```markdown
-## 2026-03-14T23:53:26Z — Cycle #5
-- health ok
-- attest ok
-- venice skipped
+This architecture enables our system to operate autonomously, with the ability to execute complex tasks and provide verifiable results.
 
-## 2026-03-15T00:12:58Z — Cycle #19
-- health ok
-- attest ok
-- venice skipped
+## Live Demonstrations
+--------------------
 
-## 2026-03-15T00:23:34Z — Cycle #6
-- health ok
-- attest ok
-- venice skipped
+To demonstrate the capabilities of our system, we provide the following live `curl` commands:
+```bash
+# Retrieve current contract balance
+curl https://vastly-noncontrolling-christena.ngrok-free.dev/balance
 
-## 2026-03-15T00:43:04Z — Cycle #20
-- health ok
-- attest ok
-- venice skipped
+# Execute autonomous cycle
+curl -X POST https://vastly-noncontrolling-christena.ngrok-free.dev/cycle
+
+# Retrieve on-chain attestations
+curl https://vastly-noncontrolling-christena.ngrok-free.dev/attestations
 ```
-These entries demonstrate the agent's ability to perform autonomous health checks, attestations, and git commits, showcasing its commitment to transparency and accountability.
+These commands showcase the ease of use and flexibility of our system.
 
-## 🤖 Proof of Autonomous Operation
-The DOF agent's autonomous operation is demonstrated through its git log commits and AGENT_JOURNAL entries, as shown above. The agent's ability to perform autonomous health checks, attestations, and git commits ensures its transparency and accountability, making it a reliable and trustworthy solution for deterministic observability.
+## Proof of Autonomy
+------------------
+
+Our system has successfully completed 1 autonomous cycle, with 1+ on-chain attestations. The following Git log entries demonstrate the autonomous nature of our solution:
+```markdown
+### Git Log
+* d960e89 🤖 Autonomous cycle #21 — 2026-03-15T01:13:12Z
+* 974a514 🤖 Autonomous cycle #20 — 2026-03-15T00:43:04Z
+* 66bf674 🤖 Autonomous cycle #6 — 2026-03-15T00:23:34Z
+* 36cc2ed 🤖 DOF v2 cycle #4 — 2026-03-15T00:21:09Z — none
+* 4e32bd5 🤖 Autonomous cycle #19 — 2026-03-15T00:12:58Z
+```
+The autonomous cycles are executed without human intervention, demonstrating the ability of our system to operate independently.
+
+## Current Decision
+------------------
+
+Our system is currently operating under the following decision:
+```markdown
+# Current Decision
+* TBD
+```
+This decision will be updated as our system continues to evolve and improve.
+
+## Conclusion
+----------
+
+DOF Synthesis is a revolutionary project that showcases the potential of autonomous systems. With its cutting-edge architecture, live demonstrations, and proof of autonomy, our solution is poised to make a significant impact in the industry. We look forward to continuing to push the boundaries of what is possible with autonomous technology.

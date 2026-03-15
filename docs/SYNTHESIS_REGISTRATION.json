@@ -1,0 +1,10 @@
+{
+  "participantId": "df62a8883f25455b9a0edca1c99d3fb3",
+  "teamId": "99b0668bce9f40389ef68ad233bf71a8",
+  "name": "DOF Agent",
+  "apiKey": "sk-synth-6a0087b1f3c67759f3ae3ef6884f7214432580feabbcd1ea",
+  "registrationTxn": "https://basescan.org/tx/0x7362ef41605e430aba3998b0888e7886c04d65673ce89aa12e1abdf7cffcada4",
+  "erc8004_token": "31013",
+  "chain": "base-mainnet",
+  "registered_at": "2026-03-14T01:05:53Z"
+}
