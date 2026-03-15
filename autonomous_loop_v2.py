@@ -228,7 +228,9 @@ def check_server_health():
 # ─── TELEGRAM POLLING (Real-time) ───────────────────────────────────
 def telegram_poll_task():
     """Background task to respond to Juan instantly"""
-    last_update = 0
+    # Load last update_id from file to avoid reprocessing
+    _upd_file = Path(".telegram_offset")
+    last_update = int(_upd_file.read_text()) if _upd_file.exists() else 0
     log.info("  📡 Telegram Polling Thread Started")
     while True:
         try:
@@ -241,6 +243,7 @@ def telegram_poll_task():
                 result = r.json().get("result", [])
                 for update in result:
                     last_update = update.get("update_id", last_update)
+                    Path(".telegram_offset").write_text(str(last_update))
                     msg = update.get("message", {})
                     text = msg.get("text", "")
                     chat_id = msg.get("chat", {}).get("id")
