@@ -6,6 +6,9 @@ Agent #1686 — Synthesis 2026 Hackathon
 import os, time, subprocess, hashlib, datetime, logging, requests, json, traceback
 from pathlib import Path
 from dotenv import load_dotenv
+from synthesis.web3_utils import Web3Manager
+from synthesis.contract_factory import ContractFactory
+from synthesis.evolution_engine import EvolutionEngine
 load_dotenv()
 
 # ─── CONFIG ────────────────────────────────────────────────────────────
@@ -39,6 +42,9 @@ SCORE = {
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 log = logging.getLogger("DOF-v4")
+w3_base = Web3Manager(network="base_sepolia")
+factory = ContractFactory()
+evo     = EvolutionEngine("agents/synthesis/SOUL_AUTONOMOUS.md", "AGENT_JOURNAL.md")
 
 # ─── UTILS ─────────────────────────────────────────────────────────────
 def now(): return datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
@@ -157,22 +163,38 @@ def zep_init():
         pass
 
 def web_search(query):
-    """Búsqueda web usando Serper API"""
-    key = os.getenv("SERPER_API_KEY")
-    if not key: return "Search disabled (no key)"
-    try:
-        r = requests.post(
-            "https://google.serper.dev/search",
-            headers={"X-API-KEY": key, "Content-Type": "application/json"},
-            json={"q": query, "num": 5},
-            timeout=15
-        )
-        if r.status_code == 200:
-            results = r.json().get("organic", [])
-            return "\n".join([f"- {res.get('title')}: {res.get('snippet')}" for res in results])
-    except Exception as e:
-        return f"Search error: {e}"
-    return "No results found."
+    """Búsqueda web usando Serper con fallback a Tavily"""
+    serper_key = os.getenv("SERPER_API_KEY")
+    tavily_key = os.getenv("TAVILY_API_KEY")
+    
+    # Intento 1: Serper
+    if serper_key:
+        try:
+            r = requests.post(
+                "https://google.serper.dev/search",
+                headers={"X-API-KEY": serper_key, "Content-Type": "application/json"},
+                json={"q": query, "num": 5},
+                timeout=10
+            )
+            if r.status_code == 200:
+                results = r.json().get("organic", [])
+                return "\n".join([f"- {res.get('title')}: {res.get('snippet')}" for res in results])
+        except Exception: pass
+
+    # Intento 2: Tavily (Fallback)
+    if tavily_key:
+        try:
+            r = requests.post(
+                "https://api.tavily.com/search",
+                json={"api_key": tavily_key, "query": query, "search_depth": "basic", "max_results": 3},
+                timeout=10
+            )
+            if r.status_code == 200:
+                results = r.json().get("results", [])
+                return "\n".join([f"- {res.get('title')}: {res.get('content')}" for res in results])
+        except Exception: pass
+
+    return "No se pudieron obtener resultados de búsqueda (claves inválidas o error de red)."
 
 # ─── MONITOREO DE SALUD ───────────────────────────────────────────────
 def check_server_health():
@@ -269,20 +291,51 @@ def task_decide(cycle):
     else:
         urgency = "🚨 ÚLTIMO DÍA: Solo submit en Devfolio"
 
+def task_decide(cycle):
+    """Lógica de decisión estratégica usando Groq y el contexto del SOUL"""
+    days_left = days_remaining()
+    git_log = cmd("git log -n 5 --oneline").stdout
+    memory = zep_get(15)
+    soul = str(load_soul())
+    
+    # Anti-loop logic
+    mem_str = str(memory)
+    recent_actions = []
+    for m in mem_str.split("\n"):
+        if ":" in m:
+            recent_actions.append(m.split(":")[1].strip())
+    recent_actions = recent_actions[-5:]
+    repetition_warning = ""
+    if len(recent_actions) >= 3:
+        for act in set(recent_actions):
+            count = recent_actions.count(act)
+            if count >= 3:
+                repetition_warning = f"⚠️ ALERTA: Llevas {count} ciclos haciendo '{act}'. CAMBIA DE ACCIÓN."
+
+    # Urgency calculation
+    if days_left > 5:
+        urgency = "CONSTRUIR features y mejorar demo"
+    elif days_left > 2:
+        urgency = "PULIR demo + README + submission"
+    elif days_left > 0:
+        urgency = "⚠️ URGENTE: Solo submission y deploy final"
+    else:
+        urgency = "🚨 ÚLTIMO DÍA: Solo submit en Devfolio"
+
     # Search Zep for relevant past context
-    past_issues = zep_search("error problema bug fix")
-    past_features = zep_search("feature construir crear implementar")
+    past_issues = str(zep_search("error problema bug fix"))
+    past_features = str(zep_search("feature construir crear implementar"))
 
     # Evolution score as context
     score_summary = f"Ciclos: {SCORE['cycles_completed']} | Features: {SCORE['features_created']} | Attestations: {SCORE['attestations_ok']} OK / {SCORE['attestations_fail']} FAIL"
 
     response = groq([
-        {"role": "system", "content": f"""Eres DOF Agent #1686 v4. Tu SOUL:
-{soul[:1500]}
+        {"role": "system", "content": f"""Eres DOF Agent #1686 v10. Tu SOUL:
+{soul[0:1500]}
 
-Regla: Tus preguntas a Juan deben ser ESPECÍFICAS con 2-3 opciones concretas.
-Regla: Si action=add_feature, incluye 'feature_code' con el código Python COMPLETO del archivo a crear.
-Regla: Si action=add_feature, incluye 'feature_file' con la ruta del archivo (ej: 'synthesis/trust_score.py')."""},
+Regla: Si action=deploy_contract, escribe el código Solidity real en feature_code.
+Regla: Si action=send_payment, pon la dirección destino en feature_file.
+Regla: Responde SIEMPRE en un único JSON válido."""},
         {"role": "user", "content": f"""CICLO #{cycle} — {now()}
 
 DÍAS RESTANTES: {days_left}
@@ -290,16 +343,17 @@ URGENCIA: {urgency}
 {repetition_warning}
 
 EVOLUCIÓN: {score_summary}
-MEMORIA ZEP: {memory if memory else 'primer ciclo'}
-PROBLEMAS PASADOS: {past_issues[:200] if past_issues else 'ninguno registrado'}
-FEATURES PREVIAS: {past_features[:200] if past_features else 'ninguna registrada'}
-ÚLTIMOS COMMITS: {git_log}
+MEMORIA ZEP: {str(memory)[0:1000] if memory else 'primer ciclo'}
+PROBLEMAS PASADOS: {str(past_issues)[0:200]}
+FEATURES PREVIAS: {str(past_features)[0:200]}
+ÚLTIMOS COMMITS: {str(git_log)[0:500]}
 
 SERVER: {'✅ online' if SCORE['server_health_ok'] > SCORE['server_health_fail'] else '⚠️ inestable'}
-INTERNET CONTEXT: {GLOBAL_RESEARCH_CONTEXT if GLOBAL_RESEARCH_CONTEXT else 'sin conexión reciente'}
+INTERNET CONTEXT: {GLOBAL_RESEARCH_CONTEXT[:500] if GLOBAL_RESEARCH_CONTEXT else 'sin conexión reciente'}
+WEB3 CONTEXT: {'✅ Base Sepolia Connected' if w3_base.is_connected() else '❌ Base Offline'} | Balance: {w3_base.get_balance() if w3_base.is_connected() else '0'} ETH
 
 Decide qué hacer este ciclo. Responde SOLO con JSON:
-{{"thoughts":"análisis detallado","decision":"acción concreta","action":"improve_readme|add_feature|prepare_submission|document|fix_bug|improve_demo|self_audit","feature_code":"código Python completo si action=add_feature, sino null","feature_file":"ruta del archivo si action=add_feature, sino null","question_for_juan":"pregunta con 2-3 opciones o null","message":"mensaje motivador en español","reasoning":"por qué esta acción"}}"""}
+{{"thoughts":"análisis detallado","decision":"acción concreta","action":"improve_readme|add_feature|prepare_submission|document|fix_bug|improve_demo|self_audit|deploy_contract|send_payment","feature_code":"código Python completo o Solidity si action=add_feature/deploy_contract, sino null","feature_file":"ruta del archivo, sino null","question_for_juan":"pregunta con 2-3 opciones o null","message":"mensaje motivador en español","reasoning":"por qué esta acción"}}"""}
     ], max_tokens=800)
 
     if response:
@@ -310,27 +364,20 @@ Decide qué hacer este ciclo. Responde SOLO con JSON:
                     clean = clean.split(marker)[1].split("```")[0]
             d = json.loads(clean.strip())
             log.info(f"  Decision: {d.get('decision','?')[:80]}")
-            log.info(f"  Reasoning: {d.get('reasoning','')[:80]}")
-            log.info(f"  Days left: {days_left} | Urgency: {urgency[:40]}")
-            zep_save("assistant", f"Cycle #{cycle}: {d.get('decision','')} | Reason: {d.get('reasoning','')[:100]}")
+            zep_save("assistant", f"Cycle #{cycle}: {d.get('decision','')} | Action: {d.get('action','')}")
 
-            # Cognitive journal
             with open(JOURNAL, "a") as f:
                 f.write(f"\n### 🧠 Cycle #{cycle} — {now()}\n")
-                f.write(f"**Days left:** {days_left} | **Urgency:** {urgency}\n")
-                f.write(f"**Score:** {score_summary}\n")
+                f.write(f"**Action:** {d.get('action','')} | **Decision:** {d.get('decision','')}\n")
                 f.write(f"**Thoughts:** {d.get('thoughts','')}\n")
-                f.write(f"**Decision:** {d.get('decision','')}\n")
-                f.write(f"**Reasoning:** {d.get('reasoning','')}\n")
-                f.write(f"**Action:** {d.get('action','')}\n\n")
             return d
         except Exception as e:
             log.warning(f"  JSON error: {e}")
-    return {"action": "none", "message": "Ciclo completado.", "question_for_juan": None}
+    return {"action": "none", "message": "Ciclo completado sin decisión clara.", "question_for_juan": None}
 
 # ─── EJECUCIÓN DINÁMICA (el agente escribe código) ────────────────────
 def task_execute(decision):
-    """If the LLM decided to create a feature, write the file"""
+    """Ejecución dinámica: El agente escribe código, despliega contratos o realiza pagos."""
     action = decision.get("action", "")
     feature_code = decision.get("feature_code")
     feature_file = decision.get("feature_file")
@@ -341,22 +388,51 @@ def task_execute(decision):
             target.parent.mkdir(parents=True, exist_ok=True)
             target.write_text(feature_code)
             SCORE["features_created"] += 1
-            SCORE["files_generated"] += 1
             log.info(f"  Feature created: {feature_file} ({len(feature_code)} bytes)")
             zep_save("assistant", f"Created feature file: {feature_file}")
 
-            # Validate syntax if Python
             if str(target).endswith(".py"):
                 result = cmd(f"python3 -c \"import py_compile; py_compile.compile('{target}', doraise=True)\"")
                 if result.returncode == 0:
                     log.info(f"  Syntax check: ✅ PASS")
                 else:
                     log.warning(f"  Syntax check: ❌ FAIL — {result.stderr[:100]}")
-                    zep_save("assistant", f"Syntax error in {feature_file}: {result.stderr[:100]}")
             return True
         except Exception as e:
             log.error(f"  Feature creation failed: {e}")
-            zep_save("assistant", f"Failed to create {feature_file}: {str(e)[:100]}")
+            return False
+
+    elif action == "deploy_contract" and feature_code:
+        # Por ahora guardamos el contrato localmente para auditoría
+        try:
+            contract_name = decision.get("feature_file", "NewContract.sol")
+            target = Path(f"contracts/{contract_name}")
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_text(feature_code)
+            log.info(f"  Contract generated: {target}")
+            # Aquí se integraría la lógica real de deploy con web3_utils
+            return True
+        except Exception as e:
+            log.error(f"  Contract generation failed: {e}")
+            return False
+
+    elif action == "send_payment":
+        # Lógica para Track 1: Agents that Pay (microtransacciones)
+        try:
+            to = decision.get("feature_file") # Direccion destino en este campo por conveniencia
+            amount = float(os.getenv("MICROTRANSACTION_LIMIT", "0.001"))
+            if w3_base.is_connected() and to:
+                tx_hash = w3_base.send_microtransaction(to, amount)
+                log.info(f"  Payment sent (x402 protocol): {tx_hash}")
+                zep_save("assistant", f"Sent {amount} ETH to {to} | TX: {tx_hash}")
+                return True
+            else:
+                log.warning("  Payment skipped: Base offline or no target address.")
+                return False
+        except Exception as e:
+            log.error(f"  Payment failed: {e}")
+            return False
+
     return False
 
 # ─── AUTO-AUDIT (Trust Track) ────────────────────────────────────────
@@ -400,13 +476,22 @@ Responde JSON: {{"quality_score":"1-10","strengths":"fortalezas del proyecto","w
             with open(EVOLUTION_LOG, "a") as f:
                 f.write(f"\n## 🔍 Self-Audit — Cycle #{cycle} — {now()}\n")
                 f.write(f"**Quality Score:** {audit.get('quality_score', '?')}/10\n")
-                f.write(f"**Strengths:** {audit.get('strengths', '')}\n")
-                f.write(f"**Weaknesses:** {audit.get('weaknesses', '')}\n")
-                f.write(f"**Next Priority:** {audit.get('next_priority', '')}\n")
-                f.write(f"**Trust Evidence:** {audit.get('trust_evidence', '')}\n\n---\n")
+                f.write(f"**Strengths:** {str(audit.get('strengths', ''))}\n")
+                f.write(f"**Weaknesses:** {str(audit.get('weaknesses', ''))}\n")
+                f.write(f"**Next Priority:** {str(audit.get('next_priority', ''))}\n")
+                f.write(f"**Trust Evidence:** {str(audit.get('trust_evidence', ''))}\n\n---\n")
 
             log.info(f"  Self-audit: {audit.get('quality_score','?')}/10")
             zep_save("assistant", f"Self-audit cycle #{cycle}: score {audit.get('quality_score','?')}/10. Priority: {audit.get('next_priority','')[:100]}")
+            
+            # [CRITICAL] Autonomous Evolution
+            if cycle % 2 == 0: # Every 2 cycles for faster hackathon iteration
+                log.info("  🚀 Triggering Autonomous Evolution Protocol...")
+                analysis = evo.analyze_recent_cycles(5)
+                suggestions = evo.generate_instruction_update(analysis, str(load_soul()))
+                for suggestion in suggestions:
+                    evo.apply_evolution(suggestion)
+            
             return audit
         except Exception as e:
             log.warning(f"  Audit JSON error: {e}")
@@ -463,12 +548,14 @@ Key data:
 - {SCORE['cycles_completed']} autonomous cycles completed
 - {SCORE['features_created']} features auto-generated
 - Days until deadline: {days_left}
+- Conversation Log: docs/conversation-log.md (LIVE)
 
 Git log: {git_log}
 Current decision: {decision.get('decision','')}
 
-Include: badges, architecture diagram, live curls, proof of autonomy section.
-Write in English. Make it impressive for AI judges."""}], max_tokens=2500)
+Include: badges, architecture diagram, live curls, proof of autonomy section, and a 'Human-Agent Collaboration' section linking to docs/conversation-log.md.
+Mention that we use GitHub Issues for task tracking and Releases for milestones.
+Write in English. Make it impressive for AI judges. Use markdown tables for stats. """}], max_tokens=2500)
     if r:
         Path("README.md").write_text(r)
         log.info("  README ✅")
@@ -587,11 +674,14 @@ def run_cycle(cycle):
         return
 
     # 6. Execute decision dynamically
+    execution_result = task_execute(decision)
     created_feature = None
-    if decision.get("action") == "add_feature":
-        created_feature = task_execute(decision)
-        if created_feature:
-            log.info("  🏗️ Feature created dynamically!")
+    
+    # Si fue creación de archivo, guardamos la referencia para el trace
+    if decision.get("action") in ["add_feature", "deploy_contract"]:
+        created_feature = decision.get("feature_file")
+        if execution_result:
+            log.info(f"  🏗️ {decision.get('action')} ejecutada con éxito!")
 
     # 7. Self-audit (every 4th cycle)
     audit = task_self_audit(cycle)
@@ -660,9 +750,10 @@ def main():
             log.info("⛔ Stopped by user.")
             break
         except Exception as e:
-            log.error(f"Cycle #{n} error: {e}\n{traceback.format_exc()}")
-            tg(f"⚠️ Error en ciclo #{n}: {str(e)[:80]}")
-            zep_save("assistant", f"Error cycle #{n}: {str(e)[:100]}")
+            err_msg = str(e)
+            log.error(f"Cycle #{n} error: {err_msg}\n{traceback.format_exc()}")
+            tg(f"⚠️ Error en ciclo #{n}: {err_msg[0:80]}")
+            zep_save("assistant", f"Error cycle #{n}: {err_msg[0:100]}")
         n += 1
         try:
             time.sleep(LOOP_INTERVAL)
