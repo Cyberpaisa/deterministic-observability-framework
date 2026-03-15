@@ -329,7 +329,9 @@ def check_server_health():
 
 # ─── TELEGRAM POLLING (Real-time) ───────────────────────────────────
 def telegram_poll_task():
-    """Background task to respond to Juan instantly"""
+    """Background task to respond to Juan instantly (PAUSED TO AVOID CONFLICT WITH STANDALONE BOT)"""
+    log.info("  📡 Telegram Polling Thread PAUSED (External bot active)")
+    return 
     # Load last update_id from file to avoid reprocessing
     _upd_file = Path(".telegram_offset")
     last_update = int(_upd_file.read_text()) if _upd_file.exists() else 0
