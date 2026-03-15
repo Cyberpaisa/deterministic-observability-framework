@@ -169,3 +169,18 @@ Tracking agent growth across cycles.
 **Trust Evidence:** La cantidad de commits y la activa evolución del proyecto sugieren que hay un equipo comprometido detrás del proyecto. Sin embargo, no hay evidencia de cumplimiento de estándares de calidad o de seguridad, como pruebas de penetración o auditorías de seguridad.
 
 ---
+
+### 📊 Evolution Snapshot — Cycle #15 — 2026-03-15T17:01:21Z
+| Metric | Value |
+|--------|-------|
+| cycles_completed | 15 |
+| features_created | 0 |
+| files_generated | 0 |
+| attestations_ok | 7 |
+| attestations_fail | 0 |
+| questions_asked | 0 |
+| server_health_ok | 7 |
+| server_health_fail | 0 |
+| self_audits | 1 |
+| days_remaining | 7 |
+
