@@ -1,43 +1,3 @@
-import os
-fallbacks = [
-    {
-        "name": "Groq",
-        "key": os.getenv("GROQ_API_KEY"),
-        "url": "https://api.groq.com/openai/v1/chat/completions",
-        "model": "mixtral-8x7b-32768"
-    },
-    {
-        "name": "Cerebras",
-        "key": os.getenv("CEREBRAS_API_KEY"),
-        "url": "https://api.cerebras.ai/v1/chat/completions",
-        "model": "llama3.1-8b"
-    },
-    {
-        "name": "Hyperbolic",
-        "key": os.getenv("HYPERBOLIC_API_KEY"),
-        "url": "https://api.hyperbolic.xyz/v1/chat/completions",
-        "model": "Meta-Llama-3.1-70B-Instruct"
-    },
-    {
-        "name": "Nebius",
-        "key": os.getenv("NEBIUS_API_KEY"),
-        "url": "https://api.studio.nebius.ai/v1/chat/completions",
-        "model": "MiniMax-Text-01"
-    },
-    {
-        "name": "Together",
-        "key": os.getenv("TOGETHER_API_KEY"),
-        "url": "https://api.together.xyz/v1/chat/completions",
-        "model": "meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo"
-    },
-    {
-        "name": "DeepInfra",
-        "key": os.getenv("DEEPINFRA_API_KEY"),
-        "url": "https://api.deepinfra.com/v1/openai/chat/completions",
-        "model": "meta-llama/Meta-Llama-3.1-70B-Instruct"
-    }
-]
-...
 import os, sys, time, subprocess, hashlib, datetime, logging, requests, json, traceback, threading, re
 from pathlib import Path
 
@@ -138,7 +98,7 @@ def groq(messages, max_tokens=8000):
         r = requests.post(
             "https://api.groq.com/openai/v1/chat/completions",
             headers={"Authorization": f"Bearer {GROQ_KEY}"},
-            json={"model": "mixtral-8x7b-32768", "messages": messages, "max_tokens": max_tokens},
+            json={"model": "llama-3.3-70b-versatile", "messages": messages, "max_tokens": max_tokens},
             timeout=30
         )
         if r.status_code == 200:
@@ -146,6 +106,38 @@ def groq(messages, max_tokens=8000):
     except Exception as e:
         log.warning(f"Groq API error: {e}")
         
+    fallbacks = [
+        {
+            "name": "Cerebras",
+            "key": os.getenv("CEREBRAS_API_KEY"),
+            "url": "https://api.cerebras.ai/v1/chat/completions",
+            "model": "llama3.1-8b"
+        },
+        {
+            "name": "SambaNova",
+            "key": os.getenv("SAMBANOVA_API_KEY"),
+            "url": "https://api.sambanova.ai/v1/chat/completions",
+            "model": "Meta-Llama-3.1-70B-Instruct"
+        },
+        {
+            "name": "Minimax",
+            "key": os.getenv("MINIMAX_API_KEY"),
+            "url": "https://api.minimax.chat/v1/text/chatcompletion_v2",
+            "model": "MiniMax-Text-01"
+        },
+        {
+            "name": "Nvidia",
+            "key": os.getenv("NVIDIA_API_KEY"),
+            "url": "https://integrate.api.nvidia.com/v1/chat/completions",
+            "model": "meta/llama-3.1-70b-instruct"
+        },
+        {
+            "name": "OpenRouter",
+            "key": os.getenv("OPENROUTER_API_KEY"),
+            "url": "https://openrouter.ai/api/v1/chat/completions",
+            "model": "meta-llama/llama-3.3-70b-instruct"
+        }
+    ]
     
     for provider in fallbacks:
         if not provider["key"]:
