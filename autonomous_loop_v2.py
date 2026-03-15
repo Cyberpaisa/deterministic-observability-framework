@@ -22,6 +22,7 @@ CONV_LOG         = Path("docs/conversation-log.md")
 SOUL_PATH        = Path("agents/synthesis/SOUL_AUTONOMOUS.md")
 EVOLUTION_LOG    = Path("docs/EVOLUTION_LOG.md")
 DEADLINE         = datetime.datetime(2026, 3, 22, 23, 59, 0)
+GLOBAL_RESEARCH_CONTEXT = ""
 
 # ─── SCORE TRACKER (evolución del agente) ──────────────────────────────
 SCORE = {
@@ -155,6 +156,24 @@ def zep_init():
     except Exception:
         pass
 
+def web_search(query):
+    """Búsqueda web usando Serper API"""
+    key = os.getenv("SERPER_API_KEY")
+    if not key: return "Search disabled (no key)"
+    try:
+        r = requests.post(
+            "https://google.serper.dev/search",
+            headers={"X-API-KEY": key, "Content-Type": "application/json"},
+            json={"q": query, "num": 5},
+            timeout=15
+        )
+        if r.status_code == 200:
+            results = r.json().get("organic", [])
+            return "\n".join([f"- {res.get('title')}: {res.get('snippet')}" for res in results])
+    except Exception as e:
+        return f"Search error: {e}"
+    return "No results found."
+
 # ─── MONITOREO DE SALUD ───────────────────────────────────────────────
 def check_server_health():
     """Check server health and notify Juan if down"""
@@ -202,6 +221,24 @@ def check_juan_messages():
                 zep_save("assistant", reply)
     except Exception:
         pass
+
+def task_research(cycle):
+    """Investiga tendencias relevantes para el hackathon y Colombia"""
+    global GLOBAL_RESEARCH_CONTEXT
+    log.info(f"  Research: Searching trends for Cycle #{cycle}...")
+    
+    queries = [
+        "Synthesis 2026 hackathon agents trends",
+        "Cyberpaisa Medellín AI latest",
+        "verifiable intent agentic trust patterns 2026"
+    ]
+    # Rotate queries or combine? Let's rotate.
+    query = queries[cycle % len(queries)]
+    results = web_search(query)
+    
+    GLOBAL_RESEARCH_CONTEXT = f"Resultados de investigación (Query: {query}):\n{results[:1000]}"
+    zep_save("system", f"Internet Research Cycle #{cycle}: {results[:150]}")
+    log.info(f"  Research ✅ Context updated.")
 
 # ─── DECISIÓN ESTRATÉGICA (SOUL-powered) ─────────────────────────────
 def task_decide(cycle):
@@ -259,6 +296,7 @@ FEATURES PREVIAS: {past_features[:200] if past_features else 'ninguna registrada
 ÚLTIMOS COMMITS: {git_log}
 
 SERVER: {'✅ online' if SCORE['server_health_ok'] > SCORE['server_health_fail'] else '⚠️ inestable'}
+INTERNET CONTEXT: {GLOBAL_RESEARCH_CONTEXT if GLOBAL_RESEARCH_CONTEXT else 'sin conexión reciente'}
 
 Decide qué hacer este ciclo. Responde SOLO con JSON:
 {{"thoughts":"análisis detallado","decision":"acción concreta","action":"improve_readme|add_feature|prepare_submission|document|fix_bug|improve_demo|self_audit","feature_code":"código Python completo si action=add_feature, sino null","feature_file":"ruta del archivo si action=add_feature, sino null","question_for_juan":"pregunta con 2-3 opciones o null","message":"mensaje motivador en español","reasoning":"por qué esta acción"}}"""}
@@ -530,6 +568,9 @@ def run_cycle(cycle):
 
     # 1. Check messages from Juan
     check_juan_messages()
+
+    # 1.5 Web Research (hive mind)
+    task_research(cycle)
 
     # 2. Server health monitoring
     server_ok = check_server_health()
