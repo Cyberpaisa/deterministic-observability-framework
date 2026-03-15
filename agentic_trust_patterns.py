@@ -1,0 +1,1 @@
+trust_pattern_module
