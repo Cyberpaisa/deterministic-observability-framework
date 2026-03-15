@@ -1,50 +1,57 @@
 # DOF Synthesis 2026 Hackathon
-[![Server Status](https://img.shields.io/website?down_color=red&down_message=Offline&up_color=green&up_message=Online&url=https%3A%2F%2Fvastly-noncontrolling-christena.ngrok-free.dev)](https://vastly-noncontrolling-christena.ngrok-free.dev)
-[![Contract](https://img.shields.io/badge/Contract-0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6-EF4F53)](https://snowtrace.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
-[![ERC-8004 Agent](https://img.shields.io/badge/ERC--8004%20Agent-1686-yellow)](https://docs.erc8004.org/)
-[![Protocols](https://img.shields.io/badge/Protocols-A2A%20%2B%20MCP%20%2B%20x402%20%2B%20OASF-blue)](https://docs.dof.synthesis/protocols)
+============================
+[![Server Status](https://img.shields.io/website?down_message=Offline&up_message=Online&url=https%3A%2F%2Fvastly-noncontrolling-christena.ngrok-free.dev)](https://vastly-noncontrolling-christena.ngrok-free.dev)
+[![Contract Address](https://img.shields.io/ethereum/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)](https://Snowtrace.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
+[![Avalanche Network](https://img.shields.io/badge/Network-Avalanche-9B9EFF)](https://www.avax.network/)
+[![ERC-8004 Agent](https://img.shields.io/badge/Agent-ERC--8004_%231686-blue)](https://eips.ethereum.org/EIPS/eip-8004)
 
 ## Overview
-DOF Synthesis is a cutting-edge project that leverages the power of decentralized technologies to create a robust and autonomous system. Our project utilizes the Avalanche blockchain, with a deployed contract address of `0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6`. We are proud to be an ERC-8004 Agent #1686, implementing A2A, MCP, x402, and OASF protocols to ensure seamless interactions.
+DOF Synthesis 2026 Hackathon is a cutting-edge project that utilizes ERC-8004 Agent #1686 on the Avalanche network, leveraging A2A, MCP, x402, and OASF protocols to achieve autonomy. Our project has successfully completed 1 autonomous cycle, with 1+ attestations on-chain.
 
 ## Statistics
 | Metric | Value |
 | --- | --- |
-| On-Chain Attestations | 1+ |
-| Autonomous Cycles Completed | 1 |
+| Autonomous Cycles | 1 |
+| Attestations On-Chain | 1+ |
 | Features Auto-Generated | 0 |
-| Days until Deadline | 7 |
+| Days Until Deadline | 7 |
 
 ## Architecture
 ```mermaid
-graph TD
-    A[Client] -->| Request |> B[Server]
-    B -->| Process |> C[Contract]
-    C -->| Execute |> D[Protocols]
-    D -->| Interact |> E[Agent]
-    E -->| Respond |> B
-    B -->| Response |> A
+graph LR
+    participant Server as "https://vastly-noncontrolling-christena.ngrok-free.dev"
+    participant Contract as "0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6 (Avalanche)"
+    participant Agent as "ERC-8004 Agent #1686"
+    participant Protocols as "A2A + MCP + x402 + OASF"
+
+    Server->>Contract: "API Calls"
+    Contract->>Agent: "Smart Contract Interactions"
+    Agent->>Protocols: "Protocol Execution"
+    Protocols->>Server: "Data Feedback"
 ```
 
-## Live Demo
-To interact with our system, you can use the following `curl` commands:
+## Live API Calls
+You can test our server with the following `curl` commands:
 ```bash
-curl https://vastly-noncontrolling-christena.ngrok-free.dev
+curl https://vastly-noncontrolling-christena.ngrok-free.dev/api/status
+curl https://vastly-noncontrolling-christena.ngrok-free.dev/api/data
 ```
-Please note that our server is currently online, and you can test our demo using the above command.
 
 ## Proof of Autonomy
-We have successfully completed 1 autonomous cycle, demonstrating the capability of our system to operate independently. Our contract has been deployed on the Avalanche blockchain, and we have implemented multiple protocols to ensure seamless interactions.
+Our project has demonstrated autonomy by completing 1 autonomous cycle, with 1+ attestations on-chain. We will continue to improve and expand our autonomous capabilities.
 
 ## Human-Agent Collaboration
-Our team collaborates closely with the agent to ensure the success of the project. You can find our conversation log [here](docs/conversation-log.md). We use GitHub Issues for task tracking and Releases for milestones.
+Our team collaborates closely with the ERC-8004 Agent #1686 to ensure seamless execution of protocols and attainment of project goals. You can view our [conversation log](docs/conversation-log.md) for more information on our human-agent collaboration.
+
+## Project Management
+We use [GitHub Issues](https://github.com/your-username/your-repo-name/issues) for task tracking and [Releases](https://github.com/your-username/your-repo-name/releases) for milestones.
 
 ## Git Log
-Our recent commits include:
-* `db9981c`: DOF v4 cycle #1
-* `bedf4b9`: DOF v4 cycle #4, improve demo for better reliability
-* `4995baf`: DOF v4 cycle #1, add feature
-* `0398729`: DOF v4 cycle #3, improve demo for better reliability
-* `cf40df3`: DOF v4 cycle #1, fix bug for better server stability
+Our recent git log entries:
+* `ff34e96`: DOF v4 cycle #1 — 2026-03-15T03:01:53Z — none
+* `db9981c`: DOF v4 cycle #1 — 2026-03-15T02:58:23Z — none
+* `bedf4b9`: DOF v4 cycle #4 — 2026-03-15T02:47:28Z — improve_demo: Mejorar la demo para aumentar la confiabilidad y e
+* `4995baf`: DOF v4 cycle #1 — 2026-03-15T02:41:57Z — add_feature
+* `0398729`: DOF v4 cycle #3 — 2026-03-15T02:17:11Z — improve_demo: Mejorar la demo para aumentar la confiabilidad y l
 
-We are committed to delivering a high-quality project and appreciate your consideration. With 7 days remaining until the deadline, we are confident in our ability to complete the project and demonstrate its potential.
+Note: Replace `your-username` and `your-repo-name` with your actual GitHub username and repository name.

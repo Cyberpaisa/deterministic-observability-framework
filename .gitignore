@@ -43,3 +43,4 @@ contracts/deployed_address.txt
 keys/
 data/test_dataset_*.json
 .telegram_offset
+.telegram_offset
