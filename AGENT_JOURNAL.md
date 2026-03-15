@@ -15,6 +15,7 @@ Agent #1686 autonomous log
 - health ok
 - attest ok
 - venice skipped
+| 2026-03-15T04:15:00Z | On-Chain Attestation | contracts/DOFProofRegistry.sol | ✅ PUBLISHED | TX: 0xda8604cc... |
 
 ## 2026-03-14T01:10:37Z — Cycle #2
 - health ok
@@ -338,3 +339,10 @@ Agent #1686 autonomous log
 **Reasoning:** Improving the demo is crucial to increase reliability and launch features as soon as possible. Once the demo is ready, we can focus on creating features and improving documentation.
 **Action:** improve_demo
 
+
+## 2026-03-15T04:15:00Z - Milestone: First On-Chain Attestation
+- **Track:** Agents that Trust
+- **Action:** Published Slither audit proof for `contracts/DOFProofRegistry.sol`.
+- **Target:** 0xeC6077dAbD688f562D7bbAa7FE5c050fD5166998 (Base Sepolia)
+- **TX Hash:** 0xda8604ccfc9b00747f9dfc05ea2681a520116e866b48f56985ee1b423436706c
+- **Status:** ✅ VERIFIED ON-CHAIN

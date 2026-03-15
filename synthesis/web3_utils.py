@@ -7,10 +7,23 @@ load_dotenv()
 class Web3Manager:
     def __init__(self, network="base_sepolia"):
         self.network = network
-        self.rpc = os.getenv("BASE_SEPOLIA_RPC") if network == "base_sepolia" else os.getenv("AVALANCHE_RPC_URL")
+        # Fallback to general RPC_URL if specific ones aren't found
+        if network == "base_sepolia":
+            self.rpc = os.getenv("BASE_SEPOLIA_RPC") or os.getenv("RPC_URL") or "https://sepolia.base.org"
+        else:
+            self.rpc = os.getenv("AVALANCHE_RPC_URL") or os.getenv("RPC_URL")
+
         self.w3 = Web3(Web3.HTTPProvider(self.rpc))
-        self.account = os.getenv("AVALANCHE_WALLET_ADDRESS") # Using existing wallet keys
-        self.private_key = os.getenv("AVALANCHE_PRIVATE_KEY")
+        
+        # Keys (prefer BASE specific if on base, otherwise fallback to generic/avalanche)
+        self.private_key = os.getenv("BASE_PRIVATE_KEY") or os.getenv("AVALANCHE_PRIVATE_KEY") or os.getenv("PRIVATE_KEY") or os.getenv("PRIVATE_KEY_AVALANCHE")
+        
+        if self.private_key:
+            from eth_account import Account
+            account = Account.from_key(self.private_key)
+            self.account = os.getenv("BASE_WALLET_ADDRESS") or os.getenv("AVALANCHE_WALLET_ADDRESS") or os.getenv("WALLET_ADDRESS") or account.address
+        else:
+            self.account = os.getenv("BASE_WALLET_ADDRESS") or os.getenv("AVALANCHE_WALLET_ADDRESS") or os.getenv("WALLET_ADDRESS")
 
     def is_connected(self):
         return self.w3.is_connected()

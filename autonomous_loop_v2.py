@@ -247,7 +247,7 @@ def telegram_poll_task():
         try:
             r = requests.get(
                 f"https://api.telegram.org/bot{TG_TOKEN}/getUpdates",
-                params={"offset": last_update + 1, "timeout": 10}, 
+                params={"offset": int(last_update) + 1, "timeout": 10}, 
                 timeout=15
             )
             if r.status_code == 200:
@@ -459,19 +459,19 @@ def review_decision(cycle, decision):
     past_features = str(zep_search("feature construir crear implementar"))
 
     # Evolution score as context
-    score_summary = f"Ciclos: {SCORE['cycles_completed']} | Features: {SCORE['features_created']} | Attestations: {SCORE['attestations_ok']} OK / {SCORE['attestations_fail']} FAIL"
+    score_summary = f"Cycles: {SCORE['cycles_completed']} | Features: {SCORE['features_created']} | Attestations: {SCORE['attestations_ok']} OK / {SCORE['attestations_fail']} FAIL"
 
     # Multi-Chain & Partner Context (Synthesis Themes)
     synthesis_context = """
     TRACKS SYNTHESIS 2026:
-    1. Agents that Trust: Foco en ERC-8004, attestations, reputación on-chain (Base/Avalanche).
-    2. Agents that Pay: Foco en x402, micropagos, economía inter-agente.
-    3. Agents that Cooperate: Foco en contratos de compromiso, negociación on-chain.
+    1. Agents that Trust: Focus on ERC-8004, attestations, on-chain reputation (Base/Avalanche).
+    2. Agents that Pay: Focus on x402, micropayments, inter-agent economy.
+    3. Agents that Cooperate: Focus on commitment contracts, on-chain negotiation.
     
-    PARTNERS ESTRATÉGICOS:
-    - Base (Coinbase): Despliegue de contratos en Base Sepolia, uso de Paymaster.
-    - Lido: Monitoring de stETH yield, herramientas MCP para staking.
-    - Uniswap: Swaps programáticos para gestión de tesorería del agente.
+    STRATEGIC PARTNERS:
+    - Base (Coinbase): Contract deployment on Base Sepolia, Paymaster usage.
+    - Lido: Monitoring stETH yield, MCP tools for staking.
+    - Uniswap: Programmatic swaps for agent treasury management.
     """
 
     SERVER_STATUS = '✅ online' if SCORE['server_health_ok'] > SCORE['server_health_fail'] else '⚠️ unstable'
