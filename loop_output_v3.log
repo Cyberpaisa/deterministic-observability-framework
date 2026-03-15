@@ -27,3 +27,9 @@
 2026-03-15 13:19:15,485 - DOF-v4 - INFO -   LLM: Calling Groq (mixtral-8x7b-32768)...
 2026-03-15 13:19:15,869 - DOF-v4 - WARNING -   LLM: Groq failed with 400: {"error":{"message":"The model `mixtral-8x7b-32768` has been decommissioned and is no longer support
 2026-03-15 13:19:16,191 - DOF-v4 - INFO -   Conv log ✅
+2026-03-15 13:19:17,252 - DOF-v4 - INFO -   Git: OK
+2026-03-15 13:19:19,195 - DOF-v4 - INFO -   Telegram ✅
+2026-03-15 13:19:19,195 - DOF-v4 - INFO -   💓 Checking Moltbook Heartbeat...
+2026-03-15 13:19:20,128 - DOF-v4 - INFO -   Moltbook Status: CLAIMED. (Ready to post strategy).
+2026-03-15 13:19:20,131 - DOF-v4 - INFO -   ✅ Cycle #22 done. Next in 30min
+

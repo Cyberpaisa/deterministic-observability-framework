@@ -134,11 +134,11 @@ def groq(messages, max_tokens=8000, timeout=10):
     
     # Intento 1: Groq (principal)
     try:
-        log.info(f"  LLM: Calling Groq (mixtral-8x7b-32768)...")
+        log.info(f"  LLM: Calling Groq (llama-3.3-70b-versatile)...")
         r = requests.post(
             "https://api.groq.com/openai/v1/chat/completions",
             headers={"Authorization": f"Bearer {GROQ_KEY}"},
-            json={"model": "mixtral-8x7b-32768", "messages": messages, "max_tokens": max_tokens},
+            json={"model": "llama-3.3-70b-versatile", "messages": messages, "max_tokens": max_tokens},
             timeout=timeout
         )
         if r.status_code == 200:
