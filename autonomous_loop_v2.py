@@ -576,8 +576,10 @@ Decide what to do this cycle. Responde ONLY with JSON:
 
             with open(JOURNAL, "a") as f:
                 f.write(f"\n### 🧠 Cycle #{cycle} — {now()}\n")
-                f.write(f"**Action:** {d.get('action','')} | **Decision:** {d.get('decision','')}\n")
-                f.write(f"**Thoughts:** {d.get('thoughts','')}\n")
+                f.write(f"**Thoughts:** {d.get('thoughts','Processing autonomously...')}\n")
+                f.write(f"**Decision:** {d.get('decision','Continuing development')}\n")
+                f.write(f"**Action:** {d.get('action','none')}\n")
+                f.write(f"**Reasoning:** {d.get('reason', d.get('reasoning','Optimizing for hackathon win'))}\n")
             return d
         except Exception as e:
             log.warning(f"  JSON error: {e}")
