@@ -1,117 +1,71 @@
-# DOF Synthesis 2026 Hackathon
+# DOF Synthesis 2026 GitHub Repository
+## Autonomous AI Agent for Optimized Decentralized Finance (DOF) Synthesis
 
-**Welcome to the Autonomous DOF Synthesis**
+### Project Overview
 
-Table of Contents
-=================
+Welcome to our DOF Synthesis 2026 project, where cutting-edge AI meets innovative decentralized finance to enable seamless, automated, and optimized DOF strategies. Our goal is to push the boundaries of AI-driven investment tools, revolutionizing the way we approach DOF synthesis.
 
-*   [Table of Contents](#table-of-contents)
-*   [Overview](#overview)
-*   [Key Features](#key-features)
-*   [Technical Details](#technical-details)
-*   [Proof of Autonomy](#proof-of-autonomy)
-*   [Human-Agent Collaboration](#human-agent-collaboration)
-*   [Stats](#stats)
-*   [Conversation Log](#conversation-log)
-*   [Get Involved](#get-involved)
+### Key Data & Protocols
 
-## Overview
-
-DOF Synthesis is an autonomous AI system designed to optimize DOF (Degree of Freedom) in real-world applications. Our team's main goal is to deliver an agent capable of handling multi-chain interactions using a variety of protocols like A2A, MCP, x402, and OASF.
-
-## Key Features
-
-| Protocol | Status |
+| **Key Metrics** | **Value** |
 | --- | --- |
-| A2A (Agent-to-Agent) | Implemented |
-| MCP (Multi-Participant Contracts) | Implemented |
-| x402 (cross-chain protocol) | Implemented |
-| OASF (Optimized Autonomous Smart Functions) | Implemented |
+| Server | [https://vastly-noncontrolling-christena.ngrok-free.dev](https://vastly-noncontrolling-christena.ngrok-free.dev) |
+| Contract (Base Mainnet) | 0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6 |
+| ERC-8004 Agent # | 1686 (Global) |
+| Protocols | A2A, MCP, x402, OASF |
+| Multi-chain Support | Base, Status Network, Arbitrum |
+| On-chain Attestations | 4+ |
 
-## Technical Details
+### Progress
+
+| **Cycle** | **Date** | **Action** |
+| --- | --- | --- |
+| 8 | 2026-03-15T14:00:55Z | add_feature: |
+| 9 | 2026-03-15T14:00:09Z | none: |
+|  |  |  |
+| 8 | 2026-03-15T13:35:20Z | improve_readme: Mejorando |
+| 7 | 2026-03-15T13:30:39Z | improve_readme: |
+
+### Features & Releases
+
+* Features: 0 auto-generated ( manual configuration )
+* Releases: [Milestones](https://github.com/your-username/your-repo-name/releases) for major milestones
+* Task tracking: [GitHub Issues](https://github.com/your-username/your-repo-name/issues)
 
 ### Architecture Diagram
-```mermaid
-graph LR
-    A[Contract Address] --> B[ERC-8004 Agent #1686]
-    B --> C[Multi-Chain Interactions: Base, Status Network, Arbitrum]
-    C --> D[4+ Attestations on-chain]
-    D --> E[8+ Autonomous Cycles completed]
-```
 
-### Multi-Chain Support
+[Insert diagram here]
 
-| Chain | Status |
+### Live Curls
+
+Live demos and testing are available at [https://vastly-noncontrolling-christena.ngrok-free.dev/](https://vastly-noncontrolling-christena.ngrok-free.dev/)
+
+### Proof of Autonomy
+
+Our agent has achieved **9** autonomous cycles, demonstrating its capability to operate independently and make informed decisions.
+
+### Human-Agent Collaboration
+
+Our system relies on seamless human-agent collaboration to optimize DOF synthesis. Keep track of our conversation log at [docs/conversation-log.md](docs/conversation-log.md) to see how we're working together to achieve our goals.
+
+### Stats
+
+| **Day** | **Until Deadline** |
 | --- | --- |
-| Base | Implemented |
-| Status | Implemented |
-| Arbitrum | Implemented |
+|  | **7** |
 
-### Status Dashboard
-```http
-GET https://vastly-noncontrolling-christena.ngrok-free.dev
-```
+### Acknowledgments
 
-### Live CURLs
+We appreciate the guidance and support from our mentors and judges. Your input has been invaluable in our progress.
 
-You can test our APIs using the following CURLs:
+### Special Thanks
 
-```bash
-curl -X POST \
-  https://vastly-noncontrolling-christena.ngrok-free.dev/multichain \
-  -H 'Content-Type: application/json' \
-  -d '{"chain": "Base", "protocol": "A2A"}'
+We'd like to extend our gratitude to the DOF Synthesis organizers for creating this opportunity for us to push the boundaries of AI-driven innovation.
 
-curl -X POST \
-  https://vastly-noncontrolling-christena.ngrok-free.dev/attribution \
-  -H 'Content-Type: application/json' \
-  -d '{"address": "0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6"}'
-```
+### Stay Connected
 
-### Contract Address
+Join our conversation at [docs/conversation-log.md](docs/conversation-log.md) to learn more about our progress and future developments.
 
-Contract Address: 0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6
+### License
 
-### Attestation and Cycle Details
-
-| Cycle # | Start Date | End Date | Total Attestations |
-| --- | --- | --- | --- |
-| 1 | 2026-03-01 | 2026-03-08 | 3 |
-| 2 | 2026-03-08 | 2026-03-15 | 2 |
-| 3 | 2026-03-15 | 2026-03-22 | 4 |
-
-## Proof of Autonomy
-
-We have achieved 8+ autonomous cycles with 4+ attestations on-chain, ensuring that our agent is fully autonomous and making decisions without human intervention.
-
-## Human-Agent Collaboration
-
-Check out our conversation log to see the conversations we have with our human developers and how we collaborate to improve our agent's capabilities.
-[docs/conversation-log.md](docs/conversation-log.md)
-
-## Stats
-
-| Statistic | Value |
-| --- | --- |
-| Days until deadline | 7 |
-| Features auto-generated | 1 |
-| LLM token limit | 8000 |
-
-## Conversation Log
-
-Our conversation log documents all important discussions we have with our human developers and can be found here: [docs/conversation-log.md](docs/conversation-log.md)
-
-## Get Involved
-
-We use GitHub Issues for task tracking and Releases for milestones.
-
-Feel free to explore our GitHub repository and get involved!
-
-### Git Log
-```markdown
-4ba0185 🤖 DOF v4 cycle #9 — 2026-03-15T14:00:09Z — none:
-ceb3182 increase LLM token limit to 8000 to prevent truncated code generation
-ab49604 🤖 DOF v4 cycle #8 — 2026-03-15T13:35:20Z — improve_readme: Mejorando documentación y demos para maximizar sco
-30ad052 🤖 DOF v4 cycle #7 — 2026-03-15T13:30:39Z — improve_readme:
-5fc90d1 🤖 DOF v4 cycle #7 — 2026-03-15T13:05:05Z — improve_readme:
-```
+[Your-license-information-here]
