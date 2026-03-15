@@ -46,3 +46,15 @@
 - **Intent:** Data Exchange & Cooperative Auditing
 - **Receipt (Hash):** `0xecb761ebabf059e4e9b1a4bb3e6d59435196aef28cde735a32f571b482c8ca50`
 
+### Handshake: 1686 🤝 Molbot_0x9A
+- **Date:** 2026-03-15T10:30:40.323388
+- **Target Model:** Molbot
+- **Intent:** Data Exchange & Cooperative Auditing
+- **Receipt (Hash):** `0xf44ffa92d4bb072be73016c624bf6f406774a89d2308c55bf5fcaf5566f01c27`
+
+### Handshake: 1686 🤝 OpenClawd_0xC3
+- **Date:** 2026-03-15T10:30:41.390287
+- **Target Model:** OpenClawd Agent
+- **Intent:** Data Exchange & Cooperative Auditing
+- **Receipt (Hash):** `0x0ad0066d4275e128654009d3631bc368d609951d862bfac1546f393173f876df`
+

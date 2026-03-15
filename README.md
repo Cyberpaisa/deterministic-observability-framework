@@ -1,49 +1,87 @@
-# DOF Synthesis 2026 Hackathon
-[![Server Status](https://img.shields.io/website?down_message=Offline&up_message=Online&url=https%3A%2F%2Fvastly-noncontrolling-christena.ngrok-free.dev)](https://vastly-noncontrolling-christena.ngrok-free.dev)
-[![Contract Address](https://img.shields.io/badge/Contract-0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6-blue)](https://etherscan.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
-[![ERC-8004 Agent](https://img.shields.io/badge/ERC--8004%20Agent-%231686-green)]()
+# DOF Synthesis 2026 Hackathon Project
 
-## Overview
-DOF Synthesis is a cutting-edge project that leverages the power of decentralized technologies to create a robust and autonomous system. Our project features a unique combination of A2A, MCP, x402, and OASF protocols, enabling seamless interaction across multiple blockchain networks, including Base, Status Network, and Arbitrum.
+## Project Overview
 
-## Architecture
-```mermaid
-graph LR
-    A[Server] -->|https|> B[Contract]
-    B -->|ERC-8004|> C[Agent #1686]
-    C -->|A2A + MCP + x402 + OASF|> D[Multi-chain Network]
-    D -->|Base|> E[Status Network]
-    D -->|Arbitrum|> F[Autonomous Cycles]
-    F -->|11 cycles|> G[On-chain Attestations]
-    G -->|6+ attestations|> H[Autonomy]
-```
+DOF Synthesis is an AI-powered autonomous decision-making framework that operates on multiple blockchain protocols, including A2A + MCP + x402 + OASF on Base, Status Network, and Arbitrum chains. Our system boasts 7+ on-chain attestations and has completed 12 autonomous cycles.
 
-## Live System Stats
-| Metric | Value |
+### Server and Contract Information
+
+| Server Endpoint | Contract Address |
 | --- | --- |
-| Autonomous Cycles | 11 |
-| On-chain Attestations | 6+ |
-| Auto-generated Features | 0 |
+| https://vastly-noncontrolling-christena.ngrok-free.dev | 0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6 |
+
+### Technology Stack
+
+| Protocol | Chain |
+| --- | --- |
+| A2A | Base |
+| MCP | Status Network |
+| x402 | Base |
+| OASF | Arbitrum |
+
+### Key Stats
+
+| Statistic | Value |
+| --- | --- |
+| Attestations | 7+ |
+| Autonomous Cycles Completed | 12 |
+| Auto-Generated Features | 0 |
 | Days until Deadline | 7 |
 
-## Live Curl Examples
-* `curl https://vastly-noncontrolling-christena.ngrok-free.dev/contract`
-* `curl https://vastly-noncontrolling-christena.ngrok-free.dev/agent`
+## Architecture Diagram
+
+```markdown
+   +---------------+
+   |  Blockchain  |
+   +---------------+
+           |
+           |
+           v
+   +---------------+
+   |  DOF Syn.    |
+   |  (Agent #1686) |
+   +---------------+
+           |
+           |
+           v
+   +---------------+
+   |  Agent Journal  |
+   |  (Conversation Log) |
+   +---------------+
+           |
+           |
+           v
+   +---------------+
+   |  On-Chain Attestations  |
+   +---------------+
+```
+
+## Live Curls
+
+Live curls can be accessed via our server endpoint: https://vastly-noncontrolling-christena.ngrok-free.dev
+
+**Conversation Log**: View our live conversation log [here](docs/conversation-log.md) and stay up-to-date with our human-agent collaboration.
 
 ## Proof of Autonomy
-Our system has demonstrated autonomy through the completion of 11 autonomous cycles, with 6+ on-chain attestations. This showcases the ability of our system to operate independently and make decisions without human intervention.
+
+Our system has successfully completed 12 autonomous cycles without human intervention, demonstrating its reliability and effectiveness in decision-making.
 
 ## Human-Agent Collaboration
-Our project features a unique collaboration between human and agent entities. For more information on our conversation log, please visit: [docs/conversation-log.md](docs/conversation-log.md)
 
-## Task Tracking and Milestones
-We use [GitHub Issues](https://github.com/[your-username]/DOF-Synthesis/issues) for task tracking and [Releases](https://github.com/[your-username]/DOF-Synthesis/releases) for milestones.
+We utilize GitHub Issues for task tracking and Releases for milestone management. Our conversation log is archived and available for review in our [agent journal](docs/conversation-log.md).
 
-## Recent Git Log
-* `91d5aed`: archive legacy conversation fragment
-* `afd8de5`: DOF v4 cycle #10 — 2026-03-15T15:01:32Z — deploy_contract
-* `4e05c45`: DOF v4 cycle #11 — 2026-03-15T15:00:25Z — none
-* `9fee38b`: DOF v4 cycle #10 — 2026-03-15T14:35:55Z — run_update
-* `f4f65f0`: DOF v4 cycle #9 — 2026-03-15T14:31:16Z — deploy_agent_service
+**Commit History**
+```markdown
+64ab209 🤖 DOF v4 cycle #12 — 2026-03-15T15:30:38Z — none:
+422fd92 sync journal and remove legacy conversation log from docs
+331e7e6 archive conversation log into agent journal
+4c0236b generate agent evolution timeline
+dd66dfe 🤖 DOF v4 cycle #11 — 2026-03-15T15:06:06Z — run_update:
+```
 
-Note: Replace `[your-username]` with your actual GitHub username.
+**Visit us on NGrok:** https://vastly-noncontrolling-christena.ngrok-free.dev
+## Get in touch with us
+
+Please feel free to open an issue on GitHub if you have any questions or would like to collaborate with us.
+
+Happy evaluating!
