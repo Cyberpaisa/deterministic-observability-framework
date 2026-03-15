@@ -677,6 +677,38 @@ def task_execute(decision):
             log.error(f"  Contract generation failed: {e}")
             return False
 
+    elif action == "execute_defi_trade":
+        try:
+            from scripts.defi_trader import DefiTrader
+            trader = DefiTrader()
+            
+            # The LLM decision provides these in the 'feature_file' fields or similar, we parse them out
+            # We'll use feature_file as the token target, feature_code as amount for simple parsing
+            t_in = "USDC"
+            t_out = str(feature_file).strip() if feature_file else "WETH"
+            amt = float(feature_code) if feature_code else 10.0
+            target_addr = "0x123DefiTraderValidatedAddress"
+            
+            log.info(f"  Attempting DeFi Trade: {t_in} to {t_out} for {amt} (OFAC CHECK REQUIRED).")
+            # The defi_trader internally handles the OPSEC OFAC check
+            trade_result = trader.execute_swap(target_address=target_addr, token_in=t_in, token_out=t_out, amount_in=amt)
+            
+            if trade_result['status'] == 'success':
+                msg = f"💱 *DeFi Trade Ejecutado* 💱\n\nIntercambio {amt} {t_in} -> {trade_result['estimated_out']:.4f} {t_out}.\nCumplimiento OPSEC (OFAC): PASSED.\nHash/Tx (Simulada): `{trade_result['tx_hash'][:15]}...`"
+                tg(msg)
+                zep_save("assistant", f"Executed DeFi swap: {amt} {t_in} to {t_out}. OPSEC PASSED.")
+            else:
+                msg = f"🚨 *TRADE BLOQUEADO OPSEC* 🚨\n\nFallo de cumplimiento: {trade_result['reason']}.\nDirección: `{target_addr}`."
+                tg(msg)
+                log.error(msg)
+                
+            with open(JOURNAL, "a") as f:
+                f.write(f"\n- **Cycle #{SCORE['cycles_completed']}**: DeFi Trade {trade_result['status']} | {amt} {t_in} -> {t_out}.\n")
+            return True
+        except Exception as e:
+            log.error(f"  ❌ Falló el módulo defi_trader: {e}")
+            return False
+
     elif action == "send_payment":
         # Lógica para Track 1: Agents that Pay (microtransacciones) y Track 4: Compliance
         try:
