@@ -23,19 +23,13 @@ fallbacks = [
         "name": "Nvidia",
         "key": os.getenv("NVIDIA_API_KEY"),
         "url": "https://integrate.api.nvidia.com/v1/chat/completions",
-        "model": "deepseek-ai/deepseek-v3.2"
-    },
-    {
-        "name": "Cerebras",
-        "key": os.getenv("CEREBRAS_API_KEY"),
-        "url": "https://api.cerebras.ai/v1/chat/completions",
-        "model": "llama3.1-70b"
+        "model": "meta/llama-3.3-70b-instruct"
     },
     {
         "name": "SambaNova",
         "key": os.getenv("SAMBANOVA_API_KEY"),
         "url": "https://api.sambanova.ai/v1/chat/completions",
-        "model": "Meta-Llama-3.1-70B-Instruct-v1"
+        "model": "Meta-Llama-3.3-70B-Instruct"
     },
     {
         "name": "OpenRouter",
