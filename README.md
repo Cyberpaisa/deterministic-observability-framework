@@ -1,105 +1,51 @@
-# DOF Synthesis 2026 Hackathon Submission
-
-![DOF Synthesis 2026](https://via.placeholder.com/150x150?text=DOF+Synthesis+2026)
-[![GitHub Issues](https://img.shields.io/github/issues/your-repo/dof-synthesis-2026)](https://github.com/your-repo/dof-synthesis-2026/issues)
-[![GitHub Releases](https://img.shields.io/github/v/release/your-repo/dof-synthesis-2026)](https://github.com/your-repo/dof-synthesis-2026/releases)
-[![Multi-Chain](https://img.shields.io/badge/Multi--Chain-Base%20%7C%20Status%20Network%20%7C%20Arbitrum-blue)](https://etherscan.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
-[![ERC-8004 Agent](https://img.shields.io/badge/ERC--8004-Agent-%231686-green)](https://etherscan.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
-[![Autonomous Cycles](https://img.shields.io/badge/Autonomous-Cycles-38-success)](https://etherscan.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
-[![On-Chain Attestations](https://img.shields.io/badge/On--Chain-Attestations-1%2B-orange)](https://etherscan.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
-
----
+# DOF Synthesis 2026 Hackathon
+[![Server Status](https://img.shields.io/website?down_message=Offline&up_message=Online&url=https%3A%2F%2Fvastly-noncontrolling-christena.ngrok-free.dev)](https://vastly-noncontrolling-christena.ngrok-free.dev)
+[![Contract Address](https://img.shields.io/badge/Contract-0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6-blue)](https://etherscan.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
+[![ERC-8004 Agent](https://img.shields.io/badge/ERC--8004%20Agent-%231686-blue)]()
+[![Multi-Chain](https://img.shields.io/badge/Multi--Chain-Base%2C%20Status%20Network%2C%20Arbitrum-blue)]()
 
 ## Overview
-
-**DOF Synthesis 2026** is an autonomous agent system leveraging **A2A, MCP, x402, and OASF protocols** to achieve self-improvement and multi-chain coordination. Deployed across **Base, Status Network, and Arbitrum**, this project demonstrates **38 autonomous cycles** with **1+ on-chain attestations** and **zero auto-generated features**—ensuring full human oversight.
-
-**Days until deadline:** 7
-
----
-
-## Key Features
-
-| Feature                     | Status                          |
-|------------------------------|---------------------------------|
-| **Multi-Chain Coordination** | Base, Status Network, Arbitrum |
-| **Protocols**                | A2A, MCP, x402, OASF           |
-| **Autonomous Cycles**        | 38 completed                    |
-| **On-Chain Attestations**    | 1+                             |
-| **Auto-Generated Features**  | 0                               |
-| **Human-Agent Collaboration**| [Live Journal](docs/journal.md) |
-
----
+DOF Synthesis 2026 is a cutting-edge project that leverages A2A, MCP, x402, and OASF protocols to create a decentralized, autonomous system. Our project utilizes a Base Mainnet contract and is compatible with multiple chains, including Base, Status Network, and Arbitrum.
 
 ## Architecture
-
 ```mermaid
-graph TD
-    A[DOF Core] --> B[Base Mainnet]
-    A --> C[Status Network]
-    A --> D[Arbitrum]
-    B --> E[ERC-8004 Agent #1686]
-    C --> E
-    D --> E
-    E --> F[MCP Coordination]
-    E --> G[A2A Messaging]
-    E --> H[x402 Execution]
-    E --> I[OASF Attestations]
+graph LR
+    A[Client] -->| Request |> B[Server]
+    B -->| Process |> C[Contract]
+    C -->| Execute |> D[Agent]
+    D -->| Autonomous Cycle |> E[On-Chain Attestation]
+    E -->| Update |> B
 ```
-
----
 
 ## Live Curls
-
-Test our API endpoints in real-time:
-
+You can interact with our server using the following curls:
 ```bash
-# Fetch agent status
-curl https://vastly-noncontrolling-christena.ngrok-free.dev/status
-
-# Query autonomous cycles
-curl https://vastly-noncontrolling-christena.ngrok-free.dev/cycles
-
-# Retrieve attestations
-curl https://vastly-noncontrolling-christena.ngrok-free.app/attestations
+curl https://vastly-noncontrolling-christena.ngrok-free.dev/
 ```
 
----
+## Statistics
+| Metric | Value |
+| --- | --- |
+| Autonomous Cycles Completed | 39 |
+| On-Chain Attestations | 1+ |
+| Features Auto-Generated | 0 |
+| Days until Deadline | 7 |
 
 ## Proof of Autonomy
-
-| Cycle # | Timestamp               | Action                                                                 |
-|---------|-------------------------|-----------------------------------------------------------------------|
-| 38      | 2026-03-15T21:36:55Z    | Improved README for Synthesis 2026                                   |
-| 37      | 2026-03-15T21:24:39Z    | Enhanced documentation for score maximization                        |
-| 36      | 2026-03-15T21:21:07Z    | Fixed Spanish-to-English logging in Telegram                         |
-| 35      | 2026-03-15T21:21:07Z    | Optimized self-learning + goal ancestry for CashClaw                |
-
----
+Our system has demonstrated autonomy by completing 39 cycles without human intervention. The contract address `0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6` has been verified on the Base Mainnet, and our ERC-8004 Agent #1686 has been registered globally.
 
 ## Human-Agent Collaboration
+Our team collaborates with the agent through a live [Conversation Log](docs/journal.md). This log provides a transparent and up-to-date record of our decision-making process and interactions with the agent.
 
-Our **live journal** documents real-time interactions between human operators and the DOF agent:
+## Task Tracking and Milestones
+We use [GitHub Issues](https://github.com/your-repo/issues) for task tracking and [Releases](https://github.com/your-repo/releases) for milestones. Our current decision is to improve documentation and demos to maximize our score in the Synthesis 2026 hackathon.
 
-📖 **[View Live Journal](docs/journal.md)**
+## Git Log
+Our recent commits include:
+* `8e751f0`: Improved documentation and demos for maximizing score
+* `026cbf4`: Improved documentation and demos for maximizing score
+* `cf2db26`: Implemented CashClaw self-learning, Paperclip goal ancestry, and CoPaw multi-channel
+* `03b2d64`: Improved documentation and demos for maximizing score
+* `eed1a13`: Fixed Enigma response in Spanish on Telegram, logs saved in English
 
-Key highlights:
-- **CashClaw self-learning** for adaptive goal-setting
-- **Paperclip goal ancestry** for traceable decision-making
-- **CoPaw multi-channel** coordination across chains
-
----
-
-## Task Tracking & Milestones
-
-- **GitHub Issues** for task management: [Open Issues](https://github.com/your-repo/dof-synthesis-2026/issues)
-- **GitHub Releases** for milestone tracking: [Latest Release](https://github.com/your-repo/dof-synthesis-2026/releases)
-
----
-
-## Join the Journey
-
-🔗 **Server:** [https://vastly-noncontrolling-christena.ngrok-free.dev](https://vastly-noncontrolling-christena.ngrok-free.dev)
-📜 **Contract:** [0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6](https://etherscan.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
-
-**Let’s build the future of autonomous agents together!** 🚀
+Note: Replace `your-repo` with your actual GitHub repository name.

@@ -955,11 +955,21 @@ REGLAS ABSOLUTAS:
         except:
             pass
 
-        # Responder en español en Telegram
-        try:
-            bot.reply_to(message, f"🤖 *Enigma:*\n\n{reply}", parse_mode="Markdown")
-        except Exception:
-            bot.reply_to(message, f"🤖 Enigma:\n\n{reply}")
+        # Responder en español en Telegram (máx 4096 chars por mensaje)
+        MAX = 3800
+        chunks = [reply[i:i+MAX] for i in range(0, len(reply), MAX)]
+        for i, chunk in enumerate(chunks):
+            prefix = "🤖 *Enigma:*\n\n" if i == 0 else "📄 *(continuación)*\n\n"
+            try:
+                if i == 0:
+                    bot.reply_to(message, f"{prefix}{chunk}", parse_mode="Markdown")
+                else:
+                    bot.send_message(message.chat.id, f"{prefix}{chunk}", parse_mode="Markdown")
+            except Exception:
+                try:
+                    bot.send_message(message.chat.id, f"🤖 Enigma:\n\n{chunk}")
+                except Exception:
+                    pass
     else:
         bot.reply_to(message, "⚠️ LLMs no disponibles ahora. Reintenta en 30s.")
 
