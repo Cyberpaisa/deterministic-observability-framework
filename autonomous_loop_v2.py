@@ -96,8 +96,24 @@ def groq(messages, max_tokens=500):
         )
         if r.status_code == 200:
             return r.json()["choices"][0]["message"]["content"]
-    except Exception:
-        pass
+    except Exception as e:
+        log.warning(f"Groq API error: {e}")
+    
+    # Fallback to OpenRouter (Llama 3.3) if Groq fails
+    openrouter_key = os.getenv("OPENROUTER_API_KEY")
+    if openrouter_key:
+        try:
+            r = requests.post(
+                "https://openrouter.ai/api/v1/chat/completions",
+                headers={"Authorization": f"Bearer {openrouter_key}"},
+                json={"model": "meta-llama/llama-3.3-70b-instruct", "messages": messages, "max_tokens": max_tokens},
+                timeout=30
+            )
+            if r.status_code == 200:
+                return r.json()["choices"][0]["message"]["content"]
+        except Exception as e:
+            log.warning(f"OpenRouter API error: {e}")
+            
     return None
 
 def translate_to_english(text):
