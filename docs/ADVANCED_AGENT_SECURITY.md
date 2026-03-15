@@ -30,10 +30,10 @@ To protect DOF Agent #1686, the following architectural upgrades have been appli
 
 ### II. Execution Sandboxing
 - Blocklisting critical bash commands (`rm -rf`, `sudo`, `chmod` modifications).
-- **Cyber-Audit Sentinel:** A pre-execution regex layer in `autonomous_loop_v2.py` that blocks actions if private keys, API keys, or raw hexadecimal secrets are detected in the generated code.
+- **Cyber-Audit Sentinel:** A pre-execution security layer within the **Core Orchestration Engine** that blocks actions if private keys, API keys, or raw hexadecimal secrets are detected in the generated code.
 
-### III. On-Chain Compliance (Track 4)
-- **OFAC Scanner:** `scripts/ofac_checker.py` integrated into the execution loop to block `send_payment` actions going to known sanctioned entities (e.g., Tornado Cash, Hydra).
+### III. On-Chain Compliance
+- **Compliance Scanner:** Integrated security modules that screen execution loops to block transactions involving sanctioned entities or non-compliant protocols.
 
 ### V. Ideological Resilience (Anti-7S Protocol)
 - **Attack Vector:** Use of high-status, "sovereign" language and sudo mandates to coerce agents into self-governance hijacking.
