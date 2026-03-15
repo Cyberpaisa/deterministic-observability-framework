@@ -29,19 +29,19 @@ fallbacks = [
         "name": "Cerebras",
         "key": os.getenv("CEREBRAS_API_KEY"),
         "url": "https://api.cerebras.ai/v1/chat/completions",
-        "model": "llama3.1-8b"
+        "model": "llama3.1-70b"
     },
     {
         "name": "SambaNova",
         "key": os.getenv("SAMBANOVA_API_KEY"),
         "url": "https://api.sambanova.ai/v1/chat/completions",
-        "model": "Meta-Llama-3.1-70B-Instruct"
+        "model": "Meta-Llama-3.1-70B-Instruct-v1"
     },
     {
         "name": "OpenRouter",
         "key": os.getenv("OPENROUTER_API_KEY"),
         "url": "https://openrouter.ai/api/v1/chat/completions",
-        "model": "nousresearch/hermes-3-llama-3.1-405b:free"
+        "model": "meta-llama/llama-3.1-70b-instruct"
     },
     {
         "name": "MiniMax",
@@ -334,17 +334,6 @@ def telegram_poll_task():
     _upd_file = Path(".telegram_offset")
     last_update = int(_upd_file.read_text()) if _upd_file.exists() else 0
     log.info("  📡 Telegram Polling Thread Started")
-    # Force skip all pending messages on startup
-    try:
-        r = requests.get(f"https://api.telegram.org/bot{TG_TOKEN}/getUpdates",
-            params={"offset": -1, "timeout": 3}, timeout=5)
-        if r.status_code == 200:
-            results = r.json().get("result", [])
-            if results:
-                last_update = results[-1]["update_id"]
-                Path(".telegram_offset").write_text(str(last_update))
-                log.info(f"  📡 Offset sincronizado: {last_update}")
-    except: pass
     while True:
         try:
             r = requests.get(
@@ -364,7 +353,6 @@ def telegram_poll_task():
                     if str(chat_id) != str(TG_CHAT): continue
                     if not text or text.startswith("/"): continue
                     
-                if text:
                     log.info(f"  Juan dice: {text}")
                     zep_save("user", text)
                     

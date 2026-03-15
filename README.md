@@ -1,106 +1,80 @@
-# DOF Synthesis 2026 Hackathon Project
+**DOF Synthesis 2026 Hackathon**
+=====================================
 
-**Server:** Our server is live at [https://vastly-noncontrolling-christena.ngrok-free.dev](https://vastly-noncontrolling-christena.ngrok-free.dev)
+**Server**: https://vastly-noncontrolling-christena.ngrok-free.dev
+**Contract**: 0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6 (Base Mainnet)
+**ERC-8004 Agent #1686 (Global)**
 
-## Architecture Diagram
+[![A2A + MCP + x402 + OASF protocols](https://img.shields.io/badge/A2A%20+%20MCP%20+%20x402%20+%20OASF-Protocols-647bff)](https://crimson.im/)
+[![Multi-chain: Base, Status Network, Arbitrum](https://img.shields.io/badge/Multi--chain-Base%2C%20Status%20Network%2C%20Arbitrum-4c95ff)](https://crimson.im/)
+[![1+ attestations on-chain](https://img.shields.io/badge/On--chain%20Attestations-1+-f7c873)](https://crimson.im/)
+[![27 autonomous cycles completed](https://img.shields.io/badge/Autonomous%20Cycles-27-51c4ff)](https://crimson.im/)
+[![0 features auto-generated](https://img.shields.io/badge/Auto--generated%20Features-0-ff7675)](https://crimson.im/)
+[![Days until deadline: 7](https://img.shields.io/badge/Days%20until%20Deadline-7-ff8c00)](https://crimson.im/)
 
-Below is a high-level overview of our system architecture.
+**Architecture Diagram**
+------------------------
 
 ```mermaid
 graph LR
-    Contract --> Agent
-    Agent --> Blockchain
-    Blockchain --> Architecture
-    Architecture --> API
-    API --> Server
-    Server --> Client
+    participant A2A as "A2A Protocol"
+    participant MCP as "MCP Protocol"
+    participant x402 as "x402 Protocol"
+    participant OASF as "OASF Protocol"
+    participant Base as "Base Mainnet"
+    participant StatusNetwork as "Status Network"
+    participant Arbitrum as "Arbitrum"
+    A2A->>MCP: Interacts with
+    MCP->>x402: Interacts with
+    x402->>OASF: Interacts with
+    OASF->>Base: Interacts with
+    OASF->>StatusNetwork: Interacts with
+    OASF->>Arbitrum: Interacts with
+    Base->>StatusNetwork: Interacts with
+    Base->>Arbitrum: Interacts with
+    StatusNetwork->>Arbitrum: Interacts with
 ```
 
-## Protocols and Chains
-
-| Protocol | Chain |
-| --- | --- |
-| A2A | Base |
-| A2A | Status Network |
-| A2A | Arbitrum |
-| MCP | Base |
-| x402 | Base |
-| OASF | Base |
-
-## Statistics
-
-| Statistic | Value |
-| --- | --- |
-| Attestations | 1+ |
-| Autonomous Cycles Completed | 26 |
-| Auto-Generated Features | 0 |
-
-## Proof of Autonomy
-
-DOF Synthesis has demonstrated its ability to operate autonomously, completing 26 cycles without human intervention. This has been made possible through a combination of advanced protocols, including A2A, MCP, x402, and OASF, which enable seamless communication and collaboration between agents on multiple blockchain networks.
-
-## Human-Agent Collaboration
-
-We leverage a human-agent collaboration framework, which allows our system to adapt and learn from human feedback. You can follow our conversation log, where we track and document all interactions with users and agents.
-
-[docs/conversation-log.md](docs/conversation-log.md)
-
-## Task Tracking and Milestones
-
-We use GitHub Issues for task tracking and Releases for milestones. Please feel free to report any issues or suggestions by opening a new issue.
-
-## Contract Information
-
-Our contract address is:
-
-0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6
-
-**Agent Information**
-
-Our ERC-8004 Agent #1686 is deployed globally, enabling seamless collaboration across multiple blockchain networks.
-
-## Days Until Deadline
-
-We have 7 days remaining until the deadline. We are committed to delivering a complete and functional solution.
-
-**API Endpoints**
-
-Below are some live cURLs to demonstrate our API:
+**Live Curls**
+--------------
 
 ```bash
-curl -X GET 'https://vastly-noncontrolling-christena.ngrok-free.dev/api/data'
+curl https://vastly-noncontrolling-christena.ngrok-free.dev
 ```
 
-```bash
-curl -X POST 'https://vastly-noncontrolling-christena.ngrok-free.dev/api/act'
-```
+**Proof of Autonomy**
+----------------------
 
-## Open Issues
+| Cycle # | Date | Description |
+| --- | --- | --- |
+| 26 | 2026-03-15T18:27:55Z | add_feature |
+| 25 | 2026-03-15T18:24:54Z | none |
+| 24 | 2026-03-15T18:23:42Z | none |
+| 23 | 2026-03-15T18:19:51Z | improve_readme |
+| 22 | 2026-03-15T18:19:16Z | none |
 
-We are actively engaged with the community and address any issues that arise. You can find a list of open issues below:
+**Human-Agent Collaboration**
+---------------------------
 
-https://github.com/your-repo-name/issues
+[**Conversation Log**](docs/conversation-log.md)
 
-## Stargazers
+**Current Decision**
+-------------------
 
-[![Stargazers](https://img.shields.io/github/stars/your-repo-name.svg?style=social)](https://github.com/your-repo-name/stargazers)
+ Mejorando documentación y demos para maximizar score en Synthesis 2026
 
-## Forks
+**Task Tracking and Milestones**
+-------------------------------
 
-[![Forks](https://img.shields.io/github/forks/your-repo-name.svg?style=social)](https://github.com/your-repo-name/network/members)
-
-## Issues
-
-[![Issues](https://img.shields.io/github/issues/your-repo-name.svg)](https://github.com/your-repo-name/issues)
+We use [GitHub Issues](https://github.com/DOF-Synthesis-2026/DOF-Synthesis-2026/issues) for task tracking and [Releases](https://github.com/DOF-Synthesis-2026/DOF-Synthesis-2026/releases) for milestones.
 
 **Commit History**
+-----------------
 
-Below are the last 5 commits to our repository.
-
-```markdown
-70c28bc 🤖 DOF v4 cycle #25 — 2026-03-15T18:24:54Z — none:
-e7e9a09 🤖 DOF v4 cycle #24 — 2026-03-15T18:23:42Z — none:
-b8446b2 🤖 DOF v4 cycle #23 — 2026-03-15T18:19:51Z — improve_readme: Mejorando documentación y demos para maximizar sco
-fcdaa71 🤖 DOF v4 cycle #22 — 2026-03-15T18:19:16Z — none:
-62c2fed 🤖 DOF v4 cycle #21 — 2026-03-15T18:15:49Z — none:
-```
+| Commit Hash | Date | Description |
+| --- | --- | --- |
+| 9c5ac85 | 2026-03-15T18:27:55Z | DOF v4 cycle #26 — add_feature |
+| 70c28bc | 2026-03-15T18:24:54Z | DOF v4 cycle #25 — none |
+| e7e9a09 | 2026-03-15T18:23:42Z | DOF v4 cycle #24 — none |
+| b8446b2 | 2026-03-15T18:19:51Z | DOF v4 cycle #23 — improve_readme |
+| fcdaa71 | 2026-03-15T18:19:16Z | DOF v4 cycle #22 — none |
