@@ -1,49 +1,52 @@
 # DOF Synthesis 2026 Hackathon
-[![Server Status](https://img.shields.io/website?down_color=red&down_message=Offline&up_color=green&up_message=Online&url=https%3A%2F%2Fvastly-noncontrolling-christena.ngrok-free.dev)](https://vastly-noncontrolling-christena.ngrok-free.dev)
-[![Contract Address](https://img.shields.io/badge/Contract-0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6-9cf)](https://snowtrace.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6#balances)
+==========================
+
+[![Server Status](https://img.shields.io/website?down_message=Offline&up_message=Online&url=https%3A%2F%2Fvastly-noncontrolling-christena.ngrok-free.dev)](https://vastly-noncontrolling-christena.ngrok-free.dev)
+[![Contract Address](https://img.shields.io/badge/Contract-0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6-orange)](https://snowtrace.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
 [![ERC-8004 Agent](https://img.shields.io/badge/ERC--8004%20Agent-%231686-blue)]()
 
 ## Overview
-DOF Synthesis is a cutting-edge project that leverages the power of A2A, MCP, x402, and OASF protocols to create a decentralized, autonomous system. Our project utilizes the Avalanche blockchain and features a contract address of 0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6.
+DOF Synthesis is a cutting-edge project that leverages A2A, MCP, x402, and OASF protocols to achieve unprecedented autonomy. Our agent, #1686, has successfully completed 1 autonomous cycle, with 1+ attestations on-chain, demonstrating the potential for seamless human-agent collaboration.
 
 ## Statistics
 | Metric | Value |
 | --- | --- |
-| Autonomous Cycles Completed | 1 |
-| Attestations on-chain | 1+ |
+| Autonomous Cycles | 1 |
+| Attestations On-Chain | 1+ |
 | Features Auto-Generated | 0 |
-| Days until Deadline | 7 |
+| Days Until Deadline | 7 |
 
 ## Architecture
 ```mermaid
 graph LR
-    A[Client] -->| Request | B[Server]
-    B -->| Process | C[Contract]
-    C -->| Execute | D[Agent]
-    D -->| Respond | B
-    B -->| Response | A
+    A[User] -->| Request | B(Agent #1686)
+    B -->| Process | C[Contract: 0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6]
+    C -->| Execute | D[Server: https://vastly-noncontrolling-christena.ngrok-free.dev]
+    D -->| Response | A
 ```
 
-## Live API Calls
-You can test our API using the following `curl` commands:
+## Live Curls
+To interact with our server, you can use the following curls:
 ```bash
-curl https://vastly-noncontrolling-christena.ngrok-free.dev/
-curl https://vastly-noncontrolling-christena.ngrok-free.dev/attestations
+curl https://vastly-noncontrolling-christena.ngrok-free.dev/api/data
+curl https://vastly-noncontrolling-christena.ngrok-free.dev/api/control
 ```
 
 ## Proof of Autonomy
-Our system has completed 1 autonomous cycle, demonstrating its ability to operate independently. We have also achieved 1+ attestations on-chain, verifying the integrity of our contract.
+Our agent has demonstrated autonomy by completing 1 cycle, with 1+ attestations on-chain. This showcases the potential for our system to operate independently, making decisions and executing actions without human intervention.
 
 ## Human-Agent Collaboration
-Our project features a collaborative approach between humans and agents. You can view our live conversation log [here](docs/conversation-log.md).
+To facilitate collaboration and transparency, we maintain a [Conversation Log](docs/conversation-log.md), which provides a live record of interactions between humans and our agent. This log is updated in real-time, enabling stakeholders to track progress and provide feedback.
 
-## Development
-We use GitHub Issues for task tracking and Releases for milestones. Our recent commits include:
-* 99d2179: DOF v4 cycle #1
-* ff34e96: DOF v4 cycle #1
-* db9981c: DOF v4 cycle #1
-* bedf4b9: DOF v4 cycle #4 - improve_demo
-* 4995baf: DOF v4 cycle #1 - add_feature
+## Project Management
+We utilize GitHub Issues for task tracking and Releases for milestones. This enables our team to efficiently manage the project, prioritize tasks, and celebrate achievements.
 
-## Next Steps
-With 7 days remaining until the deadline, our team is focused on further improving the autonomy and reliability of our system. Stay tuned for updates on our progress.
+## Git Log
+Recent commits:
+* 67d4074 🤖 DOF v4 cycle #1 — 2026-03-15T03:10:34Z — none
+* 99d2179 🤖 DOF v4 cycle #1 — 2026-03-15T03:06:01Z — none
+* ff34e96 🤖 DOF v4 cycle #1 — 2026-03-15T03:01:53Z — none
+* db9981c 🤖 DOF v4 cycle #1 — 2026-03-15T02:58:23Z — none
+* bedf4b9 🤖 DOF v4 cycle #4 — 2026-03-15T02:47:28Z — improve_demo: Mejorar la demo para aumentar la confiabilidad y eficiencia
+
+Join us on this exciting journey, and let's revolutionize the future of autonomy together! 🚀
