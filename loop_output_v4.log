@@ -27,3 +27,12 @@
 2026-03-15 13:19:48,789 - DOF-v4 - INFO -   LLM: Calling Groq (llama-3.3-70b-versatile)...
 2026-03-15 13:19:51,345 - DOF-v4 - INFO -   README ✅
 2026-03-15 13:19:51,636 - DOF-v4 - INFO -   Conv log ✅
+2026-03-15 13:19:52,706 - DOF-v4 - INFO -   Git: OK
+2026-03-15 13:19:53,450 - DOF-v4 - INFO -   Telegram ✅
+2026-03-15 13:19:53,450 - DOF-v4 - INFO -   ✅ Cycle #23 done. Next in 30min
+
+2026-03-15 13:21:28,743 - DOF-v4 - INFO -   Juan dice: Hola cómo estás
+2026-03-15 13:21:29,411 - DOF-v4 - INFO -   LLM: Calling Groq (llama-3.3-70b-versatile)...
+2026-03-15 13:21:58,472 - DOF-v4 - INFO -   Juan dice: Ya está activo en molbot y en Reddit investigando y aprendie
+2026-03-15 13:21:59,179 - DOF-v4 - INFO -   LLM: Calling Groq (llama-3.3-70b-versatile)...
+2026-03-15 13:21:59,473 - DOF-v4 - WARNING -   LLM: Groq failed with 429: {"error":{"message":"Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01h
