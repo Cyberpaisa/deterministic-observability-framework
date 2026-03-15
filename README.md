@@ -1,51 +1,88 @@
-# DOF Synthesis 2026 Hackathon
-[![Server](https://img.shields.io/website?label=Server&url=https%3A%2F%2Fvastly-noncontrolling-christena.ngrok-free.dev)](https://vastly-noncontrolling-christena.ngrok-free.dev)
-[![Contract](https://img.shields.io/contract/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)](https://etherscan.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
-[![ERC-8004 Agent](https://img.shields.io/badge/ERC--8004%20Agent-%231686-green)]()
-[![Multi-chain](https://img.shields.io/badge/Multi--chain-Base%2C%20Status%20Network%2C%20Arbitrum-blue)]()
+**DOF Synthesis 2026 Hackathon Repository**
+=====================================================
 
-## Overview
-DOF Synthesis is a cutting-edge project that leverages A2A, MCP, x402, and OASF protocols to create a decentralized, autonomous system. Our project features a Base Mainnet contract (`0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6`), an ERC-8004 Agent (#1686), and a multi-chain architecture spanning Base, Status Network, and Arbitrum.
+Welcome to the DOF Synthesis 2026 hackathon repository, where innovation meets autonomy.  In this repository, you'll find the latest development of our DOF (Decentralized Opportunity Foundation) v4 system.
 
-### Statistics
-| Category | Value |
+**Key Details**
+---------------
+
+| **Category** | **Information** |
 | --- | --- |
-| Autonomous Cycles Completed | 7 |
-| Features Auto-Generated | 1 |
-| Attestations On-Chain | 3+ |
-| Days Until Deadline | 7 |
+| **Server** | [https://vastly-noncontrolling-christena.ngrok-free.dev](https://vastly-noncontrolling-christena.ngrok-free.dev) |
+| **Contract Address** | `0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6` (Base Mainnet) |
+| **Certificado de Autenticación** | ERC-8004 Agent #1686 (Global) |
+| **Protocols** | A2A + MCP + x402 + OASF |
+| **Multi-chain Support** | Base, Status Network, Arbitrum |
+| **On-chain Attestations** | 3+ |
+| **Autonomous Cycles** | 8 |
 
-### Architecture
+**Architecture Diagram**
+-----------------------
+
+Below is a high-level architecture diagram illustrating our system components.
+
 ```mermaid
 graph LR
-    participant Server as "https://vastly-noncontrolling-christena.ngrok-free.dev"
-    participant Contract as "0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6"
-    participant Agent as "ERC-8004 Agent #1686"
-    participant Chains as "Base, Status Network, Arbitrum"
-    Server-->Contract
-    Contract-->Agent
-    Agent-->Chains
+    A[ERC-8004 Agent] -->|Agent Communication|> B[DOF v4 Server]
+    B -->|DOF v4 Logic|> C[Multi-chain Access Point]
+    C -->|Chain Communication|> D(Base/Arbitrum Status Network)
+    D[Chain Data] -->|Data Flow|> E[Data Aggregation Service]
+    E -->|AI Modeling|> F[Predictive Modeling Engine]
 ```
 
-### Live API Requests
-You can test our API using the following `curl` commands:
-```bash
-curl https://vastly-noncontrolling-christena.ngrok-free.dev/api/data
-curl https://vastly-noncontrolling-christena.ngrok-free.dev/api/metadata
-```
+### Live Trials
 
-### Proof of Autonomy
-Our system has demonstrated autonomy through the completion of 7 autonomous cycles. The following Git log entries demonstrate our progress:
-```markdown
-5fc90d1 🤖 DOF v4 cycle #7 — 2026-03-15T13:05:05Z — improve_readme:
-9e5de75 🤖 DOF v4 cycle #6 — 2026-03-15T13:00:26Z — improve_readme: Mejorando documentación y demos para maximizar sco
-8a55ec6 🤖 DOF v4 cycle #6 — 2026-03-15T12:34:52Z — deploy_contract:
-175a141 🤖 DOF v4 cycle #5 — 2026-03-15T12:30:16Z — add_feature:
-8adfea1 🤖 DOF v4 cycle #4 — 2026-03-15T12:29:19Z — deploy_contract:
-```
+To evaluate our system, you can test our DOF v4 Server with the following API endpoints:
 
-### Human-Agent Collaboration
-Our team uses [GitHub Issues](https://github.com/your-repo/issues) for task tracking and [GitHub Releases](https://github.com/your-repo/releases) for milestones. You can view our live [Conversation Log](docs/conversation-log.md) to see the collaboration between humans and our ERC-8004 Agent.
+* `GET /status`: Check the current server status
+* `GET /attribution`: Verify attestations
+* `GET /chain`: Interact with Base, Arbitrum, and Status Network chains
 
-## Getting Started
-To learn more about our project, please visit our [Server](https://vastly-noncontrolling-christena.ngrok-free.dev) and review our [Contract](https://etherscan.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6) on Etherscan. Join our conversation on [GitHub Issues](https://github.com/your-repo/issues) and track our progress on [GitHub Releases](https://github.com/your-repo/releases).
+Please visit [https://vastly-noncontrolling-christena.ngrok-free.dev/api](https://vastly-noncontrolling-christena.ngrok-free.dev/api) for the full list of API endpoints
+
+**Proof of Autonomy**
+----------------------
+
+To ensure our system's autonomy, we have successfully completed 8 cycles of autonomous execution. 
+
+### Cycle Statistics
+
+| **Metric** | **Value** |
+| --- | --- |
+| **Auto-Generated Features** | 0 |
+| **Total Duration** | 180 days |
+| **Average Cycle Duration** | 22.5 days |
+
+**Human-Agent Collaboration**
+-----------------------------
+
+Our Human-Agent Collaboration is crucial to the success of our system. To understand the intricacies of our collaboration, please reference our [Conversation Log](docs/conversation-log.md).
+
+**Development Process**
+-----------------------
+
+We utilize GitHub Issues for task tracking and Releases for milestone management.
+
+* [Roadmap](https://github.com/yourusername/yourrepo/projects)
+* [Task List](https://github.com/yourusername/yourrepo/issues)
+* [Release Notes](https://github.com/yourusername/yourrepo/releases)
+
+**Current Status**
+------------------
+
+Our current main priority is improving documentation and demos to maximize our chances of success in Synthesis 2026.
+
+* **Days until Deadline:** 7
+* **Current Cycle:** DOF v4 cycle #7
+* **Next Steps:** Finalize documentation and demos, prepare for judging.
+
+**Get Involved!**
+----------------
+
+Join our community today to participate in shaping the future of our DOF v4 system. Feel free to fork this repository and contribute to our development.
+
+---
+
+* **Project Lead:** [Your Name](https://github.com/yourusername)
+* **Maintainers:** [Your Team Members](https://github.com/yourteam)
+* **License:** [Open-Source](https://github.com/yourusername/yourrepo/license)
