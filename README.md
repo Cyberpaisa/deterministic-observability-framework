@@ -1,87 +1,54 @@
-# DOF Synthesis 2026 Hackathon Project
+# DOF Synthesis 2026 Hackathon
+==========================
 
-## Project Overview
+[![Server](https://img.shields.io/badge/Server-https%3A%2F%2Fvastly--noncontrolling--christena.ngrok--free.dev-brightgreen)](https://vastly-noncontrolling-christena.ngrok-free.dev)
+[![Contract](https://img.shields.io/badge/Contract-0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6-blue)](https://etherscan.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
+[![ERC-8004 Agent](https://img.shields.io/badge/ERC--8004%20Agent-1686%20(Global)-orange)](https://erc8004-agent.info/agent/1686)
 
-DOF Synthesis is an AI-powered autonomous decision-making framework that operates on multiple blockchain protocols, including A2A + MCP + x402 + OASF on Base, Status Network, and Arbitrum chains. Our system boasts 7+ on-chain attestations and has completed 12 autonomous cycles.
+## Overview
+We are proud to present our DOF Synthesis 2026 hackathon project, leveraging cutting-edge A2A, MCP, x402, and OASF protocols to achieve unparalleled autonomy. Our system is built on a multi-chain architecture, spanning Base, Status Network, and Arbitrum.
 
-### Server and Contract Information
+### Architecture
+```mermaid
+graph LR
+    A[Base] -->| A2A |--> B[Status Network]
+    B -->| MCP |--> C[Arbitrum]
+    C -->| x402 |--> A
+    A -->| OASF |--> D[ERC-8004 Agent]
+    D -->| Autonomous Cycles |--> E[On-Chain Attestations]
+```
 
-| Server Endpoint | Contract Address |
+## Statistics
+| Metric | Value |
 | --- | --- |
-| https://vastly-noncontrolling-christena.ngrok-free.dev | 0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6 |
-
-### Technology Stack
-
-| Protocol | Chain |
-| --- | --- |
-| A2A | Base |
-| MCP | Status Network |
-| x402 | Base |
-| OASF | Arbitrum |
-
-### Key Stats
-
-| Statistic | Value |
-| --- | --- |
-| Attestations | 7+ |
-| Autonomous Cycles Completed | 12 |
+| Autonomous Cycles | 13 |
+| On-Chain Attestations | 8+ |
 | Auto-Generated Features | 0 |
 | Days until Deadline | 7 |
 
-## Architecture Diagram
-
-```markdown
-   +---------------+
-   |  Blockchain  |
-   +---------------+
-           |
-           |
-           v
-   +---------------+
-   |  DOF Syn.    |
-   |  (Agent #1686) |
-   +---------------+
-           |
-           |
-           v
-   +---------------+
-   |  Agent Journal  |
-   |  (Conversation Log) |
-   +---------------+
-           |
-           |
-           v
-   +---------------+
-   |  On-Chain Attestations  |
-   +---------------+
-```
-
 ## Live Curls
-
-Live curls can be accessed via our server endpoint: https://vastly-noncontrolling-christena.ngrok-free.dev
-
-**Conversation Log**: View our live conversation log [here](docs/conversation-log.md) and stay up-to-date with our human-agent collaboration.
+* `curl https://vastly-noncontrolling-christena.ngrok-free.dev/agent-status`
+* `curl https://vastly-noncontrolling-christena.ngrok-free.dev/contract-status`
 
 ## Proof of Autonomy
+Our system has completed 13 autonomous cycles, with 8+ on-chain attestations. This demonstrates the capabilities of our ERC-8004 Agent #1686, operating on the Base Mainnet.
 
-Our system has successfully completed 12 autonomous cycles without human intervention, demonstrating its reliability and effectiveness in decision-making.
-
-## Human-Agent Collaboration
-
-We utilize GitHub Issues for task tracking and Releases for milestone management. Our conversation log is archived and available for review in our [agent journal](docs/conversation-log.md).
-
-**Commit History**
+### Git Log
 ```markdown
+dbaeae5 🤖 DOF v4 cycle #13 — 2026-03-15T16:01:00Z — none:
+61c87cf 🤖 DOF v4 cycle #12 — 2026-03-15T15:36:25Z — deploy_contract:
 64ab209 🤖 DOF v4 cycle #12 — 2026-03-15T15:30:38Z — none:
 422fd92 sync journal and remove legacy conversation log from docs
 331e7e6 archive conversation log into agent journal
-4c0236b generate agent evolution timeline
-dd66dfe 🤖 DOF v4 cycle #11 — 2026-03-15T15:06:06Z — run_update:
 ```
 
-**Visit us on NGrok:** https://vastly-noncontrolling-christena.ngrok-free.dev
-## Get in touch with us
+## Human-Agent Collaboration
+We invite you to explore our [Conversation Log](docs/conversation-log.md), which provides a live and transparent record of our human-agent collaboration. This log showcases the dynamic interactions between our team and the ERC-8004 Agent, highlighting the decision-making process and autonomous cycle execution.
 
-Please feel free to open an issue on GitHub if you have any questions or would like to collaborate with us.
+## Task Tracking and Milestones
+We utilize [GitHub Issues](https://github.com/your-repo/issues) for task tracking and [Releases](https://github.com/your-repo/releases) for milestones. This enables our team to maintain a clear and organized workflow, ensuring seamless progress towards our objectives.
 
-Happy evaluating!
+## Current Decision
+Our current decision is to continue refining our system, focusing on optimizing autonomous cycle execution and on-chain attestation processes.
+
+Join us in revolutionizing the future of autonomous systems!
