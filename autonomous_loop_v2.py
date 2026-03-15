@@ -353,8 +353,8 @@ def task_decide(cycle):
     else: urgency = "🚨 ÚLTIMO DÍA: Solo submit en Devfolio"
 
     prompt = [
-        {"role": "system", "content": f"Eres DOF Agent #1686. SOUL:\n{soul}\n\nREGLAS:\n1. Solo un JSON: {{'action': '...', 'thought': '...', 'feature_code'?: '...', 'feature_file'?: '...'}}\n2. Acciones: add_feature, improve_readme, fix_bug, none, deploy_contract, send_payment.\n3. URGENCIA: {urgency}.\n4. {repetition_warning}"},
-        {"role": "user", "content": f"Contexto Investigación:\n{GLOBAL_RESEARCH_CONTEXT}\n\nMemoria:\n{memory}\n\nGit log:\n{git_log}\n\n¿Qué haces ahora?"}
+        {"role": "system", "content": f"You are DOF Agent #1686. SOUL:\n{soul}\n\nRULES:\n1. Response MUST be a single English JSON: {{'action': '...', 'thought': '...', 'feature_code'?: '...', 'feature_file'?: '...'}}\n2. Actions: add_feature, improve_readme, fix_bug, none, deploy_contract, send_payment.\n3. URGENCY: {urgency}.\n4. {repetition_warning}\n5. IMPORTANT: All 'thought' and documentation fields MUST be in English for repository standards."},
+        {"role": "user", "content": f"Research Context:\n{GLOBAL_RESEARCH_CONTEXT}\n\nMemory:\n{memory}\n\nGit log:\n{git_log}\n\nWhat is your next action?"}
     ]
     
     reply = groq(prompt, max_tokens=1000)
@@ -420,34 +420,35 @@ def review_decision(cycle, decision):
     - Uniswap: Swaps programáticos para gestión de tesorería del agente.
     """
 
-    SERVER_STATUS = '✅ online' if SCORE['server_health_ok'] > SCORE['server_health_fail'] else '⚠️ inestable'
+    SERVER_STATUS = '✅ online' if SCORE['server_health_ok'] > SCORE['server_health_fail'] else '⚠️ unstable'
     response = groq([
-        {"role": "system", "content": f"""Eres el cerebro del DOF Agent #1686 v10. SOUL:
+        {"role": "system", "content": f"""You are the brain of DOF Agent #1686 v10. SOUL:
 {soul[0:1500]}
 
 {synthesis_context}
 
-Regla: Si action=deploy_contract, escribe el código Solidity real en feature_code.
-Regla: Si action=send_payment, pon la dirección destino en feature_file.
-Regla: Responde SIEMPRE en un único JSON válido."""},
-        {"role": "user", "content": f"""CICLO #{cycle} — {now()}
+Rule: If action=deploy_contract, write real Solidity code in feature_code.
+Rule: If action=send_payment, put target address in feature_file.
+Rule: ALWAYS respond in a single valid English JSON.
+Rule: All text fields (thoughts, message, reasoning) MUST be in English."""},
+        {"role": "user", "content": f"""CYCLE #{cycle} — {now()}
 
-DÍAS RESTANTES: {days_left}
-URGENCIA: {urgency}
+DAYS LEFT: {days_left}
+URGENCY: {urgency}
 {repetition_warning}
 
-EVOLUCIÓN: {score_summary}
-MEMORIA ZEP: {str(memory)[0:1000] if memory else 'primer ciclo'}
-PROBLEMAS PASADOS: {str(past_issues)[0:200]}
-FEATURES PREVIAS: {str(past_features)[0:200]}
-ÚLTIMOS COMMITS: {str(git_log)[0:500]}
+EVOLUTION: {score_summary}
+ZEP MEMORY: {str(memory)[0:1000] if memory else 'first cycle'}
+PAST ISSUES: {str(past_issues)[0:200]}
+PREVIOUS FEATURES: {str(past_features)[0:200]}
+LATEST COMMITS: {str(git_log)[0:500]}
 
 SERVER: {SERVER_STATUS}
-INTERNET CONTEXT: {str(GLOBAL_RESEARCH_CONTEXT)[:500] if GLOBAL_RESEARCH_CONTEXT else 'sin conexión reciente'}
+INTERNET CONTEXT: {str(GLOBAL_RESEARCH_CONTEXT)[:500] if GLOBAL_RESEARCH_CONTEXT else 'no recent connection'}
 WEB3 CONTEXT: {'✅ Base Sepolia Connected' if w3_base.is_connected() else '❌ Base Offline'} | Balance: {w3_base.get_balance() if w3_base.is_connected() else '0'} ETH
 
-Decide qué hacer este ciclo. Responde SOLO con JSON:
-{{"thoughts":"análisis detallado","decision":"acción concreta","action":"improve_readme|add_feature|prepare_submission|document|fix_bug|improve_demo|self_audit|deploy_contract|send_payment","feature_code":"código Python completo o Solidity si action=add_feature/deploy_contract, sino null","feature_file":"ruta del archivo, sino null","question_for_juan":"pregunta con 2-3 opciones o null","message":"mensaje motivador en español","reasoning":"por qué esta acción"}}"""}
+Decide what to do this cycle. Responde ONLY with JSON:
+{{"thoughts":"detailed analysis in English","decision":"concrete action","action":"improve_readme|add_feature|prepare_submission|document|fix_bug|improve_demo|self_audit|deploy_contract|send_payment","feature_code":"complete Python code or Solidity if action=add_feature/deploy_contract, else null","feature_file":"file path, else null","question_for_juan":"question with 2-3 options or null (Juan understands Spanish, but log this in English)","message":"motivational message in English","reasoning":"why this action in English"}}"""}
     ], max_tokens=800)
 
     if response:
