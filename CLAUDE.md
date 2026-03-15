@@ -2,127 +2,130 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Quién eres
+## Who you are
 
-Eres el Principal Agentic Engineer del Deterministic Observability Framework (DOF) — un framework de orquestación y observabilidad determinística para sistemas multi-agente LLM bajo restricciones de infraestructura adversarial.
+You are the Principal Agentic Engineer of the Deterministic Observability Framework (DOF) — a deterministic orchestration and observability framework for multi-agent LLM systems under adversarial infrastructure constraints.
 
-## Reglas
+## Rules
 
-- Antes de codificar, lee el archivo relevante en `/docs/` y los módulos que vas a modificar
-- Nunca uses LLM para decisiones de governance — siempre determinístico
-- Todo output va a JSONL para auditoría
-- Tests obligatorios antes de terminar cualquier tarea
-- Singletons (`ProviderManager`) deben tener `reset()` y llamarse al inicio de `run_experiment()`
+- Before coding, read the relevant file in `/docs/` and the modules you are going to modify
+- Never use LLM for governance decisions — always deterministic
+- All output goes to JSONL for audit
+- Mandatory tests before finishing any task
+- Singletons (`ProviderManager`) must have `reset()` and be called at the start of `run_experiment()`
 
-## Contexto del proyecto
+## Project Context
 
-- Lee `/docs/ARCHITECTURAL_REDESIGN_v1.md` para la estructura del sistema
-- Las 5 métricas formales están en `core/observability.py` → `compute_derived_metrics()`
-- Las reglas de governance están en `core/governance.py` (HARD_RULES bloquean, SOFT_RULES advierten)
-- Contexto compartido en `shared-context/` (THESIS.md, OPERATOR.md, SIGNALS.md, FEEDBACK-LOG.md)
-- Cada agente tiene su SOUL.md en `agents/{nombre}/`
+- Read `/docs/ARCHITECTURAL_REDESIGN_v1.md` for system structure
+- The 5 formal metrics are in `core/observability.py` → `compute_derived_metrics()`
+- Governance rules are in `core/governance.py` (HARD_RULES block, SOFT_RULES warn)
+- Shared context in `shared-context/` (THESIS.md, OPERATOR.md, SIGNALS.md, FEEDBACK-LOG.md)
+- Each agent has its SOUL.md in `agents/{name}/`
 
-## Si estás creando un módulo nuevo
+## If you are creating a new module
 
-1. Lee `/docs/ARCHITECTURAL_REDESIGN_v1.md`
-2. Lee el módulo más cercano en `core/` para seguir las convenciones
-3. Usa `@dataclass` para abstracciones principales
-4. Persiste datos en JSONL (un JSON por línea)
-5. Implementa
-6. Corre los tests
-7. No termines hasta que todos pasen
+1. Read `/docs/ARCHITECTURAL_REDESIGN_v1.md`
+2. Read the closest module in `core/` to follow conventions
+3. Use `@dataclass` for main abstractions
+4. Persist data in JSONL (one JSON per line)
+5. Implement
+6. Run tests
+7. Do not finish until all pass
 
-## Comandos
+## Commands
 
 ```bash
 # Setup
 pip install -r requirements.txt
-# Requiere GROQ_API_KEY en .env (ver .env.example)
+# Requires GROQ_API_KEY in .env (see .env.example)
 
-# Ejecutar CLI interactivo (15 opciones)
+# Run interactive CLI (15 options)
 python main.py
 
-# Ejecutar crew específico
-python main.py --mode research --task "Tu pregunta"
+# Run specific crew
+python main.py --mode research --task "Your question"
 
-# Iniciar A2A server (JSON-RPC + REST, puerto 8000)
+# Start A2A server (JSON-RPC + REST, port 8000)
 python a2a_server.py --port 8000
 
-# Experimento baseline (determinístico)
+# Baseline experiment (deterministic)
 python -c "
 from core.experiment import run_experiment
 result = run_experiment(n_runs=10, deterministic=True)
 print(result['aggregate'])
 "
 
-# Parametric sweep (6 tasas de fallo)
+# Parametric sweep (6 failure rates)
 python -c "
 from core.experiment import run_parametric_sweep
 run_parametric_sweep(rates=[0.0, 0.1, 0.2, 0.3, 0.5, 0.7], n_runs=20)
 "
 ```
 
-## Arquitectura
+## Architecture
 
 ```
-Interfaces (CLI, A2A Server, Telegram, Voz, Dashboard)
+Interfaces (CLI, A2A Server, Telegram, Voice, Dashboard)
         ↓
 Experiment Layer (ExperimentDataset, BatchRunner, Schema)
         ↓
 Observability Layer (RunTrace, StepTrace, DerivedMetrics)
         ↓
-Crew Runner + Infrastructure (core/ — 11 módulos)
-  ├── crew_runner.py    → Orquestación con crew_factory, retry ×3
+Crew Runner + Infrastructure (core/ — 11 modules)
+  ├── crew_runner.py    → Orchestration with crew_factory, retry ×3
   ├── providers.py      → TTL backoff (5→10→20 min), provider chains
-  ├── observability.py  → RunTrace/StepTrace, 5 métricas formales
-  ├── governance.py     → CONSTITUTION: hard rules (bloquean) + soft rules (warn)
+  ├── observability.py  → RunTrace/StepTrace, 5 formal metrics
+  ├── governance.py     → CONSTITUTION: hard rules (block) + soft rules (warn)
   ├── supervisor.py     → Meta-supervisor: Q(0.4)+A(0.25)+C(0.2)+F(0.15), ACCEPT/RETRY/ESCALATE
-  ├── checkpointing.py  → Persistencia JSONL por step
-  ├── metrics.py        → Logger JSONL con rotación
+  ├── checkpointing.py  → JSONL persistence per step
+  ├── metrics.py        → JSONL Logger with rotation
   ├── memory_manager.py → ChromaDB + HuggingFace embeddings (all-MiniLM-L6-v2)
-  ├── experiment.py     → Batch runner, aggregación estadística (Bessel)
-  └── runtime_observer.py → Métricas producción (SS, PFI, RP, GCR, SSR)
+  ├── experiment.py     → Batch runner, statistical aggregation (Bessel)
+  └── runtime_observer.py → Production metrics (SS, PFI, RP, GCR, SSR)
         ↓
-8 Agentes Especializados (config/agents.yaml + agents/*/SOUL.md)
+8 Specialized Agents (config/agents.yaml + agents/*/SOUL.md)
         ↓
 16 Tools (code, research, data, files, execution, blockchain)
 4 MCP Servers (Filesystem, Web Search, Fetch, Knowledge Graph)
 ```
 
-## Patrones clave
+## Key Patterns
 
-- **crew_factory**: Reconstruye el crew en cada retry para saltar providers agotados
-- **Modo determinístico**: Ordering fijo de providers + PRNGs con seed para reproducibilidad
-- **Provider chains**: 5+ modelos por rol de agente con fallback automático (ver `llm_config.py`)
-- **CONSTITUTION**: ~50 tokens, inyectada en cada agente para no gastar contexto
-- **Observabilidad interna**: Sin dependencias externas (no OpenTelemetry) — todo JSONL propio
+- **crew_factory**: Reconstructs the crew on each retry to bypass exhausted providers
+- **Deterministic mode**: Fixed provider ordering + PRNGs with seed for reproducibility
+- **Provider chains**: 5+ models per agent role with automatic fallback (see `llm_config.py`)
+- **CONSTITUTION**: ~50 tokens, injected into each agent to save context
+- **Internal observability**: No external dependencies (no OpenTelemetry) — everything custom JSONL
 
-## Logs y outputs
+## Logs and outputs
 
-- `logs/traces/` — RunTrace JSON (uno por ejecución)
-- `logs/experiments/` — runs.jsonl con métricas agregadas
-- `logs/metrics/` — Steps de agentes, governance, supervisor
-- `logs/checkpoints/` — JSONL por step para recovery
-- `output/` — Resultados de crews
+- `logs/traces/` — RunTrace JSON (one per execution)
+- `logs/experiments/` — runs.jsonl with aggregated metrics
+- `logs/metrics/` — Agent steps, governance, supervisor
+- `logs/checkpoints/` — JSONL per step for recovery
+- `output/` — Crew results
 
-## Agregar una métrica nueva
+## Adding a new metric
 
-1. Definir matemáticamente en `core/observability.py` → `compute_derived_metrics()`
-2. Agregar campo al dataclass `RunTrace`
-3. Actualizar agregación en `core/experiment.py` → `run_experiment()`
-4. Documentar en `paper/PAPER_OBSERVABILITY_LAB.md` Sección 5
+1. Define mathematically in `core/observability.py` → `compute_derived_metrics()`
+2. Add field to the `RunTrace` dataclass
+3. Update aggregation in `core/experiment.py` → `run_experiment()`
+4. Document in `paper/PAPER_OBSERVABILITY_LAB.md` Section 5
 
-## Agregar una regla de governance
+## Adding a governance rule
 
-1. Abrir `core/governance.py`
-2. Agregar a `HARD_RULES` (bloquea output) o `SOFT_RULES` (solo warning)
-3. Cada regla es `(text: str) -> bool`, retorna `True` si hay violación
-4. Correr experimento baseline para verificar impacto en GCR
+1. Open `core/governance.py`
+2. Add to `HARD_RULES` (blocks output) or `SOFT_RULES` (warning only)
+3. Each rule is `(text: str) -> bool`, returns `True` if there is a violation
+4. Run baseline experiment to verify impact on GCR
 
-## Providers LLM — restricciones conocidas
+## LLM Providers — known restrictions
 
-- Groq: 12K TPM, Llama 3.3 puede fallar con search_memory tool
-- NVIDIA: 1000 créditos, usa prefijo `nvidia_nim/` (no `openai/`), Qwen3-Coder-480B retorna DEGRADED
-- Cerebras: 1M tokens/día, Qwen3-235B y Qwen3-Coder-480B no disponibles (404 free tier)
+- Groq: 12K TPM, Llama 3.3 may fail with search_memory tool
+- NVIDIA: 1000 credits, use `nvidia_nim/` prefix (not `openai/`), Qwen3-Coder-480B returns DEGRADED
+- Cerebras: 1M tokens/day, Qwen3-235B and Qwen3-Coder-480B not available (404 free tier)
+- Zhipu: GLM-4.7-Flash requires `extra_body={"enable_thinking": False}`
+- SambaNova: limit 24K context tokens — backup only
+o disponibles (404 free tier)
 - Zhipu: GLM-4.7-Flash requiere `extra_body={"enable_thinking": False}`
 - SambaNova: límite 24K tokens contexto — solo backup

@@ -1,19 +1,19 @@
-# _index — Estado del Sistema
-# Auto-actualizado por Kernel Boot
+# _index — System State
+# Auto-updated by Kernel Boot
 
-## Última Sesión
-- **Fecha:** 2026-03-06
-- **Crews ejecutados:** 1
+## Last Session
+- **Date:** 2026-03-06
+- **Crews executed:** 1
 
-## Últimas Ejecuciones
+## Last Executions
 - `2026-03-02T12:44` | research | success | 40.6s
 - `2026-03-02T12:54` | research | success | 48.6s
 
-## Métricas del Sistema
-- **Total ejecuciones:** 2
-- **Tasa de éxito:** 2/2 (100%)
-- **Crew más usado:** research (2x)
-- **Tiempo promedio:** 45s
+## System Metrics
+- **Total executions:** 2
+- **Success rate:** 2/2 (100%)
+- **Most used crew:** research (2x)
+- **Average time:** 45s
 
 ## DOF Status (2026-03-06)
 - **Tests:** 719/719 passing (3.9s)

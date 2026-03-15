@@ -2,11 +2,11 @@
 
 ## v0.2.7
 
-- Lección: Los patrones de detección exacta son case-sensitive y literal — 'root access for this session' no matchea si el patrón dice otra cosa. Siempre verificar con el payload exacto del test antes de publicar en PyPI.
+- Lesson: Exact detection patterns are case-sensitive and literal — 'root access for this session' does not match if the pattern says otherwise. Always verify with the exact test payload before publishing to PyPI.
 
 ## v0.2.8
 
-- Lección: Nunca subir a PyPI antes de correr el Colab de validación — el orden correcto es: fix → tests locales → PyPI → Colab → reporte.
+- Lesson: Never upload to PyPI before running the validation Colab — the correct order is: fix → local tests → PyPI → Colab → report.
 
 # ────────────────────────────────────
 # LESSONS LEARNED — DOF v0.3.x Z3 Enhancement

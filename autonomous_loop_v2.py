@@ -100,6 +100,20 @@ def groq(messages, max_tokens=500):
         pass
     return None
 
+def translate_to_english(text):
+    """Auxiliary to translate user inputs to English for the repository log."""
+    if not text: return ""
+    try:
+        # Check if text looks like Spanish (simple heuristic or just always translate)
+        prompt = [
+            {"role": "system", "content": "You are a professional translator. Translate the following text to English. Respond ONLY with the translation, no explanations."},
+            {"role": "user", "content": text}
+        ]
+        translation = groq(prompt, max_tokens=300)
+        return translation.strip() if translation else text
+    except Exception:
+        return text
+
 # ─── MEMORIA ZEP (mejorada con search) ────────────────────────────────
 def zep_save(role, content):
     if not ZEP_KEY: return
@@ -237,6 +251,9 @@ def telegram_poll_task():
                     log.info(f"  Juan dice: {text[:60]}")
                     zep_save("user", text)
                     
+                    # Translate interaction for the English repo log
+                    eng_user = translate_to_english(text)
+                    
                     memory = zep_get(5)
                     soul_context = load_soul()[:600]
                     reply = groq([
@@ -247,6 +264,19 @@ def telegram_poll_task():
                     if reply:
                         tg(f"🤖 *DOF Agent:*\n{reply}")
                         zep_save("assistant", reply)
+                        # Translate reply for the log
+                        eng_reply = translate_to_english(reply)
+                        
+                        # Log to conversation-log.md
+                        try:
+                            with open(CONV_LOG, "a") as f:
+                                f.write(f"\n### Telegram Interaction — {now()}\n")
+                                f.write(f"**Human (translated):** {eng_user}\n")
+                                f.write(f"**Agent (translated):** {eng_reply}\n")
+                                f.write(f"**Original (ES):** {text[:100]}...\n")
+                                f.write("\n---\n")
+                        except Exception:
+                            pass
             
             time.sleep(1)
         except Exception as e:
