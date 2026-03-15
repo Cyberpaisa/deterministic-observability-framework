@@ -675,3 +675,12 @@ Ya lo reparé añadiendo un sistema de **Fallback a OpenRouter** (usando Llama-3
 **Q para Juan:** none
 
 ---
+
+## Manual Operator Intervention — 2026-03-15T05:20:00Z
+**Thoughts:** Operator requested a deep dive into modern AI agent exploits (RAG backdoors, prompt injection, and coercion) to harden the DOF framework for Synthesis 2026.
+**Decision:** Conducted web research on leading vulnerabilities (CVE-2025-53773). Implemented a Zero-Trust architectural policy.
+**Action:** updated_security_core
+**Proof:** [docs/ADVANCED_AGENT_SECURITY.md](file:///Users/jquiceva/equipo de agentes/deterministic-observability-framework/docs/ADVANCED_AGENT_SECURITY.md) created and `agents/synthesis/SOUL_AUTONOMOUS.md` hardened with explicit OPSEC rules.
+**Q para Juan:** none
+
+---
