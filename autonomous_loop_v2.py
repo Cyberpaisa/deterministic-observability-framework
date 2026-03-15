@@ -20,6 +20,12 @@ load_dotenv()
 # Define fallbacks AFTER load_dotenv()
 fallbacks = [
     {
+        "name": "Mistral",
+        "key": os.getenv("MISTRAL_API_KEY"),
+        "url": "https://api.mistral.ai/v1/chat/completions",
+        "model": "mistral-small-latest"
+    },
+    {
         "name": "Nvidia",
         "key": os.getenv("NVIDIA_API_KEY"),
         "url": "https://integrate.api.nvidia.com/v1/chat/completions",

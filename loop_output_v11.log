@@ -1,0 +1,35 @@
+2026-03-15 13:42:41,273 - DOF-v4 - INFO - 🚀 DOF Intelligent Loop v4 (SOUL + Execute + Memory + Audit)
+2026-03-15 13:42:41,273 - DOF-v4 - INFO -    Zep:      ✅
+2026-03-15 13:42:41,273 - DOF-v4 - INFO -    Telegram: ✅
+2026-03-15 13:42:41,274 - DOF-v4 - INFO -    SOUL:     ✅ agents/synthesis/SOUL_AUTONOMOUS.md
+2026-03-15 13:42:41,274 - DOF-v4 - INFO -    Groq:     ✅
+/Users/jquiceva/equipo de agentes/deterministic-observability-framework/autonomous_loop_v2.py:109: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  delta = DEADLINE - datetime.datetime.utcnow()
+2026-03-15 13:42:41,274 - DOF-v4 - INFO -    Days left: 7
+/Users/jquiceva/equipo de agentes/deterministic-observability-framework/autonomous_loop_v2.py:105: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  def now(): return datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
+2026-03-15 13:42:42,418 - DOF-v4 - INFO -   📡 Telegram Polling Thread Started
+2026-03-15 13:42:43,117 - DOF-v4 - INFO - 
+============================================================
+  DOF v4 — Cycle #29 — 2026-03-15T18:42:43Z — 7d left
+============================================================
+2026-03-15 13:42:43,117 - DOF-v4 - INFO -   Research: Searching trends and A2A peers for Cycle #29...
+2026-03-15 13:42:43,591 - DOF-v4 - INFO -   A2A: registration.json updated with OASF skills.
+2026-03-15 13:42:44,009 - DOF-v4 - INFO -   Research ✅ Context updated.
+2026-03-15 13:42:44,650 - DOF-v4 - INFO -   Health: ok
+2026-03-15 13:42:45,999 - DOF-v4 - INFO -   Attest: HTTP 200 0x598c3a2b2019...
+2026-03-15 13:42:46,585 - DOF-v4 - INFO -   LLM: Calling Groq (llama-3.3-70b-versatile)...
+2026-03-15 13:42:46,971 - DOF-v4 - WARNING -   LLM: Groq Rate Limit (429). Switching to fallbacks...
+2026-03-15 13:42:46,971 - DOF-v4 - INFO -   LLM: Trying Mistral (mistral-small-latest)...
+2026-03-15 13:42:50,493 - DOF-v4 - INFO -   LLM: Success via Mistral
+2026-03-15 13:42:50,493 - DOF-v4 - WARNING -   Decision Parsing Error: Expecting ',' delimiter: line 3 column 160 (char 188)
+2026-03-15 13:42:50,494 - DOF-v4 - INFO -   Reviewer Agent: Validating decision...
+2026-03-15 13:42:50,494 - DOF-v4 - INFO -   ✅ Reviewer APPROVED
+2026-03-15 13:42:50,494 - DOF-v4 - INFO -   OASF Tag: web3/development
+2026-03-15 13:42:50,495 - DOF-v4 - INFO -   Trace generated: trace_cycle_0029.json
+2026-03-15 13:42:50,527 - DOF-v4 - INFO -   LLM: Calling Groq (llama-3.3-70b-versatile)...
+2026-03-15 13:42:50,855 - DOF-v4 - WARNING -   LLM: Groq Rate Limit (429). Switching to fallbacks...
+2026-03-15 13:42:50,855 - DOF-v4 - INFO -   LLM: Trying Mistral (mistral-small-latest)...
+2026-03-15 13:42:56,797 - DOF-v4 - INFO -   LLM: Success via Mistral
+2026-03-15 13:42:56,798 - DOF-v4 - INFO -   README ✅
+2026-03-15 13:42:57,122 - DOF-v4 - INFO -   Conv log ✅
