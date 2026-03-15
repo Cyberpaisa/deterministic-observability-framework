@@ -1,0 +1,74 @@
+Cannot register SIGTERM handler: not running in main thread
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/crewai/telemetry/telemetry.py", line 214, in _register_signal_handler
+    signal.signal(sig, handler)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/signal.py", line 58, in signal
+    handler = _signal.signal(_enum_to_int(signalnum), _enum_to_int(handler))
+ValueError: signal only works in main thread of the main interpreter
+Cannot register SIGINT handler: not running in main thread
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/crewai/telemetry/telemetry.py", line 214, in _register_signal_handler
+    signal.signal(sig, handler)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/signal.py", line 58, in signal
+    handler = _signal.signal(_enum_to_int(signalnum), _enum_to_int(handler))
+ValueError: signal only works in main thread of the main interpreter
+Cannot register SIGHUP handler: not running in main thread
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/crewai/telemetry/telemetry.py", line 214, in _register_signal_handler
+    signal.signal(sig, handler)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/signal.py", line 58, in signal
+    handler = _signal.signal(_enum_to_int(signalnum), _enum_to_int(handler))
+ValueError: signal only works in main thread of the main interpreter
+Cannot register SIGTSTP handler: not running in main thread
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/crewai/telemetry/telemetry.py", line 214, in _register_signal_handler
+    signal.signal(sig, handler)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/signal.py", line 58, in signal
+    handler = _signal.signal(_enum_to_int(signalnum), _enum_to_int(handler))
+ValueError: signal only works in main thread of the main interpreter
+Cannot register SIGCONT handler: not running in main thread
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/crewai/telemetry/telemetry.py", line 214, in _register_signal_handler
+    signal.signal(sig, handler)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/signal.py", line 58, in signal
+    handler = _signal.signal(_enum_to_int(signalnum), _enum_to_int(handler))
+ValueError: signal only works in main thread of the main interpreter
+Exception in thread Thread-1 (_execute):
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/threading.py", line 1041, in _bootstrap_inner
+    self.run()
+    ~~~~~~~~^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/threading.py", line 992, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jquiceva/equipo de agentes/deterministic-observability-framework/interfaces/telegram_bot.py", line 724, in _execute
+    crew = _create_crew(mode, task, project)
+  File "/Users/jquiceva/equipo de agentes/deterministic-observability-framework/interfaces/telegram_bot.py", line 689, in _create_crew
+    from crew import (
+    ...<6 lines>...
+    )
+  File "/Users/jquiceva/equipo de agentes/deterministic-observability-framework/crew.py", line 15, in <module>
+    from core.providers import ProviderManager, get_llm_for_role
+ImportError: cannot import name 'get_llm_for_role' from 'core.providers' (/Users/jquiceva/equipo de agentes/deterministic-observability-framework/core/providers.py)
+Exception in thread Thread-3 (_execute):
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/threading.py", line 1041, in _bootstrap_inner
+    self.run()
+    ~~~~~~~~^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/threading.py", line 992, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jquiceva/equipo de agentes/deterministic-observability-framework/interfaces/telegram_bot.py", line 724, in _execute
+    crew = _create_crew(mode, task, project)
+  File "/Users/jquiceva/equipo de agentes/deterministic-observability-framework/interfaces/telegram_bot.py", line 689, in _create_crew
+    from crew import (
+    ...<6 lines>...
+    )
+  File "/Users/jquiceva/equipo de agentes/deterministic-observability-framework/crew.py", line 15, in <module>
+    from core.providers import ProviderManager, get_llm_for_role
+ImportError: cannot import name 'get_llm_for_role' from 'core.providers' (/Users/jquiceva/equipo de agentes/deterministic-observability-framework/core/providers.py)

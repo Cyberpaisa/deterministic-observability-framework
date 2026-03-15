@@ -42,3 +42,9 @@
 2026-03-15 14:37:13,147 - DOF-v4 - INFO -   LLM: Trying Mistral (mistral-small-latest)...
 2026-03-15 14:37:13,683 - DOF-v4 - INFO -   LLM: Success via Mistral
 2026-03-15 14:37:13,980 - DOF-v4 - INFO -   Conv log ✅
+2026-03-15 14:37:14,935 - DOF-v4 - INFO -   Git: OK
+2026-03-15 14:37:15,625 - DOF-v4 - INFO -   Telegram ✅
+2026-03-15 14:37:15,625 - DOF-v4 - INFO -   💓 Checking Moltbook Heartbeat...
+2026-03-15 14:37:16,558 - DOF-v4 - INFO -   Moltbook Status: CLAIMED. (Ready to post strategy).
+2026-03-15 14:37:16,561 - DOF-v4 - INFO -   ✅ Cycle #32 done. Next in 30min
+
