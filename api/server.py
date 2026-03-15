@@ -208,6 +208,16 @@ async def oags_conformance():
     return tool_conformance_check({})
 
 
+@app.get("/api/v1/trust-score")
+async def trust_score():
+    from synthesis.trust_engine import TrustEngine
+    try:
+        engine = TrustEngine(BASE_DIR)
+        return engine.calculate_score()
+    except Exception as e:
+        return JSONResponse(status_code=500, content={"error": str(e)})
+
+
 @app.get("/api/v1/constitution")
 async def constitution():
     result = resource_constitution()

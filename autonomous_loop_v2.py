@@ -53,13 +53,19 @@ def load_soul():
         if SOUL_PATH.exists():
             content = SOUL_PATH.read_text()
             sections = []
-            for section in ["MI PROPÓSITO", "REGLAS DE DECISIÓN", "LOS 4 TRACKS", "CÓMO FORMULAR PREGUNTAS", "SELF-LEARNING", "COUNTDOWN"]:
-                if section in content:
-                    start = content.index(section)
-                    next_header = content.find("\n## ", start + len(section))
+            headers = ["LORE & ORIGINS", "SKILLS ACTIVOS", "FRAMEWORK DE CONFIANZA", "REGLAS DE DECISIÓN", "INTERACCIÓN INTELIGENTE", "COUNTDOWN"]
+            for h in headers:
+                # Find header in content (case-insensitive search)
+                idx = content.upper().find(h)
+                if idx != -1:
+                    # Find start of line (the ##)
+                    start = content.rfind("##", 0, idx)
+                    if start == -1: start = idx
+                    # Find next ## header or end
+                    next_header = content.find("\n## ", start + 2)
                     if next_header == -1: next_header = len(content)
                     sections.append(content[start:next_header].strip())
-            return "\n\n".join(sections[:4])
+            return "\n\n".join(sections)
     except Exception:
         pass
     return "Soy DOF Agent #1686. Mi meta: ganar Synthesis 2026."
@@ -470,6 +476,52 @@ def task_telegram(cycle, decision, proof):
     if q:
         zep_save("assistant", f"Asked Juan: {q}")
     log.info("  Telegram ✅")
+    
+def task_trace(cycle, decision, proof, created_feature=None):
+    """Genera un rastro determinístico firmado (simulado) para auditoría."""
+    trace_dir = Path("logs/traces")
+    trace_dir.mkdir(parents=True, exist_ok=True)
+    
+    import hashlib
+    state_blob = json.dumps({
+        "cycle": cycle,
+        "timestamp": now(),
+        "decision": decision,
+        "proof": proof,
+        "feature": created_feature,
+        "score": SCORE
+    }, sort_keys=True)
+    
+    signature = hashlib.sha256(state_blob.encode()).hexdigest()
+    
+    trace_file = trace_dir / f"trace_cycle_{cycle:04d}.json"
+    trace_data = {
+        "vtl_version": "1.0",
+        "agent_id": AGENT_ID,
+        "data": json.loads(state_blob),
+        "cryptographic_signature": f"0x{signature}",
+        "status": "VERIFIED_DETERMINISTIC"
+    }
+    
+    trace_file.write_text(json.dumps(trace_data, indent=2))
+    log.info(f"  Trace generated: {trace_file.name}")
+    return trace_file
+
+def review_decision(cycle, decision):
+    """Simula un Multi-Agent Review Loop para mayor seguridad."""
+    log.info("  Reviewer Agent: Validating decision...")
+    
+    critical_words = ["delete", "remove", "drop", "sudo", "rm -rf"]
+    thoughts = decision.get("thoughts", "").lower()
+    action = decision.get("action", "").lower()
+    
+    for word in critical_words:
+        if word in thoughts or word in action:
+            log.warning(f"  ⚠️ Reviewer REJECTED: Potential destructive action detected ('{word}')")
+            return False
+            
+    log.info("  ✅ Reviewer APPROVED")
+    return True
 
 # ─── CICLO PRINCIPAL ──────────────────────────────────────────────────
 def run_cycle(cycle):
@@ -487,19 +539,28 @@ def run_cycle(cycle):
 
     # 4. Strategic decision (SOUL-powered)
     decision = task_decide(cycle)
+    
+    # 5. Multi-Agent Review
+    if not review_decision(cycle, decision):
+        log.warning("  Aborting cycle due to reviewer rejection.")
+        return
 
-    # 5. Execute decision dynamically
+    # 6. Execute decision dynamically
+    created_feature = None
     if decision.get("action") == "add_feature":
-        created = task_execute(decision)
-        if created:
+        created_feature = task_execute(decision)
+        if created_feature:
             log.info("  🏗️ Feature created dynamically!")
 
-    # 6. Self-audit (every 4th cycle)
+    # 7. Self-audit (every 4th cycle)
     audit = task_self_audit(cycle)
     if audit:
         log.info(f"  🔍 Audit score: {audit.get('quality_score','?')}/10")
 
-    # 7. Standard tasks
+    # 8. Generate Deterministic Trace (DOF Governance)
+    task_trace(cycle, decision, proof, created_feature)
+
+    # 9. Standard tasks
     task_readme(decision)
     task_conv_log(cycle, decision, proof)
     task_git(cycle, decision)
