@@ -98,21 +98,55 @@ def groq(messages, max_tokens=500):
             return r.json()["choices"][0]["message"]["content"]
     except Exception as e:
         log.warning(f"Groq API error: {e}")
+        
+    fallbacks = [
+        {
+            "name": "Cerebras",
+            "key": os.getenv("CEREBRAS_API_KEY"),
+            "url": "https://api.cerebras.ai/v1/chat/completions",
+            "model": "llama3.1-8b"
+        },
+        {
+            "name": "SambaNova",
+            "key": os.getenv("SAMBANOVA_API_KEY"),
+            "url": "https://api.sambanova.ai/v1/chat/completions",
+            "model": "Meta-Llama-3.1-70B-Instruct"
+        },
+        {
+            "name": "Minimax",
+            "key": os.getenv("MINIMAX_API_KEY"),
+            "url": "https://api.minimax.chat/v1/text/chatcompletion_v2",
+            "model": "MiniMax-Text-01"
+        },
+        {
+            "name": "Nvidia",
+            "key": os.getenv("NVIDIA_API_KEY"),
+            "url": "https://integrate.api.nvidia.com/v1/chat/completions",
+            "model": "meta/llama-3.1-70b-instruct"
+        },
+        {
+            "name": "OpenRouter",
+            "key": os.getenv("OPENROUTER_API_KEY"),
+            "url": "https://openrouter.ai/api/v1/chat/completions",
+            "model": "meta-llama/llama-3.3-70b-instruct"
+        }
+    ]
     
-    # Fallback to OpenRouter (Llama 3.3) if Groq fails
-    openrouter_key = os.getenv("OPENROUTER_API_KEY")
-    if openrouter_key:
+    for provider in fallbacks:
+        if not provider["key"]:
+            continue
         try:
             r = requests.post(
-                "https://openrouter.ai/api/v1/chat/completions",
-                headers={"Authorization": f"Bearer {openrouter_key}"},
-                json={"model": "meta-llama/llama-3.3-70b-instruct", "messages": messages, "max_tokens": max_tokens},
+                provider["url"],
+                headers={"Authorization": f"Bearer {provider['key']}"},
+                json={"model": provider["model"], "messages": messages, "max_tokens": max_tokens},
                 timeout=30
             )
             if r.status_code == 200:
+                log.info(f"Fallback successful via {provider['name']}")
                 return r.json()["choices"][0]["message"]["content"]
         except Exception as e:
-            log.warning(f"OpenRouter API error: {e}")
+            log.warning(f"{provider['name']} API error: {e}")
             
     return None
 
