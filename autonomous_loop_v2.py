@@ -1,4 +1,23 @@
 import os
+import sys
+import time
+import subprocess
+import hashlib
+import datetime
+import logging
+import requests
+import json
+import traceback
+import threading
+import re
+from pathlib import Path
+from dotenv import load_dotenv
+
+# --- INITIALIZATION ---
+load_dotenv()
+
+# --- LLM CONFIG & FALLBACKS ---
+# Define fallbacks AFTER load_dotenv()
 fallbacks = [
     {
         "name": "Nvidia",
@@ -31,18 +50,20 @@ fallbacks = [
         "model": "MiniMax-M2.1"
     }
 ]
-...
-import os, sys, time, subprocess, hashlib, datetime, logging, requests, json, traceback, threading, re
-from pathlib import Path
+
+# Debug check
+for p in fallbacks:
+    if p["key"]:
+        print(f"DEBUG: Provider {p['name']} key loaded.")
+    else:
+        print(f"DEBUG: Provider {p['name']} key MISSING.")
 
 sys.path.append(str(Path(__file__).parent.absolute() / "scripts"))
 from ofac_checker import check_address_compliance
-from dotenv import load_dotenv
 from synthesis.web3_utils import Web3Manager
 from synthesis.contract_factory import ContractFactory
 from synthesis.evolution_engine import EvolutionEngine
 from synthesis.a2a_utils import A2AUtils
-load_dotenv()
 
 # ─── CONFIG ────────────────────────────────────────────────────────────
 LOOP_INTERVAL    = 1800

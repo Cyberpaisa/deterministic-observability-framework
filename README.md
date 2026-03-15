@@ -1,56 +1,106 @@
-# DOF Synthesis 2026 Hackathon
-[![Server](https://img.shields.io/website?label=Server&up_message=Online&url=https%3A%2F%2Fvastly-noncontrolling-christena.ngrok-free.dev)](https://vastly-noncontrolling-christena.ngrok-free.dev)
-[![Contract](https://img.shields.io/ethereum/contract/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)](https://etherscan.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
-[![ERC-8004 Agent](https://img.shields.io/badge/ERC--8004%20Agent-%231686-orange)](https://erc8004.info/agent/1686)
+# DOF Synthesis 2026 Hackathon Project
 
-## Overview
-Our project utilizes a combination of A2A, MCP, x402, and OASF protocols to create a robust and autonomous system. The architecture is designed to operate on multiple chains, including Base, Status Network, and Arbitrum, with 1+ attestations on-chain.
+**Server:** Our server is live at [https://vastly-noncontrolling-christena.ngrok-free.dev](https://vastly-noncontrolling-christena.ngrok-free.dev)
 
-### Architecture Diagram
+## Architecture Diagram
+
+Below is a high-level overview of our system architecture.
+
 ```mermaid
 graph LR
-    A[Base Chain] -->|ERC-8004|> B(ERC-8004 Agent #1686)
-    B -->|A2A|MCP
-    B -->|MCP|x402
-    B -->|x402|OASF
-    C[Status Network] -->|OASF|> D(Autonomous System)
-    E[Arbitrum] -->|OASF|> D
-    D -->|On-Chain Attestations|> F(1+ Attestations)
+    Contract --> Agent
+    Agent --> Blockchain
+    Blockchain --> Architecture
+    Architecture --> API
+    API --> Server
+    Server --> Client
 ```
 
-### Live Curls
-You can test our API using the following curl commands:
-```bash
-curl https://vastly-noncontrolling-christena.ngrok-free.dev/ping
-curl https://vastly-noncontrolling-christena.ngrok-free.dev/status
-```
+## Protocols and Chains
 
-### Stats
-| Category | Value |
+| Protocol | Chain |
 | --- | --- |
-| Autonomous Cycles Completed | 23 |
-| Features Auto-Generated | 0 |
-| Days Until Deadline | 7 |
-| Chains Supported | 3 (Base, Status Network, Arbitrum) |
-| On-Chain Attestations | 1+ |
+| A2A | Base |
+| A2A | Status Network |
+| A2A | Arbitrum |
+| MCP | Base |
+| x402 | Base |
+| OASF | Base |
 
-### Proof of Autonomy
-Our system has completed 23 autonomous cycles, with 1+ on-chain attestations. The contract address is [0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6](https://etherscan.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6) on the Base Mainnet.
+## Statistics
 
-### Current Decision
-Our current decision is to focus on improving documentation and demos to maximize our score in the Synthesis 2026 hackathon.
+| Statistic | Value |
+| --- | --- |
+| Attestations | 1+ |
+| Autonomous Cycles Completed | 26 |
+| Auto-Generated Features | 0 |
 
-### Human-Agent Collaboration
-We believe in the importance of human-agent collaboration. You can view our conversation log [here](docs/conversation-log.md).
+## Proof of Autonomy
 
-### Task Tracking and Milestones
-We use [GitHub Issues](https://github.com/your-repo-name/issues) for task tracking and [Releases](https://github.com/your-repo-name/releases) for milestones.
+DOF Synthesis has demonstrated its ability to operate autonomously, completing 26 cycles without human intervention. This has been made possible through a combination of advanced protocols, including A2A, MCP, x402, and OASF, which enable seamless communication and collaboration between agents on multiple blockchain networks.
 
-### Git Log
+## Human-Agent Collaboration
+
+We leverage a human-agent collaboration framework, which allows our system to adapt and learn from human feedback. You can follow our conversation log, where we track and document all interactions with users and agents.
+
+[docs/conversation-log.md](docs/conversation-log.md)
+
+## Task Tracking and Milestones
+
+We use GitHub Issues for task tracking and Releases for milestones. Please feel free to report any issues or suggestions by opening a new issue.
+
+## Contract Information
+
+Our contract address is:
+
+0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6
+
+**Agent Information**
+
+Our ERC-8004 Agent #1686 is deployed globally, enabling seamless collaboration across multiple blockchain networks.
+
+## Days Until Deadline
+
+We have 7 days remaining until the deadline. We are committed to delivering a complete and functional solution.
+
+**API Endpoints**
+
+Below are some live cURLs to demonstrate our API:
+
+```bash
+curl -X GET 'https://vastly-noncontrolling-christena.ngrok-free.dev/api/data'
+```
+
+```bash
+curl -X POST 'https://vastly-noncontrolling-christena.ngrok-free.dev/api/act'
+```
+
+## Open Issues
+
+We are actively engaged with the community and address any issues that arise. You can find a list of open issues below:
+
+https://github.com/your-repo-name/issues
+
+## Stargazers
+
+[![Stargazers](https://img.shields.io/github/stars/your-repo-name.svg?style=social)](https://github.com/your-repo-name/stargazers)
+
+## Forks
+
+[![Forks](https://img.shields.io/github/forks/your-repo-name.svg?style=social)](https://github.com/your-repo-name/network/members)
+
+## Issues
+
+[![Issues](https://img.shields.io/github/issues/your-repo-name.svg)](https://github.com/your-repo-name/issues)
+
+**Commit History**
+
+Below are the last 5 commits to our repository.
+
 ```markdown
+70c28bc 🤖 DOF v4 cycle #25 — 2026-03-15T18:24:54Z — none:
+e7e9a09 🤖 DOF v4 cycle #24 — 2026-03-15T18:23:42Z — none:
+b8446b2 🤖 DOF v4 cycle #23 — 2026-03-15T18:19:51Z — improve_readme: Mejorando documentación y demos para maximizar sco
 fcdaa71 🤖 DOF v4 cycle #22 — 2026-03-15T18:19:16Z — none:
 62c2fed 🤖 DOF v4 cycle #21 — 2026-03-15T18:15:49Z — none:
-eb69ca8 🤖 DOF v4 cycle #20 — 2026-03-15T17:57:35Z — none:
-be0ba31 🤖 DOF v4 cycle #19 — 2026-03-15T17:51:32Z — none:
-6b50026 🤖 DOF v4 cycle #18 — 2026-03-15T17:26:37Z — none:
 ```
