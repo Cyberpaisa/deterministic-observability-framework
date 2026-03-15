@@ -92,7 +92,7 @@ def tg(msg):
     except Exception:
         pass
 
-def groq(messages, max_tokens=6000):
+def groq(messages, max_tokens=8000):
     if not GROQ_KEY: return None
     try:
         r = requests.post(
@@ -460,7 +460,7 @@ def task_decide(cycle):
         {"role": "user", "content": f"Research Context:\n{GLOBAL_RESEARCH_CONTEXT}\n\nMemory:\n{memory}\n\nGit log:\n{git_log}\n\nWhat is your next action?"}
     ]
     
-    reply = groq(prompt, max_tokens=6000)
+    reply = groq(prompt, max_tokens=8000)
     if not reply:
         return {"action": "none", "thought": "No response from Groq."}
         
