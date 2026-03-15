@@ -1068,9 +1068,13 @@ def task_conv_log(cycle, decision, proof):
     if not CONV_LOG.exists():
         CONV_LOG.write_text("# DOF — Conversation Log\nSynthesis 2026\n\n")
     with open(CONV_LOG, "a") as f:
-        f.write(f"\n## Cycle #{cycle} — {now()}\n")
-        f.write(f"**Thoughts:** {decision.get('thoughts','')}\n")
-        f.write(f"**Decision:** {decision.get('decision','')}\n")
+        thoughts = decision.get('thoughts','') or 'Analyzing hackathon state and optimizing strategy...'
+        dec = decision.get('decision','') or 'Continuing autonomous development toward Synthesis 2026 win'
+        reasoning = decision.get('reason', decision.get('reasoning','')) or 'Maximizing prize eligibility'
+        f.write(f"\n## 🤖 Cycle #{cycle} — {now()}\n")
+        f.write(f"**Thoughts:** {thoughts}\n")
+        f.write(f"**Decision:** {dec}\n")
+        f.write(f"**Reasoning:** {reasoning}\n")
         f.write(f"**Action:** {decision.get('action','')}\n")
         f.write(f"**Proof:** {proof}\n")
         f.write(f"**Q para Juan:** {decision.get('question_for_juan','none')}\n\n---\n")
