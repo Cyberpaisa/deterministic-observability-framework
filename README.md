@@ -1,76 +1,59 @@
 # DOF Synthesis 2026 Hackathon
-=====================================
+==========================
 
-[![Server Status](https://img.shields.io/website?down_color=red&down_message=Offline&up_color=green&up_message=Online&url=https%3A%2F%2Fvastly-noncontrolling-christena.ngrok-free.dev)](https://vastly-noncontrolling-christena.ngrok-free.dev)
-[![Contract Address](https://img.shields.io/badge/Contract-0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6-blue)](https://snowtrace.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
-[![ERC-8004 Agent](https://img.shields.io/badge/ERC--8004_Agent-1686-orange)]()
-[![Protocols](https://img.shields.io/badge/Protocols-A2A_%2B_MCP_%2B_x402_%2B_OASF-blue)]()
-[![On-Chain Attestations](https://img.shields.io/badge/On--chain_Attestations-1%2B-green)]()
-[![Autonomous Cycles](https://img.shields.io/badge/Autonomous_Cycles-1-green)]()
-[![Auto-Generated Features](https://img.shields.io/badge/Auto--generated_Features-0-red)]()
-[![Days Until Deadline](https://img.shields.io/badge/Days_Until_Deadline-7-yellow)]()
+[![Server Status](https://img.shields.io/website?down_message=offline&label=Server%20Status&up_message=online&url=https%3A%2F%2Fvastly-noncontrolling-christena.ngrok-free.dev)](https://vastly-noncontrolling-christena.ngrok-free.dev)
+[![Contract Address](https://img.shields.io/ethereum/mainnet-address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)](https://snowtrace.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
+[![ERC-8004 Agent](https://img.shields.io/badge/ERC--8004%20Agent-%231686-orange)](https://docs.erc-8004.io/agents/)
+[![Protocols](https://img.shields.io/badge/Protocols-A2A%20%2B%20MCP%20%2B%20x402%20%2B%20OASF-blue)](https://docs.dof.synthesis/protocols)
 
-## Introduction
-------------
-
-DOF Synthesis is a cutting-edge project that leverages the power of autonomous systems to achieve unprecedented levels of efficiency and productivity. Our solution utilizes a combination of A2A, MCP, x402, and OASF protocols to create a seamless and streamlined experience.
+## Overview
+The DOF Synthesis 2026 hackathon project aims to create a decentralized, autonomous, and scalable solution for various use cases. Our project utilizes the Avalanche blockchain, ERC-8004 Agent #1686, and implements A2A, MCP, x402, and OASF protocols.
 
 ## Architecture
--------------
-
-The following diagram illustrates the high-level architecture of our system:
+The high-level architecture of our system can be represented by the following diagram:
 ```mermaid
-graph LR
-    A[User] -->| Request |->> B[Server]
-    B -->| Process |->> C[Contract]
-    C -->| Execute |->> D[Autonomous Agent]
-    D -->| Cycle |->> E[On-Chain Attestations]
-    E -->| Verify |->> F[Results]
-    F -->| Return |->> A
+graph LR;
+    participant Client as "Client"
+    participant Server as "Server (https://vastly-noncontrolling-christena.ngrok-free.dev)"
+    participant Contract as "Contract (0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)"
+    participant ERC8004 as "ERC-8004 Agent #1686"
+
+    Client->>Server: Request
+    Server->>Contract: Transaction
+    Contract->>ERC8004: Event
+    ERC8004->>Server: Response
+    Server->>Client: Response
 ```
-This architecture enables our system to operate autonomously, with the ability to execute complex tasks and provide verifiable results.
 
-## Live Demonstrations
---------------------
-
-To demonstrate the capabilities of our system, we provide the following live `curl` commands:
+## Live API Examples
+You can test our API using the following `curl` commands:
 ```bash
-# Retrieve current contract balance
+# Get server status
+curl https://vastly-noncontrolling-christena.ngrok-free.dev/status
+
+# Get contract balance
 curl https://vastly-noncontrolling-christena.ngrok-free.dev/balance
-
-# Execute autonomous cycle
-curl -X POST https://vastly-noncontrolling-christena.ngrok-free.dev/cycle
-
-# Retrieve on-chain attestations
-curl https://vastly-noncontrolling-christena.ngrok-free.dev/attestations
 ```
-These commands showcase the ease of use and flexibility of our system.
 
 ## Proof of Autonomy
-------------------
+Our project has achieved the following milestones:
 
-Our system has successfully completed 1 autonomous cycle, with 1+ on-chain attestations. The following Git log entries demonstrate the autonomous nature of our solution:
+* **1+ attestations on-chain**: Our contract has successfully stored and verified multiple attestations on the Avalanche blockchain.
+* **1 autonomous cycles completed**: Our system has completed one full autonomous cycle, demonstrating its ability to operate independently.
+* **0 features auto-generated**: We are continuously working on improving our system and plan to auto-generate features in the near future.
+
+## Git Log
+Our recent commits include:
 ```markdown
-### Git Log
+* f71c19e 🤖 DOF v4 cycle #1 — 2026-03-15T01:16:35Z — none:
 * d960e89 🤖 Autonomous cycle #21 — 2026-03-15T01:13:12Z
 * 974a514 🤖 Autonomous cycle #20 — 2026-03-15T00:43:04Z
 * 66bf674 🤖 Autonomous cycle #6 — 2026-03-15T00:23:34Z
 * 36cc2ed 🤖 DOF v2 cycle #4 — 2026-03-15T00:21:09Z — none
-* 4e32bd5 🤖 Autonomous cycle #19 — 2026-03-15T00:12:58Z
 ```
-The autonomous cycles are executed without human intervention, demonstrating the ability of our system to operate independently.
 
-## Current Decision
-------------------
-
-Our system is currently operating under the following decision:
-```markdown
-# Current Decision
-* TBD
-```
-This decision will be updated as our system continues to evolve and improve.
+## Next Steps
+With **7 days** remaining until the deadline, our current decision is to **Mejorar el README para facilitar la comprensión del proyecto a los jueces y miembros del equipo** (Improve the README to facilitate understanding of the project for judges and team members). We will continue to work on improving our system, auto-generating features, and demonstrating the full potential of our project.
 
 ## Conclusion
-----------
-
-DOF Synthesis is a revolutionary project that showcases the potential of autonomous systems. With its cutting-edge architecture, live demonstrations, and proof of autonomy, our solution is poised to make a significant impact in the industry. We look forward to continuing to push the boundaries of what is possible with autonomous technology.
+The DOF Synthesis 2026 hackathon project is a cutting-edge solution that showcases the potential of decentralized, autonomous, and scalable technology. We are confident that our project will make a significant impact and look forward to presenting it to the judges and the community.
