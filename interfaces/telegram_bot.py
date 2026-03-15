@@ -908,9 +908,9 @@ REGLAS ABSOLUTAS:
     reply = None
 
     for provider, url, key_env, model in [
-        ("Groq",       "https://api.groq.com/openai/v1/chat/completions",          "GROQ_API_KEY",        "llama-3.3-70b-versatile"),
-        ("Cerebras",   "https://api.cerebras.ai/v1/chat/completions",              "CEREBRAS_API_KEY",    "llama-3.3-70b"),
-        ("OpenRouter", "https://openrouter.ai/api/v1/chat/completions",            "OPENROUTER_API_KEY",  "meta-llama/llama-3.3-70b-instruct"),
+        ("Groq",     "https://api.groq.com/openai/v1/chat/completions",  "GROQ_API_KEY",    "llama-3.3-70b-versatile"),
+        ("Mistral",  "https://api.mistral.ai/v1/chat/completions",       "MISTRAL_API_KEY", "mistral-small-latest"),
+        ("Cerebras", "https://api.cerebras.ai/v1/chat/completions",      "CEREBRAS_API_KEY","llama-3.3-70b"),
     ]:
         key = os.getenv(key_env, "")
         if not key:
@@ -929,7 +929,11 @@ REGLAS ABSOLUTAS:
             continue
 
     if reply:
-        bot.reply_to(message, f"🤖 *Enigma:*\n\n{reply}", parse_mode="Markdown")
+        try:
+            bot.reply_to(message, f"🤖 *Enigma:*\n\n{reply}", parse_mode="Markdown")
+        except Exception:
+            # Si Markdown falla, enviar sin formato
+            bot.reply_to(message, f"🤖 Enigma:\n\n{reply}")
     else:
         bot.reply_to(message, "⚠️ LLMs no disponibles ahora. Reintenta en 30s.")
 
