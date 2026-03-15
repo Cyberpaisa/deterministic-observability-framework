@@ -43,3 +43,4 @@ contracts/deployed_address.txt
 keys/
 data/
 .telegram_offset
+.pytest_cache/
