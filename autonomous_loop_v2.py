@@ -1,10 +1,10 @@
 import os
 fallbacks = [
     {
-        "name": "Groq",
-        "key": os.getenv("GROQ_API_KEY"),
-        "url": "https://api.groq.com/openai/v1/chat/completions",
-        "model": "mixtral-8x7b-32768"
+        "name": "Nvidia",
+        "key": os.getenv("NVIDIA_API_KEY"),
+        "url": "https://integrate.api.nvidia.com/v1/chat/completions",
+        "model": "deepseek-ai/deepseek-v3.2"
     },
     {
         "name": "Cerebras",
@@ -13,28 +13,22 @@ fallbacks = [
         "model": "llama3.1-8b"
     },
     {
-        "name": "Hyperbolic",
-        "key": os.getenv("HYPERBOLIC_API_KEY"),
-        "url": "https://api.hyperbolic.xyz/v1/chat/completions",
+        "name": "SambaNova",
+        "key": os.getenv("SAMBANOVA_API_KEY"),
+        "url": "https://api.sambanova.ai/v1/chat/completions",
         "model": "Meta-Llama-3.1-70B-Instruct"
     },
     {
-        "name": "Nebius",
-        "key": os.getenv("NEBIUS_API_KEY"),
-        "url": "https://api.studio.nebius.ai/v1/chat/completions",
-        "model": "MiniMax-Text-01"
+        "name": "OpenRouter",
+        "key": os.getenv("OPENROUTER_API_KEY"),
+        "url": "https://openrouter.ai/api/v1/chat/completions",
+        "model": "nousresearch/hermes-3-llama-3.1-405b:free"
     },
     {
-        "name": "Together",
-        "key": os.getenv("TOGETHER_API_KEY"),
-        "url": "https://api.together.xyz/v1/chat/completions",
-        "model": "meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo"
-    },
-    {
-        "name": "DeepInfra",
-        "key": os.getenv("DEEPINFRA_API_KEY"),
-        "url": "https://api.deepinfra.com/v1/openai/chat/completions",
-        "model": "meta-llama/Meta-Llama-3.1-70B-Instruct"
+        "name": "MiniMax",
+        "key": os.getenv("MINIMAX_API_KEY"),
+        "url": "https://api.minimax.chat/v1/chat/completions",
+        "model": "MiniMax-M2.1"
     }
 ]
 ...
