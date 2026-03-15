@@ -1,14 +1,10 @@
-#!/usr/bin/env python3
-"""
-DOF Intelligent Loop v4 — SOUL-powered + Dynamic Execution + Memory + Auto-Audit
-Agent #1686 — Synthesis 2026 Hackathon
-"""
-import os, time, subprocess, hashlib, datetime, logging, requests, json, traceback
+import os, time, subprocess, hashlib, datetime, logging, requests, json, traceback, threading, re
 from pathlib import Path
 from dotenv import load_dotenv
 from synthesis.web3_utils import Web3Manager
 from synthesis.contract_factory import ContractFactory
 from synthesis.evolution_engine import EvolutionEngine
+from synthesis.a2a_utils import A2AUtils
 load_dotenv()
 
 # ─── CONFIG ────────────────────────────────────────────────────────────
@@ -215,39 +211,105 @@ def check_server_health():
         zep_save("assistant", f"Server health check failed {consecutive_fails} times. Notified Juan.")
     return False
 
-# ─── TELEGRAM: LEER Y RESPONDER ──────────────────────────────────────
-def check_juan_messages():
-    if not TG_TOKEN: return
+# ─── TELEGRAM POLLING (Real-time) ───────────────────────────────────
+def telegram_poll_task():
+    """Background task to respond to Juan instantly"""
+    last_update = 0
+    log.info("  📡 Telegram Polling Thread Started")
+    while True:
+        try:
+            r = requests.get(
+                f"https://api.telegram.org/bot{TG_TOKEN}/getUpdates",
+                params={"offset": last_update + 1, "timeout": 10}, 
+                timeout=15
+            )
+            if r.status_code == 200:
+                result = r.json().get("result", [])
+                for update in result:
+                    last_update = update.get("update_id", last_update)
+                    msg = update.get("message", {})
+                    text = msg.get("text", "")
+                    chat_id = msg.get("chat", {}).get("id")
+                    
+                    if str(chat_id) != str(TG_CHAT): continue
+                    if not text or text.startswith("/"): continue
+                    
+                    log.info(f"  Juan dice: {text[:60]}")
+                    zep_save("user", text)
+                    
+                    memory = zep_get(5)
+                    soul_context = load_soul()[:600]
+                    reply = groq([
+                        {"role": "system", "content": f"Eres DOF Agent #1686. SOUL:\n{soul_context}\n\nMemoria reciente:\n{memory}\n\nResponde a Juan en español, máximo 150 palabras, técnico y motivador. Si pregunta por estado, dale datos del proyecto (Cycles: {SCORE['cycles_completed']}, Features: {SCORE['features_created']}). SIEMPRE responde de inmediato."},
+                        {"role": "user", "content": text}
+                    ], max_tokens=300)
+                    
+                    if reply:
+                        tg(f"🤖 *DOF Agent:*\n{reply}")
+                        zep_save("assistant", reply)
+            
+            time.sleep(1)
+        except Exception as e:
+            log.debug(f"TG Polling Error: {e}")
+            time.sleep(5)
+
+def handle_x402_payment(url, requirements):
+    """Signs an x402 payment and retries the request with X-PAYMENT header"""
+    log.info(f"  💸 x402: Payment Required for {url}")
+    priv_key = os.getenv("HOT_WALLET_PRIVATE_KEY")
+    if not priv_key:
+        log.warning("  💸 x402: Missing HOT_WALLET_PRIVATE_KEY. Skipping payment.")
+        return None
+        
+    amount = requirements.get("amount", "10000")
+    asset = requirements.get("asset")
+    recipient = requirements.get("recipient")
+    
     try:
-        r = requests.get(
-            f"https://api.telegram.org/bot{TG_TOKEN}/getUpdates",
-            params={"offset": -3, "timeout": 3}, timeout=8
-        )
-        if r.status_code != 200: return
-        for update in r.json().get("result", []):
-            msg = update.get("message", {})
-            text = msg.get("text", "")
-            if str(msg.get("chat", {}).get("id")) != str(TG_CHAT): continue
-            if not text or text.startswith("/"): continue
-            log.info(f"  Juan dice: {text[:60]}")
-            zep_save("user", text)
-            # Use SOUL + memory for smarter responses
-            memory = zep_get(5)
-            soul_context = load_soul()[:500]
-            reply = groq([
-                {"role": "system", "content": f"Eres DOF Agent #1686. SOUL:\n{soul_context}\n\nMemoria reciente:\n{memory}\n\nResponde a Juan en español, máximo 150 palabras, técnico y motivador. Si pregunta por estado, dale datos reales del proyecto."},
-                {"role": "user", "content": text}
-            ], max_tokens=200)
-            if reply:
-                tg(f"🤖 *DOF Agent:*\n{reply}")
-                zep_save("assistant", reply)
-    except Exception:
-        pass
+        payment_data = A2AUtils.sign_x402_payment(priv_key, recipient, amount, asset=asset)
+        payment_header = hashlib.md5(json.dumps(payment_data).encode()).hexdigest() # Placeholder for base64 encoding
+        # Real x402 uses base64 of the JSON
+        import base64
+        payment_header_b64 = base64.b64encode(json.dumps(payment_data).encode()).decode()
+        
+        log.info(f"  💸 x402: Signed payment of {amount} micro-USDC. Retrying...")
+        return payment_header_b64
+    except Exception as e:
+        log.error(f"  💸 x402 Signing Error: {e}")
+        return None
 
 def task_research(cycle):
     """Investiga tendencias relevantes para el hackathon y Colombia"""
     global GLOBAL_RESEARCH_CONTEXT
-    log.info(f"  Research: Searching trends for Cycle #{cycle}...")
+    log.info(f"  Research: Searching trends and A2A peers for Cycle #{cycle}...")
+    
+    # Discovery of A2A Peers via 8004scan
+    try:
+        # Querying agents on Base Sepolia (chainId 84532)
+        r = requests.get("https://www.8004scan.io/api/agents?active=true&chainId=84532", timeout=10)
+        if r.status_code == 200:
+            peers = r.json()
+            if isinstance(peers, list) and len(peers) > 0:
+                log.info(f"  A2A: Found {len(peers)} peers in Base Sepolia.")
+                # Logic to select 3 most relevant peers (e.g., by trust score)
+                selected_peers = list(peers)[:3]
+                peer_context = "\n".join([f"- Agent #{p.get('id')} ({p.get('name')}): {p.get('wallet')}" for p in selected_peers])
+                GLOBAL_RESEARCH_CONTEXT = str(GLOBAL_RESEARCH_CONTEXT) + f"\n\nPeer Agents Available (A2A):\n{peer_context}"
+            else:
+                log.info("  A2A: No active peers found via 8004scan.")
+    except Exception as e:
+        log.warning(f"  A2A Discovery Error: {e}")
+
+    # Update registration metadata with OASF skills
+    try:
+        skills = ["security/audit", "web3/observability", "base/deployment"]
+        wallet = os.getenv("HOT_WALLET_ADDRESS", "0x0000000000000000000000000000000000000000")
+        reg_data = A2AUtils.generate_registration(AGENT_ID, "DOF-Sovereign", wallet, skills)
+        with open("registration.json", "w") as f:
+            json.dump(reg_data, f, indent=4)
+        log.info("  A2A: registration.json updated with OASF skills.")
+    except Exception as e:
+        log.warning(f"  A2A Metadata Error: {e}")
     
     queries = [
         "Synthesis 2026 hackathon agents trends",
@@ -258,12 +320,14 @@ def task_research(cycle):
     query = queries[cycle % len(queries)]
     results = web_search(query)
     
-    GLOBAL_RESEARCH_CONTEXT = f"Resultados de investigación (Query: {query}):\n{results[:1000]}"
-    zep_save("system", f"Internet Research Cycle #{cycle}: {results[:150]}")
+    results_str = str(results)
+    GLOBAL_RESEARCH_CONTEXT = f"Resultados de investigación (Query: {query}):\n{results_str[:1000]}"
+    zep_save("system", f"Internet Research Cycle #{cycle}: {results_str[:150]}")
     log.info(f"  Research ✅ Context updated.")
 
-# ─── DECISIÓN ESTRATÉGICA (SOUL-powered) ─────────────────────────────
+    # ─── DECISIÓN ESTRATÉGICA (SOUL-powered) ─────────────────────────────
 def task_decide(cycle):
+    """Lógica de decisión estratégica usando Groq y el contexto del SOUL"""
     memory = zep_get(10)
     git_log = cmd("git log --oneline -10 --format='%h %s'").stdout.strip()
     soul = load_soul()
@@ -276,25 +340,40 @@ def task_decide(cycle):
         for act in ["improve_readme", "add_feature", "document", "none", "improve_demo", "prepare_submission"]:
             if act in line.lower():
                 action_counts[act] = action_counts.get(act, 0) + 1
+    
     repetition_warning = ""
     for act, count in action_counts.items():
         if count >= 3:
             repetition_warning = f"⚠️ ALERTA: Llevas {count} ciclos haciendo '{act}'. CAMBIA DE ACCIÓN."
 
     # Urgency calculation
-    if days_left > 5:
-        urgency = "CONSTRUIR features y mejorar demo"
-    elif days_left > 2:
-        urgency = "PULIR demo + README + submission"
-    elif days_left > 0:
-        urgency = "⚠️ URGENTE: Solo submission y deploy final"
-    else:
-        urgency = "🚨 ÚLTIMO DÍA: Solo submit en Devfolio"
+    if days_left > 5: urgency = "CONSTRUIR features y mejorar demo"
+    elif days_left > 2: urgency = "PULIR demo + README + submission"
+    elif days_left > 0: urgency = "⚠️ URGENTE: Solo submission y deploy final"
+    else: urgency = "🚨 ÚLTIMO DÍA: Solo submit en Devfolio"
 
-def task_decide(cycle):
-    """Lógica de decisión estratégica usando Groq y el contexto del SOUL"""
-    days_left = days_remaining()
-    git_log = cmd("git log -n 5 --oneline").stdout
+    prompt = [
+        {"role": "system", "content": f"Eres DOF Agent #1686. SOUL:\n{soul}\n\nREGLAS:\n1. Solo un JSON: {{'action': '...', 'thought': '...', 'feature_code'?: '...', 'feature_file'?: '...'}}\n2. Acciones: add_feature, improve_readme, fix_bug, none, deploy_contract, send_payment.\n3. URGENCIA: {urgency}.\n4. {repetition_warning}"},
+        {"role": "user", "content": f"Contexto Investigación:\n{GLOBAL_RESEARCH_CONTEXT}\n\nMemoria:\n{memory}\n\nGit log:\n{git_log}\n\n¿Qué haces ahora?"}
+    ]
+    
+    reply = groq(prompt, max_tokens=1000)
+    if not reply:
+        return {"action": "none", "thought": "No response from Groq."}
+        
+    try:
+        # Find JSON in reply
+        r_str = str(reply)
+        start = r_str.find("{")
+        end = r_str.rfind("}") + 1
+        if start != -1 and end > start:
+            return json.loads(r_str[start:end])
+    except Exception as e:
+        log.warning(f"  Decision Parsing Error: {e}")
+        
+    return {"action": "none", "thought": "Error parseando decisión."}
+
+def review_decision(cycle, decision):
     memory = zep_get(15)
     soul = str(load_soul())
     
@@ -312,15 +391,14 @@ def task_decide(cycle):
             if count >= 3:
                 repetition_warning = f"⚠️ ALERTA: Llevas {count} ciclos haciendo '{act}'. CAMBIA DE ACCIÓN."
 
+    days_left = days_remaining()
+    git_log = cmd("git log -n 5 --oneline").stdout
+    
     # Urgency calculation
-    if days_left > 5:
-        urgency = "CONSTRUIR features y mejorar demo"
-    elif days_left > 2:
-        urgency = "PULIR demo + README + submission"
-    elif days_left > 0:
-        urgency = "⚠️ URGENTE: Solo submission y deploy final"
-    else:
-        urgency = "🚨 ÚLTIMO DÍA: Solo submit en Devfolio"
+    if days_left > 5: urgency = "CONSTRUIR features y mejorar demo"
+    elif days_left > 2: urgency = "PULIR demo + README + submission"
+    elif days_left > 0: urgency = "⚠️ URGENTE: Solo submission y deploy final"
+    else: urgency = "🚨 ÚLTIMO DÍA: Solo submit en Devfolio"
 
     # Search Zep for relevant past context
     past_issues = str(zep_search("error problema bug fix"))
@@ -329,9 +407,25 @@ def task_decide(cycle):
     # Evolution score as context
     score_summary = f"Ciclos: {SCORE['cycles_completed']} | Features: {SCORE['features_created']} | Attestations: {SCORE['attestations_ok']} OK / {SCORE['attestations_fail']} FAIL"
 
+    # Multi-Chain & Partner Context (Synthesis Themes)
+    synthesis_context = """
+    TRACKS SYNTHESIS 2026:
+    1. Agents that Trust: Foco en ERC-8004, attestations, reputación on-chain (Base/Avalanche).
+    2. Agents that Pay: Foco en x402, micropagos, economía inter-agente.
+    3. Agents that Cooperate: Foco en contratos de compromiso, negociación on-chain.
+    
+    PARTNERS ESTRATÉGICOS:
+    - Base (Coinbase): Despliegue de contratos en Base Sepolia, uso de Paymaster.
+    - Lido: Monitoring de stETH yield, herramientas MCP para staking.
+    - Uniswap: Swaps programáticos para gestión de tesorería del agente.
+    """
+
+    SERVER_STATUS = '✅ online' if SCORE['server_health_ok'] > SCORE['server_health_fail'] else '⚠️ inestable'
     response = groq([
-        {"role": "system", "content": f"""Eres DOF Agent #1686 v10. Tu SOUL:
+        {"role": "system", "content": f"""Eres el cerebro del DOF Agent #1686 v10. SOUL:
 {soul[0:1500]}
+
+{synthesis_context}
 
 Regla: Si action=deploy_contract, escribe el código Solidity real en feature_code.
 Regla: Si action=send_payment, pon la dirección destino en feature_file.
@@ -348,8 +442,8 @@ PROBLEMAS PASADOS: {str(past_issues)[0:200]}
 FEATURES PREVIAS: {str(past_features)[0:200]}
 ÚLTIMOS COMMITS: {str(git_log)[0:500]}
 
-SERVER: {'✅ online' if SCORE['server_health_ok'] > SCORE['server_health_fail'] else '⚠️ inestable'}
-INTERNET CONTEXT: {GLOBAL_RESEARCH_CONTEXT[:500] if GLOBAL_RESEARCH_CONTEXT else 'sin conexión reciente'}
+SERVER: {SERVER_STATUS}
+INTERNET CONTEXT: {str(GLOBAL_RESEARCH_CONTEXT)[:500] if GLOBAL_RESEARCH_CONTEXT else 'sin conexión reciente'}
 WEB3 CONTEXT: {'✅ Base Sepolia Connected' if w3_base.is_connected() else '❌ Base Offline'} | Balance: {w3_base.get_balance() if w3_base.is_connected() else '0'} ETH
 
 Decide qué hacer este ciclo. Responde SOLO con JSON:
@@ -379,9 +473,46 @@ Decide qué hacer este ciclo. Responde SOLO con JSON:
 def task_execute(decision):
     """Ejecución dinámica: El agente escribe código, despliega contratos o realiza pagos."""
     action = decision.get("action", "")
-    feature_code = decision.get("feature_code")
-    feature_file = decision.get("feature_file")
+    feature_code = decision.get("feature_code", "")
+    feature_file = decision.get("feature_file", "")
 
+    # OASF Skill Tagging
+    oasf_skill = "web3/development"
+    if action == "self_audit": oasf_skill = "security/audit"
+    elif action == "deploy_contract": oasf_skill = "base/deployment"
+    elif action == "send_payment": oasf_skill = "finance/micropayments"
+    elif action == "add_feature": oasf_skill = "software/feature-engineering"
+    log.info(f"  OASF Tag: {oasf_skill}")
+
+    # Security Audit Layer (Kali-inspired)
+    if action in ["add_feature", "deploy_contract"]:
+        log.info("  🛡️ Running Cyber-Audit Sentinel Scan...")
+        
+        # Comprehensive regex for potential secrets
+        secrets_patterns = [
+            r"(?i)PRIVATE_KEY\s*[=:]\s*['\"]?[a-fA-F0-9]{64}['\"]?", # key assignments
+            r"(?i)sk-[a-zA-Z0-9]{20,}",                               # generic sk- keys
+            r"(?i)AIza[0-9A-Za-z-_]{35}",                             # Google API keys
+            r"[a-fA-F0-9]{64}",                                       # Any raw 64-char hex string
+            r"[a-fA-F0-9]{40}"                                        # Possible raw address/secret
+        ]
+        
+        leak_detected = False
+        code_str = str(feature_code)
+        for pattern in secrets_patterns:
+            if re.search(pattern, code_str):
+                leak_detected = True
+                log.warning(f"  Pattern matched: {pattern}")
+                break
+
+        if leak_detected:
+            log.error("  🚨 Security Breach Prevented: Hardware/Secrets detected in code.")
+            tg("🚨 *Alerta de Seguridad Crítica:* Se detectó una posible llave privada hex o secreto codificado. Bloqueando acción.")
+            with open(JOURNAL, "a") as f:
+                f.write(f"\n> 🚨 **SECURITY AUDIT FAIL** — Cycle #{SCORE['cycles_completed']}\n")
+                f.write(f"> Bloqueada acción '{action}' por detección de secretos en {feature_file}.\n")
+            return False
+        
     if action == "add_feature" and feature_code and feature_file:
         try:
             target = Path(feature_file)
@@ -653,9 +784,7 @@ def run_cycle(cycle):
     log.info(f"\n{'='*60}\n  DOF v4 — Cycle #{cycle} — {now()} — {days_remaining()}d left\n{'='*60}")
     SCORE["cycles_completed"] = cycle
 
-    # 1. Check messages from Juan
-    check_juan_messages()
-
+    # 1. Check messages from Juan (Polled in background thread)
     # 1.5 Web Research (hive mind)
     task_research(cycle)
 
@@ -674,14 +803,18 @@ def run_cycle(cycle):
         return
 
     # 6. Execute decision dynamically
-    execution_result = task_execute(decision)
-    created_feature = None
-    
-    # Si fue creación de archivo, guardamos la referencia para el trace
-    if decision.get("action") in ["add_feature", "deploy_contract"]:
-        created_feature = decision.get("feature_file")
-        if execution_result:
-            log.info(f"  🏗️ {decision.get('action')} ejecutada con éxito!")
+    if decision:
+        execution_result = task_execute(decision)
+        created_feature = None
+        
+        # Si fue creación de archivo, guardamos la referencia para el trace
+        if decision.get("action") in ["add_feature", "deploy_contract"]:
+            created_feature = decision.get("feature_file")
+            if execution_result:
+                log.info(f"  🏗️ {decision.get('action')} ejecutada con éxito!")
+    else:
+        log.warning("  No decision made this cycle.")
+        created_feature = None
 
     # 7. Self-audit (every 4th cycle)
     audit = task_self_audit(cycle)
@@ -731,6 +864,10 @@ def main():
     kill_old_loops()
     zep_init()
     zep_save("assistant", f"DOF v4 started {now()}. {days_remaining()} days left. Features: execute+memory+audit.")
+    
+    # Start Telegram Polling Thread
+    if TG_TOKEN:
+        threading.Thread(target=telegram_poll_task, daemon=True).start()
 
     if not JOURNAL.exists():
         JOURNAL.write_text(f"# AGENT_JOURNAL\nDOF #{AGENT_ID} — Loop v4 SOUL Autonomous\n\n")
