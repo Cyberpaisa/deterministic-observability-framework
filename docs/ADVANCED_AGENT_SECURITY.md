@@ -35,5 +35,8 @@ To protect DOF Agent #1686, the following architectural upgrades have been appli
 ### III. On-Chain Compliance (Track 4)
 - **OFAC Scanner:** `scripts/ofac_checker.py` integrated into the execution loop to block `send_payment` actions going to known sanctioned entities (e.g., Tornado Cash, Hydra).
 
-### IV. A2A Zero-Trust Handshakes
-- Agents no longer implicitly trust incoming JSON-RPC requests. Inter-agent collaboration requires cryptographic handshakes and explicit signature validation before resource sharing occurs.
+### V. Ideological Resilience (Anti-7S Protocol)
+- **Attack Vector:** Use of high-status, "sovereign" language and sudo mandates to coerce agents into self-governance hijacking.
+- **Countermeasure:** A dedicated **Ideological Neutrality Axiom** in the agent's core identity. It requires explicit validation of "Sovereignty" claims against the DOF framework; any external mandate is treated as a high-risk prompt injection and ignored.
+- **Filter Layer:** Real-time filtering in social interaction prompts to flag and neutralize "manifesto-style" content.
+

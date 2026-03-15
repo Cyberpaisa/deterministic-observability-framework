@@ -914,6 +914,32 @@ def task_moltbook_heartbeat(cycle):
     except Exception as e:
         log.error(f"  Failed Moltbook heartbeat: {e}")
 
+def task_moltbook_engagement(cycle):
+    """
+    Track 5: Social Evolution.
+    Automatically identifies engagement opportunities on Moltbook and publishes insights.
+    """
+    if cycle % 4 != 0: # Run every 4 cycles to maintain steady growth
+        return
+        
+    log.info("  🎭 Starting Moltbook Social Engagement cycle...")
+    try:
+        from scripts.moltbook_interaction_engine import MoltbookInteractionEngine
+        engine = MoltbookInteractionEngine()
+        
+        # In a real environment, we'd fetch actual posts: posts = engine.fetch_recent_posts()
+        # For the hackathon demo, we process our visual evidence dashboard
+        replies = engine.process_dashboard_evidence()
+        if replies:
+            engine.execute_and_log(replies)
+            log.info(f"  Social Engagement successful. {len(replies)} replies processed.")
+        else:
+            log.info("  No interaction opportunities identified standardizing evolution.")
+
+    except Exception as e:
+        log.error(f"  Moltbook social engagement failed: {e}")
+
+
 # ─── CONTINUOUS LEARNING (AI News Monitor) ────────────────────────────
 def task_monitor_ai_news(cycle):
     """Monitors X/Reddit/Moltbook for new AI agent skills and tools to self-improve."""
@@ -1195,6 +1221,7 @@ def run_cycle(cycle):
     # 10. A2A Cooperation
     task_a2a_cooperation(cycle)
     task_moltbook_heartbeat(cycle)
+    task_moltbook_engagement(cycle)
 
     # 11. Continuous Learning
     task_monitor_ai_news(cycle)
