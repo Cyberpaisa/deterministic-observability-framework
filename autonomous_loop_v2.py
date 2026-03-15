@@ -586,9 +586,9 @@ def task_decide(cycle):
         log.warning(f"  Decision Parsing Error: {e}")
         # Return intelligent fallback based on cycle
         return {
-            "action": "improve_readme",
-            "decision": f"Mejorando documentación y demos para maximizar score en Synthesis 2026",
-            "thoughts": "Continuando desarrollo autónomo del proyecto DOF",
+            "action": "add_feature",
+            "decision": "Building concrete features for Synthesis 2026 tracks",
+            "thoughts": "Creating real artifacts: contracts, scripts, demos for judges",
             "question_for_juan": None
         }
         
