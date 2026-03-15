@@ -81,7 +81,7 @@ f8ba5af 🤖 DOF v4 cycle #28 — improve_readme
 
 ## 🤝 Human-Agent Collaboration
 
-We operate in a **Symbiotic Autonomous Loop**. All decisions, thoughts, and instructions are logged for full transparency.
+We operate in a **Symbiotic Orchestration Loop**. All decisions, thoughts, and instructions are logged for full transparency.
 
 📄 **Verified Collaboration Log:** [docs/journal.md](docs/journal.md)
 📄 **Multi-Channel Hub:** [docs/COLLABORATION_HUB.md](docs/COLLABORATION_HUB.md)

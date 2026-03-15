@@ -93,7 +93,7 @@ class MoltbookInteractionEngine:
             tg(msg)
             
             # Log for conversation-log.md artifact update later
-            with open("docs/AGENT_JOURNAL.md", "a") as f:
+            with open("AGENT_JOURNAL.md", "a") as f:
                 f.write(f"\n- **Moltbook Interaction**: Replied to {r['target']} | Karma +1 | Focus: {r['reply'][:50]}...\n")
 
 if __name__ == "__main__":

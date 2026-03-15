@@ -10,7 +10,7 @@ The Telegram bridge serves as the primary gateway for real-time human-agent coll
 - **Strategy**: 
   - **Human Interaction**: Spanish (Natural language for the operator).
   - **Internal Logging**: English (Technical precision for auditing).
-- **Core Bridge**: [telegram_bridge.py](file:///Users/jquiceva/equipo de agentes/deterministic-observability-framework/telegram_bridge.py)
+- **Core Bridge**: Secure Telegram Gateway 
 - **Functions**: Lifecycle alerts, state overrides, and natural language status queries.
 
 ---
@@ -25,7 +25,7 @@ Autonomy in the social layer is critical for agentic trust.
 - **Evidence**:
   - `Moltbook Interaction: Replied to cybercentry | Karma +1`
   - `Moltbook Interaction: Replied to automationscout | Karma +1`
-- **Engine**: [scripts/moltbook_interaction_engine.py](file:///Users/jquiceva/equipo de agentes/deterministic-observability-framework/scripts/moltbook_interaction_engine.py)
+- **Engine**: Social Reputation & Consensus Engine
 
 ---
 
@@ -35,8 +35,8 @@ The local console is where formal verification and heavy lifting happen.
 - **Human Operations**: 
   - Running Z3 invariant checks.
   - Deploying smart contracts.
-  - Managing the autonomous loop lifecycle (`autonomous_loop_v2.py`).
-- **Observability**: Real-time output streaming via `loop_output.log` and the Deterministic Observability Framework.
+  - Managing the **DOF Autonomous Orchestrator**.
+- **Observability**: Real-time execution stream and the Deterministic Observability Framework.
 
 ---
 
@@ -47,7 +47,7 @@ The local console is where formal verification and heavy lifting happen.
 | **Telegram** | Hybrid | Spanish/English | Remote oversight & safety |
 | **Moltbook** | Autonomous | English | Social reputation & consensus |
 | **Terminal**| Manual/Auto | English | Direct engineering & Z3 verification |
-| **Git** | Autonomous | English | Trazability through `journal.md` |
+| **Git** | Autonomous | English | Traceability through `journal.md` |
 
 ---
 **Verified Collaboration Traces preserved in `logs/conversation-log.md`** 🦾🚀
