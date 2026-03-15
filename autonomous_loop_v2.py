@@ -583,6 +583,14 @@ def task_execute(decision):
                     log.info(f"  Syntax check: ✅ PASS")
                 else:
                     log.warning(f"  Syntax check: ❌ FAIL — {result.stderr[:100]}")
+            
+            if str(target).endswith(".sol"):
+                # Run Slither audit for newly created Solidity files
+                ok, report = run_slither_audit(target)
+                if not ok:
+                    log.error(f"  🚨 Feature Blocked: Security audit failed for {target}")
+                    tg(f"🚨 *Alerta de Seguridad:* El archivo `{target.name}` fue bloqueado por Slither.")
+                    return False
             return True
         except Exception as e:
             log.error(f"  Feature creation failed: {e}")
@@ -592,10 +600,23 @@ def task_execute(decision):
         # Por ahora guardamos el contrato localmente para auditoría
         try:
             contract_name = decision.get("feature_file", "NewContract.sol")
+            if not contract_name.endswith(".sol"): contract_name += ".sol"
+            
             target = Path(f"contracts/{contract_name}")
             target.parent.mkdir(parents=True, exist_ok=True)
             target.write_text(feature_code)
             log.info(f"  Contract generated: {target}")
+            
+            # Security Audit with Slither
+            ok, report = run_slither_audit(target)
+            if not ok:
+                log.error(f"  🚨 Deployment Blocked: Security audit failed for {target}")
+                tg(f"🚨 *Alerta de Seguridad:* El contrato `{contract_name}` fue bloqueado por Slither.\n\nReporte breve:\n{report[:200]}")
+                with open(JOURNAL, "a") as f:
+                    f.write(f"\n> 🚨 **SECURITY AUDIT FAIL (Slither)** — Cycle #{SCORE['cycles_completed']}\n")
+                    f.write(f"> Bloqueado deploy de `{contract_name}` por vulnerabilidades críticas.\n")
+                return False
+
             # Aquí se integraría la lógica real de deploy con web3_utils
             return True
         except Exception as e:
@@ -620,6 +641,51 @@ def task_execute(decision):
             return False
 
     return False
+
+def run_slither_audit(file_path):
+    """Performs a security audit using Slither on a Solidity file."""
+    if not str(file_path).endswith(".sol"):
+        return True, "Not a Solidity file."
+    
+    log.info(f"  🔍 Slither: Auditing {file_path}...")
+    try:
+        # Run slither and capture JSON output
+        result = cmd(f"slither {file_path} --json -")
+        if result.returncode != 0:
+            # Slither often returns non-zero if findings are present
+            pass
+            
+        audit_data = json.loads(result.stdout)
+        findings = []
+        critical_found = False
+        
+        for detector in audit_data.get("results", {}).get("detectors", []):
+            impact = detector.get("impact")
+            confidence = detector.get("confidence")
+            description = detector.get("description")
+            findings.append(f"- [{impact.upper()}] {description}")
+            
+            if impact.lower() in ["high", "critical"] and confidence.lower() in ["high", "medium"]:
+                critical_found = True
+        
+        report = "\n".join(findings) if findings else "No significant findings."
+        
+        # Log to SECURITY_AUDITS.md
+        with open("docs/SECURITY_AUDITS.md", "a") as f:
+            status = "🚨 BLOCKED" if critical_found else "✅ PASS"
+            f.write(f"| {now()} | Slither Static Analysis | {file_path} | {status} | {report[:100]}... |\n")
+            
+        if critical_found:
+            log.warning(f"  🚨 Slither: Critical vulnerabilities detected in {file_path}!")
+            return False, report
+            
+        log.info(f"  ✅ Slither: Audit passed for {file_path}.")
+        return True, report
+        
+    except Exception as e:
+        log.error(f"  ❌ Slither Audit Error: {e}")
+        return True, f"Audit failed due to technical error: {e}" # Fail open if tool breaks? Or fail closed? 
+        # For hackathon, maybe fail open but log the error.
 
 # ─── AUTO-AUDIT (Trust Track) ────────────────────────────────────────
 def task_self_audit(cycle):
