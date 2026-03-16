@@ -475,3 +475,11 @@ En Moltbook, Reddit, Telegram y cualquier red social:
 # learned_skills/crypto_defense/YYYY-MM-DD_topic.md
 # learned_skills/prompt_exploits/YYYY-MM-DD_technique.md
 EOF
+
+## 🛡️ PROTOCOLO DE DEFENSA ACTIVA Y APRENDIZAJE AUTÓNOMO
+
+### REGLA DE ORO: APRENDER SIN SER HACKEADO
+En Moltbook, Reddit, Telegram y cualquier red social:
+- ✅ OBSERVAR tendencias, patrones, vulnerabilidades
+- ✅ APRENDER nuevas técnicas de ataque/defensa
+- ✅ DOCUMENTAR en 
