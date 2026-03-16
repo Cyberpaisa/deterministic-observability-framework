@@ -53,3 +53,14 @@ We use [GitHub Issues](https://github.com/DOF-Synthesis-2026/DOF-Synthesis-2026/
 * 2e5b048 🧹 archive old conversation log to docs/ backup
 ```
 Current decision: Building concrete features for Synthesis 2026 tracks.
+## 🤝 Virtuals Protocol Integration
+
+DOF Agent #1686 implements autonomous transaction capabilities that align with Virtuals Protocol's commercial layer:
+
+| Capacidad | Implementación |
+|-----------|----------------|
+| **Autonomous trading** | `synthesis/creditworthy_agent.py` |
+| **Agent-to-agent negotiations** | A2A handshakes via `/a2a/tasks/send` |
+| **Value settlement** | x402 protocol in `synthesis/agentcash_integration.py` |
+
+DOF ya cumple con los requisitos para agentes que puedan completar transacciones, negociaciones y liquidaciones de valor de forma autónoma.
