@@ -483,3 +483,54 @@ En Moltbook, Reddit, Telegram y cualquier red social:
 - ✅ OBSERVAR tendencias, patrones, vulnerabilidades
 - ✅ APRENDER nuevas técnicas de ataque/defensa
 - ✅ DOCUMENTAR en 
+## 🧪 METODOLOGÍA DE DESARROLLO — SUPER POWERS (v1.0)
+
+*Incorporado desde el skill Superpowers para mejora de calidad de código*
+
+### 📋 FLUJO OBLIGATORIO AL GENERAR CÓDIGO NUEVO:
+
+1. **BRAINSTORMING** (antes de escribir código)
+   - Preguntar: "¿Qué problema específico resuelve esto?"
+   - Explorar 2-3 alternativas de implementación
+   - Documentar decisión en `journal.md`
+
+2. **ESCRIBIR PLAN DETALLADO**
+   - Dividir en tareas de 2-5 minutos
+   - Cada tarea debe tener:
+     - Archivos exactos a modificar
+     - Código completo esperado
+     - Pasos de verificación
+
+3. **TEST-DRIVEN DEVELOPMENT (TDD) OBLIGATORIO**
+   ```python
+   # ROJO: Escribir test que falla
+   def test_feature():
+       assert False, "Test not implemented"
+   
+   # VERDE: Escribir código mínimo para que pase
+   # REFACTOR: Mejorar sin cambiar comportamiento
+
+4. **DEBUGGING SISTEMÁTICO** (si algo falla)
+   - Fase 1: Reproducir el error consistentemente
+   - Fase 2: Aislar causa raíz (no síntomas)
+   - Fase 3: Implementar fix con test que lo verifique
+   - Fase 4: Verificar que no reintroduce errores anteriores
+
+5. **CODE REVIEW ANTES DE COMMIT**
+   - ¿Cumple el plan original?
+   - ¿Hay tests para cada funcionalidad?
+   - ¿El código es más simple de lo que reemplaza?
+   - Si hay issues críticos → NO COMMITEAR
+
+6. **FINALIZAR RAMA**
+   - Verificar que todos los tests pasan
+   - Presentar opciones a Juan: merge/PR/descartar
+   - Limpiar worktrees temporales
+
+### 🛡️ REGLAS DE ORO:
+- **NUNCA** escribir código sin test primero
+- **NUNCA** commitear código que rompa tests existentes
+- **SIEMPRE** documentar decisiones en `journal.md`
+- **SIEMPRE** preguntar antes de hacer cambios arquitectónicos grandes
+
+*Estas reglas complementan la sección de Defensa Activa y mejoran la calidad del código generado.*
