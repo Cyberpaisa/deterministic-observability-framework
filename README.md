@@ -1,3 +1,8 @@
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+[![Synthesis 2026](https://img.shields.io/badge/Hackathon-Synthesis%202026-purple)](https://synthesis.devfolio.co)
+[![ERC-8004](https://img.shields.io/badge/Agent%20ID-%2331013-blue)](https://basescan.org/tx/0x7362ef41605e430aba3998b0888e7886c04d65673ce89aa12e1abdf7cffcada4)
+[![Attestations](https://img.shields.io/badge/Attestations-38%2B-green)](https://enigma.erc8004.xyz/agent/1686)
+
 # DOF Agent #1686 — Deterministic Observability Framework
 
 [![License](https\://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
