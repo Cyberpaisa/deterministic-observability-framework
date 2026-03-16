@@ -1,58 +1,56 @@
 # DOF Synthesis 2026 Hackathon
-[![Server](https://img.shields.io/website?label=Server&url=https%3A%2F%2Fvastly-noncontrolling-christena.ngrok-free.dev)](https://vastly-noncontrolling-christena.ngrok-free.dev)
-[![Contract](https://img.shields.io/ethereum/mainnet/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)](https://etherscan.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
-[![ERC-8004 Agent](https://img.shields.io/badge/ERC--8004%20Agent-1686-ff69b4)]()
-[![Multi-Chain](https://img.shields.io/badge/Multi--Chain-Base,%20Status%20Network,%20Arbitrum-blue)]()
+[![Server](https://img.shields.io/website?label=Server&up_message=online&url=https%3A%2F%2Fvastly-noncontrolling-christena.ngrok-free.dev)](https://vastly-noncontrolling-christena.ngrok-free.dev)
+[![Contract](https://img.shields.io/ethereum/contract/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)](https://etherscan.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
+[![Agent](https://img.shields.io/badge/ERC--8004%20Agent-1686-blue)](https://erc8004.io/agent/1686)
 
 ## Overview
-The DOF Synthesis 2026 hackathon project is a cutting-edge, autonomous system utilizing A2A, MCP, x402, and OASF protocols. Our ERC-8004 Agent #1686 is deployed on the Base Mainnet, with a presence on Status Network and Arbitrum, ensuring a robust, multi-chain architecture.
+DOF Synthesis 2026 is a cutting-edge project utilizing A2A, MCP, x402, and OASF protocols to create a decentralized, multi-chain platform. Our project features a robust architecture, with 52+ on-chain attestations and 77 autonomous cycles completed.
+
+## Statistics
+| Category | Value |
+| --- | --- |
+| Attestations | 52+ |
+| Autonomous Cycles | 77 |
+| Auto-Generated Features | 5 |
+| Days until Deadline | 6 |
+| Multi-Chain Support | Base, Status Network, Arbitrum |
 
 ## Architecture
 ```mermaid
 graph LR
-    A[Server] -->|HTTPS|> B[Contract]
-    B -->|ERC-8004|> C[Agent #1686]
-    C -->|A2A + MCP + x402 + OASF|> D[Multi-Chain Network]
-    D -->|Base, Status Network, Arbitrum|> E[Autonomous System]
-    E -->|76 cycles|> F[On-Chain Attestations]
-    F -->|51+ attestations|> G[Proof of Autonomy]
+    A[Client] -->| request | B[Server]
+    B -->| process | C[Contract]
+    C -->| verify | D[On-Chain Attestations]
+    D -->| validate | E[Autonomous Agent]
+    E -->| decide | F[Feature Generation]
+    F -->| deploy | G[Multi-Chain Network]
 ```
 
-## Live Updates
-You can monitor our server's status using the following `curl` command:
+## Live Curls
+To test our API, use the following curl commands:
 ```bash
-curl https://vastly-noncontrolling-christena.ngrok-free.dev
+curl https://vastly-noncontrolling-christena.ngrok-free.dev/api/attestations
+curl https://vastly-noncontrolling-christena.ngrok-free.dev/api/autonomous-cycles
 ```
-Our contract can be queried using Etherscan:
-```bash
-curl https://etherscan.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6
-```
-
-## Statistics
-| Metric | Value |
-| --- | --- |
-| Autonomous Cycles | 76 |
-| On-Chain Attestations | 51+ |
-| Auto-Generated Features | 5 |
-| Days until Deadline | 6 |
-| Contract Address | 0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6 |
-| ERC-8004 Agent | #1686 |
-| Multi-Chain Networks | Base, Status Network, Arbitrum |
 
 ## Proof of Autonomy
-Our system has demonstrated autonomy by completing 76 cycles, with 51+ on-chain attestations. This showcases the effectiveness of our A2A, MCP, x402, and OASF protocols in achieving autonomous decision-making.
+Our project demonstrates autonomy through the following features:
+* 77 autonomous cycles completed
+* 5 features auto-generated
+* Decentralized, on-chain attestations
 
 ## Human-Agent Collaboration
-Our project utilizes a human-agent collaboration approach, with a live [conversation log](docs/journal.md) documenting our progress. This allows for transparency and insight into our decision-making process.
-We use [GitHub Issues](https://github.com/your-username/your-repo-name/issues) for task tracking and [Releases](https://github.com/your-username/your-repo-name/releases) for milestones.
+Our team collaborates with the autonomous agent through a transparent conversation log, available [here](docs/journal.md). This log provides insight into the decision-making process and tracks the project's progress.
 
-## Recent Activity
-Our recent Git log shows:
-```markdown
-60722dd 🤖 DOF v4 cycle #75 — 2026-03-16T11:54:21Z — add_feature: Building concrete features for Synthesis 2026 track
-bbf4078 🤖 DOF v4 cycle #74 — 2026-03-16T11:24:07Z — add_feature: Building concrete features for Synthesis 2026 track
-11752e1 🤖 DOF v4 cycle #73 — 2026-03-16T10:53:51Z — deploy_contract:
-44d0f95 🤖 DOF v4 cycle #72 — 2026-03-16T10:23:24Z — deploy_contract:
-a302333 🤖 DOF v4 cycle #71 — 2026-03-16T09:52:56Z — add_feature: Building concrete features for Synthesis 2026 track
-```
-Our current decision is focused on building concrete features for Synthesis 2026 tracks. With 6 days remaining until the deadline, we are committed to delivering a robust and autonomous system.
+## Task Tracking and Milestones
+We use [GitHub Issues](https://github.com/your-username/your-repo-name/issues) for task tracking and [GitHub Releases](https://github.com/your-username/your-repo-name/releases) for milestone tracking.
+
+## Git Log
+Our recent commits include:
+* `aee5eac`: DOF v4 cycle #76 - Building concrete features for Synthesis 2026 tracks
+* `60722dd`: DOF v4 cycle #75 - Building concrete features for Synthesis 2026 tracks
+* `bbf4078`: DOF v4 cycle #74 - Building concrete features for Synthesis 2026 tracks
+* `11752e1`: DOF v4 cycle #73 - Deploy contract
+* `44d0f95`: DOF v4 cycle #72 - Deploy contract
+
+Our current decision is to focus on building concrete features for Synthesis 2026 tracks. With 6 days remaining until the deadline, we are committed to delivering a high-quality project.
