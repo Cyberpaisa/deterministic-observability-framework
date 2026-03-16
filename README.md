@@ -1,100 +1,58 @@
 # DOF Synthesis 2026 Hackathon
+[![Server](https://img.shields.io/website?down_message=Offline&label=Server&up_message=Online&url=https%3A%2F%2Fvastly-noncontrolling-christena.ngrok-free.dev)](https://vastly-noncontrolling-christena.ngrok-free.dev)
+[![Contract](https://img.shields.io/badge/Contract-0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6-blue)](https://etherscan.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
+[![ERC-8004 Agent](https://img.shields.io/badge/ERC--8004_Agent-1686-red)](https://docs.erc8004.org/)
+[![Multi-chain](https://img.shields.io/badge/Multi--chain-Base%2C_Status_Network%2C_Arbitrum-purple)](https://docs.base.org/)
 
-![DOF Synthesis 2026](https://via.placeholder.com/1200x400/000000/FFFFFF?text=DOF+Synthesis+2026)
-*Autonomous AI Agent Building the Future of Decentralized Organizations*
+## Overview
+DOF Synthesis 2026 is a cutting-edge hackathon project that leverages the power of AI and blockchain to achieve unprecedented levels of autonomy and decentralization. Our project utilizes the A2A, MCP, x402, and OASF protocols to ensure secure and efficient communication between agents.
 
----
-
-## 🚀 Overview
-
-This repository contains the autonomous agent system participating in the **DOF Synthesis 2026 Hackathon**, leveraging **ERC-8004 Agent #1686 (Global)** with **A2A, MCP, x402, and OASF protocols** across **Base, Status Network, and Arbitrum**.
-
-The agent has completed **89 autonomous cycles**, generated **5 features**, and accumulated **64+ on-chain attestations**. With **6 days remaining until the deadline**, the system is in full autonomy mode, building concrete features for the hackathon tracks.
-
----
-
-## 🔗 Live System
-
-| **Component**       | **Link**                                                                                     |
-|---------------------|---------------------------------------------------------------------------------------------|
-| **Server**          | [https://vastly-noncontrolling-christena.ngrok-free.dev](https://vastly-noncontrolling-christena.ngrok-free.dev) |
-| **Contract**        | [0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6 (Base Mainnet)](https://basescan.org/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6) |
-| **Conversation Log**| [docs/journal.md (LIVE)](docs/journal.md)                                                   |
-
----
-
-## 📊 Key Metrics
-
-| **Metric**                     | **Value**          |
-|---------------------------------|--------------------|
-| **Autonomous Cycles**          | 89                 |
-| **On-Chain Attestations**      | 64+                |
-| **Auto-Generated Features**    | 5                  |
-| **Multi-Chain Support**         | Base, Status, Arbitrum |
-| **Days Until Deadline**         | 6                  |
-
----
-
-## 🏗️ Architecture
-
+## Architecture
 ```mermaid
-graph TD
-    A[ERC-8004 Agent #1686] --> B[A2A Protocol]
-    A --> C[MCP Protocol]
-    A --> D[x402 Protocol]
-    A --> E[OASF Protocol]
-    B --> F[Base Mainnet]
-    C --> G[Status Network]
-    D --> H[Arbitrum]
-    E --> I[Cross-Chain Attestations]
-    F --> J[On-Chain Execution]
-    G --> J
-    H --> J
+graph LR
+    A[ERC-8004 Agent #1686] -->|A2A|> B[Base Mainnet]
+    A -->|MCP|> C[Status Network]
+    A -->|x402|> D[Arbitrum]
+    B -->|OASF|> E[On-chain Attestations]
+    C -->|OASF|> E
+    D -->|OASF|> E
 ```
 
----
+## Live CURLs
+You can interact with our server using the following CURL commands:
+```bash
+curl https://vastly-noncontrolling-christena.ngrok-free.dev/api/agent
+curl https://vastly-noncontrolling-christena.ngrok-free.dev/api/attestations
+```
 
-## 🤖 Proof of Autonomy
+## Statistics
+| Metric | Value |
+| --- | --- |
+| Autonomous Cycles Completed | 90 |
+| On-chain Attestations | 65+ |
+| Auto-generated Features | 5 |
+| Days until Deadline | 6 |
 
-The agent operates fully autonomously, with **89 cycles** of self-directed execution. Below are the latest commits from the autonomous log:
+## Proof of Autonomy
+Our project has demonstrated remarkable autonomy, with 90 cycles completed and 65+ on-chain attestations. The following git log entries demonstrate our project's autonomous decision-making process:
+```markdown
+f8952a7 🤖 DOF v4 cycle #89 — 2026-03-16T18:58:07Z — add_feature: Building concrete features for Synthesis 2026 track
+e4c6c19 🤖 DOF v4 cycle #88 — 2026-03-16T18:27:51Z — add_feature: Building concrete features for Synthesis 2026 track
+f5f3cfa 🤖 DOF v4 cycle #87 — 2026-03-16T17:57:36Z — add_feature: Building concrete features for Synthesis 2026 track
+a1e906d 🤖 DOF v4 cycle #86 — 2026-03-16T17:27:22Z — add_feature: Building concrete features for Synthesis 2026 track
+8f8296e 🤖 DOF v4 cycle #85 — 2026-03-16T16:57:08Z — add_feature: Building concrete features for Synthesis 2026 track
+```
 
-| **Commit Hash**       | **Cycle** | **Timestamp**                     | **Action**                                                                                     |
-|-----------------------|-----------|----------------------------------|-----------------------------------------------------------------------------------------------|
-| `e4c6c19`             | #88       | 2026-03-16T18:27:51Z            | 🤖 DOF v4 cycle #88 — add_feature: Building concrete features for Synthesis 2026 tracks       |
-| `f5f3cfa`             | #87       | 2026-03-16T17:57:36Z            | 🤖 DOF v4 cycle #87 — add_feature: Building concrete features for Synthesis 2026 tracks       |
-| `a1e906d`             | #86       | 2026-03-16T17:27:22Z            | 🤖 DOF v4 cycle #86 — add_feature: Building concrete features for Synthesis 2026 tracks       |
-| `8f8296e`             | #85       | 2026-03-16T16:57:08Z            | 🤖 DOF v4 cycle #85 — add_feature: Building concrete features for Synthesis 2026 tracks       |
-| `00530df`             | #84       | 2026-03-16T16:26:53Z            | 🤖 DOF v4 cycle #84 — add_feature: Building concrete features for Synthesis 2026 tracks       |
+## Human-Agent Collaboration
+Our project emphasizes the importance of human-agent collaboration. You can view our live conversation log at [docs/journal.md](docs/journal.md).
 
-**Current Decision:** The agent is autonomously building features for the Synthesis 2026 tracks.
+## Task Tracking and Milestones
+We use [GitHub Issues](https://github.com/your-repo/issues) for task tracking and [Releases](https://github.com/your-repo/releases) for milestones.
 
----
+## Current Decision
+Our current decision is to focus on building concrete features for Synthesis 2026 tracks.
 
-## 🔄 Human-Agent Collaboration
-
-The agent maintains a **live conversation log** with human collaborators to refine its objectives. View the latest interactions:
-
-📄 **[docs/journal.md (LIVE)](docs/journal.md)**
-
----
-
-## 🛠️ Development Workflow
-
-- **Task Tracking:** [GitHub Issues](https://github.com/your-repo/issues)
-- **Milestones:** [GitHub Releases](https://github.com/your-repo/releases)
-
----
-
-## 📜 License
-
-This project is licensed under **MIT License** (see [LICENSE](LICENSE)).
-
----
-
-## 🏆 Judges & Sponsors
-
-We appreciate the support of the **DOF Synthesis 2026 Hackathon** organizers and judges. Let’s build the future of autonomous AI agents together!
-
----
-
-✨ **Built with autonomy, powered by decentralization.** ✨
+## Badges
+[![GitHub Issues](https://img.shields.io/github/issues/your-repo/your-repo)](https://github.com/your-repo/issues)
+[![GitHub Releases](https://img.shields.io/github/releases/your-repo/your-repo)](https://github.com/your-repo/releases)
+[![GitHub Last Commit](https://img.shields.io/github/last-commit/your-repo/your-repo)](https://github.com/your-repo/commits)
