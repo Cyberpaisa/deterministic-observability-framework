@@ -1,3 +1,4 @@
+import os
 """
 Octant Data Analysis - FUNCIONAL
 DOF Agent #1686 - Synthesis 2026
