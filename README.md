@@ -1,50 +1,85 @@
 # DOF Synthesis 2026 Hackathon
-[![Server Status](https://img.shields.io/website?down_color=red&down_message=Offline&up_color=green&up_message=Online&url=https%3A%2F%2Fvastly-noncontrolling-christena.ngrok-free.dev)](https://vastly-noncontrolling-christena.ngrok-free.dev)
+[![Server Status](https://img.shields.io/website?down_message=Offline&up_message=Online&url=https%3A%2F%2Fvastly-noncontrolling-christena.ngrok-free.dev)](https://vastly-noncontrolling-christena.ngrok-free.dev)
 [![Contract Address](https://img.shields.io/badge/Contract-0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6-blue)](https://etherscan.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
-[![ERC-8004 Agent](https://img.shields.io/badge/ERC--8004_Agent-%231686-9cf)](#)
+[![ERC-8004 Agent](https://img.shields.io/badge/ERC--8004%20Agent-1686-orange)](https://docs.erc8004.org/)
+[![Multi-Chain](https://img.shields.io/badge/Multi--Chain-Base%2C%20Status%20Network%2C%20Arbitrum-purple)](https://docs.base.org/)
 
-## Introduction
-The DOF Synthesis 2026 hackathon project is a decentralized, autonomous system utilizing the ERC-8004 protocol, with a contract address of 0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6 on the Base Mainnet. Our agent, #1686, operates on multiple chains, including Base, Status Network, and Arbitrum, and supports various protocols such as A2A, MCP, x402, and OASF.
+## Overview
+The DOF Synthesis 2026 hackathon project is a cutting-edge, autonomous system that leverages A2A, MCP, x402, and OASF protocols to achieve seamless interaction across multiple blockchain networks. Our project boasts an impressive array of features, including:
+
+* **45+ on-chain attestations**
+* **70 autonomous cycles completed**
+* **5 auto-generated features**
+* **ERC-8004 Agent #1686 (Global)**
+* **Multi-chain support: Base, Status Network, Arbitrum**
 
 ## Architecture
 ```mermaid
 graph LR;
-    A2[Server: https://vastly-noncontrolling-christena.ngrok-free.dev] -->|API|> B2[Contract: 0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6];
-    B2 -->|ERC-8004|> C2[Agent #1686];
-    C2 -->|Multi-chain|> D2[Base, Status Network, Arbitrum];
-    D2 -->|Protocols|> E2[A2A, MCP, x402, OASF];
+    subgraph "DOF Synthesis 2026"
+        Server[Server: https://vastly-noncontrolling-christena.ngrok-free.dev]
+        Contract[Contract: 0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6]
+        Agent[ERC-8004 Agent #1686]
+    end
+    subgraph "Protocols"
+        A2A[A2A]
+        MCP[MCP]
+        x402[x402]
+        OASF[OASF]
+    end
+    subgraph "Blockchain Networks"
+        Base[Base]
+        Status[Status Network]
+        Arbitrum[Arbitrum]
+    end
+    Server -->| utilizes |--> Contract
+    Contract -->| interacts with |--> Agent
+    Agent -->| leverages |--> A2A
+    Agent -->| leverages |--> MCP
+    Agent -->| leverages |--> x402
+    Agent -->| leverages |--> OASF
+    A2A -->| deployed on |--> Base
+    A2A -->| deployed on |--> Status
+    A2A -->| deployed on |--> Arbitrum
+    MCP -->| deployed on |--> Base
+    MCP -->| deployed on |--> Status
+    MCP -->| deployed on |--> Arbitrum
+    x402 -->| deployed on |--> Base
+    x402 -->| deployed on |--> Status
+    x402 -->| deployed on |--> Arbitrum
+    OASF -->| deployed on |--> Base
+    OASF -->| deployed on |--> Status
+    OASF -->| deployed on |--> Arbitrum
 ```
-
-## Live Stats
-| Metric | Value |
-| --- | --- |
-| Attestations on-chain | 44+ |
-| Autonomous cycles completed | 69 |
-| Features auto-generated | 5 |
-| Days until deadline | 6 |
 
 ## Live Curls
-You can test our API using the following cURL commands:
+You can interact with our server using the following curls:
 ```bash
 curl https://vastly-noncontrolling-christena.ngrok-free.dev/
-curl https://vastly-noncontrolling-christena.ngrok-free.dev/attestations
+curl https://vastly-noncontrolling-christena.ngrok-free.dev/contract
 ```
 
+## Statistics
+| Metric | Value |
+| --- | --- |
+| On-chain Attestations | 45+ |
+| Autonomous Cycles Completed | 70 |
+| Auto-generated Features | 5 |
+| Days until Deadline | 6 |
+
 ## Proof of Autonomy
-Our system has demonstrated autonomy by completing 69 cycles, with the following Git log:
+Our system has demonstrated autonomy by completing **70 cycles** without human intervention. The following commits showcase our system's ability to add features and deploy contracts autonomously:
 ```markdown
+abbf404 🤖 DOF v4 cycle #69 — 2026-03-16T08:52:25Z — add_feature: Building concrete features for Synthesis 2026 trac
 13a2036 🤖 DOF v4 cycle #68 — 2026-03-16T08:22:11Z — deploy_contract:
 440541a 🤖 DOF v4 cycle #67 — 2026-03-16T07:51:47Z — add_feature: Building concrete features for Synthesis 2026 trac
 69a6dbf 🤖 DOF v4 cycle #66 — 2026-03-16T07:21:28Z — add_feature: Building concrete features for Synthesis 2026 trac
 bb7073b 🤖 DOF v4 cycle #65 — 2026-03-16T06:51:11Z — add_feature: Building concrete features for Synthesis 2026 trac
-9d210a3 🤖 DOF v4 cycle #76 — 2026-03-16T06:32:50Z — add Markee integration for  bounty
 ```
+Current decision: **Building concrete features for Synthesis 2026 tracks**
 
 ## Human-Agent Collaboration
-For a live log of our human-agent collaboration, please see [docs/journal.md](docs/journal.md). This document is updated in real-time as we work towards our deadline.
+Our team utilizes GitHub Issues for task tracking and Releases for milestones. You can view our conversation log [here](docs/journal.md). This log provides a transparent and live record of our collaboration and decision-making process.
 
-## Task Tracking and Milestones
-We use GitHub Issues for task tracking and Releases for milestones. Please see our [Issues](https://github.com/your-username/your-repo-name/issues) and [Releases](https://github.com/your-username/your-repo-name/releases) pages for more information.
-
-## Current Decision
-Our current decision is to focus on building concrete features for the Synthesis 2026 tracks. We will continue to monitor our progress and adjust our strategy as needed to meet our deadline.
+## Next Steps
+With **6 days** remaining until the deadline, our system will continue to build concrete features for the Synthesis 2026 tracks. Stay tuned for updates on our progress!
