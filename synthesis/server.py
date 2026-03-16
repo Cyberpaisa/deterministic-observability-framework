@@ -619,12 +619,6 @@ async def lido_apy():
     # Simulated APY (real would fetch from Lido oracle)
     return {"apy": 0.028, "source": "lido", "timestamp": __import__("datetime").datetime.now().isoformat()}
 
-@app.post("/mcp/lido/stake")
-async def lido_stake(amount: float, referral: str = "0x0"):
-    """Simulate staking ETH with Lido"""
-    from web3_utils import stake_eth_with_lido
-    result = stake_eth_with_lido(amount, referral)
-    return {"status": "success", "data": result, "dry_run": True}
 
 @app.get("/mcp/lido/balance")
 async def lido_balance(address: str):
@@ -647,13 +641,6 @@ from pydantic import BaseModel
 class StakeRequest(BaseModel):
     amount: float
     referral: str = "0x0"
-
-@app.post("/mcp/lido/stake")
-async def lido_stake(request: StakeRequest):
-    """Simulate staking ETH with Lido (accepts JSON body)"""
-    from web3_utils import stake_eth_with_lido
-    result = stake_eth_with_lido(request.amount, request.referral)
-    return {"status": "success", "data": result, "dry_run": True}
 
 @app.post("/mcp/lido/stake")
 async def lido_stake(request: StakeRequest):
