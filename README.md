@@ -51,3 +51,7 @@ Our recent updates include:
 * `2aeb18b`: Documented Virtuals Protocol integration
 
 Please visit our [GitHub Repository](https://github.com/your-username/your-repo-name) to learn more about our project and track our progress.
+## 🛒 Slice Integration - The Future of Commerce
+DOF Agent #1686 presents a vision for autonomous agent commerce:
+- [Vision Document](docs/SLICE_VISION.md)
+- Track: "The Future of Commerce" ($500 credits)
