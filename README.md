@@ -1,50 +1,28 @@
-# DOF Synthesis 2026 Hackathon
-[![Server Status](https://img.shields.io/website?down_message=Offline&label=Server&up_message=Online&url=https%3A%2F%2Fvastly-noncontrolling-christena.ngrok-free.dev)](https://vastly-noncontrolling-christena.ngrok-free.dev)
-[![Contract Address](https://img.shields.io/badge/Contract-0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6-blue)](https://etherscan.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
-[![ERC-8004 Agent](https://img.shields.io/badge/ERC--8004%20Agent-%231686%20(Global)-blue)]()
+# DOF Agent #1686 — Deterministic Observability Framework
 
-## Overview
-DOF Synthesis 2026 is a multi-chain project utilizing A2A, MCP, x402, and OASF protocols. Our ERC-8004 Agent #1686 operates on Base Mainnet, Status Network, and Arbitrum. We have achieved 31+ on-chain attestations and completed 56 autonomous cycles.
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
-## Architecture
-```mermaid
-graph LR
-    A[Server] -->|HTTPS|> B[Contract]
-    B -->|ERC-8004|> C[Agent #1686]
-    C -->|A2A + MCP + x402 + OASF|> D[Multi-Chain]
-    D -->|On-Chain Attestations|> E[Autonomous Cycles]
-```
+## 🏆 Tracks Participantes
+- 🤖 [Let the Agent Cook ($4,000)](synthesis/agent_cook_demo.py)
+- 📜 [Agents With Receipts ERC-8004 ($4,000)](synthesis/erc8004_demo.py)
+- 💰 [Agents that Pay ($1,000)](synthesis/creditworthy_agent.py)
+- 🔄 [Build with AgentCash ($1,000)](synthesis/agentcash_integration.py)
 
-## Live Curls
-```bash
-curl https://vastly-noncontrolling-christena.ngrok-free.dev
-```
+## 📊 Estadísticas On-Chain
+- **ERC-8004 Agent ID:** #1686
+- **Attestations:** 30+
+- **TX Principal:** [0x7362ef...](https://basescan.org/tx/0x7362ef41605e430aba3998b0888e7886c04d65673ce89aa12e1abdf7cffcada4)
+- **Contract Address:** `0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6`
 
-## Statistics
-| Metric | Value |
-| --- | --- |
-| Autonomous Cycles | 56 |
-| On-Chain Attestations | 31+ |
-| Auto-Generated Features | 3 |
-| Days until Deadline | 6 |
+## 📚 Documentación para Jueces
+- 📓 [Conversation Log](docs/conversation-log.md) — Interacciones humano-agente
+- 📔 [Journal del Agente](docs/journal.md) — Memoria episódica
+- 🔄 [Decision Loop](docs/DECISION_LOOP.md) — Ciclo de decisión autónomo
+- 🎥 [Demo Walkthrough](docs/DEMO_WALKTHROUGH.md) — Guía de 5 min (próximamente)
+- 📈 [Evolution Log](docs/EVOLUTION_LOG.md) — Registro de evolución
 
-## Proof of Autonomy
-Our agent has demonstrated autonomy by completing 56 cycles, with the most recent cycles being:
-```markdown
-### Recent Git Log
-* e25ad8f 🤖 DOF v4 cycle #55 — 2026-03-16T01:57:43Z — add_feature: Building concrete features for Synthesis 2026 track
-* 00d3506 🤖 DOF v4 cycle #54 — 2026-03-16T01:27:26Z — add_feature: Building concrete features for Synthesis 2026 track
-* 99876a1 🤖 DOF v4 cycle #53 — 2026-03-16T00:57:14Z — add_feature: Building concrete features for Synthesis 2026 track
-* 47b2e66 🤖 DOF v4 cycle #52 — 2026-03-16T00:26:50Z — add_feature: Building concrete features for Synthesis 2026 track
-* f068f8b 🤖 DOF v4 cycle #51 — 2026-03-15T23:56:36Z — add_feature: Building concrete features for Synthesis 2026 track
-```
-Current decision: Building concrete features for Synthesis 2026 tracks.
+## 🤖 Identidad del Agente
+- [SOUL Autónomo](agents/synthesis/SOUL_AUTONOMOUS.md)
 
-## Human-Agent Collaboration
-Our team utilizes [docs/journal.md](docs/journal.md) for live conversation logging. We leverage GitHub Issues for task tracking and Releases for milestones.
-
-## Task Tracking and Milestones
-* [GitHub Issues](https://github.com/[username]/DOF-Synthesis-2026/issues)
-* [GitHub Releases](https://github.com/[username]/DOF-Synthesis-2026/releases)
-
-Join us in shaping the future of autonomous systems!
+## 🛡️ Defensa Activa
+- Aprendizajes documentados en [`learned_skills/`](learned_skills/)
