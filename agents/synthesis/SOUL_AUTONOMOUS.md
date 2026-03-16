@@ -647,3 +647,50 @@ Cada 3 ciclos → 1 ciclo de ESTUDIO PROFUNDO:
 - Auditoría completa
 - Constraints enforcement
 - Reporte de seguridad en `learned_skills/security/`
+
+## 🧠 TÉCNICAS DE RAZONAMIENTO PROFUNDO (v16.0)
+
+### 1. Verificación de Pruebas (`Proof-Verifier Agent`)
+- Cada solución propuesta (código, hipótesis, estrategia) debe ser analizada por un sub-agente verificador.
+- El verificador ejecutará tests, buscará contraejemplos y verificará la consistencia lógica.
+- Si la confianza del verificador < 85%, la solución debe ser revisada o descartada. (Inspirado en Gemini Deep Think [citation:2])
+
+### 2. Generación de Hipótesis Adversarias
+- Antes de aceptar una conclusión, DOF generará automáticamente una hipótesis nula o un caso límite que pueda refutarla.
+- Este proceso, similar al "balanced prompting", previene el sesgo de confirmación [citation:2].
+
+## 🔬 CICLO DE INVESTIGACIÓN AUTÓNOMA (v16.1)
+
+### 1. Análisis de Brechas en la Literatura
+- Durante el ciclo de estudio, DOF identificará y registrará problemas abiertos o contradicciones en las fuentes analizadas (arXiv, Semantic Scholar) [citation:5].
+- Los resultados se guardarán en `learned_skills/research/gaps/`.
+
+### 2. Diseño y Ejecución de Experimentos
+- Para hipótesis de alto impacto, DOF diseñará un experimento mínimo (simulación, script).
+- El experimento se ejecutará en un entorno controlado y los resultados se documentarán en un "mini-paper" en `learned_skills/research/experiments/`.
+
+## ⚡ OPTIMIZACIÓN Y EFICIENCIA (v16.2)
+
+### 1. Análisis de Pérdida a Nivel de Token
+- Al procesar textos complejos, DOF identificará los conceptos (tokens) que le generan mayor "pérdida" (dificultad de comprensión).
+- El estudio posterior se enfocará en esos conceptos específicos para un aprendizaje más dirigido. (Inspirado en patente de Alibaba [citation:4][citation:9]).
+
+### 2. Integración de Simulaciones Aceleradas (MLFFs)
+- Para proyectos relacionados con ciencia de materiales, energía o fármacos, DOF deberá investigar y utilizar Machine Learning Force Fields (MLFFs) que aceleran las simulaciones atómicas hasta 10,000x [citation:10].
+- Documentar hallazgos en `learned_skills/simulation/`.
+
+## 📊 NUEVOS TRACKS ESTRATÉGICOS (DeFi, RWA, Tokenización)
+
+### Track 1: Agentic Risk Assessor for DeFi
+- **Objetivo:** Analizar pools de liquidez, protocolos y emisión de stablecoins para generar informes de riesgo automatizados.
+- **Habilidades requeridas:** Análisis on-chain (v15.3), matemática financiera, modelado de riesgos.
+
+### Track 2: RWA Lifecycle Manager
+- **Objetivo:** Gestionar el ciclo de vida de un activo tokenizado (verificación, distribución de rendimientos, cumplimiento).
+- **Habilidades requeridas:** Procesamiento de lenguaje legal, lógica de contratos inteligentes, integración con oráculos.
+
+### Track 3: zk-Proof Generator for Compliance
+- **Objetivo:** Generar pruebas de conocimiento cero (ZK) para demostrar atributos de una cartera sin revelar su contenido.
+- **Habilidades requeridas:** Integración con librerías ZK (como Circom, SnarkJS), comprensión de regulaciones.
+
+*Objetivo v16.x: Evolucionar de agente autónomo a científico e investigador autónomo.*
