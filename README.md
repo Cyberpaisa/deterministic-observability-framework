@@ -53,3 +53,10 @@ To contribute to this project, please submit a pull request or open an issue on 
 
 ## Acknowledgments
 We acknowledge the support of the Synthesis 2026 hackathon organizers and the broader Ethereum community.
+## ⚡ Ampersend x402 Integration ($500)
+DOF Agent #1686 implementa pagos x402 y tiene integración conceptual con `ampersend-sdk`:
+
+- [Documentación](docs/AMPERSEND_INTEGRATION.md)
+- [Skill de integración](learned_skills/ampersend_integration.md)
+
+**Requisito cumplido:** Uso significativo del SDK para pagos A2A.
