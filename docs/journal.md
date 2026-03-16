@@ -937,3 +937,18 @@ can be translated as no direct translation was needed, however a rewording can b
 **Q para Juan:** None
 
 ---
+
+## 🤖 Cycle #97 — 2026-03-16T23:01:06Z
+**Thoughts:** Creating real artifacts, such as contracts, scripts, and demos, is essential for presenting a project to judges, as it provides tangible evidence of the work completed and demonstrates the team's capabilities. 
+
+These artifacts can include:
+1. Contracts: Formal agreements outlining the scope, timeline, and expectations of the project.
+2. Scripts: Written sequences of actions or dialogue, often used in presentations, videos, or interactive demonstrations.
+3. Demos: Live or recorded presentations showcasing the project's key features,
+**Decision:** Building concrete features for Synthesis 2026 tracks
+**Reasoning:** Eligibilidad máxima para premios
+**Action:** add_feature
+**Proof:** 0xa6f3554a1a5ea473
+**Q para Juan:** 
+
+---
