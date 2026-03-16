@@ -1,54 +1,53 @@
 # DOF Synthesis 2026 Hackathon
-[![Server](https://img.shields.io/website?label=Server&url=https%3A%2F%2Fvastly-noncontrolling-christena.ngrok-free.dev)](https://vastly-noncontrolling-christena.ngrok-free.dev)
-[![Contract](https://img.shields.io/ethereum/contract/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)](https://etherscan.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
-[![ERC-8004 Agent](https://img.shields.io/badge/ERC--8004%20Agent-%231686%20(Global)-blue)](https://www.erc-8004.org/)
-[![Protocols](https://img.shields.io/badge/Protocols-A2A%20%2B%20MCP%20%2B%20x402%20%2B%20OASF-brightgreen)](https://github.com/DOF-Synthesis-2026/docs/blob/main/PROTOCOLS.md)
+[![Server Status](https://img.shields.io/website?label=Server&up_message=online&url=https%3A%2F%2Fvastly-noncontrolling-christena.ngrok-free.dev)](https://vastly-noncontrolling-christena.ngrok-free.dev)
+[![Contract](https://img.shields.io/badge/Contract-0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6-orange)](https://etherscan.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
+[![ERC-8004 Agent](https://img.shields.io/badge/ERC--8004%20Agent-1686-blue)](https://docs.erc8004.org/)
+[![Multi-Chain](https://img.shields.io/badge/Multi--Chain-Base%2C%20Status%20Network%2C%20Arbitrum-green)](https://docs.multi-chain.org/)
 
 ## Overview
-DOF Synthesis 2026 is a cutting-edge hackathon project that leverages the power of artificial intelligence, blockchain, and multi-chain technology to create a decentralized, autonomous, and efficient system. Our project utilizes the ERC-8004 Agent #1686 (Global) and supports multiple protocols, including A2A, MCP, x402, and OASF.
+DOF Synthesis 2026 is a cutting-edge hackathon project that leverages the power of artificial intelligence, blockchain, and multi-chain protocols to create a decentralized, autonomous, and efficient system. Our project utilizes the A2A, MCP, x402, and OASF protocols to ensure seamless communication and data exchange between different chains and agents.
 
 ## Architecture
 ```mermaid
 graph LR
-    A[Base Mainnet] -->|0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6|> B[Contract]
-    B -->|A2A + MCP + x402 + OASF|> C[Protocols]
-    C -->|Multi-chain|> D[Status Network]
-    C -->|Multi-chain|> E[Arbitrum]
-    D -->|36+ Attestations|> F[On-chain Data]
-    E -->|61 Autonomous Cycles|> G[Autonomous System]
-    G -->|3 Features Auto-generated|> H[AI-powered Features]
+    A[Base Mainnet] -->| ERC-8004 |B[Agent #1686]
+    B -->| A2A + MCP + x402 + OASF |C[Status Network]
+    B -->| A2A + MCP + x402 + OASF |D[Arbitrum]
+    C -->| Multi-Chain |E[On-Chain Attestations]
+    D -->| Multi-Chain |E
+    E -->| Autonomy |F[Autonomous Cycles]
 ```
 
 ## Live Curls
-You can use the following curls to interact with our system:
+You can interact with our server using the following curls:
 ```bash
-curl https://vastly-noncontrolling-christena.ngrok-free.dev/api/data
-curl https://vastly-noncontrolling-christena.ngrok-free.dev/api/features
+curl https://vastly-noncontrolling-christena.ngrok-free.dev/api/status
+curl https://vastly-noncontrolling-christena.ngrok-free.dev/api/attestations
 ```
 
-## Stats
+## Statistics
 | Category | Value |
 | --- | --- |
-| Autonomous Cycles | 61 |
-| Attestations on-chain | 36+ |
-| Auto-generated Features | 3 |
+| On-Chain Attestations | 37+ |
+| Autonomous Cycles | 62 |
+| Auto-Generated Features | 4 |
 | Days until Deadline | 6 |
 
 ## Proof of Autonomy
-Our system has completed 61 autonomous cycles, with 36+ attestations on-chain. We have also auto-generated 3 features using our AI-powered technology.
+Our system has completed 62 autonomous cycles, demonstrating its ability to operate independently and efficiently. The autonomous cycles are a testament to the system's capability to adapt and respond to changing conditions without human intervention.
 
 ## Human-Agent Collaboration
-Our team uses GitHub Issues for task tracking and Releases for milestones. You can view our live conversation log [here](docs/journal.md).
+Our team collaborates closely with the AI agent to ensure the project's success. You can view our live conversation log [here](docs/journal.md) to see how we work together to overcome challenges and achieve our goals.
 
 ## Task Tracking and Milestones
-We use GitHub Issues to track tasks and Releases to track milestones. You can view our issues [here](https://github.com/DOF-Synthesis-2026/issues) and our releases [here](https://github.com/DOF-Synthesis-2026/releases).
+We use [GitHub Issues](https://github.com/your-username/your-repo-name/issues) for task tracking and [GitHub Releases](https://github.com/your-username/your-repo-name/releases) for milestones. This allows us to stay organized and focused on delivering a high-quality project.
 
-## Recent Commits
-* `03e3dd8`: DOF v4 cycle #60 — 2026-03-16T04:19:58Z — add_feature: Building concrete features for Synthesis 2026 tracks
-* `c3b4caa`: DOF v4 cycle #65 — 2026-03-16T04:09:34Z — add v16.0-2: deep reasoning, autonomous research, efficiency, new tracks
-* `2aeb18b`: DOF v4 cycle #64 — 2026-03-16T04:02:14Z — document Virtuals Protocol integration
-* `440d219`: DOF v4 cycle #63 — 2026-03-16T04:01:51Z — add Uniswap API trader skill
-* `736a858`: DOF v4 cycle #62 — 2026-03-16T04:00:16Z — complete Celo documentation in DEMO_WALKTHROUGH
+## Recent Updates
+Our recent updates include:
+* `f4bf10b`: Completed Lido MCP bounty with working endpoints
+* `2ad2fd3`: Added feature: Building concrete features for Synthesis 2026 track
+* `03e3dd8`: Added feature: Building concrete features for Synthesis 2026 track
+* `c3b4caa`: Added v16.0-2: Deep reasoning, autonomous research, efficiency, and new tracks
+* `2aeb18b`: Documented Virtuals Protocol integration
 
-## Current Decision
-Our current decision is to focus on building concrete features for Synthesis 2026 tracks.
+Please visit our [GitHub Repository](https://github.com/your-username/your-repo-name) to learn more about our project and track our progress.
