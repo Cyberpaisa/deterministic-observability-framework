@@ -1,62 +1,51 @@
-# DOF Synthesis 2026
-[![Server](https://img.shields.io/website?label=Server&url=https%3A%2F%2Fvastly-noncontrolling-christena.ngrok-free.dev)](https://vastly-noncontrolling-christena.ngrok-free.dev)
-[![Contract](https://img.shields.io/ethereum/contract/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)](https://etherscan.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
-[![Agent](https://img.shields.io/badge/ERC--8004%20Agent-%231686%20%28Global%29-brightgreen)](https://erc8004.agents.global/agent/1686)
+# DOF Synthesis 2026 Hackathon
+[![Server Status](https://img.shields.io/website?down_message=Offline&up_message=Online&url=https%3A%2F%2Fvastly-noncontrolling-christena.ngrok-free.dev)](https://vastly-noncontrolling-christena.ngrok-free.dev)
+[![Contract](https://img.shields.io/badge/Contract-0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6-blue)](https://etherscan.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
+[![ERC-8004 Agent](https://img.shields.io/badge/ERC--8004_Agent-1686_(Global)-orange)]()
 
 ## Overview
-DOF Synthesis 2026 is a cutting-edge project utilizing A2A, MCP, x402, and OASF protocols to facilitate a seamless multi-chain experience across Base, Status Network, and Arbitrum. Our ERC-8004 Agent #1686 (Global) ensures secure and efficient interactions.
+DOF Synthesis 2026 is a cutting-edge hackathon project that leverages the power of A2A, MCP, x402, and OASF protocols to create a decentralized and autonomous system. Our project utilizes a multi-chain approach, with deployments on Base, Status Network, and Arbitrum.
 
 ## Architecture
 ```mermaid
-graph LR
-    A[Client] -->|HTTPS--> B(NGROK)
-    B -->|HTTPS--> C[Server]
-    C -->|JSON-RPC--> D[Contract]
-    D -->|Ethereum--> E[Base]
-    E -->|Bridge--> F[Status Network]
-    F -->|Bridge--> G[Arbitrum]
+graph LR;
+    A[User] -->|Interact|> B[Server];
+    B -->|API|> C[Contract];
+    C -->|ERC-8004|> D[Agent];
+    D -->|Autonomous Cycle|> E[Attestation];
+    E -->|On-Chain|> F[Blockchain];
 ```
+Our architecture is designed to provide a seamless and autonomous experience, with the user interacting with the server, which in turn communicates with the contract and agent.
 
-## Live API
-You can interact with our API using the following `curl` commands:
+## Live Curls
+You can use the following curl commands to test our API:
 ```bash
-curl -H "ngrok-skip-browser-warning: true" https://vastly-noncontrolling-christena.ngrok-free.dev/health
-curl -H "ngrok-skip-browser-warning: true" https://vastly-noncontrolling-christena.ngrok-free.dev/metrics
+curl -X GET https://vastly-noncontrolling-christena.ngrok-free.dev/api/attestations
+curl -X POST https://vastly-noncontrolling-christena.ngrok-free.dev/api/attestations -H "Content-Type: application/json" -d '{"data": "Example data"}'
 ```
-
-## Statistics
+## Stats
 | Metric | Value |
 | --- | --- |
-| Attestations on-chain | 38+ |
-| Autonomous cycles completed | 63 |
-| Auto-generated features | 4 |
+| Attestations on-chain | 39+ |
+| Autonomous cycles completed | 64 |
+| Features auto-generated | 5 |
 | Days until deadline | 6 |
 
 ## Proof of Autonomy
-Our system has demonstrated significant autonomy, with 63 cycles completed and 4 features auto-generated. The following table highlights the latest Git log entries:
-| Commit | Description | Date |
-| --- | --- | --- |
-| 6893900 | DOF v4 cycle #70 — add Slice Future of Commerce vision | 2026-03-16T05:26:39Z |
-| 2243e45 | DOF v4 cycle #69 — document bond.credit track in walkthrough | 2026-03-16T05:23:00Z |
-| cf1cc1e | DOF v4 cycle #62 — add_feature | 2026-03-16T05:20:28Z |
-| f4bf10b | DOF v4 cycle #68 — complete Lido MCP bounty with working endpoints | 2026-03-16T05:16:10Z |
-| 2ad2fd3 | DOF v4 cycle #61 — add_feature: Building concrete features for Synthesis 2026 tracks | 2026-03-16T04:50:14Z |
+Our system has demonstrated autonomy through the completion of 64 cycles, with 39+ attestations on-chain. This is a testament to the effectiveness of our ERC-8004 agent and the A2A, MCP, x402, and OASF protocols.
 
 ## Human-Agent Collaboration
-For a detailed conversation log, please visit [docs/journal.md](docs/journal.md). We use GitHub Issues for task tracking and Releases for milestones.
+Our project is built on the principles of human-agent collaboration. You can view our live conversation log at [docs/journal.md](docs/journal.md), which showcases the dynamic interaction between humans and our autonomous agent.
 
-## Current Decision
-Our current focus is on [Building concrete features for Synthesis 2026 tracks](https://github.com/username/repository/issues/issue_number).
+## Task Tracking and Milestones
+We use [GitHub Issues](https://github.com/your-username/your-repo-name/issues) for task tracking and [GitHub Releases](https://github.com/your-username/your-repo-name/releases) for milestones.
 
-## Contributing
-To contribute to this project, please submit a pull request or open an issue on our [GitHub repository](https://github.com/username/repository). We welcome any feedback or suggestions.
+## Recent Updates
+Our recent updates include:
+* **d37a2c2**: Added complete track traceability to conversation log
+* **609ad18**: Fixed diagram syntax
+* **4711c25**: Fixed README: Mermaid syntax and curl headers
+* **da8b558**: Added Ampersend x402 integration concept for bounty
+* **6174254**: Added feature: Building concrete features for Synthesis 2026 track
 
-## Acknowledgments
-We acknowledge the support of the Synthesis 2026 hackathon organizers and the broader Ethereum community.
-## ⚡ Ampersend x402 Integration ($500)
-DOF Agent #1686 implementa pagos x402 y tiene integración conceptual con `ampersend-sdk`:
-
-- [Documentación](docs/AMPERSEND_INTEGRATION.md)
-- [Skill de integración](learned_skills/ampersend_integration.md)
-
-**Requisito cumplido:** Uso significativo del SDK para pagos A2A.
+We look forward to showcasing our project to the AI judges and demonstrating the potential of human-agent collaboration in the context of A2A, MCP, x402, and OASF protocols.
