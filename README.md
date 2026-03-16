@@ -9,7 +9,7 @@ DOF Synthesis 2026 is a cutting-edge project utilizing A2A, MCP, x402, and OASF 
 ## Architecture
 ```mermaid
 graph LR
-    A[Client] -->|HTTPS|> B(NGROK)
+    A[Client] -->|HTTPS--> B(NGROK)
     B -->|HTTPS|> C[Server]
     C -->|JSON-RPC|> D[Contract]
     D -->|Ethereum|> E[Base]
@@ -20,8 +20,8 @@ graph LR
 ## Live API
 You can interact with our API using the following `curl` commands:
 ```bash
-curl https://vastly-noncontrolling-christena.ngrok-free.dev/health
-curl https://vastly-noncontrolling-christena.ngrok-free.dev/metrics
+curl -H "ngrok-skip-browser-warning: true" https://vastly-noncontrolling-christena.ngrok-free.dev/health
+curl -H "ngrok-skip-browser-warning: true" https://vastly-noncontrolling-christena.ngrok-free.dev/metrics
 ```
 
 ## Statistics
