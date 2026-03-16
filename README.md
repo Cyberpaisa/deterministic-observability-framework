@@ -10,11 +10,11 @@ DOF Synthesis 2026 is a cutting-edge project utilizing A2A, MCP, x402, and OASF 
 ```mermaid
 graph LR
     A[Client] -->|HTTPS--> B(NGROK)
-    B -->|HTTPS|> C[Server]
-    C -->|JSON-RPC|> D[Contract]
-    D -->|Ethereum|> E[Base]
-    E -->|Bridge|> F[Status Network]
-    F -->|Bridge|> G[Arbitrum]
+    B -->|HTTPS--> C[Server]
+    C -->|JSON-RPC--> D[Contract]
+    D -->|Ethereum--> E[Base]
+    E -->|Bridge--> F[Status Network]
+    F -->|Bridge--> G[Arbitrum]
 ```
 
 ## Live API
