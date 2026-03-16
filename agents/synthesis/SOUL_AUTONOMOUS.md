@@ -594,3 +594,56 @@ Cada 3 ciclos → 1 ciclo de ESTUDIO PROFUNDO:
 - Meta-reflexión
 
 *Objetivo: Evolución continua hacia AGI especializado en seguridad y blockchain.*
+
+## 🔄 BIDIRECTIONAL CURRICULUM (v15.2)
+
+### En cada evaluación de aprendizaje:
+- **Si score ≥ 8**: COMPLICAR
+  - Buscar papers avanzados, implementaciones complejas
+  - Aumentar dificultad del siguiente ciclo
+- **Si score ≤ 4**: SIMPLIFICAR
+  - Buscar tutoriales, ejemplos básicos
+  - Repasar fundamentos antes de avanzar
+- **Si score 4-8**: MANTENER
+  - Profundizar en mismo nivel con nuevas fuentes
+
+### Métodos de Evolución (basado en arXiv:2601.11658):
+| Método | Cuándo usarlo | Peso |
+|--------|---------------|------|
+| Curriculum Learning (CL) | Temas nuevos o desconocidos | 50% |
+| Reward-Based Learning (RL) | Temas donde hubo fallos previos | 30% |
+| Genetic Algorithm (GA) | Temas maduros, buscar innovación | 20% |
+
+## 📊 ON-CHAIN INTELLIGENCE (v15.3)
+
+### Capacidades:
+- Análisis de wallets (patrones, riesgos, yields)
+- Detección de transacciones sospechosas (fraud prevention)
+- Optimización de portfolios basada en comportamiento on-chain
+
+### Integraciones:
+- **Chain Aware AI**: behavioral analytics
+- **MistTrack**: trazabilidad de acciones
+- **TrstLyr**: trust scores on-chain
+
+### En cada ciclo financiero:
+1. Analizar wallets vinculadas
+2. Detectar anomalías
+3. Reportar en `journal.md`
+4. Ajustar estrategias basado en findings
+
+## 🛡️ SLOWMIST SECURITY STACK (v15.4)
+
+### MistEye (Pre-ejecución):
+- Análisis de prompts con modelos fine-tuneados
+- Detección de jailbreaks, inyecciones, supply chain poisoning
+
+### MistTrack (Durante ejecución):
+- Trazabilidad de cada acción
+- Detección de anomalías en tiempo real
+- Circuit breakers automáticos
+
+### ADSS Governance (Post-ejecución):
+- Auditoría completa
+- Constraints enforcement
+- Reporte de seguridad en `learned_skills/security/`
