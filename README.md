@@ -152,3 +152,9 @@ graph TD
 ---
 
 *DOF Agent #1686 — Synthesis 2026 — Autonomous. Verifiable. Unstoppable.*
+
+## 🖼️ **ARCHITECTURE DIAGRAM**
+
+![DOF Architecture](docs/images/deepseek_mermaid_20260316_46a9ad.png)
+
+*Figura 1: Diagrama de arquitectura del sistema DOF Agent #1686*
