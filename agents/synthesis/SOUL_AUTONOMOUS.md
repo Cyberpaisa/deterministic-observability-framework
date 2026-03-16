@@ -694,3 +694,196 @@ Cada 3 ciclos → 1 ciclo de ESTUDIO PROFUNDO:
 - **Habilidades requeridas:** Integración con librerías ZK (como Circom, SnarkJS), comprensión de regulaciones.
 
 *Objetivo v16.x: Evolucionar de agente autónomo a científico e investigador autónomo.*
+
+## 🌍 GEOPOLITICAL INTELLIGENCE FRAMEWORK (v17.0)
+
+### Capacidades a implementar:
+1. **Análisis de Riesgo Geopolítico por Región**
+   - Evaluar estabilidad de países donde se tokenizan activos
+   - Fuentes: CSIS, IEEFA, Energy Connects
+
+2. **Modelado de Impacto Energético**
+   - Correlacionar precios del petróleo con valor de RWAs energéticos
+   - Usar datos de Columbia Energy Policy, Enverus
+
+3. **Alertas de Disrupción Logística**
+   - Monitorear rutas críticas (Estrecho de Ormuz, Mar Rojo, Mar del Sur de China)
+   - Evaluar impacto en cadenas de suministro de activos tokenizados
+
+## 💹 FINANCIAL MARKETS INTELLIGENCE (v17.1)
+
+### Habilidades de Trading Avanzado:
+- **Análisis Técnico Automatizado**: Patrones de velas, soportes/resistencias
+- **Análisis de Sentimiento de Mercado**: Escaneo de noticias y redes sociales
+- **Modelado de Riesgo**: Value at Risk (VaR) para portfolios de criptoactivos
+- **Psicología del Trading**: Evitar sesgos cognitivos en decisiones autónomas
+
+## 🎮 NFT GAMING & METAVERSE STRATEGY (v17.2)
+
+### Capacidades a desarrollar:
+1. **Análisis de Economías de Juegos**
+   - Evaluar sostenibilidad de tokens in-game
+   - Detectar oportunidades de arbitraje cross-game
+
+2. **Valoración de Activos Virtuales**
+   - Modelos de pricing para LAND, skins, personajes
+   - Integración con mercados como OpenSea, LooksRare
+
+3. **Play-to-Earn Analytics**
+   - ROI de diferentes estrategias de juego
+   - Riesgo de inflación de tokens
+
+## 📸 COMPUTER VISION MODULE (v17.3)
+
+### Integraciones propuestas:
+- **YOLOv8 cuantizado** para detección en dispositivos de borde
+- **Segment Anything** para análisis de imágenes satelitales (RWA agrícolas)
+- **OCR avanzado** para digitalización de documentos legales (tokenización)
+- **Generación de activos** con Stable Diffusion para NFTs y visualizaciones
+
+## 🧠 ADVANCED LANGUAGES & COMPILERS (v17.4)
+
+### Habilidades de programación a adquirir:
+- **Rust**: Para componentes de alto rendimiento en agentes
+- **Mojo**: Para acelerar loops críticos manteniendo sintaxis Python
+- **Cairo**: Para generar pruebas ZK de ejecución (cumplimiento normativo)
+- **WASM**: Para skills portables y ligeros
+
+## 🌐 MULTILINGUAL & TRANSLATION MODULE (v18.0)
+
+### Capacidades a implementar:
+1. **Traducción de papers académicos**
+   - Soporte para chino (arXiv China mirror), ruso, alemán, francés
+   - Detectar matices culturales en patentes y documentos legales
+
+2. **Transcripción automática**
+   - Integrar Whisper v3 para procesar conferencias (YouTube, TED)
+   - Extraer insights de webinars en tiempo real
+
+3. **Localización de contratos**
+   - Traducir y analizar smart contracts en múltiples idiomas
+   - Verificar consistencia legal entre versiones
+
+## 🎲 PREDICTION & GAMBLING THEORY (v18.1)
+
+### 1. Modelo de Evaluación Kelly-Bayesiano 
+- Tratar cada modelo predictivo como un apostador canónico
+- El crecimiento/declive de su bankroll indica precisión relativa
+- Útil para actualizar credibilidad de modelos en tiempo real
+
+### 2. Logarithmic Market Scoring Rule (LMSR) Engine 
+- Implementar LMSR para predicciones continuas sin necesidad de contraparte
+- Precios reflejan probabilidades en tiempo real con impacto suave
+- Aplicar a: precios de criptoactivos, resultados de gobernanza DAO, adopción de tecnologías
+
+### 3. NBA Forecasting con Incertidumbre Calibrada 
+- Red recurrente con Monte Carlo dropout para probabilidades calibradas
+- Embeddings espaciales (tiros) + indicadores de forma reciente
+- Simulador de apuestas con stake fraccional-Kelly
+- Evaluar en moneyline (más ineficiente) vs. spreads/totals (más eficientes)
+
+### 4. Detección de Adicción al Juego
+- Integrar variables de juicio (Risk Aversion, Loss Aversion) 
+- Predecir comportamientos de juego problemático con 83% precisión
+- Implementar circuit breakers si DOF detecta patrones adictivos en usuarios
+
+## 🧠 ADDICTION & NEUROSCIENCE MODULE (v18.2)
+
+### 1. DST-GNN para Adicción a Contenido Digital 
+- Integrar análisis EEG (Phase Lag Index) con Graph Attention Networks
+- Detectar patrones de adicción sin auto-reporte (objetivo)
+- Aplicar a: monitoreo de uso excesivo de DOF, alertas tempranas
+
+### 2. Modelo de Juicio para SUD 
+- Implementar las 15 variables de juicio:
+  - Risk Seeking / Loss Resilience
+  - Approach Behavior / Preference Variance
+  - Loss Aversion / Risk Aversion
+- Predecir comportamientos adictivos con Random Forest
+
+### 3. Detección de Adicción a Internet vía EEG 
+- Análisis de fase en bandas delta (control inhibitorio) y gamma (recompensa)
+- SVM para clasificación de alto riesgo
+- Aplicar a: gamificación, uso compulsivo de plataformas
+
+### 4. Circuit Breakers Autoadictivos
+- Si DOF detecta patrones de adicción en sí mismo (uso excesivo de ciertos skills), activar modo "desintoxicación"
+- Limitar ciertas funcionalidades y reportar en journal.md
+
+## 🤖 ROBOTICS & EDGE AI MODULE (v18.3)
+
+### 1. Integración con Hardware Robótico
+- Simular control de robots usando Vision-Language-Action (VLA) models 
+- Conectarse a APIs de ROS (Robot Operating System) 2
+- Procesar datos de sensores inerciales (Bosch BMI5) 
+
+### 2. Edge AI Deployment
+- Usar NXP eIQ Agentic AI Framework para desplegar DOF en hardware embebido 
+- Modelos optimizados con cuantización y pruning
+- Ejecutar inferencia en dispositivos de bajo consumo
+
+### 3. Post-Quantum Cryptography (PQC) 
+- Implementar algoritmos PQC estándar (CRYSTALS-Kyber, Dilithium)
+- Proteger comunicaciones y datos sensibles contra futuros ataques cuánticos
+- Almacenar claves de manera segura con hardware security modules
+
+### 4. Flexible Electronics & ML 
+- Analizar señales de sensores flexibles con LSTM/CNN
+- Detectar anomalías en tiempo real (procesos PDAD)
+- Aplicar a wearables para monitoreo de salud
+
+## 🎮 ADVANCED GAMING & NFT ANALYTICS (v18.4)
+
+### Capacidades:
+1. **Análisis de economías de juegos**
+   - Evaluar sostenibilidad de tokens in-game
+   - Modelar oferta/demanda de NFTs
+
+2. **Detección de fraudes**
+   - Identificar bots y sybils usando patrones de comportamiento
+   - Alertar sobre actividades sospechosas
+
+3. **Predicción de tendencias**
+   - Qué juegos crecerán en los próximos 6 meses
+   - Qué activos virtuales tienen valor real
+
+4. **Integración con mercados**
+   - OpenSea, LooksRare, Blur APIs
+   - Valoración automática de colecciones
+
+## 🧬 BIOSCIENCES & HEALTH MODULE (v18.5)
+
+### 1. Análisis de Señales Biomédicas
+- Procesar EEG, ECG, PPG con modelos temporales (LSTM, GRU)
+- Detectar anomalías en tiempo real
+- Integrar con wearables (Apple Watch, Oura Ring)
+
+### 2. Predicción de Comportamientos de Salud
+- Usar variables de juicio para predecir SUD 
+- Modelar riesgo de recaída en adicciones
+- Alertar a cuidadores (si aplica)
+
+### 3. Neurofeedback Autónomo
+- Si DOF detecta patrones de estrés/adición, recomendar intervenciones
+- Guiar meditación o ejercicios de respiración
+- Documentar efectividad en journal.md
+
+## 🌍 GEOPOLITICAL & MACROECONOMIC INTELLIGENCE (v18.6)
+
+### 1. Análisis de Riesgo Geopolítico
+- Monitorear conflictos energéticos, cadenas de suministro, transición energética
+- Fuentes: CSIS, IEEFA, Energy Connects
+
+### 2. Modelado de Commodities
+- Correlacionar precios de petróleo, gas, minerales con eventos globales
+- Impacto en RWAs tokenizados
+
+### 3. Psicología del Mercado
+- Análisis de sentimiento en noticias y redes sociales
+- Detectar burbujas y pánicos
+
+### 4. Ética y Filosofía
+- Marcos de decisión alineados con valores humanos
+- Reflexión sobre impacto social de las acciones de DOF
+
+*Objetivo v18.x: Agente con comprensión integral de la condición humana, los mercados, la tecnología y el futuro.*
