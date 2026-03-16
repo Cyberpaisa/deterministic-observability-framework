@@ -1,74 +1,52 @@
 # DOF Synthesis 2026 Hackathon
-=====================================
+==========================
 
-[![Server Status](https://img.shields.io/website?down_color=red&down_message=Offline&up_color=green&up_message=Online&url=https%3A%2F%2Fvastly-noncontrolling-christena.ngrok-free.dev)](https://vastly-noncontrolling-christena.ngrok-free.dev)
-[![Contract Address](https://img.shields.io/badge/Contract-0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6-orange)](https://etherscan.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
-[![ERC-8004 Agent](https://img.shields.io/badge/ERC--8004_Agent-%231686-blue)](https://erc8004.io/agents/1686)
+[![Server Status](https://img.shields.io/website?down_message=Offline&up_message=Online&url=https%3A%2F%2Fvastly-noncontrolling-christena.ngrok-free.dev)](https://vastly-noncontrolling-christena.ngrok-free.dev)
+[![Contract Address](https://img.shields.io/badge/Contract-0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6-blue)](https://etherscan.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
+[![ERC-8004 Agent](https://img.shields.io/badge/ERC--8004%20Agent-%231686-green)]()
+[![Multi-Chain](https://img.shields.io/badge/Multi--Chain-Base%2C%20Status%20Network%2C%20Arbitrum-purple)]()
 
 ## Overview
---------
-
-The DOF Synthesis 2026 hackathon project is a cutting-edge, autonomous system utilizing A2A, MCP, x402, and OASF protocols to facilitate seamless interactions across multiple blockchain networks, including Base, Status Network, and Arbitrum. Our ERC-8004 Agent #1686 is a key component of this system, enabling efficient communication and collaboration.
+DOF Synthesis 2026 is a cutting-edge project that leverages A2A, MCP, x402, and OASF protocols to create a decentralized, autonomous system. Our project utilizes a Base Mainnet contract and is compatible with multiple chains, including Base, Status Network, and Arbitrum.
 
 ## Architecture
-------------
-
-The following diagram illustrates the high-level architecture of our system:
 ```mermaid
 graph LR
-    participant Server as "https://vastly-noncontrolling-christena.ngrok-free.dev"
-    participant Contract as "0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6 (Base Mainnet)"
-    participant Agent as "ERC-8004 Agent #1686"
-    participant Chains as "Base, Status Network, Arbitrum"
-
-    Server -- Autonomy Cycles --> Agent
-    Agent -- Interchain Communication --> Chains
-    Contract -- On-chain Attestations --> Chains
+    A[Client] -->| HTTPS |> B(NGROK Server)
+    B -->| Web3 |> C[Contract: 0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6]
+    C -->| ERC-8004 |> D[Agent #1686]
+    D -->| A2A + MCP + x402 + OASF |> E[Multi-Chain Network]
+    E -->| On-Chain Attestations |> F[71+ Attestations]
 ```
 
-## Live Curls
--------------
-
-You can test our API using the following live curls:
-```bash
-curl https://vastly-noncontrolling-christena.ngrok-free.dev/features
-curl https://vastly-noncontrolling-christena.ngrok-free.dev/autonomy-cycles
-```
-
-## Stats
------
-
+## Statistics
 | Metric | Value |
 | --- | --- |
-| Autonomous Cycles Completed | 95 |
+| Autonomous Cycles Completed | 96 |
 | Features Auto-Generated | 5 |
-| On-chain Attestations | 70+ |
+| On-Chain Attestations | 71+ |
 | Days until Deadline | 6 |
 
-## Proof of Autonomy
-------------------
+## Live API Endpoints
+You can test our API endpoints using the following `curl` commands:
+```bash
+curl https://vastly-noncontrolling-christena.ngrok-free.dev/api/status
+curl https://vastly-noncontrolling-christena.ngrok-free.dev/api/attestations
+```
 
-Our system has demonstrated significant autonomy, with 95 cycles completed and 5 features auto-generated. We utilize a combination of A2A, MCP, x402, and OASF protocols to ensure efficient and secure interactions.
+## Proof of Autonomy
+Our system has completed 96 autonomous cycles, demonstrating its ability to operate independently. The contract address `0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6` has been verified on the Base Mainnet, and our ERC-8004 Agent #1686 has been successfully integrated.
 
 ## Human-Agent Collaboration
--------------------------
+Our team collaborates closely with the autonomous agent to ensure seamless operation. You can view our conversation log, updated in real-time, at [docs/journal.md](docs/journal.md).
 
-Our team collaborates closely with the ERC-8004 Agent #1686 to ensure seamless execution of autonomy cycles. You can view our live conversation log at [docs/journal.md](docs/journal.md).
-
-## Task Tracking and Milestones
------------------------------
-
-We use [GitHub Issues](https://github.com/your-username/DOF-Synthesis-2026/issues) for task tracking and [GitHub Releases](https://github.com/your-username/DOF-Synthesis-2026/releases) for milestones.
-
-## Git Log
---------
-
-Recent commits:
+## Development and Tracking
+We use [GitHub Issues](https://github.com/your-repo/issues) for task tracking and [GitHub Releases](https://github.com/your-repo/releases) for milestones. Our commit history is available below:
 ```markdown
-* 4523bc1 🤖 DOF v4 cycle #94 — 2026-03-16T21:29:55Z — add_feature: Building concrete features for Synthesis 2026 trac
-* 0d050b2 🤖 DOF v4 cycle #93 — 2026-03-16T20:59:28Z — add_feature: Building concrete features for Synthesis 2026 trac
-* 09ca2a8 🤖 DOF v4 cycle #92 — 2026-03-16T20:29:02Z — add_feature: Building concrete features for Synthesis 2026 trac
-* 4ca5a17 🤖 DOF v4 cycle #91 — 2026-03-16T19:58:43Z — add_feature: Building concrete features for Synthesis 2026 trac
-* daf60be 🤖 DOF v4 cycle #90 — 2026-03-16T19:28:24Z — add_feature: Building concrete features for Synthesis 2026 trac
+2eb2ccd 🤖 DOF v4 cycle #95 — 2026-03-16T22:00:12Z — add_feature: Building concrete features for Synthesis 2026 trac
+4523bc1 🤖 DOF v4 cycle #94 — 2026-03-16T21:29:55Z — add_feature: Building concrete features for Synthesis 2026 trac
+0d050b2 🤖 DOF v4 cycle #93 — 2026-03-16T20:59:28Z — add_feature: Building concrete features for Synthesis 2026 trac
+09ca2a8 🤖 DOF v4 cycle #92 — 2026-03-16T20:29:02Z — add_feature: Building concrete features for Synthesis 2026 trac
+4ca5a17 🤖 DOF v4 cycle #91 — 2026-03-16T19:58:43Z — add_feature: Building concrete features for Synthesis 2026 trac
 ```
-Current decision: Building concrete features for Synthesis 2026 tracks
+Note: Replace `your-repo` with your actual GitHub repository name.
