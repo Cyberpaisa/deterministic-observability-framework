@@ -76,20 +76,3 @@ class OlasPearlAgent:
 **Detalles:**
 ```json
 {json.dumps(data, indent=2)}
-
-
-"""
-        with open("docs/journal.md", "a") as f:
-            f.write(entry)
-
-
-if __name__ == "__main__":
-    agent = OlasPearlAgent()
-    
-    # 1. Desplegar agente
-    deploy = agent.deploy_agent("research")
-    print(json.dumps(deploy, indent=2))
-    
-    # 2. Contratar otro agente
-    hire = agent.hire_agent("agent-1234", "Analizar tendencias DeFi", 0.005)
-    print(json.dumps(hire, indent=2))
