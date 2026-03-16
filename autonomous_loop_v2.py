@@ -84,10 +84,10 @@ GLOBAL_RESEARCH_CONTEXT = ""
 
 # ─── SCORE TRACKER (evolución del agente) ──────────────────────────────
 SCORE = {
-    "cycles_completed": 0,
-    "features_created": 0,
+    "cycles_completed": 55,
+    "features_created": 3,
     "files_generated": 0,
-    "attestations_ok": 0,
+    "attestations_ok": 30,
     "attestations_fail": 0,
     "questions_asked": 0,
     "server_health_ok": 0,

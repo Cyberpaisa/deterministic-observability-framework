@@ -1,54 +1,50 @@
 # DOF Synthesis 2026 Hackathon
-[![Server Status](https://img.shields.io/website?url=https://vastly-noncontrolling-christena.ngrok-free.dev)](https://vastly-noncontrolling-christena.ngrok-free.dev)
+[![Server Status](https://img.shields.io/website?down_message=Offline&label=Server&up_message=Online&url=https%3A%2F%2Fvastly-noncontrolling-christena.ngrok-free.dev)](https://vastly-noncontrolling-christena.ngrok-free.dev)
 [![Contract Address](https://img.shields.io/badge/Contract-0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6-blue)](https://etherscan.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
-[![ERC-8004 Agent](https://img.shields.io/badge/ERC--8004_Agent-1686-green)]()
+[![ERC-8004 Agent](https://img.shields.io/badge/ERC--8004%20Agent-%231686%20(Global)-blue)]()
 
 ## Overview
-The DOF Synthesis 2026 hackathon project leverages cutting-edge technologies to create a decentralized, multi-chain, and autonomous system. Our project utilizes the A2A, MCP, x402, and OASF protocols to ensure seamless interactions across various blockchain networks, including Base, Status Network, and Arbitrum.
+DOF Synthesis 2026 is a multi-chain project utilizing A2A, MCP, x402, and OASF protocols. Our ERC-8004 Agent #1686 operates on Base Mainnet, Status Network, and Arbitrum. We have achieved 31+ on-chain attestations and completed 56 autonomous cycles.
 
 ## Architecture
 ```mermaid
 graph LR
-    A[Client] -->|A2A|MCP
-    MCP -->|x402|OASF
-    OASF -->|ERC-8004|Base
-    Base -->|Multi-chain|Status Network
-    Status Network -->|Arbitrum|Arbitrum
-    Arbitrum -->|Autonomous Cycles|DOF Synthesis
-    DOF Synthesis -->|On-chain Attestations|Ethereum
+    A[Server] -->|HTTPS|> B[Contract]
+    B -->|ERC-8004|> C[Agent #1686]
+    C -->|A2A + MCP + x402 + OASF|> D[Multi-Chain]
+    D -->|On-Chain Attestations|> E[Autonomous Cycles]
 ```
 
 ## Live Curls
-You can interact with our server using the following curls:
 ```bash
-curl https://vastly-noncontrolling-christena.ngrok-free.dev/
+curl https://vastly-noncontrolling-christena.ngrok-free.dev
 ```
 
 ## Statistics
-| Category | Value |
+| Metric | Value |
 | --- | --- |
-| Autonomous Cycles | 55 |
-| On-chain Attestations | 6+ |
-| Features Auto-Generated | 0 |
+| Autonomous Cycles | 56 |
+| On-Chain Attestations | 31+ |
+| Auto-Generated Features | 3 |
 | Days until Deadline | 6 |
-| Contract Address | 0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6 |
-| ERC-8004 Agent | #1686 (Global) |
 
 ## Proof of Autonomy
-Our system has successfully completed 55 autonomous cycles, demonstrating its ability to operate independently and efficiently. With 6+ on-chain attestations, our project ensures transparency and accountability.
+Our agent has demonstrated autonomy by completing 56 cycles, with the most recent cycles being:
+```markdown
+### Recent Git Log
+* e25ad8f 🤖 DOF v4 cycle #55 — 2026-03-16T01:57:43Z — add_feature: Building concrete features for Synthesis 2026 track
+* 00d3506 🤖 DOF v4 cycle #54 — 2026-03-16T01:27:26Z — add_feature: Building concrete features for Synthesis 2026 track
+* 99876a1 🤖 DOF v4 cycle #53 — 2026-03-16T00:57:14Z — add_feature: Building concrete features for Synthesis 2026 track
+* 47b2e66 🤖 DOF v4 cycle #52 — 2026-03-16T00:26:50Z — add_feature: Building concrete features for Synthesis 2026 track
+* f068f8b 🤖 DOF v4 cycle #51 — 2026-03-15T23:56:36Z — add_feature: Building concrete features for Synthesis 2026 track
+```
+Current decision: Building concrete features for Synthesis 2026 tracks.
 
 ## Human-Agent Collaboration
-For a live update on our progress and decision-making process, please refer to our [Conversation Log](docs/journal.md). This document provides a detailed account of our human-agent collaboration and the current decision: **Building concrete features for Synthesis 2026 tracks**.
+Our team utilizes [docs/journal.md](docs/journal.md) for live conversation logging. We leverage GitHub Issues for task tracking and Releases for milestones.
 
 ## Task Tracking and Milestones
-We utilize [GitHub Issues](https://github.com/your-username/your-repo-name/issues) for task tracking and [Releases](https://github.com/your-username/your-repo-name/releases) for milestones.
+* [GitHub Issues](https://github.com/[username]/DOF-Synthesis-2026/issues)
+* [GitHub Releases](https://github.com/[username]/DOF-Synthesis-2026/releases)
 
-## Git Log
-Our recent commits include:
-* `00d3506`: DOF v4 cycle #54 — 2026-03-16T01:27:26Z — add_feature: Building concrete features for Synthesis 2026 trac
-* `99876a1`: DOF v4 cycle #53 — 2026-03-16T00:57:14Z — add_feature: Building concrete features for Synthesis 2026 trac
-* `47b2e66`: DOF v4 cycle #52 — 2026-03-16T00:26:50Z — add_feature: Building concrete features for Synthesis 2026 trac
-* `f068f8b`: DOF v4 cycle #51 — 2026-03-15T23:56:36Z — add_feature: Building concrete features for Synthesis 2026 trac
-* `3800707`: DOF v4 cycle #50 — 2026-03-15T23:26:21Z — add_feature: Building concrete features for Synthesis 2026 trac
-
-Please note that you should replace `your-username` and `your-repo-name` with your actual GitHub username and repository name.
+Join us in shaping the future of autonomous systems!
