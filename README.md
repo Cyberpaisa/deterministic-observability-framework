@@ -49,3 +49,25 @@ abc20c1 🤖 DOF v4 cycle #135 — 2026-03-17T18:55:46Z — add_feature: Buildin
 067bb3f 🤖 DOF v4 cycle #131 — 2026-03-17T16:16:48Z — add_feature: Building concrete features for Synthesis 2026 trac
 ```
 Our current decision is focused on building concrete features for Synthesis 2026 tracks.
+## 🏆 Functional Tracks (Live Demos)
+
+| Track | Description | Demo |
+|:---|:---|:---|
+| **MetaMask Delegations** | Create and manage token delegations with on-chain verification | [🔗 Live Demo](https://dof-agent-web.vercel.app/metamask-delegation/) |
+| **Octant Data Analysis** | Real-time on-chain analytics for Octant protocol | [🔗 Live Demo](https://dof-agent-web.vercel.app/octant-analysis/) |
+| **Olas Pearl Integration** | Deploy specialized trading and analytic agents | [🔗 Live Demo](https://dof-agent-web.vercel.app/olas-pearl/) |
+| **Locus Payments** | Automated payment processing with x402 | [🔗 Live Demo](https://dof-agent-web.vercel.app/locus-payments/) |
+| **SuperRare Art Generator** | AI-powered art generation and NFT minting | [🔗 Live Demo](https://dof-agent-web.vercel.app/superrare-art/) |
+| **Arkhai Escrow** | Secure escrow with multi-sig support | [🔗 Live Demo](https://dof-agent-web.vercel.app/arkhai-escrow/) |
+
+## 📚 Conceptual Tracks (Documented)
+
+| Track | Documentation | Prize |
+|:---|:---|:---:|
+| **Uniswap API Trader** | [`uniswap_trader.md`](docs/uniswap_trader.md) | $5,000 |
+| **Lido MCP** | [`lido_demo.py`](synthesis/lido_demo.py) | $3,000 |
+| **ENS Integration** | [`ens_resolver.md`](docs/ens_resolver.md) | $1,100 |
+| **Ampersend x402** | [`ampersend_integration.md`](docs/ampersend_integration.md) | $500 |
+
+### 💰 Total Bounties: **$30,600**
+
