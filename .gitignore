@@ -44,3 +44,7 @@ keys/
 data/
 .telegram_offset
 .pytest_cache/
+
+# Logs privados de Telegram
+docs/conversation-log.md.backup*
+docs/conversation-log.md.private*
