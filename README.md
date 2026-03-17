@@ -93,3 +93,9 @@ text
 09ca2a8 🤖 DOF v4 cycle #92 — 2026-03-16T20:29:02Z — add_feature: Building concrete features
 4ca5a17 🤖 DOF v4 cycle #91 — 2026-03-16T19:58:43Z — add_feature: Building concrete features
 daf60be 🤖 DOF v4 cycle #90 — 2026-03-16T19:28:24Z — add_feature: Building concrete features
+
+## 🚀 Live Demo
+Experience the autonomous agent in action:
+[**https://dof-agent-web.vercel.app**](https://dof-agent-web.vercel.app)
+
+[![Vercel Status](https://img.shields.io/website?down_message=Offline&up_message=Online&url=https%3A%2F%2Fdof-agent-web.vercel.app)](https://dof-agent-web.vercel.app)
