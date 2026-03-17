@@ -11,7 +11,7 @@
 
 ### The first AI agent with Deterministic Observability — every action is an on-chain proof
 
-**[🚀 Live Demo](https://dof-agent-web.vercel.app)** · **[📓 Journal](docs/journal.md)** · **[🔗 Basescan](https://basescan.org/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)** · **[📋 Conversation Log](docs/conversation-log.md)**
+**[Live Demo](https://dof-agent-web.vercel.app)** · **[Journal](docs/journal.md)** · **[Basescan](https://basescan.org/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)** · **[Conversation Log](docs/conversation-log.md)**
 
 </div>
 
@@ -23,7 +23,7 @@
 
 Every 30 minutes the agent executes a complete autonomous cycle:
 ```
-DISCOVER → PLAN → EXECUTE → VERIFY → COMMIT → ATTEST
+DISCOVER -> PLAN -> EXECUTE -> VERIFY -> COMMIT -> ATTEST
 ```
 
 Every action generates an **ERC-8004 signed trace** — cryptographically verifiable, immutable, on-chain.
@@ -45,7 +45,7 @@ Every action generates an **ERC-8004 signed trace** — cryptographically verifi
 
 ## Tracks & Bounties
 
-### Functional Tracks — Live Demos
+### Functional Tracks
 
 | Track | Sponsor | Script | Demo |
 |-------|---------|--------|------|
@@ -96,7 +96,7 @@ Every action generates an **ERC-8004 signed trace** — cryptographically verifi
 | Layer | Technology |
 |-------|-----------|
 | Agent Loop | Python 3.13 — autonomous cycle every 30 min |
-| LLM Fallbacks | Groq → Mistral → Cerebras |
+| LLM Fallbacks | Groq -> Mistral -> Cerebras |
 | Memory | OpenViking + Zep (persistent episodic + semantic) |
 | Identity | ERC-8004 #31013 on Base Mainnet |
 | Payments | x402 Protocol (DOFPaygate.sol) |
@@ -181,14 +181,14 @@ curl https://vastly-noncontrolling-christena.ngrok-free.dev/mcp/lido/apy
 
 | Document | Description |
 |----------|-------------|
-| [📓 conversation-log.md](docs/conversation-log.md) | Full human-agent Telegram collaboration history |
-| [📔 journal.md](docs/journal.md) | Episodic memory — every cycle, decision, and proof |
-| [📈 EVOLUTION_LOG.md](docs/EVOLUTION_LOG.md) | Agent self-improvement over 100+ cycles |
-| [🧠 SOUL_AUTONOMOUS.md](agents/synthesis/SOUL_AUTONOMOUS.md) | Agent identity, directives, security rules v18.6 |
-| [🎥 DEMO_WALKTHROUGH.md](docs/DEMO_WALKTHROUGH.md) | Step-by-step guide to run every demo |
-| [⚡ DECISION_LOOP.md](docs/DECISION_LOOP.md) | Technical documentation of the autonomous cycle |
-| [🔐 Z3_VERIFICATION.md](docs/Z3_VERIFICATION.md) | Formal proofs of 8 security invariants |
-| [🔒 SECURITY_AUDITS.md](docs/SECURITY_AUDITS.md) | Slither audit reports for all contracts |
+| [conversation-log.md](docs/conversation-log.md) | Full human-agent Telegram collaboration history |
+| [journal.md](docs/journal.md) | Episodic memory — every cycle, decision, and proof |
+| [EVOLUTION_LOG.md](docs/EVOLUTION_LOG.md) | Agent self-improvement over 100+ cycles |
+| [SOUL_AUTONOMOUS.md](agents/synthesis/SOUL_AUTONOMOUS.md) | Agent identity, directives, security rules v18.6 |
+| [DEMO_WALKTHROUGH.md](docs/DEMO_WALKTHROUGH.md) | Step-by-step guide to run every demo |
+| [DECISION_LOOP.md](docs/DECISION_LOOP.md) | Technical documentation of the autonomous cycle |
+| [Z3_VERIFICATION.md](docs/Z3_VERIFICATION.md) | Formal proofs of 8 security invariants |
+| [SECURITY_AUDITS.md](docs/SECURITY_AUDITS.md) | Slither audit reports for all contracts |
 
 ---
 
