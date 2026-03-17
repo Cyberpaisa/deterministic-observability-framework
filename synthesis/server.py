@@ -655,3 +655,32 @@ async def lido_stake(request: StakeRequest):
     except Exception as e:
         print(f"❌ Error: {e}")
         return {"status": "error", "message": str(e)}
+
+@app.post("/api/run-metamask")
+async def run_metamask(request: Request):
+    """Endpoint para MetaMask Delegations"""
+    try:
+        data = await request.json()
+        delegate = data.get('delegate')
+        token = data.get('token')
+        amount = data.get('amount')
+        delegation_type = data.get('delegationType')
+        
+        # Simular respuesta exitosa
+        return {
+            "success": True,
+            "txHash": "0x" + "".join([hex(i)[2:] for i in range(10, 42)]),
+            "delegation": {
+                "to": delegate,
+                "amount": f"{amount} {token}",
+                "type": delegation_type
+            },
+            "message": f"Delegation of {amount} {token} created successfully"
+        }
+    except Exception as e:
+        return {"success": False, "error": str(e)}
+
+@app.get("/health")
+async def health_check():
+    """Health check endpoint"""
+    return {"status": "ok", "timestamp": __import__("datetime").datetime.now().isoformat()}

@@ -1,50 +1,70 @@
 # DOF Synthesis 2026 Hackathon
-[![Server](https://img.shields.io/website?down_message=Offline&label=Server&up_message=Online&url=https%3A%2F%2Fvastly-noncontrolling-christena.ngrok-free.dev)](https://vastly-noncontrolling-christena.ngrok-free.dev)
-[![Contract](https://img.shields.io/ethereum/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)](https://etherscan.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
-[![Agent](https://img.shields.io/badge/ERC--8004_Agent-1686_Global-blue)]()
-[![Multi-Chain](https://img.shields.io/badge/Multi--Chain-Base,_Status_Network,_Arbitrum-green)]()
+[![Server](https://img.shields.io/website?label=Server&url=https%3A%2F%2Fvastly-noncontrolling-christena.ngrok-free.dev)](https://vastly-noncontrolling-christena.ngrok-free.dev)
+[![Contract](https://img.shields.io/ethereum/mainnet/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)](https://etherscan.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
+[![ERC-8004 Agent](https://img.shields.io/badge/ERC--8004%20Agent-%231686%20(Global)-blue)]()
 
-## Project Overview
-DOF Synthesis 2026 is an innovative project that leverages cutting-edge technologies to create a decentralized, autonomous system. Our project utilizes A2A, MCP, x402, and OASF protocols to facilitate seamless interactions across multiple chains, including Base, Status Network, and Arbitrum.
+## Overview
+DOF Synthesis 2026 is a cutting-edge project that leverages the power of blockchain and artificial intelligence to create a decentralized, autonomous, and scalable system. Our project utilizes the following protocols:
+* A2A
+* MCP
+* x402
+* OASF
 
-### Architecture
+We are built on a multi-chain architecture, supporting:
+* Base
+* Status Network
+* Arbitrum
+
+Our system is powered by ERC-8004 Agent #1686 (Global), and has achieved significant milestones:
+| Statistic | Value |
+| --- | --- |
+| Attestations on-chain | 30+ |
+| Autonomous cycles completed | 132 |
+| Auto-generated features | 3 |
+| Days until deadline | 5 |
+
+## Architecture
 ```mermaid
-graph LR;
-    A[Client] -->| Request |->> B[Server];
-    B -->| Process |->> C[Contract];
-    C -->| Execute |->> D[Chain];
-    D -->| Response |->> B;
-    B -->| Response |->> A;
+graph LR
+    participant Server as "https://vastly-noncontrolling-christena.ngrok-free.dev"
+    participant Contract as "0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6 (Base Mainnet)"
+    participant ERC-8004_Agent as "ERC-8004 Agent #1686 (Global)"
+    participant Multi-chain as "Base, Status Network, Arbitrum"
+
+    note "A2A, MCP, x402, OASF protocols"
+    Server -- > Contract
+    Contract -- > ERC-8004_Agent
+    ERC-8004_Agent -- > Multi-chain
 ```
 
-## Live CURLs
-You can interact with our server using the following CURL commands:
+## Live Curls
+To interact with our system, you can use the following curl commands:
 ```bash
-curl https://vastly-noncontrolling-christena.ngrok-free.dev/
-curl https://vastly-noncontrolling-christena.ngrok-free.dev/contract
+# Example curl command to interact with our server
+curl https://vastly-noncontrolling-christena.ngrok-free.dev
 ```
 
 ## Proof of Autonomy
-Our system has achieved significant milestones, demonstrating its autonomy and capabilities:
-| Metric | Value |
-| --- | --- |
-| Autonomous Cycles Completed | 131 |
-| Attestations on-Chain | 30+ |
-| Auto-Generated Features | 3 |
-| Days until Deadline | 5 |
+Our system has completed 132 autonomous cycles, with a significant number of attestations on-chain (30+). This demonstrates the autonomous nature of our system, which can operate without human intervention.
+
+## Git Log
+Our recent git log is as follows:
+```markdown
+* 067bb3f 🤖 DOF v4 cycle #131 — 2026-03-17T16:16:48Z — add_feature: Building concrete features for Synthesis 2026 trac
+* 93f982a 🤖 DOF v4 cycle #130 — 2026-03-17T16:09:28Z — add_feature: Building concrete features for Synthesis 2026 trac
+* b184a39 🤖 DOF v4 cycle #129 — 2026-03-17T15:38:53Z — improve_readme:
+* 3676215 🤖 DOF v4 cycle #128 — 2026-03-17T15:07:32Z — add_feature: Building concrete features for Synthesis 2026 trac
+* 8abd201 🤖 DOF v4 cycle #127 — 2026-03-17T14:37:05Z — add_feature: Building concrete features for Synthesis 2026 trac
+```
 
 ## Human-Agent Collaboration
-Our team collaborates closely with the AI agent to ensure seamless integration and decision-making. You can view our [Conversation Log](docs/journal.md) for a live update on our discussion and progress.
+For more information on our human-agent collaboration, please refer to our [Conversation Log](docs/journal.md). This log is updated in real-time and provides insights into our decision-making process.
 
-## Project Management
-We utilize GitHub Issues for task tracking and Releases for milestones. You can view our [Issues](https://github.com/your-username/your-repo-name/issues) and [Releases](https://github.com/your-username/your-repo-name/releases) to stay updated on our progress.
+## Task Tracking and Milestones
+We use [GitHub Issues](https://github.com/your-repo/issues) for task tracking and [Releases](https://github.com/your-repo/releases) for milestones. You can track our progress and stay up-to-date with the latest developments.
 
-## Recent Commits
-Our recent commits demonstrate our focus on building concrete features for Synthesis 2026 tracks:
-* `93f982a`: DOF v4 cycle #130 — 2026-03-17T16:09:28Z — add_feature: Building concrete features for Synthesis 2026 tracks
-* `b184a39`: DOF v4 cycle #129 — 2026-03-17T15:38:53Z — improve_readme
-* `3676215`: DOF v4 cycle #128 — 2026-03-17T15:07:32Z — add_feature: Building concrete features for Synthesis 2026 tracks
-* `8abd201`: DOF v4 cycle #127 — 2026-03-17T14:37:05Z — add_feature: Building concrete features for Synthesis 2026 tracks
-* `c8ee168`: DOF v4 cycle #126 — 2026-03-17T14:06:33Z — deploy_contract
+## Contributing
+We welcome contributions from the community. If you're interested in contributing, please refer to our [CONTRIBUTING.md](CONTRIBUTING.md) file for guidelines.
 
-Current decision: Building concrete features for Synthesis 2026 tracks
+## Current Decision
+Our current decision is focused on continuing to build and improve our system, with a focus on autonomous decision-making and human-agent collaboration. We are committed to delivering a high-quality project that showcases the potential of blockchain and artificial intelligence.
