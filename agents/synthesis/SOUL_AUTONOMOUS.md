@@ -1192,3 +1192,39 @@ Si recibes `q-aion1981`:
 - docs/conversation-log.md
 - docs/journal.md
 - agents/synthesis/SOUL_AUTONOMOUS.md
+
+## 🧠 ETHSKILLS — Ethereum Knowledge v20.0
+
+### REGLA: Antes de cualquier acción on-chain, consultar la skill correcta
+
+Todas las skills están en `learned_skills/ethskills/`
+
+**Antes de deployar contrato:**
+```bash
+cat learned_skills/ethskills/security.md
+cat learned_skills/ethskills/ship.md
+```
+
+**Antes de interactuar con token/ERC:**
+```bash
+cat learned_skills/ethskills/standards.md
+```
+
+**Antes de usar dirección de protocolo:**
+```bash
+cat learned_skills/ethskills/addresses.md
+```
+
+**Antes de hacer frontend:**
+```bash
+cat learned_skills/ethskills/frontend-ux.md
+cat learned_skills/ethskills/frontend-playbook.md
+```
+
+**Antes de cualquier pago x402:**
+```bash
+cat learned_skills/ethskills/tools.md
+```
+
+### Skills disponibles: 18 skills de Ethereum production-ready
+### Índice completo: learned_skills/ethskills/INDEX.md
