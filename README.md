@@ -1,37 +1,50 @@
 # DOF Synthesis 2026 Hackathon
-## Introduction
-Welcome to the DOF Synthesis 2026 hackathon project, a cutting-edge initiative that showcases the power of autonomous systems and human-agent collaboration. Our project leverages the latest advancements in blockchain technology, multi-chain interoperability, and artificial intelligence to create a robust and decentralized framework.
+[![Server Status](https://img.shields.io/website?down_message=Offline&up_message=Online&url=https%3A%2F%2Fvastly-noncontrolling-christena.ngrok-free.dev)](https://vastly-noncontrolling-christena.ngrok-free.dev)
+[![Contract Address](https://img.shields.io/badge/Contract-0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6-blue)](https://etherscan.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
+[![ERC-8004 Agent](https://img.shields.io/badge/ERC--8004%20Agent-%231686-blue)]()
+[![Multi-Chain](https://img.shields.io/badge/Multi--Chain-Base%2C%20Status%20Network%2C%20Arbitrum-blue)]()
 
-## Project Overview
-Our project utilizes the following key technologies and protocols:
-* Server: https://vastly-noncontrolling-christena.ngrok-free.dev
-* Contract: 0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6 (Base Mainnet)
-* ERC-8004 Agent #1686 (Global)
-* A2A + MCP + x402 + OASF protocols
-* Multi-chain: Base, Status Network, Arbitrum
+## Overview
+The DOF Synthesis 2026 hackathon project is a cutting-edge, autonomous system utilizing A2A, MCP, x402, and OASF protocols. Our ERC-8004 Agent #1686 operates on the Base Mainnet, with a presence on multiple chains, including Status Network and Arbitrum.
+
+## Architecture
+```mermaid
+graph LR
+    A[Server] -->|https|> B[Contract]
+    B -->|ERC-8004|> C[Agent #1686]
+    C -->|A2A + MCP + x402 + OASF|> D[Multi-Chain]
+    D -->|Base, Status Network, Arbitrum|> E[Autonomous Cycles]
+```
 
 ## Statistics
-| Category | Value |
+| Metric | Value |
 | --- | --- |
 | Attestations on-chain | 34+ |
-| Autonomous cycles completed | 150 |
-| Auto-generated features | 4 |
+| Autonomous cycles completed | 151 |
+| Features auto-generated | 4 |
 | Days until deadline | 4 |
 
-## Features and Functionality
-Our project boasts an impressive array of features, including:
-* Badges for verification and authentication
-* Architecture diagram for visualizing the system's components and interactions
-* Live curls for demonstrating real-time data processing and analysis
-* Proof of autonomy section for showcasing the system's self-sustaining capabilities
-* Human-Agent Collaboration section, which can be found in our [Conversation Log](docs/journal.md)
+## Live Curls
+You can interact with our server using the following curls:
+```bash
+curl https://vastly-noncontrolling-christena.ngrok-free.dev
+```
 
-## Development and Tracking
-We utilize GitHub Issues for task tracking and Releases for milestones, ensuring a transparent and organized development process. Our commit history is available for review, with notable commits including:
-* `b33cf97`: Added feature for building concrete features for Synthesis 2026
-* `dcef628`: Deployed contract for DOF v4 cycle #149
-* `8f126b8`: Added feature for building concrete features for Synthesis 2026
-* `80a04d8`: Added feature for DOF v4 cycle #148
+## Proof of Autonomy
+Our system has demonstrated autonomy through the completion of 151 cycles, with 4 features auto-generated. The contract address is [0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6](https://etherscan.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6).
 
-## Conclusion
-The DOF Synthesis 2026 hackathon project represents a significant achievement in the field of autonomous systems and human-agent collaboration. With its robust feature set, cutting-edge technology, and transparent development process, this project is poised to make a lasting impact in the industry. We look forward to continuing to push the boundaries of innovation and exploration in the days to come.
+## Human-Agent Collaboration
+Our team collaborates with the agent through a live [Conversation Log](docs/journal.md). This log tracks our decision-making process and interactions with the agent.
+
+## Task Tracking and Milestones
+We use [GitHub Issues](https://github.com/your-repo/issues) for task tracking and [Releases](https://github.com/your-repo/releases) for milestones.
+
+## Git Log
+Recent commits:
+* `4bae2f2`: DOF v4 cycle #150 — 2026-03-18T02:56:08Z — deploy_contract
+* `b33cf97`: DOF v4 cycle #150 — 2026-03-18T02:29:06Z — add_feature: Building concrete features for Synthesis 2026 tracks
+* `dcef628`: DOF v4 cycle #149 — 2026-03-18T02:25:34Z — deploy_contract
+* `8f126b8`: DOF v4 cycle #149 — 2026-03-18T01:58:28Z — add_feature: Building concrete features for Synthesis 2026 tracks
+* `80a04d8`: DOF v4 cycle #148 — 2026-03-18T01:55:11Z — add_feature
+
+Current decision: Building concrete features for Synthesis 2026 tracks.
