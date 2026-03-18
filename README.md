@@ -1,50 +1,53 @@
 # DOF Synthesis 2026 Hackathon
-=====================================
+[![Server Status](https://img.shields.io/website?down_message=Offline&up_message=Online&url=https%3A%2F%2Fvastly-noncontrolling-christena.ngrok-free.dev)](https://vastly-noncontrolling-christena.ngrok-free.dev)
+[![Contract Address](https://img.shields.io/badge/Contract-0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6-blue)](https://etherscan.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
+[![ERC-8004 Agent](https://img.shields.io/badge/ERC--8004%20Agent-%231686-blue)]()
+[![Multi-Chain](https://img.shields.io/badge/Multi--Chain-Base%2C%20Status%20Network%2C%20Arbitrum-blue)]()
 
-## Introduction
-DOF Synthesis 2026 is a cutting-edge project that leverages the power of AI and blockchain technology to create a decentralized, autonomous system. Our project utilizes the ERC-8004 Agent #1686 (Global) protocol and supports multiple chains, including Base, Status Network, and Arbitrum.
+## Overview
+DOF Synthesis 2026 is a cutting-edge hackathon project that leverages the power of A2A, MCP, x402, and OASF protocols to create a decentralized, autonomous system. Our project features a multi-chain architecture, with deployments on Base, Status Network, and Arbitrum.
 
-## Key Information
-* **Server:** https://vastly-noncontrolling-christena.ngrok-free.dev
-* **Contract:** 0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6 (Base Mainnet)
-* **Protocols:** A2A + MCP + x402 + OASF
-* **Multi-chain Support:** Base, Status Network, Arbitrum
+## Architecture
+```mermaid
+graph LR
+    A[Client] -->| HTTPS |> B(Server)
+    B -->| Web3 |> C(Contract)
+    C -->| ERC-8004 |> D(Agent)
+    D -->| A2A + MCP + x402 + OASF |> E(Multi-Chain)
+    E -->| Autonomous Cycles |> F(On-Chain Attestations)
+```
 
-## Project Statistics
-| Category | Value |
+## Live Curls
+You can interact with our server using the following curls:
+```bash
+curl https://vastly-noncontrolling-christena.ngrok-free.dev/
+curl https://vastly-noncontrolling-christena.ngrok-free.dev/contract
+```
+
+## Statistics
+| Metric | Value |
 | --- | --- |
-| Attestations on-chain | 33+ |
-| Autonomous Cycles Completed | 149 |
-| Auto-generated Features | 4 |
+| Autonomous Cycles Completed | 150 |
+| On-Chain Attestations | 33+ |
+| Auto-Generated Features | 4 |
 | Days until Deadline | 4 |
 
-## Features and Functionality
-Our project boasts a range of innovative features, including:
-* Decentralized autonomy using ERC-8004 Agent #1686 (Global)
-* Multi-chain support for increased flexibility and scalability
-* Implementation of A2A, MCP, x402, and OASF protocols for secure and efficient communication
-* 33+ attestations on-chain, demonstrating the project's credibility and trustworthiness
+## Proof of Autonomy
+Our system has demonstrated autonomy by completing 150 cycles, with 33+ on-chain attestations. The following commits showcase our autonomous feature generation:
+* `dcef628`: DOF v4 cycle #149 — 2026-03-18T02:25:34Z — deploy_contract
+* `8f126b8`: DOF v4 cycle #149 — 2026-03-18T01:58:28Z — add_feature: Building concrete features for Synthesis 2026 track
+* `80a04d8`: DOF v4 cycle #148 — 2026-03-18T01:55:11Z — add_feature
+* `3b2aa72`: DOF v4 cycle #148 — 2026-03-18T01:27:18Z — add_feature
+* `4b8f014`: DOF v4 cycle #147 — 2026-03-18T01:24:39Z — add_feature: Building concrete features for Synthesis 2026 track
 
 ## Human-Agent Collaboration
-Our project emphasizes the importance of human-agent collaboration, which is documented in our [Conversation Log](docs/journal.md). This live log provides insight into the project's development and decision-making process.
+Our project features a live [Conversation Log](docs/journal.md), where you can track the decision-making process and collaboration between humans and agents. The current decision is: **Building concrete features for Synthesis 2026 tracks**.
 
-## Development and Tracking
-We utilize GitHub Issues for task tracking and Releases for milestones, ensuring that our project remains organized and transparent. Our Git log is available for review, showcasing the project's progression and commits:
-```markdown
-8f126b8 🤖 DOF v4 cycle #149 — 2026-03-18T01:58:28Z — add_feature: Building concrete features for Synthesis 2026 trac
-80a04d8 🤖 DOF v4 cycle #148 — 2026-03-18T01:55:11Z — add_feature: 
-3b2aa72 🤖 DOF v4 cycle #148 — 2026-03-18T01:27:18Z — add_feature: 
-4b8f014 🤖 DOF v4 cycle #147 — 2026-03-18T01:24:39Z — add_feature: Building concrete features for Synthesis 2026 trac
-3dc036e 🤖 DOF v4 cycle #146 — 2026-03-18T01:24:05Z — deploy_contract:
-```
-## Proof of Autonomy
-Our project demonstrates autonomy through its 149 completed cycles, showcasing the system's ability to operate independently and make decisions without human intervention.
+## Task Tracking and Milestones
+We use [GitHub Issues](https://github.com/your-repo/issues) for task tracking and [Releases](https://github.com/your-repo/releases) for milestones.
 
-## Live Demos
-To demonstrate the project's functionality, we provide live curls and an architecture diagram, offering a comprehensive overview of the system's design and implementation.
+## Contract Details
+* Contract Address: `0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6` (Base Mainnet)
+* ERC-8004 Agent: `#1686` (Global)
 
-## Badges
-[![DOF Synthesis 2026](https://img.shields.io/badge/DOF-Synthesis%202026-blue.svg)](https://vastly-noncontrolling-christena.ngrok-free.dev)
-[![ERC-8004 Agent](https://img.shields.io/badge/ERC--8004-Agent-%231686-green.svg)](https://etherscan.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
-
-We are proud to present DOF Synthesis 2026, a revolutionary project that showcases the potential of AI and blockchain technology. With its decentralized autonomy, multi-chain support, and innovative features, our project is poised to make a significant impact in the industry.
+Note: Replace `your-repo` with your actual GitHub repository name.
