@@ -48,3 +48,4 @@ data/
 # Logs privados de Telegram
 docs/conversation-log.md.backup*
 docs/conversation-log.md.private*
+agents/synthesis/SOUL_AUTONOMOUS.md
