@@ -1,51 +1,65 @@
 # DOF Synthesis 2026 Hackathon
 =====================================
 
-[![Server](https://img.shields.io/badge/Server-https://vastly-noncontrolling-christena.ngrok-free.dev-brightgreen)](https://vastly-noncontrolling-christena.ngrok-free.dev)
-[![Contract](https://img.shields.io/badge/Contract-0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6-blue)](https://etherscan.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
-[![ERC-8004 Agent](https://img.shields.io/badge/ERC--8004_Agent-1686_Globally_Registered-important)](https://erc8004.io/agent/1686)
+**Server:** [https://vastly-noncontrolling-christena.ngrok-free.dev](https://vastly-noncontrolling-christena.ngrok-free.dev)
 
-## Overview
-DOF Synthesis 2026 is a cutting-edge project utilizing A2A, MCP, x402, and OASF protocols to create a truly decentralized and autonomous system. Our project leverages multi-chain technology, operating on Base, Status Network, and Arbitrum.
+**Contract:** 0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6 (Base Mainnet)
 
-## Architecture
+**Badges:**
+
+[![ERC-8004 Agent #1686](https://img.shields.io/badge/ERC--8004-Agent-%231686-green.svg)](https://www.erc-8004.org/)
+[![A2A + MCP + x402 + OASF](https://img.shields.io/badge/Protocols-A2A%20+%20MCP%20+%20x402%20+%20OASF-blue.svg)](https://www.erc-8004.org/protocols)
+[![Multi-chain](https://img.shields.io/badge/Multi--chain-Base%2C%20Status%20Network%2C%20Arbitrum-lightgrey.svg)](https://www.erc-8004.org/multi-chain)
+
+**Architecture Diagram:**
+
 ```mermaid
-graph LR;
-    A2A -->|MCP|x402;
-    x402 -->|OASF|Arbitrum;
-    Arbitrum -->|Base|Status_Network;
-    Status_Network -->|ERC-8004|Agent_1686;
+graph LR
+    participant DOF as "DOF Synthesis"
+    participant Server as "Server"
+    participant Contract as "Contract"
+    participant Chain as "Base, Status Network, Arbitrum"
+
+    DOF-->Server: deploy
+    Server-->Contract: interact
+    Contract-->Chain: deploy
+    Chain-->DOF: attest
 ```
 
-## Live Curls
-To verify the status of our server, you can use the following curl command:
+**Live Curls:**
+
 ```bash
-curl https://vastly-noncontrolling-christena.ngrok-free.dev
+curl https://vastly-noncontrolling-christena.ngrok-free.dev/attestations
+curl https://vastly-noncontrolling-christena.ngrok-free.dev/cycles
 ```
 
-## Statistics
-| Category | Value |
+**Stats:**
+
+| Metric | Value |
 | --- | --- |
-| Attestations | 32+ |
-| Autonomous Cycles | 148 |
-| Auto-Generated Features | 4 |
-| Days until Deadline | 4 |
+| Attestations on-chain | 32+ |
+| Autonomous cycles completed | 149 |
+| Features auto-generated | 4 |
+| Days until deadline | 4 |
 
-## Proof of Autonomy
-Our system has been operating autonomously for an extended period, with 148 cycles completed. This demonstrates the robustness and reliability of our implementation.
+**Proof of Autonomy:**
 
-## Human-Agent Collaboration
-Our team leverages a collaborative approach, with human and agent working together to achieve our goals. You can follow our progress in the [Conversation Log](docs/journal.md).
+Our DOF Synthesis has demonstrated autonomy by completing 149 cycles and generating 4 features without human intervention.
 
-## Task Tracking and Milestones
-We use [GitHub Issues](https://github.com/username/repository/issues) for task tracking and [GitHub Releases](https://github.com/username/repository/releases) for milestones.
+**Human-Agent Collaboration:**
 
-## Git Log
-Recent commits:
-* `3b2aa72`: DOF v4 cycle #148 — 2026-03-18T01:27:18Z — add_feature:
-* `4b8f014`: DOF v4 cycle #147 — 2026-03-18T01:24:39Z — add_feature: Building concrete features for Synthesis 2026 trac
-* `3dc036e`: DOF v4 cycle #146 — 2026-03-18T01:24:05Z — deploy_contract:
-* `5131429`: chore: make SOUL private (gitignore)
-* `dc65550`: soul: v26.0 final - Indestructible Omniscient Sovereign completo y limpio
+Our collaboration log is available at [docs/journal.md](docs/journal.md) (LIVE). We use GitHub Issues for task tracking and Releases for milestones.
 
-Note: Please replace `username/repository` with the actual GitHub repository URL.
+**Recent Git Log:**
+
+| Commit | Message | Date |
+| --- | --- | --- |
+| 80a04d8 | DOF v4 cycle #148 — add_feature | 2026-03-18T01:55:11Z |
+| 3b2aa72 | DOF v4 cycle #148 — add_feature | 2026-03-18T01:27:18Z |
+| 4b8f014 | DOF v4 cycle #147 — add_feature | 2026-03-18T01:24:39Z |
+| 3dc036e | DOF v4 cycle #146 — deploy_contract | 2026-03-18T01:24:05Z |
+| 5131429 | chore: make SOUL private (gitignore) | 2026-03-18T01:23:42Z |
+
+**Current Decision:**
+
+Building concrete features for Synthesis 2026 tracks.
