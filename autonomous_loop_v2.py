@@ -1446,3 +1446,24 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# --- SCRAPER INTEGRATION ---
+from agents.researcher.scraper_skill import ScraperSkill
+
+scraper = ScraperSkill()
+
+def autonomous_research_cycle():
+    print("🔍 Agent: initiating research cycle...")
+
+    data = scraper.scrape_hn()
+
+    print("📊 Top findings:")
+    for i, item in enumerate(data[:5]):
+        print(f"{i+1}. {item['title']} ({item['source']})")
+
+    return data
+
+# Trigger test
+if __name__ == "__main__":
+    autonomous_research_cycle()
+
