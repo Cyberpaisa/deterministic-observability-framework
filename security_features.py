@@ -1,1 +1,1 @@
-cross-chain_zero_trust_security
+cross_chain_security_module
