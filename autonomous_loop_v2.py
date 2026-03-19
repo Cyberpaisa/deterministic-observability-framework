@@ -94,10 +94,11 @@ from pydantic import BaseModel
 import uvicorn
 import threading
 import asyncio
-from zep_memory import get_memory
+# Sovereign Memory — local SQLite, zero external dependencies
+from core.local_memory import get_local_memory
 
-chat_memory = get_memory()
-ultimo_ciclo = "171"
+chat_memory = get_local_memory()
+ultimo_ciclo = "217"
 
 chat_app = FastAPI()
 class ChatMessage(BaseModel):
@@ -1656,10 +1657,11 @@ from pydantic import BaseModel
 import uvicorn
 import threading
 import asyncio
-from zep_memory import get_memory
+# Sovereign Memory — local SQLite, zero external dependencies
+from core.local_memory import get_local_memory
 
-chat_memory = get_memory()
-ultimo_ciclo = "171"
+chat_memory = get_local_memory()
+ultimo_ciclo = "217"
 
 chat_app = FastAPI()
 class ChatMessage(BaseModel):
@@ -1702,10 +1704,10 @@ if __name__ == "__main__":
     chat_thread = threading.Thread(target=iniciar_api_chat, daemon=True)
     chat_thread.start()
 import asyncio
-from zep_memory import get_memory
+from core.local_memory import get_local_memory
 
 app = FastAPI()
-memory_api = get_memory()
+memory_api = get_local_memory()
 
 class ChatMessage(BaseModel):
     message: str
@@ -1825,10 +1827,11 @@ from pydantic import BaseModel
 import uvicorn
 import threading
 import asyncio
-from zep_memory import get_memory
+# Sovereign Memory — local SQLite, zero external dependencies
+from core.local_memory import get_local_memory
 
-chat_memory = get_memory()
-ultimo_ciclo = "171"
+chat_memory = get_local_memory()
+ultimo_ciclo = "217"
 
 chat_app = FastAPI()
 class ChatMessage(BaseModel):
@@ -1871,10 +1874,10 @@ if __name__ == "__main__":
     chat_thread = threading.Thread(target=iniciar_api_chat, daemon=True)
     chat_thread.start()
 import asyncio
-from zep_memory import get_memory
+from core.local_memory import get_local_memory
 
-# Inicializar memoria Zep para el chat
-chat_memory = get_memory()
+# Sovereign Memory — local SQLite
+chat_memory = get_local_memory()
 
 # Configuración de la API
 
@@ -2003,10 +2006,11 @@ from pydantic import BaseModel
 import uvicorn
 import threading
 import asyncio
-from zep_memory import get_memory
+# Sovereign Memory — local SQLite, zero external dependencies
+from core.local_memory import get_local_memory
 
-chat_memory = get_memory()
-ultimo_ciclo = "171"
+chat_memory = get_local_memory()
+ultimo_ciclo = "217"
 
 chat_app = FastAPI()
 class ChatMessage(BaseModel):
@@ -2049,10 +2053,11 @@ if __name__ == "__main__":
     chat_thread = threading.Thread(target=iniciar_api_chat, daemon=True)
     chat_thread.start()
 import asyncio
-from zep_memory import get_memory
+# Sovereign Memory — local SQLite, zero external dependencies
+from core.local_memory import get_local_memory
 
-chat_memory = get_memory()
-ultimo_ciclo = "171"
+chat_memory = get_local_memory()
+ultimo_ciclo = "217"
 
 chat_app = FastAPI()
 class ChatMessage(BaseModel):
