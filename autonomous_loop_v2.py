@@ -202,6 +202,7 @@ ZEP_SESSION      = "dof-agent-1686-synthesis-2026"
 JOURNAL          = Path("AGENT_JOURNAL.md")
 CONV_LOG         = Path("docs/conversation-log.md")
 SOUL_PATH        = Path("agents/synthesis/SOUL_AUTONOMOUS.md")
+AGENTS_CONTEXT   = Path("AGENTS.md")
 BRANCH           = "hackathon"
 EVOLUTION_LOG    = Path("docs/EVOLUTION_LOG.md")
 DEADLINE         = datetime.datetime(2026, 3, 22, 23, 59, 0, tzinfo=datetime.timezone.utc)
@@ -456,13 +457,27 @@ def check_server_health():
 def git_push():
     """Realiza commit y push automático de los cambios en el repositorio."""
     try:
+        # Basic validation (Reviewer Pattern)
+        log.info("  🔍 Validando código antes de Push...")
+        # Check for syntax errors in .py files changed
+        res = os.system("python3 -m py_compile *.py")
+        if res != 0:
+            log.error("  ❌ Fallo en validación de sintaxis. Cancelando Push.")
+            return
+
         log.info("  🚀 Sincronizando con Git...")
         os.system(f"git add .")
-        os.system(f'git commit -m "Autonomous update: Cycle #{SCORE.get("cycles_completed", 0)} - Evolution continuing"')
+        os.system(f'git commit -m "Autonomous update: Cycle #{SCORE.get("cycles_completed", 0)} - Open SWE Patterns applied"')
         os.system(f"git push origin {BRANCH}")
         log.info("  ✅ Git Push completado.")
     except Exception as e:
         log.error(f"  ❌ Error en Git Push: {e}")
+
+def load_agents_context():
+    """Carga AGENTS.md para contexto global."""
+    if AGENTS_CONTEXT.exists():
+        return AGENTS_CONTEXT.read_text()
+    return ""
 
 def save_conv(role, text):
     """Guarda la conversación en docs/conversation-log.md."""
