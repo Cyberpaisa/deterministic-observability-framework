@@ -1,0 +1,48 @@
+{
+    "name": "foundry-testing",
+    "description": "Smart contract testing with Foundry — unit, fuzz, fork, and invariant testing. What to test, what not to test. Pre-deploy test checklist for production contracts.",
+    "version": "1.0.0",
+    "tags": ["testing", "blockchain", "universal"],
+    "authorized_agents": ["qa-vigilante", "qa-specialist", "ralph-code", "blockchain-wizard"],
+    "source_patterns": ["ethskills/testing.md", "Foundry docs"],
+    "pattern": "pipeline",
+    "capabilities": {
+        "unit_testing": "Edge cases, failure modes, economic invariants — not trivial getters",
+        "fuzz_testing": "Random inputs (10K+ runs), bound() over assume(), find bugs you missed",
+        "fork_testing": "Test against real deployed protocols on mainnet fork at specific block",
+        "invariant_testing": "Properties that hold across thousands of random call sequences",
+        "gas_reporting": "forge snapshot for regression detection across versions",
+        "static_analysis": "Slither integration for automated vulnerability scanning"
+    },
+    "test_priorities": [
+        "Custom business logic and math operations",
+        "Access control boundaries",
+        "Integration with external protocols",
+        "Economic edge cases (zero, max uint, self-transfer)",
+        "Event emission verification"
+    ],
+    "do_not_test": [
+        "OpenZeppelin internals (already audited)",
+        "Solidity language features (compiler works)",
+        "Trivial getters (name, symbol, decimals)",
+        "Happy path only (test unhappy paths!)"
+    ],
+    "pre_deploy_test_checklist": [
+        "All custom logic has unit tests with edge cases",
+        "Fuzz tests on all math (min 1000 runs)",
+        "Fork tests for every external protocol integration",
+        "Invariant tests for stateful protocols",
+        "Access control verified — unauthorized calls revert",
+        "Events verified with expectEmit",
+        "Gas snapshots taken with forge snapshot",
+        "Static analysis: slither . — no unaddressed findings",
+        "All tests pass: forge test -vvv"
+    ],
+    "rules": [
+        "Fuzz EVERYTHING that does math or handles user input",
+        "Fork test EVERYTHING that calls external protocols",
+        "Invariant test ALL stateful protocols (vaults, AMMs, lending)",
+        "Use bound() instead of vm.assume() — reshape, don't discard",
+        "Test unhappy paths more than happy paths"
+    ]
+}

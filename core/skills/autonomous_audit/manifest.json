@@ -1,0 +1,23 @@
+{
+    "name": "autonomous-audit",
+    "description": "Self-auditing autonomous loop pattern. Every cycle produces verifiable attestations, traces, and governance reports.",
+    "version": "1.0.0",
+    "tags": ["audit", "autonomous", "high-impact"],
+    "authorized_agents": ["organizer-os", "sentinel-shield", "qa-vigilante"],
+    "source_patterns": ["DOF autonomous_loop_v2.py", "Paperclip daily logs", "OpenClaw memory pattern"],
+    "capabilities": {
+        "cycle_attestation": "Every 30-min cycle produces signed attestation with proof hash",
+        "trace_persistence": "RunTrace JSON per execution with all step metrics",
+        "governance_audit": "GCR (Governance Compliance Rate) computed and logged per cycle",
+        "anomaly_detection": "Flag cycles with degraded metrics (F1 < 90%, latency > threshold)",
+        "daily_summary": "Aggregate daily: cycles completed, attestations, failures, Z3 proofs",
+        "memory_curation": "Learned patterns extracted to persistent MEMORY.md (not ephemeral)"
+    },
+    "rules": [
+        "216+ cycles already completed — never reset the counter",
+        "Every attestation must include keccak256 proof hash",
+        "Anomalous cycles trigger sentinel-shield review",
+        "Audit logs are append-only JSONL — never delete",
+        "Daily summary posted to dashboard and audit trail"
+    ]
+}

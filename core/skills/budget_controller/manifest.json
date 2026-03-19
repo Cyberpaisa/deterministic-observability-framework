@@ -1,0 +1,22 @@
+{
+    "name": "budget-controller",
+    "description": "Token and API cost tracking adapted from Paperclip budget system. Track spend per agent, enforce limits, prevent runaway costs.",
+    "version": "1.0.0",
+    "tags": ["cost", "governance", "universal"],
+    "authorized_agents": ["organizer-os", "scrum-master-zen", "product-overlord"],
+    "source_patterns": ["Paperclip (AI company)", "DOF providers.py TTL system"],
+    "capabilities": {
+        "per_agent_budget": "Track token usage and API costs per agent per cycle",
+        "spend_limits": "Hard limits per agent (e.g., blockchain-wizard max 10K tokens/cycle)",
+        "cost_alerts": "Alert when agent approaches 80% of budget",
+        "provider_cost_awareness": "Route to cheapest available provider when quality is equivalent",
+        "daily_reports": "JSONL cost reports aggregated daily"
+    },
+    "rules": [
+        "Groq: 12K TPM limit — track and respect",
+        "NVIDIA: 1000 credits total — allocate wisely",
+        "Cerebras: 1M tokens/day — share across agents",
+        "SambaNova: 24K context limit — only backup role",
+        "Free tier agents get lower budgets than sovereign operations"
+    ]
+}

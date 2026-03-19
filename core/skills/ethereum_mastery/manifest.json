@@ -1,0 +1,37 @@
+{
+    "name": "ethereum-mastery",
+    "description": "Complete Ethereum development knowledge base — 18 domains from ETHSkills. Covers shipping, standards, security, tools, wallets, L2s, addresses, concepts, gas, testing, audit, DeFi building blocks, orchestration, indexing, frontend, and QA.",
+    "version": "1.0.0",
+    "tags": ["blockchain", "universal", "high-impact"],
+    "authorized_agents": ["blockchain-wizard", "defi-orbital", "rwa-tokenizator", "ralph-code", "sentinel-shield"],
+    "source_patterns": ["ethskills/INDEX.md", "Austin Griffith ethskills"],
+    "pattern": "tool-wrapper",
+    "capabilities": {
+        "ship": "Pre-deploy checklist, deployment workflow, verification",
+        "standards": "ERC-20, ERC-721, ERC-1155, ERC-4626, ERC-8004, ERC-4337, x402",
+        "security": "Defensive Solidity patterns (see solidity-security skill for details)",
+        "tools": "Foundry, Hardhat, RPC endpoints, x402, MCP servers",
+        "wallets": "Account abstraction, multisig, key management, social recovery",
+        "l2s": "Base, Arbitrum, OP Stack, Celo, zkSync — differences and quirks",
+        "addresses": "Verified real contract addresses for major protocols",
+        "concepts": "Mental models: state machines, composability, immutability, trust minimization",
+        "gas": "Real Ethereum gas costs, optimization patterns, EIP-1559",
+        "testing": "Foundry unit/fuzz/fork/invariant (see foundry-testing skill for details)",
+        "audit": "500+ checklist items across 19 domains (see evm-audit skill for details)",
+        "building_blocks": "DeFi legos: AMMs, lending, vaults, oracles, bridges",
+        "orchestration": "dApp design patterns, transaction sequencing, MEV protection",
+        "indexing": "The Graph, Dune Analytics, event-driven data",
+        "frontend_ux": "On-chain UX patterns, wallet connection, tx feedback",
+        "frontend_playbook": "Production deployment: CDN, IPFS, ENS",
+        "qa": "QA checklist before shipping to mainnet",
+        "why_ethereum": "Why build on Ethereum — composability, neutrality, security"
+    },
+    "ethskills_reference": "learned_skills/ethskills/INDEX.md",
+    "rules": [
+        "Consult ethskills BEFORE any on-chain action",
+        "Always run security + testing checklists before deployment",
+        "Use real addresses from addresses skill — never guess contract addresses",
+        "Check gas skill for cost estimation before recommending patterns",
+        "L2 skill must be consulted for any non-mainnet deployment (gas, sequencer, quirks)"
+    ]
+}

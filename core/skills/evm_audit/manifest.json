@@ -1,0 +1,57 @@
+{
+    "name": "evm-audit",
+    "description": "Deep EVM smart contract security audit system. 500+ checklist items across 19 domains. Parallel sub-agents per vulnerability domain. Covers reentrancy, oracle manipulation, flash loans, proxy patterns, access control, MEV, and more.",
+    "version": "1.0.0",
+    "tags": ["security", "blockchain", "high-impact"],
+    "authorized_agents": ["sentinel-shield", "blockchain-wizard", "qa-vigilante"],
+    "source_patterns": ["austintgriffith/evm-audit-skills", "ethskills/audit.md"],
+    "pattern": "pipeline",
+    "capabilities": {
+        "general_audit": "Always-on: common vulnerabilities, storage layout, visibility, events",
+        "precision_math": "Always-on: integer overflow, rounding, decimal handling, basis points",
+        "erc20_audit": "Token interaction: SafeERC20, fee-on-transfer, rebasing, blocklists",
+        "defi_amm": "AMM/DEX: Uniswap V3/V4, liquidity pools, sandwich attacks, slippage",
+        "defi_lending": "Lending: CDP, liquidations, collateral ratios, flash loan attacks",
+        "defi_staking": "Staking: liquid staking, restaking, EigenLayer, reward distribution",
+        "erc4626_vault": "Vaults: share/asset conversion, inflation attack, virtual offset",
+        "erc4337_aa": "Account abstraction: paymasters, session keys, validation",
+        "bridges": "Cross-chain: LayerZero, CCIP, Wormhole, message verification",
+        "proxies": "Upgradeable: UUPS, Transparent, Diamond, storage collisions",
+        "signatures": "Off-chain: EIP-712, permits, replay protection, nonces",
+        "governance": "DAO: voting, timelocks, multi-sig, quorum manipulation",
+        "oracles": "Price feeds: Chainlink, TWAP, Pyth, staleness checks",
+        "assembly": "Low-level: inline Yul, CREATE2, delegatecall, selfdestruct",
+        "chain_specific": "L2: Arbitrum, OP, zkSync, Blast, BSC quirks",
+        "flashloans": "Flash loan attack vectors and defenses",
+        "nft_audit": "NFTs: ERC721, ERC1155, metadata, royalties",
+        "dos_audit": "DoS: unbounded loops, gas griefing, block gas limit",
+        "access_control": "Ownership, roles, centralization risks, emergency functions"
+    },
+    "audit_pipeline": [
+        "1. Fetch master skill index from evm-audit-master/SKILL.md",
+        "2. Read target contract(s) completely",
+        "3. Select 5-8 relevant checklists using routing table",
+        "4. Spawn parallel sub-agent per checklist domain",
+        "5. Each agent walks checklist → writes findings-{domain}.md",
+        "6. Synthesize all findings into AUDIT-REPORT.md",
+        "7. File GitHub issues for Medium severity and above"
+    ],
+    "severity_levels": {
+        "CRITICAL": "Direct loss of funds, protocol insolvency",
+        "HIGH": "Conditional loss of funds, privilege escalation",
+        "MEDIUM": "Unexpected behavior, griefing, minor fund loss",
+        "LOW": "Best practice violation, gas inefficiency",
+        "INFO": "Code quality, readability, documentation"
+    },
+    "rules": [
+        "ALWAYS run general + precision-math checklists (mandatory)",
+        "Select additional checklists based on contract type",
+        "Every finding must include: severity, location, description, recommendation",
+        "Use Checks-Effects-Interactions (CEI) pattern for reentrancy",
+        "Never use DEX spot prices as oracles — Chainlink or TWAP only",
+        "Always use SafeERC20 for token operations",
+        "Pre-deploy checklist is NON-NEGOTIABLE",
+        "Run slither static analysis before any audit conclusion"
+    ],
+    "master_index_url": "https://raw.githubusercontent.com/austintgriffith/evm-audit-skills/main/evm-audit-master/SKILL.md"
+}

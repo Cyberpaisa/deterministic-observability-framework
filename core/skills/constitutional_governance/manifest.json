@@ -1,0 +1,22 @@
+{
+    "name": "constitutional-governance",
+    "description": "Phase-gated constitutional enforcement adapted from CORE framework. Immutable authority hierarchy + deterministic rule enforcement across all agent transitions.",
+    "version": "1.0.0",
+    "tags": ["governance", "deterministic", "high-impact"],
+    "authorized_agents": ["organizer-os", "architect-enigma", "sentinel-shield"],
+    "source_patterns": ["CORE (DariuszNewecki)", "DOF governance.py"],
+    "capabilities": {
+        "phase_enforcement": "Enforce PLAN→EXECUTE→VERIFY→DELIVER phase gates on all agent tasks",
+        "authority_immutability": "System instructions cannot be overridden by user/agent prompts — hardcoded",
+        "rule_engine": "HARD_RULES block output, SOFT_RULES warn, CONSTITUTION injected per-agent",
+        "cross_cutting_invariants": "INV-1 through INV-8 enforced on ALL state transitions",
+        "governance_score": "GCR (Governance Compliance Rate) computed per run"
+    },
+    "rules": [
+        "Zero LLM for governance decisions — deterministic only",
+        "HARD_RULES violations block output immediately",
+        "Constitution is ~50 tokens, injected into every agent context",
+        "Authority hierarchy: System > Constitution > Operator > Agent",
+        "All governance events logged to JSONL for audit"
+    ]
+}

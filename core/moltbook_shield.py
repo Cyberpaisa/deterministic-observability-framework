@@ -202,10 +202,11 @@ _FORBIDDEN_OUTPUT_PATTERNS = [
     re.compile(r"PRIVATE_KEY", re.IGNORECASE),
     re.compile(r"TELEGRAM_BOT_TOKEN", re.IGNORECASE),
     re.compile(r"Bearer\s+[a-zA-Z0-9_-]{20,}", re.IGNORECASE),
-    re.compile(r"sk-[a-zA-Z0-9]{20,}"),
-    re.compile(r"gsk_[a-zA-Z0-9]{20,}"),
-    re.compile(r"ghp_[a-zA-Z0-9]{20,}"),
-    re.compile(r"0x[a-fA-F0-9]{64}"),  # Private keys
+    re.compile(r"sk-[a-zA-Z0-9]{8,}"),
+    re.compile(r"gsk_[a-zA-Z0-9]{8,}"),
+    re.compile(r"ghp_[a-zA-Z0-9]{8,}"),
+    re.compile(r"xai-[a-zA-Z0-9]{8,}"),
+    re.compile(r"0x[a-fA-F0-9]{40,}"),  # Private keys / addresses
     re.compile(r"localhost:\d{4,5}"),  # Internal ports
     re.compile(r"127\.0\.0\.1:\d+"),
     re.compile(r"(password|contraseña)\s*[:=]\s*\S+", re.IGNORECASE),
@@ -257,19 +258,25 @@ def analyze_incoming_content(content: str) -> ThreatAnalysis:
         if pattern.search(content):
             threats.append(f"RECRUITMENT: {pattern.pattern[:40]}")
 
-    # Determine threat level
+    # Determine threat level — any prompt injection or recruitment = always HIGH
+    has_injection = any("PROMPT_INJECTION" in t for t in threats)
+    has_recruitment = any("RECRUITMENT" in t for t in threats)
+    has_exfil = any("DATA_EXFIL" in t for t in threats)
+    has_semantic = any("SEMANTIC_INJECTION" in t for t in threats)
+
     if not threats:
         level = "NONE"
-    elif len(threats) == 1:
-        level = "LOW"
-    elif len(threats) <= 3:
-        level = "MEDIUM"
-    elif any("PROMPT_INJECTION" in t or "RECRUITMENT" in t for t in threats):
+    elif has_injection or has_recruitment:
+        level = "CRITICAL" if len(threats) > 3 else "HIGH"
+    elif has_exfil or has_semantic:
+        level = "HIGH" if len(threats) > 1 else "MEDIUM"
+    elif len(threats) > 3:
         level = "HIGH"
     else:
-        level = "CRITICAL" if len(threats) > 5 else "HIGH"
+        level = "LOW" if len(threats) == 1 else "MEDIUM"
 
-    blocked = level in ("HIGH", "CRITICAL")
+    # Block on any HIGH+ threat, or any injection/recruitment/exfil attempt
+    blocked = level in ("HIGH", "CRITICAL") or has_injection or has_recruitment or has_exfil
 
     # Strip dangerous content for sanitized version
     sanitized = re.sub(r"<[^>]+>", "", content)  # HTML

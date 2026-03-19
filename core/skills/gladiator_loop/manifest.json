@@ -1,0 +1,24 @@
+{
+    "name": "gladiator-loop",
+    "description": "Competitive agent learning loop adapted from GLADIATOR/Hermes. Work → create skill → reuse skill → refine → merge knowledge across teams.",
+    "version": "1.0.0",
+    "tags": ["learning", "universal", "high-impact"],
+    "authorized_agents": ["organizer-os", "architect-enigma", "ralph-code"],
+    "source_patterns": ["GLADIATOR (Nous Research)", "Hermes agent", "Paperclip adapter"],
+    "capabilities": {
+        "skill_auto_creation": "Agents autonomously create SKILL.md files when completing complex tasks",
+        "skill_reuse": "Subsequent tasks reference learned skills — tracked via usage events",
+        "skill_versioning": "Each refinement bumps version — formula: tasks*8 + unique_skills*5 + versions*3",
+        "persistent_memory": "MEMORY.md per agent persists strategy notes and learnings across sessions",
+        "session_chaining": "Session IDs chain across heartbeats for continuity",
+        "knowledge_merge": "Post-competition: merge skills across teams/agents for cross-pollination",
+        "token_optimization": "30-85% token reduction on tasks with cached skills"
+    },
+    "rules": [
+        "Every complex task completion should check if a reusable skill can be extracted",
+        "Skills are stored in core/skills/{name}/manifest.json (DOF format, not raw SKILL.md)",
+        "Usage tracking: times_used, times_refined, token_savings_pct per skill",
+        "Merge is explicit and audited — not automatic",
+        "All skill lifecycle events logged to skill_audit.jsonl"
+    ]
+}

@@ -417,13 +417,35 @@ async def get_graph():
 # --- SKILLS ---
 @app.get("/api/skills")
 async def get_skills():
-    from core.skill_engine import SovereignSkillEngine
-    engine = SovereignSkillEngine()
-    engine.load_skills()
+    from core.skill_engine import get_skill_engine
+    engine = get_skill_engine()
+    status = engine.status()
+    # Build per-skill detail
+    skill_details = []
+    for name, manifest in engine.registry.items():
+        usage = status["usage"].get(name, {})
+        health = status["health"].get(name, {})
+        skill_details.append({
+            "name": name,
+            "description": manifest.get("description", ""),
+            "version": manifest.get("version", "1.0.0"),
+            "tags": manifest.get("tags", []),
+            "pattern": manifest.get("pattern", "default"),
+            "authorized_agents": manifest.get("authorized_agents", []),
+            "times_used": usage.get("times_used", 0),
+            "times_refined": usage.get("times_refined", 0),
+            "success_rate": health.get("success_rate", 0),
+            "avg_score": health.get("avg_score", 0),
+            "degraded": health.get("degraded", False),
+        })
     return {
-        "access": "UNIVERSAL_SOVEREIGN_ROOT",
+        "total_skills": status["total_skills"],
+        "patterns_supported": status["patterns_supported"],
+        "skills": skill_details,
+        "routing_confusion_count": status["routing_confusion_count"],
+        "degraded_skills": status["degraded_skills"],
         "active_skills": list(engine.registry.keys()),
-        "status": "ALL_AGENTS_SYNCED_V2"
+        "status": "ENGINE_V2_ACTIVE"
     }
 
 

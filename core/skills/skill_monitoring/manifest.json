@@ -1,0 +1,27 @@
+{
+    "name": "skill-monitoring",
+    "description": "CI pipeline for skills — routing audit, model canary, weekly eval, degradation detection. Prevents silent skill regression in production.",
+    "version": "1.0.0",
+    "tags": ["monitoring", "universal", "high-impact"],
+    "authorized_agents": ["organizer-os", "sentinel-shield", "qa-vigilante"],
+    "source_patterns": ["PraxLab experiments", "Cognee Skills", "Skill degradation article"],
+    "capabilities": {
+        "routing_audit": "Log every skill selection with confidence scores, detect confusion (delta < 0.05)",
+        "model_canary": "Before model updates, run skills against synthetic inputs, diff structurally",
+        "weekly_eval": "Judge model scores skill outputs on rubric, alert on 10%+ week-over-week drops",
+        "degradation_detection": "Compare first-half vs second-half invocation scores, flag >10% drops",
+        "version_control": "Every skill amendment gets audit entry with before/after scores"
+    },
+    "failure_modes": {
+        "routing_confusion": "Delta < 0.05 between top candidates — add disambiguation keywords",
+        "model_drift": "Format changes on model updates — test structurally, not semantically",
+        "reference_breakage": "Outdated test cases — refresh benchmarks when codebase changes"
+    },
+    "rules": [
+        "Every routing decision logged to skill_audit.jsonl",
+        "Format drift > 12% blocks model deployment",
+        "Content drift < 5% is acceptable (model improvement)",
+        "10+ invocations required before degradation check triggers",
+        "All monitoring is deterministic — no LLM for evaluation scoring"
+    ]
+}

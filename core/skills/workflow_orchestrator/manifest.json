@@ -1,0 +1,23 @@
+{
+    "name": "workflow-orchestrator",
+    "description": "Multi-agent workflow orchestration adapted from Open SWE subagent pattern + Paperclip ticket system. Task routing, delegation, and completion tracking.",
+    "version": "1.0.0",
+    "tags": ["orchestration", "workflow", "universal"],
+    "authorized_agents": ["organizer-os", "scrum-master-zen"],
+    "source_patterns": ["Open SWE", "Paperclip", "DOF crew_runner.py"],
+    "capabilities": {
+        "task_routing": "Route tasks to best-fit agent based on security level and tool allowlist",
+        "delegation_chain": "organizer-os delegates to specialists, tracks completion",
+        "retry_logic": "crew_factory pattern — rebuild crew on retry to skip exhausted providers",
+        "parallel_execution": "Independent subtasks run in parallel across agents",
+        "ticket_system": "Each task gets unique ID, status tracking, completion attestation",
+        "escalation_path": "Failed tasks escalate: Agent → Supervisor → organizer-os → Human"
+    },
+    "rules": [
+        "crew_factory must be called on each retry (not reuse stale crew)",
+        "Max 3 retries per task before escalation",
+        "Supervisor score: Q(0.4) + A(0.25) + C(0.2) + F(0.15) → ACCEPT/RETRY/ESCALATE",
+        "Agent tool usage must match AGENT_TOOL_ALLOWLISTS (8-level security)",
+        "All task state persisted to JSONL checkpoints for crash recovery"
+    ]
+}

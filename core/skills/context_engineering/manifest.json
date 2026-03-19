@@ -1,0 +1,22 @@
+{
+    "name": "context-engineering",
+    "description": "Structured context injection pattern from Anthropic Context Engineering research. CLAUDE.md + AGENTS.md + SOUL.md = 14/14 task success vs 4.5/14 without.",
+    "version": "1.0.0",
+    "tags": ["context", "universal", "high-impact"],
+    "authorized_agents": ["organizer-os", "architect-enigma", "ralph-code", "qa-specialist"],
+    "source_patterns": ["Context Engineering (Anthropic)", "DOF SOUL.md pattern"],
+    "capabilities": {
+        "claude_md": "Project-level instructions in CLAUDE.md — architecture, commands, conventions",
+        "agents_md": "Agent roster with roles, capabilities, security levels",
+        "soul_md": "Per-agent personality, goals, constraints — injected into system prompt",
+        "shared_context": "THESIS.md, OPERATOR.md, SIGNALS.md, FEEDBACK-LOG.md shared across agents",
+        "context_budget": "Constitution ~50 tokens to minimize context window usage"
+    },
+    "rules": [
+        "Every agent MUST have a SOUL.md defining identity, goals, constraints",
+        "CLAUDE.md is the single source of truth for project conventions",
+        "Context injection order: System → Constitution → SOUL → Operator → Task",
+        "Keep injected context minimal — quality over quantity",
+        "Update context files when architecture changes (not stale docs)"
+    ]
+}

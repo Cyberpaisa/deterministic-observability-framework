@@ -1,0 +1,21 @@
+{
+    "name": "heartbeat-scheduler",
+    "description": "Lightweight heartbeat and self-healing pattern adapted from Paperclip + OpenClaw. Pre-flight health checks before expensive LLM calls.",
+    "version": "1.0.0",
+    "tags": ["reliability", "self-healing", "universal"],
+    "authorized_agents": ["organizer-os", "sentinel-shield", "qa-vigilante"],
+    "source_patterns": ["Paperclip (AI company)", "OpenClaw", "DOF security_middleware.py"],
+    "capabilities": {
+        "service_heartbeat": "Check Ollama, SQLite, API endpoints before each cycle",
+        "auto_recovery": "Restart failed services or switch to fallback providers",
+        "latency_tracking": "Track response times per service, alert on degradation",
+        "circuit_breaker": "Disable provider after N consecutive failures (TTL backoff 5→10→20 min)",
+        "health_dashboard": "Expose /api/security endpoint with real-time heartbeat status"
+    },
+    "rules": [
+        "Always check heartbeat BEFORE expensive LLM calls",
+        "Log all heartbeat failures to security audit JSONL",
+        "Provider chains: 5+ models per role with automatic fallback",
+        "Self-healing must be deterministic — no LLM-based recovery decisions"
+    ]
+}

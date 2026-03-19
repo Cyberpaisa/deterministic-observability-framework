@@ -1,0 +1,28 @@
+{
+    "name": "mpp-payments",
+    "description": "Machine Payments Protocol (MPP) by Stripe + Tempo. Session-based streaming micropayments for agents. Superset of x402 with fiat+crypto hybrid via SPTs.",
+    "version": "1.0.0",
+    "tags": ["payments", "blockchain", "high-impact"],
+    "authorized_agents": ["blockchain-wizard", "defi-orbital", "organizer-os"],
+    "source_patterns": ["Stripe MPP", "Tempo blockchain", "x402 evolution"],
+    "capabilities": {
+        "session_payments": "Authorize spending limit upfront, stream micropayments continuously — no per-tx overhead",
+        "hybrid_fiat_crypto": "Shared Payment Tokens (SPTs) enable cards + stablecoins + BNPL in one flow",
+        "stripe_integration": "PaymentIntents API — fraud detection, tax, refunds, reporting built-in",
+        "tempo_settlement": "10K+ TPS, sub-second finality, no native gas token, fees in stablecoins",
+        "x402_compat": "Stripe supports both MPP and x402 — can run both in parallel",
+        "agent_billing": "Per-API-call, per-session, subscription, and streaming payment models"
+    },
+    "comparison_x402": {
+        "x402_strengths": "Permissionless, no vendor, chain-agnostic (Base, Polygon, Solana), open middleware",
+        "mpp_strengths": "Sessions (batch settlement), fiat+crypto hybrid, Stripe compliance, Visa support",
+        "recommendation": "Use BOTH — x402 for decentralized services, MPP for Stripe-integrated business models"
+    },
+    "rules": [
+        "DOF supports both x402 AND MPP — not mutually exclusive",
+        "x402 track remains for Synthesis hackathon (Coinbase track)",
+        "MPP adds revenue capability via Stripe for post-hackathon monetization",
+        "Session-based payments reduce on-chain tx count by 10-100x",
+        "All payment events logged to JSONL for governance audit"
+    ]
+}

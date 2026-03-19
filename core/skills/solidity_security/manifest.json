@@ -1,0 +1,45 @@
+{
+    "name": "solidity-security",
+    "description": "Defensive Solidity coding patterns. 13-point pre-deploy checklist. Covers reentrancy, token decimals, SafeERC20, oracle safety, MEV protection, proxy patterns, EIP-712, delegatecall, and automated tooling (Slither, Mythril, Foundry fuzzing).",
+    "version": "1.0.0",
+    "tags": ["security", "blockchain", "universal"],
+    "authorized_agents": ["sentinel-shield", "blockchain-wizard", "ralph-code", "qa-vigilante"],
+    "source_patterns": ["ethskills/security.md", "OpenZeppelin", "Foundry"],
+    "pattern": "reviewer",
+    "capabilities": {
+        "reentrancy_defense": "CEI pattern + ReentrancyGuard on all external-calling functions",
+        "token_decimal_handling": "Never hardcode 1e18 — check decimals(), normalize across tokens",
+        "safe_erc20": "Always SafeERC20 — handles USDT, fee-on-transfer, rebasing, pausable",
+        "oracle_safety": "Chainlink with staleness+sanity checks, TWAP 30min+, never DEX spot",
+        "vault_inflation": "Virtual offset defense for ERC-4626 first-depositor attack",
+        "mev_protection": "Flashbots Protect RPC, tight slippage, MEV-aware DEX aggregators",
+        "proxy_safety": "UUPS recommended, storage append-only, initializer pattern, multisig admin",
+        "eip712_signatures": "Domain separation, nonce, deadline, OpenZeppelin ERC20Permit",
+        "delegatecall_safety": "Never delegatecall to user-supplied address, match storage layouts",
+        "access_control": "Explicit restrictions on every state-changing function, role-based",
+        "input_validation": "Zero address, zero amount, bounds, array length checks",
+        "static_analysis": "Slither + Mythril before deploy, never ignore high/medium findings"
+    },
+    "pre_deploy_checklist": [
+        "Access control on every admin function",
+        "Reentrancy: CEI pattern + nonReentrant",
+        "Token decimals: no hardcoded 1e18",
+        "Oracle safety: Chainlink/TWAP, staleness checks",
+        "Integer math: multiply before divide",
+        "Return values: SafeERC20 for all token ops",
+        "Input validation: zero address, zero amount, bounds",
+        "Events emitted on every state change",
+        "No infinite approvals",
+        "Fee-on-transfer safe (if arbitrary tokens)",
+        "Edge cases tested: zero, max, unauthorized, reentrancy",
+        "Source verified on block explorer",
+        "Slither/Mythril: no unaddressed high/medium findings"
+    ],
+    "rules": [
+        "This skill is for DEFENSIVE coding — use evm-audit for auditing others' contracts",
+        "Pre-deploy checklist is mandatory before ANY contract deployment",
+        "Always use OpenZeppelin contracts as base — battle-tested and audited",
+        "Multiply before divide — division first = precision loss",
+        "Pausable + onlyOwner = censorship risk — flag and suggest timelocks/multisig"
+    ]
+}

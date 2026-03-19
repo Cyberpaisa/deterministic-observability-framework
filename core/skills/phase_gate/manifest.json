@@ -1,0 +1,22 @@
+{
+    "name": "phase-gate",
+    "description": "Phase-gated task execution adapted from CORE framework. Every agent task must pass through PLAN→EXECUTE→VERIFY→DELIVER gates.",
+    "version": "1.0.0",
+    "tags": ["workflow", "deterministic", "universal"],
+    "authorized_agents": ["organizer-os", "architect-enigma", "qa-vigilante", "sentinel-shield"],
+    "source_patterns": ["CORE (DariuszNewecki)", "Open SWE sandboxed execution"],
+    "capabilities": {
+        "plan_phase": "Agent declares intent, tool requirements, expected outputs",
+        "execute_phase": "Sandboxed execution with tool allowlist enforcement",
+        "verify_phase": "Deterministic verification — Z3 proofs, governance check, test pass",
+        "deliver_phase": "Output validated, persisted to JSONL, attestation generated",
+        "gate_blocking": "Cannot advance to next phase without current phase passing"
+    },
+    "rules": [
+        "No agent skips phases — PLAN→EXECUTE→VERIFY→DELIVER is mandatory",
+        "VERIFY phase uses deterministic checks only (no LLM judgment)",
+        "Failed VERIFY triggers RETRY (max 3) then ESCALATE to organizer-os",
+        "Each phase transition logged with timestamp and proof hash",
+        "Open SWE pattern: isolated execution environment per task"
+    ]
+}

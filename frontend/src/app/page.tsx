@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Shield, Zap, Lock, Cpu, Globe, MessageSquare, Terminal, Send, Users, ListFilter, Activity, ArrowUpRight, Paperclip, FileText, AlertTriangle, CheckCircle, XCircle, Clock, Database } from 'lucide-react';
+import { Shield, Zap, Lock, Cpu, Globe, MessageSquare, Terminal, Send, Users, ListFilter, Activity, ArrowUpRight, Paperclip, FileText, AlertTriangle, CheckCircle, XCircle, Clock, Database, Boxes, TrendingUp, RefreshCw } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface Message { role: 'user' | 'assistant' | 'system'; content: string; }
@@ -12,6 +12,8 @@ interface GraphEdge { source: string; target: string; label?: string; activity?:
 interface GraphData { nodes: GraphNode[]; edges: GraphEdge[]; }
 interface Trace { cycle: number; timestamp: string; action: string; thought: string; proof: string; attestations_ok: number; cycles_completed: number; status: string; signature: string; }
 interface SecurityData { shield_status: string; heartbeats: any; rate_limiter: string; input_sanitization: string; agent_security_levels: any[]; audit_events_total: number; recent_threats: any[]; cors_policy: string; security_headers: string[]; }
+interface SkillItem { name: string; description: string; version: string; tags: string[]; pattern: string; authorized_agents: string[]; times_used: number; times_refined: number; success_rate: number; avg_score: number; degraded: boolean; }
+interface SkillsData { total_skills: number; patterns_supported: string[]; skills: SkillItem[]; routing_confusion_count: number; degraded_skills: string[]; }
 
 const StatusRing = ({ value, label, color = "stroke-purple-500" }: { value: number, label: string, color?: string }) => {
   const radius = 30;
@@ -53,6 +55,7 @@ export default function Dashboard() {
   const [traces, setTraces] = useState<Trace[]>([]);
   const [tracesTotal, setTracesTotal] = useState(0);
   const [security, setSecurity] = useState<SecurityData | null>(null);
+  const [skillsData, setSkillsData] = useState<SkillsData | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -75,12 +78,13 @@ export default function Dashboard() {
 
   const fetchData = async () => {
     try {
-      const [sRes, iRes, gRes, tRes, secRes] = await Promise.all([
+      const [sRes, iRes, gRes, tRes, secRes, skRes] = await Promise.all([
         fetch('http://localhost:8000/api/swarm'),
         fetch('http://localhost:8000/api/issues'),
         fetch('http://localhost:8000/api/graph'),
         fetch('http://localhost:8000/api/traces'),
         fetch('http://localhost:8000/api/security'),
+        fetch('http://localhost:8000/api/skills'),
       ]);
       if (sRes.ok) setSwarm((await sRes.json()).swarm);
       if (iRes.ok) setIssues((await iRes.json()).issues);
@@ -91,6 +95,7 @@ export default function Dashboard() {
         setTracesTotal(tData.total || 0);
       }
       if (secRes.ok) setSecurity(await secRes.json());
+      if (skRes.ok) setSkillsData(await skRes.json());
     } catch (e) {}
   };
 
@@ -293,6 +298,7 @@ export default function Dashboard() {
               { id: 'issues', icon: ListFilter, label: 'TRACKS' },
               { id: 'traces', icon: Database, label: 'TRACES' },
               { id: 'neural', icon: Activity, label: 'NEURAL' },
+              { id: 'skills', icon: Boxes, label: 'SKILLS' },
               { id: 'security', icon: Shield, label: 'SHIELD' },
             ].map((it) => (
               <button
@@ -761,6 +767,130 @@ export default function Dashboard() {
                            Real-time orchestration graph. Nodes = agents, edges = data flows.
                         </p>
                      </div>
+                  </div>
+               </motion.div>
+             )}
+
+
+             {/* === SKILLS TAB === */}
+             {activeTab === 'skills' && (
+               <motion.div key="skills" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="h-full p-8 flex flex-col gap-6 overflow-y-auto custom-scrollbar">
+                  <div className="flex justify-between items-center border-b border-white/10 pb-4">
+                     <div>
+                        <span className="text-xs font-black text-white tracking-[0.4em] uppercase">Sovereign Skill Engine v2.0</span>
+                        <div className="text-[8px] font-mono text-zinc-600 mt-1 uppercase">
+                          {skillsData?.total_skills || 0} SKILLS // PATTERNS: {skillsData?.patterns_supported?.join(', ') || '...'} // ROUTING CONFUSION: {skillsData?.routing_confusion_count || 0}
+                        </div>
+                     </div>
+                     <div className="flex items-center gap-3">
+                        {(skillsData?.degraded_skills?.length || 0) > 0 ? (
+                          <div className="flex items-center gap-2 bg-red-500/10 border border-red-500/30 px-4 py-2 rounded-xl">
+                            <AlertTriangle size={14} className="text-red-400" />
+                            <span className="text-[10px] font-mono text-red-400 font-bold">{skillsData?.degraded_skills?.length} DEGRADED</span>
+                          </div>
+                        ) : (
+                          <div className="flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/30 px-4 py-2 rounded-xl">
+                            <CheckCircle size={14} className="text-emerald-400" />
+                            <span className="text-[10px] font-mono text-emerald-400 font-bold">ALL HEALTHY</span>
+                          </div>
+                        )}
+                        <button onClick={fetchData} className="bg-purple-600/20 border border-purple-500/30 px-4 py-2 rounded-xl text-[10px] font-mono text-purple-400 font-bold hover:bg-purple-600/40 transition-all">
+                           <RefreshCw size={12} />
+                        </button>
+                     </div>
+                  </div>
+
+                  {/* Skills Grid */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {(skillsData?.skills || []).map((skill, idx) => (
+                      <motion.div
+                        key={skill.name}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: idx * 0.04 }}
+                        className={`bg-zinc-950/80 border rounded-xl p-5 hover:border-purple-500/30 transition-all group ${
+                          skill.degraded ? 'border-red-500/30' : 'border-white/10'
+                        }`}
+                      >
+                        <div className="flex items-start justify-between mb-3">
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2 mb-1">
+                              <Boxes size={14} className={skill.degraded ? 'text-red-400' : 'text-purple-400'} />
+                              <span className="text-sm font-black text-white tracking-tight">{skill.name}</span>
+                              <span className="text-[8px] font-mono text-zinc-600 bg-white/5 px-1.5 py-0.5 rounded">v{skill.version}</span>
+                            </div>
+                            <p className="text-[9px] font-mono text-zinc-500 leading-relaxed line-clamp-2">{skill.description}</p>
+                          </div>
+                          {skill.degraded && (
+                            <div className="shrink-0 ml-2">
+                              <AlertTriangle size={16} className="text-red-400 animate-pulse" />
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Tags */}
+                        <div className="flex flex-wrap gap-1.5 mb-3">
+                          {skill.tags.map(tag => (
+                            <span key={tag} className={`text-[7px] font-mono font-bold px-2 py-0.5 rounded-full border uppercase tracking-wider ${
+                              tag === 'high-impact' ? 'text-amber-400 bg-amber-500/10 border-amber-500/20' :
+                              tag === 'universal' ? 'text-indigo-400 bg-indigo-500/10 border-indigo-500/20' :
+                              tag === 'security' ? 'text-red-400 bg-red-500/10 border-red-500/20' :
+                              'text-zinc-400 bg-zinc-500/10 border-zinc-500/20'
+                            }`}>{tag}</span>
+                          ))}
+                        </div>
+
+                        {/* Metrics */}
+                        <div className="grid grid-cols-3 gap-2">
+                          <div className="bg-white/5 p-2 rounded-lg border border-white/5">
+                            <div className="text-[7px] font-mono text-zinc-600 uppercase">Used</div>
+                            <div className="text-xs font-mono font-bold text-white flex items-center gap-1">
+                              <TrendingUp size={10} className="text-emerald-400" />
+                              {skill.times_used}x
+                            </div>
+                          </div>
+                          <div className="bg-white/5 p-2 rounded-lg border border-white/5">
+                            <div className="text-[7px] font-mono text-zinc-600 uppercase">Refined</div>
+                            <div className="text-xs font-mono font-bold text-white">
+                              <RefreshCw size={10} className="text-indigo-400 inline mr-1" />
+                              {skill.times_refined}x
+                            </div>
+                          </div>
+                          <div className="bg-white/5 p-2 rounded-lg border border-white/5">
+                            <div className="text-[7px] font-mono text-zinc-600 uppercase">Agents</div>
+                            <div className="text-xs font-mono font-bold text-purple-400">{skill.authorized_agents.length}</div>
+                          </div>
+                        </div>
+
+                        {/* Authorized Agents */}
+                        <div className="mt-3 pt-3 border-t border-white/5">
+                          <div className="flex flex-wrap gap-1">
+                            {skill.authorized_agents.map(a => (
+                              <span key={a} className="text-[7px] font-mono text-zinc-500 bg-white/5 px-1.5 py-0.5 rounded">{a}</span>
+                            ))}
+                          </div>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+
+                  {/* Patterns Legend */}
+                  <div className="bg-zinc-950/80 border border-white/10 rounded-xl p-5 mt-2">
+                    <h3 className="text-[9px] font-mono font-black text-white uppercase tracking-widest mb-3">5 ADK Skill Patterns Supported</h3>
+                    <div className="grid grid-cols-5 gap-3">
+                      {[
+                        { name: 'Tool Wrapper', desc: 'Inject expertise on demand', color: 'text-indigo-400' },
+                        { name: 'Generator', desc: 'Structured output from templates', color: 'text-purple-400' },
+                        { name: 'Reviewer', desc: 'Score against rubric', color: 'text-amber-400' },
+                        { name: 'Inversion', desc: 'Agent interviews first', color: 'text-emerald-400' },
+                        { name: 'Pipeline', desc: 'Strict sequential workflow', color: 'text-red-400' },
+                      ].map(p => (
+                        <div key={p.name} className="text-center">
+                          <div className={`text-[9px] font-mono font-bold ${p.color} uppercase`}>{p.name}</div>
+                          <div className="text-[7px] font-mono text-zinc-600 mt-1">{p.desc}</div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                </motion.div>
              )}
