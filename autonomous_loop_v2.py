@@ -1467,3 +1467,58 @@ def autonomous_research_cycle():
 if __name__ == "__main__":
     autonomous_research_cycle()
 
+
+# ===== API EN TIEMPO REAL =====
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
+import uvicorn
+import threading
+import asyncio
+from zep_memory import get_memory
+
+app = FastAPI()
+memory_api = get_memory()
+
+class ChatMessage(BaseModel):
+    message: str
+    user: str = "telegram"
+
+@app.post("/api/chat")
+async def chat(message: ChatMessage):
+    """Responde en TIEMPO REAL usando el cerebro"""
+    try:
+        # Guardar en memoria Zep
+        await memory_api.add_message("user", f"[API-{message.user}]: {message.message}")
+        
+        # Obtener historial
+        historial = await memory_api.get_recent_messages(5)
+        
+        # Aquí el agente PIENSA (usando Groq, etc)
+        # Por ahora una respuesta simple
+        respuesta = f"🤖 Procesado por cerebro PID {os.getpid()}\n"
+        respuesta += f"💬 Mensaje: {message.message}\n"
+        respuesta += f"📚 Contexto: {len(historial)} mensajes"
+        
+        await memory_api.add_message("assistant", respuesta)
+        return {"response": respuesta, "pid": os.getpid()}
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/api/status")
+async def api_status():
+    return {
+        "pid": os.getpid(),
+        "ciclo_actual": "desconocido",  # Se actualizará dinámicamente
+        "skills": 20,
+        "memoria": "activa"
+    }
+
+def start_api():
+    """Inicia la API en un hilo separado"""
+    uvicorn.run(app, host="127.0.0.1", port=8001, log_level="warning")
+
+# Iniciar API en segundo plano
+api_thread = threading.Thread(target=start_api, daemon=True)
+api_thread.start()
+print(f"✅ API de tiempo real iniciada en puerto 8001 (PID: {os.getpid()})")
