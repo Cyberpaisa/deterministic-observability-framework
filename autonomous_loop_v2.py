@@ -1583,7 +1583,7 @@ async def chat_status():
 
 def iniciar_api_chat():
     """Inicia el servidor de chat en un hilo separado"""
-    uvicorn.run(chat_app, host="127.0.0.1", port=8002, log_level="warning")
+    uvicorn.run(chat_app, host="127.0.0.1", port=8001, log_level="warning")
 
 # Iniciar API de chat
 chat_thread = threading.Thread(target=iniciar_api_chat, daemon=True)
