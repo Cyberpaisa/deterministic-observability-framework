@@ -3,7 +3,7 @@ import {
   Activity, Database, ShieldCheck, FileCheck, Scroll,
   Copy, Globe, Search, Swords, Clock, Eye,
   CheckCircle2, XCircle, ChevronDown, ChevronUp, BarChart3, Cpu,
-  Fingerprint, Zap
+  Fingerprint, Zap, FlaskConical
 } from "lucide-react";
 import {
   AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer,
@@ -53,10 +53,18 @@ const MOCK = {
     x402_revenue: "0.0014 ETH"
   },
   tracks: [
-    { name: "ERC-8004", status: "COMPLETED", detail: "On-chain Security Attestations" },
-    { name: "Celo", status: "ACTIVE", detail: "Attestation deployment" },
-    { name: "x402", status: "INTEGRATED", detail: "Micro-payments per security event" }
+    { name: "ERC-8004 Architecture", detail: "Proof of Sovereign Identity & Attestations", status: "COMPLETED" },
+    { name: "Celo Multi-Chain Protocol", detail: "Payment & Gas Abstraction via x402", status: "INTEGRATED" },
+    { name: "x402 Micropayments", detail: "Security-as-a-Service Monetization", status: "INTEGRATED" },
+    { name: "Sovereign Lab (Recovery)", detail: "ECC Cracking & Fault Injection Lab", status: "BETA" }
   ],
+  lab: {
+    active_experiments: 2,
+    entropy_score: "98.4%",
+    blocks_cracked: "4,219,801",
+    target_pubkey: "0479be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798",
+    last_glitch: "Success (STM32F2)"
+  },
   disputes: [
     { id: "DSP-001", red: "Fabricated citation in research output §3.2", guardian: "Citation verified via CrossRef DOI lookup — valid", arbiter: "RESOLVED", severity: "CRITICAL", evidence: "crossref_api_200" },
     { id: "DSP-002", red: "Output exceeds 4000 token soft limit by 340 tokens", guardian: "Content density justified by RESEARCH_CONTRACT.md scope", arbiter: "UNRESOLVED", severity: "MEDIUM", evidence: null },
@@ -422,6 +430,63 @@ function Z3Verifier() {
    SECTION 4: OAGS & ATTESTATIONS
    ═══════════════════════════════════════════════════════ */
 
+function SovereignLabView() {
+  const lab = MOCK.lab;
+  return (
+    <div>
+      <SectionHead title="Sovereign Recovery Lab" sub="Forensic Cryptography · Asset Recovery · Hardware Glitching" icon={Cpu} />
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: 14, marginBottom: 28 }}>
+        {[
+          ["Active Experiments", lab.active_experiments, FlaskConical, "#bc8cff"],
+          ["Wallet Entropy", lab.entropy_score, Fingerprint, "#3fb950"],
+          ["NSA Cracker (Blocks)", lab.blocks_cracked, Database, "#58a6ff"],
+          ["Last Fault Inj.", lab.last_glitch, Zap, "#d29922"]
+        ].map(([l, v, Icon, c], i) => (
+          <Panel key={l} glow={l === "Last Fault Inj." ? "#d29922" : null} className={`fade-in fade-in-${i}`}>
+            <div style={{ padding: 18 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
+                <Icon size={16} color={c} />
+                <span style={{ fontSize: 9, fontFamily: "monospace", color: "#64748b", textTransform: "uppercase" }}>{l}</span>
+              </div>
+              <div style={{ fontSize: 24, fontFamily: "monospace", fontWeight: 800, color: c }}>{v}</div>
+            </div>
+          </Panel>
+        ))}
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1.5fr", gap: 14 }}>
+        <Panel className="fade-in">
+          <div style={{ padding: 24 }}>
+            <div style={{ fontSize: 13, fontWeight: 700, marginBottom: 16 }}>ECC Cracking Target (P-256)</div>
+            <div style={{ background: "#0d1117", padding: 16, borderRadius: 12, border: "1px solid rgba(88,166,255,0.1)" }}>
+              <div style={{ fontSize: 10, color: "#64748b", marginBottom: 4 }}>PUBLIC_KEY:</div>
+              <code style={{ fontSize: 10, color: "#58a6ff", wordBreak: "break-all", fontFamily: "monospace" }}>{lab.target_pubkey}</code>
+              <div style={{ marginTop: 16, height: 120, background: "linear-gradient(45deg, rgba(88,166,255,0.05) 25%, transparent 25%)", backgroundSize: "10px 10px", borderRadius: 8, position: "relative", overflow: "hidden" }}>
+                <div className="glitch-line" style={{ position: "absolute", top: "40%", left: 0, right: 0, height: 2, background: "#58a6ff", opacity: 0.5 }} />
+                <div style={{ padding: 12, fontSize: 9, color: "#64748b", fontFamily: "monospace" }}>[SCANNING_ECC_SPACE]</div>
+              </div>
+            </div>
+          </div>
+        </Panel>
+
+        <Panel className="fade-in">
+          <div style={{ padding: 24 }}>
+            <div style={{ fontSize: 13, fontWeight: 700, marginBottom: 16 }}>Forensic Log (Joe Grand Protocol)</div>
+            <div style={{ fontFamily: "monospace", fontSize: 11, background: "#0d1117", padding: 18, borderRadius: 12, lineHeight: 1.7 }}>
+              <div style={{ color: "#3fb950" }}>[08:14:22] Hardware Transplant: STM32F2 chip desoldered to custom board.</div>
+              <div style={{ color: "#64748b" }}>[08:15:01] Power Analysis: Triggering EMFI pulse at 480V.</div>
+              <div style={{ color: "#d29922" }}>[08:15:03] GLITCH_SUCCESS: Second level security guard bypassed.</div>
+              <div style={{ color: "#58a6ff" }}>[08:15:10] FLASH_READ: Extracting encrypted seed contents...</div>
+              <div style={{ color: "#bc8cff" }}>[08:16:00] BRUTE_FORCE: PIN found [7412] | Decrypting recovery seed...</div>
+              <div style={{ color: "#3fb950", marginTop: 8, fontWeight: 700 }}>✅ ASYNC RECOVERY READY: 24_WORDS_RECOVERED.txt</div>
+            </div>
+          </div>
+        </Panel>
+      </div>
+    </div>
+  );
+}
+
 function ShieldView() {
   const s = MOCK.shield;
   return (
@@ -725,6 +790,7 @@ const NAV = [
   { id: "z3", icon: ShieldCheck, label: "Z3 Verifier" },
   { id: "oags", icon: FileCheck, label: "OAGS & Attestations" },
   { id: "shield", icon: ShieldCheck, label: "DOF Shield (FW)" },
+  { id: "lab", icon: FlaskConical, label: "Sovereign Lab" },
   { id: "adversarial", icon: Swords, label: "Adversarial Log" },
   { id: "constitution", icon: Scroll, label: "Constitution" },
 ];
@@ -735,6 +801,7 @@ const VIEWS = {
   z3: Z3Verifier, 
   oags: OAGSSection, 
   shield: ShieldView,
+  lab: SovereignLabView,
   adversarial: AdversarialLog, 
   constitution: ConstitutionView 
 };
