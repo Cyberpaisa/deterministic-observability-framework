@@ -16,9 +16,9 @@ class LLMBridge:
         self.primary_model = "qwen2.5:32b" # Recomendado para M4 Max
         self.fallback_model = "llama3.1:8b" # Rápido y ligero
 
-    def talk_local(self, prompt: str, model: str = None) -> str:
+    def talk_local(self, prompt: str, model: str = "") -> str:
         """Habla con el cerebro local (Ollama) si no hay internet o tokens."""
-        target_model = model or self.primary_model
+        target_model = model if model else self.primary_model
         try:
             payload = {
                 "model": target_model,
@@ -35,11 +35,11 @@ class LLMBridge:
 
     def smart_query(self, prompt: str) -> str:
         """
-        Decide qué cerebro usar basado en disponibilidad.
-        Prioridad: Groq/Gemini -> Local (Ollama)
+        Decide qué cerebro usar basado en complejidad.
         """
-        # TODO: Implementar lógica de cuotas de tokens
-        pass
+        if len(prompt) < 100: # Tareas simples van al local
+             return self.talk_local(prompt, self.fallback_model)
+        return self.talk_local(prompt, self.primary_model)
 
 if __name__ == "__main__":
     bridge = LLMBridge()
