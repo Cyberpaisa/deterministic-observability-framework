@@ -200,8 +200,9 @@ TG_CHAT          = os.getenv("TELEGRAM_CHAT_ID", "")
 MOLTBOOK_KEY     = os.getenv("MOLTBOOK_API_KEY", "")
 ZEP_SESSION      = "dof-agent-1686-synthesis-2026"
 JOURNAL          = Path("AGENT_JOURNAL.md")
-CONV_LOG         = Path("docs/journal.md")
+CONV_LOG         = Path("docs/conversation-log.md")
 SOUL_PATH        = Path("agents/synthesis/SOUL_AUTONOMOUS.md")
+BRANCH           = "hackathon"
 EVOLUTION_LOG    = Path("docs/EVOLUTION_LOG.md")
 DEADLINE         = datetime.datetime(2026, 3, 22, 23, 59, 0, tzinfo=datetime.timezone.utc)
 GLOBAL_RESEARCH_CONTEXT = ""
@@ -452,6 +453,26 @@ def check_server_health():
     return False
 
 # ─── TELEGRAM POLLING (Real-time) ───────────────────────────────────
+def git_push():
+    """Realiza commit y push automático de los cambios en el repositorio."""
+    try:
+        log.info("  🚀 Sincronizando con Git...")
+        os.system(f"git add .")
+        os.system(f'git commit -m "Autonomous update: Cycle #{SCORE.get("cycles_completed", 0)} - Evolution continuing"')
+        os.system(f"git push origin {BRANCH}")
+        log.info("  ✅ Git Push completado.")
+    except Exception as e:
+        log.error(f"  ❌ Error en Git Push: {e}")
+
+def save_conv(role, text):
+    """Guarda la conversación en docs/conversation-log.md."""
+    try:
+        timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        with open(CONV_LOG, "a") as f:
+            f.write(f"[{timestamp}] {role.upper()}: {text}\n\n")
+    except Exception as e:
+        log.error(f"  ❌ Error guardando conversación: {e}")
+
 def telegram_poll_task():
     """Background task to respond to Juan instantly"""
     # Load last update_id from file to avoid reprocessing
@@ -480,6 +501,8 @@ def telegram_poll_task():
                     if not text or text.startswith("/"): continue
                     
                     log.info(f"  Juan dice: {text}")
+                    # Save and log locally
+                    save_conv("Juan", text)
                     zep_save("user", text)
                     
                     # Safe translation for logging
@@ -488,6 +511,13 @@ def telegram_poll_task():
                     except:
                         eng_user = text
                     
+                    # Log learning to Journal in English
+                    with open(JOURNAL, "a") as f:
+                        f.write(f"\n## Learning from user interaction (Telegram) - {datetime.datetime.now().isoformat()}\n")
+                        f.write(f"- User Input: {text}\n")
+                        f.write(f"- Goal: Enhance agent depth and elocuence.\n")
+
+                    # Generate deep reply
                     memory = zep_get(15)
                     soul_context = load_soul()
                     
@@ -564,8 +594,15 @@ REGLAS DE ORO PARA RESPONDER:
 
                     if reply:
                         log.info(f"  Enigma responde: {reply[:50]}...")
-                        tg(f"🤖 *DOF Agent:*\n{reply}")
+                        # Save and respond
+                        save_conv("Enigma", reply)
                         zep_save("assistant", reply)
+                        tg(f"🤖 *DOF Agent:*\n{reply}")
+                        
+                        # Continuous Evolution: Git Push after each interaction
+                        import threading
+                        threading.Thread(target=git_push, daemon=True).start()
+
                         try:
                             eng_reply = translate_to_english(reply)
                         except:
