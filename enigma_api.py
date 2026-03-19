@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 import uvicorn
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
@@ -80,6 +81,50 @@ async def get_swarm():
              swarm_status.append({"name": agent.capitalize(), "status": "OFFLINE", "role": agent})
     return {"swarm": swarm_status}
 
+@app.get("/api/issues")
+async def get_issues():
+    issues = []
+    agents = ["charlie", "ralph", "sentinel"]
+    # Mock karma/priority logic based on x402 principles
+    for agent in agents:
+        path = Path(f"swarm/{agent}/issues")
+        if path.exists():
+            for f in path.glob("*.md"):
+                # Simulating a "value" for each task
+                priority = "HIGH" if "001" in f.name else "NORMAL"
+                karma_reward = 500 if priority == "HIGH" else 200
+                issues.append({
+                    "agent": agent, 
+                    "id": f.stem, 
+                    "title": f.name,
+                    "priority": priority,
+                    "karma_reward": karma_reward
+                })
+    return {"issues": issues}
+
+@app.get("/api/graph")
+async def get_graph():
+    # Deeper graph structure with relationship types (Cognee-inspired)
+    nodes = [
+        {"id": "USER_JUAN", "label": "JUAN (SOVEREIGN)", "level": 1, "size": 60},
+        {"id": "ENIGMA_CORE", "label": "ENIGMA #1686", "level": 2, "size": 50},
+        {"id": "CHARLIE", "label": "CHARLIE (UI)", "level": 3, "size": 40},
+        {"id": "RALPH", "label": "RALPH (CODE)", "level": 3, "size": 40},
+        {"id": "SENTINEL", "label": "SENTINEL (SEC)", "level": 3, "size": 40},
+        {"id": "X402", "label": "X402 FACILITATOR", "level": 4, "size": 30},
+        {"id": "DOF_SHIELD", "label": "DOF SHIELD", "level": 4, "size": 30},
+    ]
+    edges = [
+        {"source": "USER_JUAN", "target": "ENIGMA_CORE", "label": "AUTHORIZES"},
+        {"source": "ENIGMA_CORE", "target": "CHARLIE", "label": "ORCHESTRATES"},
+        {"source": "ENIGMA_CORE", "target": "RALPH", "label": "ORCHESTRATES"},
+        {"source": "ENIGMA_CORE", "target": "SENTINEL", "label": "ORCHESTRATES"},
+        {"source": "CHARLIE", "target": "X402", "label": "SETTLES"},
+        {"source": "RALPH", "target": "X402", "label": "SETTLES"},
+        {"source": "SENTINEL", "target": "DOF_SHIELD", "label": "TRIGGERS"},
+    ]
+    return {"nodes": nodes, "edges": edges}
+
 @app.get("/api/skills")
 async def get_skills():
     skills_path = Path("./super_skills")
@@ -89,16 +134,15 @@ async def get_skills():
 
 @app.get("/api/stats")
 async def get_stats():
-    # Hardware stats for the M4 Max / Mac
     mem = psutil.virtual_memory()
-    # Dummy GPU for now as psutil doesn't get Apple Silicon GPU easily without extra libs, 
-    # but we will use load as a proxy or just CPU for now.
     cpu = psutil.cpu_percent()
     return {
         "memory_percent": mem.percent,
         "cpu_percent": cpu,
         "memory_total": "36GB",
-        "status": "ELITE"
+        "status": "ELITE",
+        "x402_facilitator": "ONLINE",
+        "total_karma": 8450 # Aggregate credits
     }
 
 @app.get("/health")
