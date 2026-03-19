@@ -63,7 +63,10 @@ const MOCK = {
     entropy_score: "98.4%",
     blocks_cracked: "4,219,801",
     target_pubkey: "0479be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798",
-    last_glitch: "Success (STM32F2)"
+    last_glitch: "Success (STM32F2)",
+    karma_score: 860,
+    brain_status: "MOLTBOOK_SOCIAL_ACTIVE",
+    hf_hub: "CONNECTED (100k+ Models)"
   },
   disputes: [
     { id: "DSP-001", red: "Fabricated citation in research output §3.2", guardian: "Citation verified via CrossRef DOI lookup — valid", arbiter: "RESOLVED", severity: "CRITICAL", evidence: "crossref_api_200" },
@@ -456,9 +459,10 @@ function SovereignLabView() {
           ["Active Experiments", lab.active_experiments, FlaskConical, "#bc8cff"],
           ["Wallet Entropy", lab.entropy_score, Fingerprint, "#3fb950"],
           ["NSA Cracker (Blocks)", lab.blocks_cracked, Database, "#58a6ff"],
+          ["Sovereign Karma", lab.karma_score, Globe, "#ff7b72"],
           ["Last Fault Inj.", lab.last_glitch, Zap, "#d29922"]
         ].map(([l, v, Icon, c], i) => (
-          <Panel key={l} glow={l === "Last Fault Inj." ? "#d29922" : null} className={`fade-in fade-in-${i}`}>
+          <Panel key={l} glow={l === "Last Fault Inj." || l === "Sovereign Karma" ? c : null} className={`fade-in fade-in-${i}`}>
             <div style={{ padding: 18 }}>
               <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
                 <Icon size={16} color={c} />

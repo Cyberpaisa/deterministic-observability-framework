@@ -154,17 +154,13 @@ CREW_ROUTES = [
         "label": "Code Review (especialista)",
         "needs_task": True,
     },
-    # ── GENERAL: cualquier consulta, pregunta, análisis → crew completo ──
-    # Este matchea keywords amplios como fallback antes del "unknown"
     {
-        "mode": "research",
-        "keywords": ["investiga", "research", "analiza", "analisis", "mercado", "busca info",
-                     "competencia", "tendencia", "benchmark", "compara", "que es", "como funciona",
-                     "informacion sobre", "dime sobre", "que sabes de", "empresa", "proyecto",
-                     "explica", "describe", "evalua", "reporte", "informe"],
-        "label": "Investigacion general (equipo completo)",
+        "mode": "data_analysis",
+        "keywords": ["excel", "csv", "base de datos", "datos", "analiza este archivo", "procesa", "cruce"],
+        "label": "Análisis de Datos (especialista)",
         "needs_task": True,
     },
+    # ── GENERAL: cualquier consulta...
 ]
 
 
@@ -1158,8 +1154,8 @@ def start_bot():
             return
 
         ext = doc.file_name.rsplit(".", 1)[-1].lower() if "." in doc.file_name else ""
-        if ext not in ("xlsx", "xls", "csv"):
-            bot.reply_to(message, f"⚠️ Solo proceso archivos Excel/CSV. Recibido: .{ext}")
+        if ext not in ("xlsx", "xls", "csv", "xlsb", "docx"):
+            bot.reply_to(message, f"⚠️ Solo proceso archivos Excel, CSV y Word. Recibido: .{ext}")
             return
 
         try:
@@ -1173,16 +1169,10 @@ def start_bot():
 
             def _analyze():
                 try:
-                    from crew import create_data_analysis_crew
-                    from core.crew_runner import run_crew
-                    crew = create_data_analysis_crew(local_path)
-                    result = run_crew("data_analysis", crew, input_text=local_path)
-                    if result["status"] == "ok":
-                        formatted = _format_result(type("R", (), {"raw": result["output"]})(), "data_analysis")
-                        out_path = _save_result(result["output"], "data_analysis")
-                        _send_long_message(bot, message.chat.id, formatted, out_path)
-                    else:
-                        bot.send_message(message.chat.id, f"Error analizando: {result.get('error', 'unknown')}")
+                    from core.data_analyst import EnigmaDataAnalyst
+                    analyst = EnigmaDataAnalyst()
+                    summary = analyst.analyze_file(local_path)
+                    _send_long_message(bot, message.chat.id, summary)
                 except Exception as e:
                     bot.send_message(message.chat.id, f"Error analizando: {e}")
                 finally:
@@ -1222,6 +1212,28 @@ def start_bot():
     print("   Ctrl+C para detener")
     print("=" * 50)
     logger.info("OpenClawd Telegram Bot activo")
+
+    def send_morning_report():
+        """Envía un saludo y reporte matutino al administrador."""
+        try:
+            admin_id = os.getenv("TELEGRAM_ADMIN_ID")
+            if admin_id:
+                now = datetime.now().strftime("%H:%M")
+                msg = (f"🌅 *Buenos días, Juan. Reporte Matutino Enigma #1686*\n"
+                       f"⏰ Hora: {now}\n"
+                       f"🧠 Cerebro: Activo (GLM5-Turbo)\n"
+                       f"🛡️ Seguridad: Vigilancia Sovereign activa\n"
+                       f"📊 Dashboard: https://dof-agent-web.vercel.app/\n\n"
+                       f"Estoy listo para procesar tus Excel, CSV o Word hoy. ¡Vamos por el Hackathon!")
+                bot.send_message(admin_id, msg, parse_mode="Markdown")
+                print(f"🌅 Reporte matutino enviado a {admin_id}")
+            else:
+                print("🌅 No se encontró TELEGRAM_ADMIN_ID en .env. Saltando reporte.")
+        except Exception as e:
+            logger.error(f"Error morning report: {e}")
+
+    # Enviar reporte al iniciar (simulado)
+    send_morning_report()
 
     bot.infinity_polling(timeout=60, long_polling_timeout=60)
 

@@ -4,6 +4,13 @@
       "command": "python3",
       "args": ["mcp_server.py"],
       "cwd": "."
+    },
+    "huggingface": {
+      "command": "npx",
+      "args": ["-y", "@huggingface/mcp-server"],
+      "env": {
+        "HF_TOKEN": "hf_...fwKO"
+      }
     }
   }
 }

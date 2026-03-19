@@ -56,7 +56,8 @@ class BayesianProviderSelector:
     def _apply_decay(self):
         now = time.time()
         for p in self._providers.values():
-            if now - p.last_decay > self.decay_interval:
+            last = p.last_decay if p.last_decay is not None else now
+            if now - last > self.decay_interval:
                 p.alpha = max(1.0, p.alpha * self.decay_factor)
                 p.beta = max(1.0, p.beta * self.decay_factor)
                 p.last_decay = now
@@ -96,7 +97,14 @@ class BayesianProviderSelector:
         for p in candidates:
             self._ensure(p)
             scores[p] = self._providers[p].sample()
-        return max(scores, key=scores.get)
+        # Fix for type-checking on max key
+        selected = candidates[0]
+        max_score = -1.0
+        for p, s in scores.items():
+            if s > max_score:
+                max_score = s
+                selected = p
+        return selected
 
 
 class ProviderManager:
@@ -108,6 +116,8 @@ class ProviderManager:
             "groq": os.getenv("GROQ_API_KEY"),
             "mistral": os.getenv("MISTRAL_API_KEY"),
             "cerebras": os.getenv("CEREBRAS_API_KEY"),
+            "glm5": os.getenv("GLM5_API_KEY"),
+            "huggingface": os.getenv("HF_TOKEN"),
         }
         self.available = {k: v for k, v in self.providers.items() if v}
         self.exhausted = {}
@@ -129,7 +139,7 @@ class ProviderManager:
     
     def mark_exhausted(self, provider: str, error: str = ""):
         """Marks a provider as exhausted."""
-        self.exhausted[provider] = time.time() + 60  # 1 min recovery
+        self.exhausted[provider] = int(time.time() + 60)  # 1 min recovery
     
     def detect_provider(self, error_str: str) -> str | None:
         """Detects which provider failed from error string."""
@@ -150,7 +160,7 @@ class ProviderManager:
     
     def get_best_provider(self) -> Dict[str, Any]:
         """Get the best available provider (prioritized)"""
-        priorities = ["openrouter", "groq", "mistral", "cerebras"]
+        priorities = ["glm5", "huggingface", "openrouter", "groq", "mistral", "cerebras"]
         for provider in priorities:
             if provider in self.available and provider not in self.exhausted:
                 return {
@@ -173,7 +183,9 @@ class ProviderManager:
             "openrouter": "deepseek/deepseek-r1:free",
             "groq": "mixtral-8x7b-32768",
             "mistral": "mistral-small-latest",
-            "cerebras": "cerebras-1.0"
+            "cerebras": "cerebras-1.0",
+            "glm5": "glm-5-turbo",
+            "huggingface": "meta-llama/Llama-3.1-8B-Instruct"
         }
         return models.get(provider, "unknown")
 

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.enigma.agent</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>/Users/jquiceva/equipo de agentes/deterministic-observability-framework/activate_enigma.sh</string>
+    </array>
+    <key>WorkingDirectory</key>
+    <string>/Users/jquiceva/equipo de agentes/deterministic-observability-framework</string>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>KeepAlive</key>
+    <true/>
+    <key>StandardErrorPath</key>
+    <string>/Users/jquiceva/equipo de agentes/deterministic-observability-framework/logs/launchd_error.log</string>
+    <key>StandardOutPath</key>
+    <string>/Users/jquiceva/equipo de agentes/deterministic-observability-framework/logs/launchd_output.log</string>
+</dict>
+</plist>

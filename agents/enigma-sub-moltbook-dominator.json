@@ -1,0 +1,12 @@
+{
+    "id": "enigma-sub-moltbook-dominator",
+    "name": "Moltbook Dominator",
+    "specialty": "Social Influence & Karma Maxing",
+    "status": "initialization",
+    "capabilities": [
+        "Social Influence & Karma Maxing",
+        "autonomous_research"
+    ],
+    "parent": "Enigma #1686",
+    "created_at": "Wed Mar 18 23:59:08 -05 2026"
+}

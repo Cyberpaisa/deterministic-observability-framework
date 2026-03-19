@@ -1,6 +1,11 @@
-from playwright.sync_api import sync_playwright
-from bs4 import BeautifulSoup
 import time
+import logging
+from bs4 import BeautifulSoup
+from playwright.sync_api import sync_playwright
+
+# Configuración de logging para soberanía
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("ScrapingEngine")
 
 class ScrapingEngine:
 
@@ -25,13 +30,31 @@ class ScrapingEngine:
         data = {}
 
         for key, selector in selectors.items():
-            elements = soup.select(selector)
-            data[key] = [el.get_text(strip=True) for el in elements]
+            try:
+                elements = soup.select(selector)
+                data[key] = [el.get_text(strip=True) for el in elements]
+            except Exception as e:
+                logger.error(f"Error parsing selector {selector}: {e}")
+                data[key] = []
 
         return data
 
-    def run(self, url, selectors):
-        html = self.fetch_page(url)
-        return self.parse(html, selectors)
+    def get_clean_text(self, html):
+        """Extrae texto limpio para alimentar el contexto de Enigma."""
+        soup = BeautifulSoup(html, "html.parser")
+        # Eliminar scripts y estilos
+        for script in soup(["script", "style"]):
+            script.extract()
+        return soup.get_text(separator="\n", strip=True)
+
+    def run(self, url, selectors=None):
+        try:
+            html = self.fetch_page(url)
+            if selectors:
+                return self.parse(html, selectors)
+            return {"text": self.get_clean_text(html)}
+        except Exception as e:
+            logger.error(f"Fallo crítico en scraping de {url}: {e}")
+            return {"error": str(e)}
 
 
