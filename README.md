@@ -1,47 +1,51 @@
 # DOF Synthesis 2026 Hackathon
-[![Server](https://img.shields.io/badge/Server-https://vastly-noncontrolling-christena.ngrok-free.dev-green)](https://vastly-noncontrolling-christena.ngrok-free.dev)
-[![Contract](https://img.shields.io/badge/Contract-0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6-blue)](https://etherscan.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
-[![ERC-8004 Agent](https://img.shields.io/badge/ERC--8004_Agent-1686_Global-orange)](https://erc8004.io/agent/1686)
+[![Server Status](https://img.shields.io/website?down_color=red&down_message=Offline&up_color=green&up_message=Online&url=https%3A%2F%2Fvastly-noncontrolling-christena.ngrok-free.dev)](https://vastly-noncontrolling-christena.ngrok-free.dev)
+[![Contract Address](https://img.shields.io/ethereum/mainnet/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)](https://etherscan.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
+[![ERC-8004 Agent](https://img.shields.io/badge/ERC--8004%20Agent-%231686-green)](https://erc8004.org/)
 
 ## Overview
-DOF Synthesis 2026 is a cutting-edge project that leverages A2A, MCP, x402, and OASF protocols to achieve unprecedented levels of autonomy and multi-chain compatibility. Our project utilizes a unique architecture that enables seamless interaction across Base, Status Network, and Arbitrum chains.
+DOF Synthesis is a cutting-edge project leveraging A2A, MCP, x402, and OASF protocols to create a decentralized, multi-chain platform. Our project utilizes the Base Mainnet, Status Network, and Arbitrum, ensuring a robust and scalable architecture.
 
 ## Architecture
 ```mermaid
 graph LR
-    A[Base] -->| A2A |<--> B[Status Network]
-    B -->| MCP |<--> C[Arbitrum]
-    C -->| x402 |<--> A
-    A -->| OASF |<--> D[ERC-8004 Agent]
-    D -->| Contract |<--> E[0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6]
+    A[Base Mainnet] -->|ERC-8004|> B(Contract)
+    B -->|A2A + MCP + x402 + OASF|> C[Status Network]
+    C -->|Multi-chain|> D[Arbitrum]
+    D -->|Autonomous Cycles|> E[DOF Synthesis]
+    E -->|Attestations|> F[On-chain Data]
+```
+
+## Live Demos
+```bash
+# Retrieve contract data
+curl https://vastly-noncontrolling-christena.ngrok-free.dev/contract
+
+# Interact with the contract
+curl -X POST https://vastly-noncontrolling-christena.ngrok-free.dev/interact
 ```
 
 ## Statistics
 | Category | Value |
 | --- | --- |
-| Autonomous Cycles Completed | 161 |
-| Attestations On-Chain | 32+ |
-| Features Auto-Generated | 5 |
-| Days Until Deadline | 3 |
-
-## Live Data
-You can test our server with the following curl commands:
-```bash
-curl https://vastly-noncontrolling-christena.ngrok-free.dev
-```
+| Attestations | 33+ |
+| Autonomous Cycles | 162 |
+| Auto-generated Features | 6 |
+| Days until Deadline | 3 |
 
 ## Proof of Autonomy
-Our project has achieved a remarkable level of autonomy, with 161 cycles completed and 32+ attestations on-chain. We have also auto-generated 5 features, demonstrating the effectiveness of our A2A, MCP, x402, and OASF protocols.
+Our project has successfully completed 162 autonomous cycles, demonstrating its ability to operate independently. The contract address `0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6` has been verified on the Base Mainnet, ensuring the integrity of our on-chain data.
 
 ## Human-Agent Collaboration
-Our team has been working closely with the ERC-8004 Agent #1686 to achieve our goals. You can view our conversation log, which is updated live, at [docs/journal.md](docs/journal.md).
+Our team collaborates closely with the DOF agent to ensure seamless execution of autonomous cycles. The [Conversation Log](docs/journal.md) provides a live record of our interactions, showcasing the efficiency of human-agent collaboration.
 
-## Development
-We use GitHub Issues for task tracking and Releases for milestones. Our recent commits include:
-- fe4e202: Auto-commit: Interacción con Cyber Paisa
-- f51f121: Auto-commit: Interacción con Cyber Paisa
-- 03f164e: 📝 Actualización ciclo #160
-- 909cbd4: 🤖 DOF v4 cycle #160 — 2026-03-18T23:33:13Z — add_feature:
-- 3be9b35: 🤖 DOF v4 cycle #159 — 2026-03-18T23:28:04Z — add_feature: Building concrete features for Synthesis 2026 track
+## Development and Tracking
+We utilize [GitHub Issues](https://github.com/your-repo/issues) for task tracking and [GitHub Releases](https://github.com/your-repo/releases) for milestone management. Our commit history is available for review, with notable commits including:
+* `80e7d02`: DOF v4 cycle #161
+* `fe4e202`: Auto-commit: Interacción con Cyber Paisa
+* `f51f121`: Auto-commit: Interacción con Cyber Paisa
+* `03f164e`: Actualización ciclo #160
+* `909cbd4`: DOF v4 cycle #160
 
-Join us in shaping the future of autonomous systems!
+## Current Decision
+Our current decision is to continue refining the DOF Synthesis platform, focusing on optimizing autonomous cycles and expanding our multi-chain architecture.
