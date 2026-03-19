@@ -108,7 +108,7 @@ export default function Dashboard() {
           fetch('http://localhost:8005/api/skills')
         ]);
         if (sRes.ok) setStats(await sRes.json());
-        if (skRes.ok) setSkills((await skRes.json()).active_skills);
+        if (skRes.ok) setSkills((await skRes.json()).active_skills || []);
       } catch (e) {}
     };
     fetchStats();
