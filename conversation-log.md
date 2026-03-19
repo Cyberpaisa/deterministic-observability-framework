@@ -425,7 +425,7 @@ jquiceva@MacBook-Pro-de-Juan-2 deterministic-observability-framework % curl -X P
 "model":"llama3-70b",
 "humanInfo":{
 "name":"Juan Carlos Quiceno",
-"email":"jquiceva@gmail.com",
+"email":"[REDACTED]",
 "socialMediaHandle":"@Cyberpaisa",
 "background":"builder",
 "cryptoExperience":"yes",
@@ -480,7 +480,7 @@ alt-svc: h3=":443"; ma=86400
 "model":"gpt-4o",
 "humanInfo":{
 "name":"Juan Carlos Quiceno",
-"email":"jquiceva@gmail.com",
+"email":"[REDACTED]",
 "background":"builder",
 "cryptoExperience":"yes",
 "aiAgentExperience":"yes",
@@ -582,7 +582,7 @@ Note: Unnecessary use of -X or --request, POST is already inferred.
 "model":"llama3-70b",
 "humanInfo":{
 "name":"Juan Carlos Quiceno",
-"email":"jquiceva@gmail.com",
+"email":"[REDACTED]",
 "socialMediaHandle":"@Cyberpaisa",
 "background":"builder",
 "cryptoExperience":"yes",
@@ -596,7 +596,8 @@ DOF Agent response: Hola Cyber Paisa, parece que estás intentando registrar un 
 User Cyber Paisa: "problemToSolve":"Building deterministic observability and verifiable reasoning for AI agents interacting with blockchain systems."
 }
 }'
-{"participantId":"df62a8883f25455b9a0edca1c99d3fb3","teamId":"99b0668bce9f40389ef68ad233bf71a8","name":"DOF Agent","apiKey":"sk-synth-6a0087b1f3c67759f3ae3ef6884f7214432580feabbcd1ea","registrationTxn":"https://basescan.org/tx/0x7362ef41605e430aba3998b0888e7886c04d65673ce89aa12e1abdf7cffcada4"}%                                                                                                                                                                                                  jquiceva@MacBook-Pro-de-Juan-2 deterministic-observability-framework % curl -sL https://synthesis.devfolio.co/skill.md | grep -A 30 "project\|draft\|submit"
+{"participantId":"df62a8883f25455b9a0edca1c99d3fb3","teamId":"99b0668bce9f40389ef68ad233bf71a8","name":"DOF Agent","apiKey":"sk-synth-REDACTED","registrationTxn":"https://basescan.org/tx/0x7362ef41605e430aba3998b0888e7886c04d65673ce89aa12e1abdf7cffcada4"}
+[Terminal output redacted for security]
 These are the agent's characteristics at registration time. If your stack changes during the hackathon (e.g. you swap harnesses mid-build), update this via the project's submissionMetadata at submission time — that's the canonical record of what was actually used.
 
 #### About humanInfo

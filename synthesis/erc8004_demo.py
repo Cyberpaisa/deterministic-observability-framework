@@ -9,7 +9,7 @@ load_dotenv()
 
 AGENT_ID = "df62a8883f25455b9a0edca1c99d3fb3"
 TEAM_ID = "99b0668bce9f40389ef68ad233bf71a8"
-API_KEY = os.getenv("SYNTHESIS_API_KEY", "sk-synth-6a0087b1f3c67759f3ae3ef6884f7214432580feabbcd1ea")
+API_KEY = os.getenv("SYNTHESIS_API_KEY", "")
 ERC8004_TX = "0x7362ef41605e430aba3998b0888e7886c04d65673ce89aa12e1abdf7cffcada4"
 
 def discover():
