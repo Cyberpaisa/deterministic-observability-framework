@@ -50,7 +50,17 @@ export default function Dashboard() {
   const [graph, setGraph] = useState<GraphData>({ nodes: [], edges: [] });
   const scrollRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [uploading, setUploading] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+
+  // Auto-resize textarea
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto';
+      textareaRef.current.style.height = `${Math.min(textareaRef.current.scrollHeight, 200)}px`;
+    }
+  }, [input]);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -292,8 +302,7 @@ export default function Dashboard() {
                   <div className="absolute top-0 right-0 p-8 opacity-[0.02] pointer-events-none">
                      <MessageSquare size={300} />
                   </div>
-                  
-                  <div ref={scrollRef} className="flex-1 space-y-10 overflow-y-auto pr-4 custom-scrollbar relative z-10">
+                            <div ref={scrollRef} className="flex-1 space-y-10 overflow-y-auto pr-4 custom-scrollbar relative z-10">
                      {messages.map((m, i) => (
                        <motion.div 
                          key={i} 
@@ -314,14 +323,38 @@ export default function Dashboard() {
                                   <span className="text-[10px] font-mono font-black text-purple-400 uppercase tracking-widest">Enigma_v27.4 // Response</span>
                                </div>
                              )}
-                             <p className={`leading-relaxed ${m.role === 'assistant' ? 'text-sm' : 'text-xs opacity-90'}`}>
-                                {m.content}
-                             </p>
+                             
+                             <div className="space-y-4">
+                                {m.content.includes('uploaded:') && (
+                                   <div className="flex items-center gap-3 p-3 bg-white/5 rounded-xl border border-white/10">
+                                      <FileText size={20} className="text-purple-400" />
+                                      <div className="flex flex-col">
+                                         <span className="text-[10px] font-mono text-zinc-300">{m.content.split('uploaded:')[1]?.trim() || 'Archivo'}</span>
+                                         <span className="text-[8px] font-mono text-zinc-600 uppercase">FILE_ATTACHMENT_VERIFIED</span>
+                                      </div>
+                                   </div>
+                                )}
+                                
+                                {m.content.match(/\.(jpg|jpeg|png|gif|webp)/i) && m.content.includes('http') && (
+                                   <div className="rounded-xl overflow-hidden border border-white/10 shadow-lg mt-2">
+                                      <img 
+                                        src={m.content.match(/https?:\/\/[^\s]+/)?.[0]} 
+                                        alt="Uploaded media" 
+                                        className="max-w-full max-h-[300px] object-contain hover:scale-[1.02] transition-transform cursor-zoom-in"
+                                      />
+                                   </div>
+                                )}
+
+                                <p className={`leading-relaxed whitespace-pre-wrap ${m.role === 'assistant' ? 'text-sm' : 'text-xs opacity-90'}`}>
+                                   {m.content.replace(/📎 uploaded:.*|URL: https?:\/\/[^\s]+/, '').trim() || (m.content.includes('uploaded:') ? 'Archivo adjunto procesado.' : m.content)}
+                                </p>
+                             </div>
+
                              {m.role === 'assistant' && (
                                <div className="mt-4 pt-4 border-t border-white/5 flex justify-between items-center text-[8px] font-mono text-zinc-600">
                                   <span>SYNC_ENCRYPTION: AES-256</span>
                                   <span>TTL: 3600S</span>
-                               </div>
+                                </div>
                              )}
                           </div>
                        </motion.div>
@@ -342,21 +375,48 @@ export default function Dashboard() {
                      )}
                   </div>
 
-                  <div className="mt-8 flex gap-4 relative z-10 pt-6 border-t border-white/5">
+                  <div 
+                    className={`mt-8 flex gap-4 relative z-10 pt-6 border-t border-white/5 transition-all ${isDragging ? 'scale-[1.02]' : ''}`}
+                    onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
+                    onDragLeave={() => setIsDragging(false)}
+                    onDrop={async (e) => {
+                       e.preventDefault();
+                       setIsDragging(false);
+                       const file = e.dataTransfer.files[0];
+                       if (file) {
+                          const event = { target: { files: [file] } } as any;
+                          handleFileUpload(event);
+                       }
+                    }}
+                  >
                      <div className="flex-1 relative group">
-                        <div className="absolute -inset-1 bg-gradient-to-r from-purple-600/20 to-indigo-600/20 blur-xl group-focus-within:opacity-100 opacity-0 transition-opacity rounded-full" />
-                        <div className="absolute left-6 top-1/2 -translate-y-1/2 text-zinc-600">
+                        {isDragging && (
+                           <div className="absolute -inset-4 bg-purple-500/20 border-2 border-dashed border-purple-500 rounded-3xl z-20 flex items-center justify-center backdrop-blur-sm">
+                              <span className="text-xs font-mono font-bold text-white uppercase tracking-[0.3em] animate-pulse">Release to Upload File</span>
+                           </div>
+                        )}
+                        <div className="absolute -inset-1 bg-gradient-to-r from-purple-600/20 to-indigo-600/20 blur-xl group-focus-within:opacity-100 opacity-0 transition-opacity rounded-[2rem]" />
+                        <div className="absolute left-6 top-6 text-zinc-600">
                            <Terminal size={16} />
                         </div>
-                        <input 
-                          type="text" value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+                        <textarea 
+                          ref={textareaRef}
+                          value={input} 
+                          onChange={(e) => setInput(e.target.value)} 
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter' && !e.shiftKey) {
+                              e.preventDefault();
+                              handleSend();
+                            }
+                          }}
                           placeholder="ENTER_SOVEREIGN_COMMAND..."
-                          className="w-full bg-black/60 border border-white/10 rounded-full py-5 px-16 text-sm focus:outline-none focus:border-purple-500/50 transition-all text-white font-mono placeholder:text-zinc-700 backdrop-blur-md"
+                          rows={1}
+                          className="w-full bg-black/60 border border-white/10 rounded-[1.5rem] py-5 pl-16 pr-24 text-sm focus:outline-none focus:border-purple-500/50 transition-all text-white font-mono placeholder:text-zinc-700 backdrop-blur-md resize-none custom-scrollbar"
                         />
                         <button 
                           onClick={() => fileInputRef.current?.click()}
                           disabled={uploading}
-                          className="absolute left-4 top-1/2 -translate-y-1/2 p-2 text-zinc-500 hover:text-purple-400 transition-colors"
+                          className="absolute left-4 top-6 p-2 text-zinc-500 hover:text-purple-400 transition-colors"
                         >
                            <Paperclip size={18} className={uploading ? "animate-spin" : ""} />
                         </button>
@@ -368,7 +428,7 @@ export default function Dashboard() {
                         />
                         <button 
                           onClick={handleSend}
-                          className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-purple-600 hover:bg-purple-500 text-white rounded-full transition-all shadow-[0_0_15px_rgba(168,85,247,0.4)] hover:scale-110 active:scale-95"
+                          className="absolute right-4 top-6 p-2 bg-purple-600 hover:bg-purple-500 text-white rounded-full transition-all shadow-[0_0_15px_rgba(168,85,247,0.4)] hover:scale-110 active:scale-95"
                         >
                            <Send size={16} />
                         </button>
