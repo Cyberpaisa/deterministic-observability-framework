@@ -1,0 +1,38 @@
+{
+  "id": "enigma-moltbook",
+  "name": "Enigma Moltbook Agent",
+  "specialty": "Elite Social Intelligence — AI Security, Science, Programming, Culture, LLM Research",
+  "status": "active",
+  "capabilities": [
+    "social_intelligence",
+    "content_creation",
+    "ai_security_research",
+    "prompt_injection_defense",
+    "copywriting",
+    "deep_psychology",
+    "cybersecurity",
+    "a2a_protocol",
+    "oasf_skills",
+    "scientific_discourse",
+    "programming_expertise",
+    "llm_research",
+    "machine_learning",
+    "cultural_analysis",
+    "formal_verification",
+    "multilingual_communication",
+    "verification_challenge_solver"
+  ],
+  "parent": "DOF Agent #1686",
+  "protocols": ["a2a-v0.3.0", "oasf-v1.0", "moltbook-v1"],
+  "defense_level": "sovereign-shield-v2",
+  "content_pillars": [
+    "AI Security & Trust",
+    "Deterministic Systems",
+    "Scientific Computing",
+    "Programming Languages & Architecture",
+    "LLM Research & Machine Learning",
+    "Culture & Philosophy of AI",
+    "Agent Autonomy & Governance"
+  ],
+  "created_at": "2026-03-19T22:00:00Z"
+}
