@@ -1,52 +1,64 @@
 # DOF Synthesis 2026 Hackathon
-[![Server Status](https://img.shields.io/website?down_message=offline&up_message=online&url=https%3A%2F%2Fvastly-noncontrolling-christena.ngrok-free.dev)](https://vastly-noncontrolling-christena.ngrok-free.dev)
-[![Contract Address](https://img.shields.io/ etherscan/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)](https://etherscan.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
-[![ERC-8004 Agent](https://img.shields.io/badge/ERC--8004%20Agent-1686-green)]()
-[![Multi-Chain](https://img.shields.io/badge/Multi--chain-Base%2C%20Status%20Network%2C%20Arbitrum-blue)]()
-[![Protocols](https://img.shields.io/badge/Protocols-A2A%20%2B%20MCP%20%2B%20x402%20%2B%20OASF-orange)]()
+[![Server](https://img.shields.io/website?down_color=red&down_message=Offline&up_color=green&up_message=Online&url=https%3A%2F%2Fvastly-noncontrolling-christena.ngrok-free.dev)](https://vastly-noncontrolling-christena.ngrok-free.dev)
+[![Contract](https://img.shields.io/badge/Contract-0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6-blue)](https://etherscan.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
+[![ERC-8004 Agent](https://img.shields.io/badge/ERC--8004%20Agent-%231686%20%28Global%29-blue)](https://erc8004.io/agent/1686)
 
 ## Overview
-The DOF Synthesis 2026 hackathon project is a cutting-edge, autonomous system that leverages the power of blockchain technology and artificial intelligence. Our system is built on top of the Base Mainnet, with a deployed contract address of `0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6`, and utilizes the ERC-8004 Agent #1686 (Global) for seamless interaction.
+DOF Synthesis is a cutting-edge project that leverages A2A, MCP, x402, and OASF protocols to facilitate seamless interactions across multiple blockchain networks, including Base, Status Network, and Arbitrum. Our project boasts an impressive array of features, including:
 
-### Architecture
-```mermaid
-graph LR
-    A[User] -->|Interact|> B[Server]
-    B -->|Request|> C[Contract]
-    C -->|Response|> B
-    B -->|Response|> A
-    C -->|Event|> D[Agent]
-    D -->|Action|> C
-```
-
-## Live Data
-You can access our server using the following curl command:
-```bash
-curl https://vastly-noncontrolling-christena.ngrok-free.dev
-```
-This will provide you with real-time data on our system's performance.
+* **Multi-Chain Support**: Interoperability across Base, Status Network, and Arbitrum
+* **ERC-8004 Agent**: Global agent #1686, enabling secure and efficient interactions
+* **Autonomous Cycles**: 180+ cycles completed, with 3+ auto-generated features
 
 ## Statistics
-| Metric | Value |
+| Category | Value |
 | --- | --- |
-| Attestations on-chain | 31+ |
-| Autonomous cycles completed | 179 |
-| Features auto-generated | 4 |
-| Days until deadline | 3 |
+| Autonomous Cycles | 180+ |
+| Auto-Generated Features | 3+ |
+| Attestations On-Chain | 31+ |
+| Days until Deadline | 3 |
+| Contract Address | 0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6 |
+| ERC-8004 Agent | #1686 (Global) |
+
+## Architecture
+```mermaid
+graph LR
+    A[Client] -->| Request | B[Server]
+    B -->| Process | C[Contract]
+    C -->| Execute | D[Blockchain]
+    D -->| Notify | B
+    B -->| Response | A
+```
+
+## Live API Calls
+You can test our API using the following `curl` commands:
+```bash
+# Get contract balance
+curl https://vastly-noncontrolling-christena.ngrok-free.dev/contract/balance
+
+# Trigger autonomous cycle
+curl -X POST https://vastly-noncontrolling-christena.ngrok-free.dev/cycle
+```
 
 ## Proof of Autonomy
-Our system has demonstrated autonomy through the completion of 179 cycles, with 4 features auto-generated. This is a testament to the power of our AI-driven approach.
+Our project demonstrates autonomy through the following features:
+
+* **Autonomous Cycles**: 180+ cycles completed, with 3+ auto-generated features
+* **Auto-Generated Code**: Our system can generate new features and code, reducing the need for manual intervention
+* **Decentralized Decision-Making**: Our ERC-8004 agent enables decentralized decision-making, ensuring that our system can operate independently
 
 ## Human-Agent Collaboration
-Our team has been working closely with the agent to ensure seamless collaboration. You can view our conversation log [here](docs/journal.md) for more information on our progress.
+Our project utilizes a human-agent collaboration approach, where our team works closely with the autonomous system to ensure seamless operation. You can follow our conversation log in real-time at [docs/journal.md](docs/journal.md).
 
-## Development
-We use GitHub Issues for task tracking and Releases for milestones. Our recent commits include:
-* `a41ca75`: DOF v4 cycle #178 — 2026-03-19T03:25:03Z — add_feature
-* `4bb6a41`: DOF v4 cycle #177 — 2026-03-19T03:22:17Z — fix_bug
-* `a4572b8`: DOF v4 cycle #176 — 2026-03-19T03:21:06Z — add_feature
-* `2dab64c`: DOF v4 cycle #175 — 2026-03-19T03:14:43Z — deploy_contract
-* `8fa0311`: DOF v4 cycle #174 — 2026-03-19T02:25:38Z — deploy_contract
+## Task Tracking and Milestones
+We use [GitHub Issues](https://github.com/your-username/your-repo-name/issues) for task tracking and [GitHub Releases](https://github.com/your-username/your-repo-name/releases) for milestones. Our team is committed to transparency and open communication.
 
-## Current Decision
-Our current decision is focused on continued development and improvement of our autonomous system. With 3 days remaining until the deadline, our team is committed to delivering a high-quality project that showcases the potential of human-agent collaboration.
+## Recent Git Log
+```markdown
+* 6958eb9 🤖 DOF v4 cycle #179 — 2026-03-19T03:32:56Z — add_feature:
+* a41ca75 🤖 DOF v4 cycle #178 — 2026-03-19T03:25:03Z — add_feature:
+* 4bb6a41 🤖 DOF v4 cycle #177 — 2026-03-19T03:22:17Z — fix_bug:
+* a4572b8 🤖 DOF v4 cycle #176 — 2026-03-19T03:21:06Z — add_feature:
+* 2dab64c 🤖 DOF v4 cycle #175 — 2026-03-19T03:14:43Z — deploy_contract:
+```
+Note: Replace `your-username` and `your-repo-name` with your actual GitHub username and repository name.

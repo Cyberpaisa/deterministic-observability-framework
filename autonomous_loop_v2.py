@@ -472,9 +472,10 @@ def telegram_poll_task():
                     last_update = update.get("update_id", last_update)
                     Path(".telegram_offset").write_text(str(last_update))
                     msg = update.get("message", {})
-                    log.info(f"  [TG] Recibido: {text} | Chat ID: {chat_id}")
+                    text = msg.get("text", "")
+                    chat_id = msg.get("chat", {}).get("id")
+                    
                     if str(chat_id) != str(TG_CHAT):
-                        log.warning(f"  [TG] Ignorando mensaje de Chat ID desconocido: {chat_id}")
                         continue
                     if not text or text.startswith("/"): continue
                     
