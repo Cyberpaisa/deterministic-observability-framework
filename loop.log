@@ -1,32 +1,42 @@
-2026-03-18 22:14:31,629 - DOF-v4 - INFO - 🚀 DOF Intelligent Loop v4 (SOUL + Execute + Memory + Audit)
-2026-03-18 22:14:31,629 - DOF-v4 - INFO -    Zep:      ✅
-2026-03-18 22:14:31,629 - DOF-v4 - INFO -    Telegram: ✅
-2026-03-18 22:14:31,629 - DOF-v4 - INFO -    SOUL:     ✅ agents/synthesis/SOUL_AUTONOMOUS.md
-2026-03-18 22:14:31,629 - DOF-v4 - INFO -    Groq:     ✅
-2026-03-18 22:14:31,629 - DOF-v4 - INFO -    Days left: 3
-2026-03-18 22:14:33,338 - DOF-v4 - INFO -   📡 Telegram Polling Thread PAUSED (External bot active)
-2026-03-18 22:14:34,047 - DOF-v4 - INFO - 
+✅ OpenViking server connected (local mode)
+🔧 Zep Memory inicializado para agente: dof_agent_1686
+📁 Thread ID: thread_dof_agent_1686
+👤 User ID: user_dof_agent_1686
+DEBUG: Provider Mistral key MISSING.
+DEBUG: Provider Nvidia key loaded.
+DEBUG: Provider SambaNova key loaded.
+DEBUG: Provider OpenRouter key loaded.
+DEBUG: Provider MiniMax key loaded.
+2026-03-18 22:20:53,697 - DOF-v4 - INFO - ✅ Chat API iniciada en puerto 8002 (PID: 91049)
+2026-03-18 22:20:53,697 - DOF-v4 - INFO - 🚀 DOF Intelligent Loop v4 (SOUL + Execute + Memory + Audit)
+2026-03-18 22:20:53,697 - DOF-v4 - INFO -    Zep:      ✅
+2026-03-18 22:20:53,697 - DOF-v4 - INFO -    Telegram: ✅
+2026-03-18 22:20:53,697 - DOF-v4 - INFO -    SOUL:     ✅ agents/synthesis/SOUL_AUTONOMOUS.md
+2026-03-18 22:20:53,697 - DOF-v4 - INFO -    Groq:     ✅
+2026-03-18 22:20:53,698 - DOF-v4 - INFO -    Days left: 3
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8002): address already in use
+2026-03-18 22:20:55,283 - DOF-v4 - INFO -   📡 Telegram Polling Thread PAUSED (External bot active)
+2026-03-18 22:20:55,995 - DOF-v4 - INFO - 
 ============================================================
-  DOF v4 — Cycle #175 — 2026-03-19T03:14:34Z — 3d left
+  DOF v4 — Cycle #176 — 2026-03-19T03:20:55Z — 3d left
 ============================================================
-2026-03-18 22:14:34,047 - DOF-v4 - INFO -   Research: Searching trends and A2A peers for Cycle #175...
-2026-03-18 22:14:34,570 - DOF-v4 - INFO -   A2A: registration.json updated with OASF skills.
-2026-03-18 22:14:34,874 - DOF-v4 - INFO -   Research ✅ Context updated.
-2026-03-18 22:14:35,585 - DOF-v4 - INFO -   Health: ok
-2026-03-18 22:14:37,171 - DOF-v4 - INFO -   Attest: HTTP 200 0x7d20dac56bd9...
-2026-03-18 22:14:37,526 - DOF-v4 - INFO -   LLM: Calling Groq (llama-3.3-70b-versatile)...
-2026-03-18 22:14:38,778 - DOF-v4 - INFO -   Reviewer Agent: Validating decision...
-2026-03-18 22:14:38,778 - DOF-v4 - INFO -   ✅ Reviewer APPROVED
-2026-03-18 22:14:38,778 - DOF-v4 - INFO -   OASF Tag: base/deployment
-2026-03-18 22:14:38,778 - DOF-v4 - INFO -   🛡️ Running Cyber-Audit Sentinel Scan...
-2026-03-18 22:14:38,780 - DOF-v4 - INFO -   Contract generated: contracts/contracts/Synthesis2026.vy.sol
-2026-03-18 22:14:38,780 - DOF-v4 - INFO -   🔍 Slither: Auditing contracts/contracts/Synthesis2026.vy.sol...
-2026-03-18 22:14:39,450 - DOF-v4 - ERROR -   ❌ Slither Audit Error: Expecting value: line 1 column 1 (char 0)
-2026-03-18 22:14:39,450 - DOF-v4 - INFO -   🏗️ deploy_contract ejecutada con éxito!
-2026-03-18 22:14:39,450 - DOF-v4 - INFO -   Trace generated: trace_cycle_0175.json
-2026-03-18 22:14:39,476 - DOF-v4 - INFO -   LLM: Calling Groq (llama-3.3-70b-versatile)...
-2026-03-18 22:14:41,866 - DOF-v4 - INFO -   README ✅
-2026-03-18 22:14:41,867 - DOF-v4 - INFO -   LLM: Calling Groq (llama-3.3-70b-versatile)...
-2026-03-18 22:14:42,432 - DOF-v4 - INFO -   LLM: Calling Groq (llama-3.3-70b-versatile)...
-2026-03-18 22:14:42,794 - DOF-v4 - INFO -   LLM: Calling Groq (llama-3.3-70b-versatile)...
-2026-03-18 22:14:43,626 - DOF-v4 - INFO -   Conv log ✅
+2026-03-18 22:20:55,995 - DOF-v4 - INFO -   Research: Searching trends and A2A peers for Cycle #176...
+2026-03-18 22:20:56,543 - DOF-v4 - INFO -   A2A: registration.json updated with OASF skills.
+2026-03-18 22:20:56,887 - DOF-v4 - INFO -   Research ✅ Context updated.
+2026-03-18 22:20:57,596 - DOF-v4 - INFO -   Health: ok
+2026-03-18 22:20:59,181 - DOF-v4 - INFO -   Attest: HTTP 200 0x97013ce65021...
+2026-03-18 22:20:59,561 - DOF-v4 - INFO -   LLM: Calling Groq (llama-3.3-70b-versatile)...
+2026-03-18 22:21:01,006 - DOF-v4 - INFO -   Reviewer Agent: Validating decision...
+2026-03-18 22:21:01,007 - DOF-v4 - INFO -   ✅ Reviewer APPROVED
+2026-03-18 22:21:01,007 - DOF-v4 - INFO -   OASF Tag: software/feature-engineering
+2026-03-18 22:21:01,007 - DOF-v4 - INFO -   🛡️ Running Cyber-Audit Sentinel Scan...
+2026-03-18 22:21:01,009 - DOF-v4 - INFO -   Feature created: synthesis_2026_tracks.py (38 bytes)
+2026-03-18 22:21:01,446 - DOF-v4 - INFO -   Syntax check: ✅ PASS
+2026-03-18 22:21:01,446 - DOF-v4 - INFO -   🏗️ add_feature ejecutada con éxito!
+2026-03-18 22:21:01,447 - DOF-v4 - INFO -   Trace generated: trace_cycle_0176.json
+2026-03-18 22:21:01,472 - DOF-v4 - INFO -   LLM: Calling Groq (llama-3.3-70b-versatile)...
+2026-03-18 22:21:04,069 - DOF-v4 - INFO -   README ✅
+2026-03-18 22:21:04,069 - DOF-v4 - INFO -   LLM: Calling Groq (llama-3.3-70b-versatile)...
+2026-03-18 22:21:04,550 - DOF-v4 - INFO -   LLM: Calling Groq (llama-3.3-70b-versatile)...
+2026-03-18 22:21:05,056 - DOF-v4 - INFO -   LLM: Calling Groq (llama-3.3-70b-versatile)...
+2026-03-18 22:21:05,943 - DOF-v4 - INFO -   Conv log ✅
