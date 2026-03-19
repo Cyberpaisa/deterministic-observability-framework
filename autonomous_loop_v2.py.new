@@ -1,0 +1,54 @@
+# (Aquí va todo el código existente HASTA antes del bucle principal)
+
+# [COPIA AQUÍ TODO EL CÓDIGO EXISTENTE desde el inicio hasta antes del bucle]
+
+# ===== INICIAR SERVICIOS (ANTES DEL BUCLE) =====
+# Iniciar API de chat (se ejecuta ANTES de entrar al bucle)
+import threading
+import uvicorn
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
+from zep_memory import get_memory
+
+chat_memory = get_memory()
+ultimo_ciclo = "0"
+
+chat_app = FastAPI()
+
+class ChatMessage(BaseModel):
+    message: str
+    user: str = "telegram"
+
+@chat_app.post("/api/chat")
+async def chat_handler(message: ChatMessage):
+    global ultimo_ciclo
+    try:
+        await chat_memory.add_message("user", f"[{message.user}]: {message.message}")
+        historial = await chat_memory.get_recent_messages(5)
+        contexto = "\n".join([f"{m['role']}: {m['content'][:200]}" for m in historial])
+        
+        system_prompt = f"""Eres DOF Agent, un agente autónomo inteligente.
+        Tienes acceso a múltiples providers y skills.
+        Contexto: {contexto}
+        Último ciclo: #{ultimo_ciclo}
+        Responde en ESPAÑOL."""
+        
+        respuesta = await llamar_llm_con_fallbacks(system_prompt, message.message)
+        await chat_memory.add_message("assistant", respuesta)
+        return {"response": respuesta}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@chat_app.get("/api/status")
+async def chat_status():
+    return {"pid": os.getpid(), "ultimo_ciclo": ultimo_ciclo, "skills": "20+"}
+
+def iniciar_api_chat():
+    uvicorn.run(chat_app, host="127.0.0.1", port=8002, log_level="warning")
+
+chat_thread = threading.Thread(target=iniciar_api_chat, daemon=True)
+chat_thread.start()
+print(f"✅ API de chat iniciada en puerto 8002 (PID: {os.getpid()})")
+
+# ===== AHORA SÍ, EL BUCLE PRINCIPAL =====
+# [AQUÍ VA EL BUCLE PRINCIPAL DEL AGENTE]
