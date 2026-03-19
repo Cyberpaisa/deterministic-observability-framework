@@ -27,7 +27,7 @@ export default function Dashboard() {
     setIsLoading(true);
 
     try {
-      const response = await fetch('http://localhost:8002/api/chat', {
+      const response = await fetch('http://localhost:8005/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: userMsg, user: 'Juan' })
