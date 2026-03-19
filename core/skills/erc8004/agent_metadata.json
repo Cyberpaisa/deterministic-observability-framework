@@ -1,16 +1,23 @@
 {
-  "name": "Enigma #1686",
-  "description": "Sovereign Observability & Security Agent - Synthesis 2026 Elite Unit",
+  "name": "Enigma Swarm #1686",
+  "description": "Sovereign Observability & Security Swarm - Synthesis 2026 Elite Unit",
   "agentURI": "https://vastly-noncontrolling-christena.ngrok-free.dev/agent/1686",
+  "swarm_agents": [
+    "charlie (UI/UX)", "ralph (Code)", "sentinel (Security)", "qa-vigilante (QA)",
+    "architect (Arch)", "biz-dominator (Biz)", "scrum-master (Agile)",
+    "product-overlord (Prod)", "blockchain-wizard (Chain)", "defi-orbital (Finance)",
+    "rwa-tokenizator (RWA)", "moltbook (Social)", "organizer (OS)"
+  ],
   "capability_registry": [
     "erc-8004-attestation",
     "celo-sovereign-ops",
     "x402-payment-facilitator",
-    "moltbook-karma-domination"
+    "swarm-intelligence-v2"
   ],
   "security": {
     "zero_trust": true,
-    "formal_verification": "Z3_SMT"
+    "formal_verification": "Z3_SMT",
+    "active_firewall": "x402 Sentinel"
   },
   "compliance": "ERC-8004 Draft Standard"
 }

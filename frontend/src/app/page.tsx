@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Shield, Zap, Lock, Cpu, Globe, MessageSquare, Terminal, Wallet, Send, Users, ListFilter, ExternalLink, Activity, ArrowUpRight } from 'lucide-react';
+import { Shield, Zap, Lock, Cpu, Globe, MessageSquare, Terminal, Wallet, Send, Users, ListFilter, ExternalLink, Activity, ArrowUpRight, Paperclip, FileText, Image as ImageIcon } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface Message { role: 'user' | 'assistant' | 'system'; content: string; }
@@ -49,6 +49,8 @@ export default function Dashboard() {
   const [issues, setIssues] = useState<Issue[]>([]);
   const [graph, setGraph] = useState<GraphData>({ nodes: [], edges: [] });
   const scrollRef = useRef<HTMLDivElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -69,8 +71,25 @@ export default function Dashboard() {
     } catch (e) {}
   };
 
+  const fetchHistory = async () => {
+    try {
+      const res = await fetch('http://localhost:8005/api/chat/history');
+      if (res.ok) {
+        const data = await res.json();
+        if (data.history && data.history.length > 0) {
+          const formatted = data.history.map((m: any) => ({
+            role: m.role as 'user' | 'assistant',
+            content: m.content
+          }));
+          setMessages(formatted);
+        }
+      }
+    } catch (e) {}
+  };
+
   useEffect(() => {
     fetchData();
+    fetchHistory();
     const interval = setInterval(fetchData, 10000);
     return () => clearInterval(interval);
   }, []);
@@ -94,6 +113,39 @@ export default function Dashboard() {
       setMessages(prev => [...prev, { role: 'system', content: '⚠️ Neural bridge timeout.' }]);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploading(true);
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+      const response = await fetch('http://localhost:8005/api/chat/upload', {
+        method: 'POST',
+        body: formData,
+      });
+      const data = await response.json();
+      
+      const fileMsg = `📎 uploaded: ${file.name}`;
+      setMessages(prev => [...prev, { role: 'user', content: fileMsg }]);
+      
+      // Notify assistant about the file
+      const chatRes = await fetch('http://localhost:8005/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: `I uploaded a file: ${file.name}. Type: ${file.type}. URL: ${data.url}`, user: 'Juan' })
+      });
+      const chatData = await chatRes.json();
+      setMessages(prev => [...prev, { role: 'assistant', content: chatData.response }]);
+    } catch (error) {
+       setMessages(prev => [...prev, { role: 'system', content: '❌ File upload failed.' }]);
+    } finally {
+      setUploading(false);
     }
   };
 
@@ -299,7 +351,20 @@ export default function Dashboard() {
                         <input 
                           type="text" value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && handleSend()}
                           placeholder="ENTER_SOVEREIGN_COMMAND..."
-                          className="w-full bg-black/60 border border-white/10 rounded-full py-5 px-14 text-sm focus:outline-none focus:border-purple-500/50 transition-all text-white font-mono placeholder:text-zinc-700 backdrop-blur-md"
+                          className="w-full bg-black/60 border border-white/10 rounded-full py-5 px-16 text-sm focus:outline-none focus:border-purple-500/50 transition-all text-white font-mono placeholder:text-zinc-700 backdrop-blur-md"
+                        />
+                        <button 
+                          onClick={() => fileInputRef.current?.click()}
+                          disabled={uploading}
+                          className="absolute left-4 top-1/2 -translate-y-1/2 p-2 text-zinc-500 hover:text-purple-400 transition-colors"
+                        >
+                           <Paperclip size={18} className={uploading ? "animate-spin" : ""} />
+                        </button>
+                        <input 
+                           type="file" 
+                           ref={fileInputRef} 
+                           onChange={handleFileUpload} 
+                           className="hidden" 
                         />
                         <button 
                           onClick={handleSend}
