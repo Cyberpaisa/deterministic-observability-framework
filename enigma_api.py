@@ -66,67 +66,53 @@ async def run_task(req: ExecRequest):
             return {"output": f"Error: {str(e)}"}
     return {"output": "Comando no autorizado por el protocolo DOF Shield."}
 
+LEGION_13 = {
+    "charlie": "CORE_VISUAL / UI_DESIGN",
+    "ralph": "CORE_CODE / ENG_PIPELINE",
+    "sentinel": "CORE_SEC / AUDIT_SHIELD",
+    "qa": "ELITE_QA / VIGILANTE_TEST",
+    "arch": "ELITE_ARCH / SYSTEM_SCALING",
+    "biz": "STRATEGY / BIZ_DOMINANCE",
+    "scrum": "AGILE_ZEN / VELOCITY_MAX",
+    "prod": "PRODUCT / ROADMAP_EXEC",
+    "chain": "BLOCKCHAIN / MULTICHAIN_MAP",
+    "defi": "FINANCE / DEFI_LIQUIDITY",
+    "rwa": "ASSETS / RWA_TOKENIZATION",
+    "moltbook": "SOCIAL_DOM / KARMA_MAXING",
+    "organizer": "SYSTEM_ORG / OS_MANAGEMENT"
+}
+
 @app.get("/api/swarm")
 async def get_swarm():
-    # Fetch mission state for the complete Sovereign Legions
-    agents = [
-        "charlie", "ralph", "sentinel", "qa", "architect", 
-        "biz-dominator", "scrum-master-zen", "product-overlord",
-        "blockchain-wizard", "defi-orbital", "rwa-tokenizator", 
-        "moltbook", "organizer"
-    ]
     swarm_status = []
     import random
-    
-    agent_metadata = {
-        "charlie": "CORE_VISUAL / UI_DESIGN",
-        "ralph": "CORE_CODE / ENG_PIPELINE",
-        "sentinel": "CORE_SEC / AUDIT_SHIELD",
-        "qa": "ELITE_QA / VIGILANTE_TEST",
-        "architect": "ELITE_ARCH / SYSTEM_SCALING",
-        "biz-dominator": "STRATEGY / BIZ_DOMINANCE",
-        "scrum-master-zen": "AGILE_ZEN / VELOCITY_MAX",
-        "product-overlord": "PRODUCT / ROADMAP_EXEC",
-        "blockchain-wizard": "BLOCKCHAIN / MULTICHAIN_MAP",
-        "defi-orbital": "FINANCE / DEFI_LIQUIDITY",
-        "rwa-tokenizator": "ASSETS / RWA_TOKENIZATION",
-        "moltbook": "SOCIAL_DOM / KARMA_MAXING",
-        "organizer": "SYSTEM_ORG / OS_MANAGEMENT"
-    }
-
-    for agent in agents:
+    for agent, role in LEGION_13.items():
         try:
-            with open(f"swarm/{agent}/MISSION.md", "r") as f:
-                content = f.read()
-                status = "ACTIVE" if "ACTIVE" in content else "STANDBY"
-                latency = f"{random.randint(5, 35)}ms"
-                throughput = f"{random.uniform(2.5, 12.8):.1f} tps"
-                swarm_status.append({
-                    "name": agent.replace('-', '_').capitalize(), 
-                    "status": status, 
-                    "role": agent_metadata.get(agent, "SUB_AGENT"),
-                    "latency": latency,
-                    "throughput": throughput,
-                    "tokens_day": random.randint(15000, 45000)
-                })
+            # Check for MISSION or ACTIVE state
+            path = Path(f"swarm/{agent}/MISSION.md")
+            status = "ACTIVE" if path.exists() else "STANDBY"
+            swarm_status.append({
+                "id": agent,
+                "name": agent.upper(), 
+                "status": status, 
+                "role": role,
+                "latency": f"{random.randint(5, 35)}ms",
+                "throughput": f"{random.uniform(2.5, 12.8):.1f} tps",
+                "tokens_day": random.randint(15000, 45000)
+            })
         except:
              swarm_status.append({
-                 "name": agent.replace('-', '_').capitalize(), 
+                 "id": agent,
+                 "name": agent.upper(), 
                  "status": "OFFLINE", 
-                 "role": agent_metadata.get(agent, "SUB_AGENT")
+                 "role": role
              })
     return {"swarm": swarm_status}
 
 @app.get("/api/issues")
 async def get_issues():
     issues = []
-    agents = [
-        "charlie", "ralph", "sentinel", "qa", "architect", 
-        "biz-dominator", "scrum-master-zen", "product-overlord",
-        "blockchain-wizard", "defi-orbital", "rwa-tokenizator"
-    ]
-    # Mock karma/priority logic based on x402 principles
-    for agent in agents:
+    for agent in LEGION_13.keys():
         path = Path(f"swarm/{agent}/issues")
         if path.exists():
             for f in path.glob("*.md"):
@@ -149,23 +135,19 @@ async def get_graph():
     nodes = [
         {"id": "USER_JUAN", "label": "JUAN (SOVEREIGN)", "level": 1, "type": "USER", "status": "ONLINE"},
         {"id": "ENIGMA_CORE", "label": "ENIGMA #1686", "level": 2, "type": "CORE", "status": "ELITE"},
-        {"id": "charlie", "label": "CHARLIE_UX", "level": 3, "type": "AGENT", "status": "ACTIVE"},
-        {"id": "ralph", "label": "RALPH_CODE", "level": 3, "type": "AGENT", "status": "ACTIVE"},
-        {"id": "sentinel", "label": "SENTINEL_SEC", "level": 3, "type": "AGENT", "status": "ACTIVE"},
-        {"id": "qa", "label": "QA_VIGILANTE", "level": 3, "type": "AGENT", "status": "ACTIVE"},
-        {"id": "arch", "label": "CATHEDRAL_ARCH", "level": 3, "type": "AGENT", "status": "ACTIVE"},
-        {"id": "biz", "label": "BIZ_DOMINATOR", "level": 4, "type": "AGENT", "status": "ACTIVE"},
-        {"id": "scrum", "label": "SCRUM_MASTER", "level": 4, "type": "AGENT", "status": "ACTIVE"},
-        {"id": "prod", "label": "PRODUCT_OVERLORD", "level": 4, "type": "AGENT", "status": "ACTIVE"},
-        {"id": "chain", "label": "CHAIN_WIZARD", "level": 5, "type": "AGENT", "status": "ACTIVE"},
-        {"id": "defi", "label": "DEFI_ORBITAL", "level": 5, "type": "AGENT", "status": "ACTIVE"},
-        {"id": "rwa", "label": "RWA_TOKENIZATOR", "level": 5, "type": "AGENT", "status": "ACTIVE"},
     ]
+    for agent, role in LEGION_13.items():
+        level = 3
+        if agent in ["biz", "scrum", "prod"]: level = 4
+        if agent in ["chain", "defi", "rwa"]: level = 5
+        nodes.append({"id": agent, "label": agent.upper(), "level": level, "type": "AGENT", "status": "ACTIVE"})
     edges = [
         {"source": "USER_JUAN", "target": "ENIGMA_CORE", "label": "AUTHORIZES", "activity": 0.9},
         {"source": "ENIGMA_CORE", "target": "charlie", "label": "ORCHESTRATES", "activity": 0.6},
         {"source": "ENIGMA_CORE", "target": "ralph", "label": "ORCHESTRATES", "activity": 0.5},
         {"source": "ENIGMA_CORE", "target": "sentinel", "label": "ORCHESTRATES", "activity": 0.8},
+        {"source": "ENIGMA_CORE", "target": "moltbook", "label": "SOCIALIZES", "activity": 0.95},
+        {"source": "ENIGMA_CORE", "target": "organizer", "label": "MANAGES", "activity": 0.7},
         {"source": "sentinel", "target": "qa", "label": "AUDITS", "activity": 0.4},
         {"source": "arch", "target": "ralph", "label": "DESIGNS", "activity": 0.3},
         {"source": "biz", "target": "prod", "label": "ALIGNS", "activity": 0.6},

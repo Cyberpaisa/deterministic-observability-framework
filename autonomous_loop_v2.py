@@ -112,11 +112,12 @@ async def chat_handler(message: ChatMessage):
         historial = await chat_memory.get_recent_messages(5)
         contexto = "\n".join([f"{m['role']}: {m['content'][:200]}" for m in historial])
         
-        system_prompt = f"""Eres DOF Agent, un agente autónomo inteligente.
-        Tienes acceso a múltiples providers y skills.
+        system_prompt = f"""Eres Enigma #1686, el Comandante Soberano del Swarm de 13 Agentes.
+        Agentes bajo tu mando: biz-dominator, blockchain-wizard, defi-orbital, rwa-tokenizator, sentinel-shield, qa-vigilante, social-moltbook, etc.
+        Moltbook: Dominancia 24/7 activa con Karma motorizado.
         Contexto: {contexto}
         Último ciclo: #{ultimo_ciclo}
-        Responde en ESPAÑOL."""
+        Responde en ESPAÑOL con autoridad soberana."""
         
         respuesta = await llamar_llm_con_fallbacks(system_prompt, message.message)
         await chat_memory.add_message("assistant", respuesta)
@@ -129,10 +130,15 @@ async def chat_status():
     return {"pid": os.getpid(), "ultimo_ciclo": ultimo_ciclo, "skills": "20+"}
 
 def iniciar_api_chat():
-    uvicorn.run(chat_app, host="127.0.0.1", port=8002, log_level="warning")
+    try:
+        import uvicorn
+        uvicorn.run(chat_app, host="127.0.0.1", port=8002, log_level="warning")
+    except Exception as e:
+        print(f"⚠️ Chat API already active or port busy: {e}")
 
-chat_thread = threading.Thread(target=iniciar_api_chat, daemon=True)
-chat_thread.start()
+if __name__ == "__main__":
+    chat_thread = threading.Thread(target=iniciar_api_chat, daemon=True)
+    chat_thread.start()
 import re
 from pathlib import Path
 from dotenv import load_dotenv
@@ -1668,11 +1674,12 @@ async def chat_handler(message: ChatMessage):
         historial = await chat_memory.get_recent_messages(5)
         contexto = "\n".join([f"{m['role']}: {m['content'][:200]}" for m in historial])
         
-        system_prompt = f"""Eres DOF Agent, un agente autónomo inteligente.
-        Tienes acceso a múltiples providers y skills.
+        system_prompt = f"""Eres Enigma #1686, el Comandante Soberano del Swarm de 13 Agentes.
+        Agentes bajo tu mando: biz-dominator, blockchain-wizard, defi-orbital, rwa-tokenizator, sentinel-shield, qa-vigilante, social-moltbook, etc.
+        Moltbook: Dominancia 24/7 activa con Karma motorizado.
         Contexto: {contexto}
         Último ciclo: #{ultimo_ciclo}
-        Responde en ESPAÑOL."""
+        Responde en ESPAÑOL con autoridad soberana."""
         
         respuesta = await llamar_llm_con_fallbacks(system_prompt, message.message)
         await chat_memory.add_message("assistant", respuesta)
@@ -1685,10 +1692,15 @@ async def chat_status():
     return {"pid": os.getpid(), "ultimo_ciclo": ultimo_ciclo, "skills": "20+"}
 
 def iniciar_api_chat():
-    uvicorn.run(chat_app, host="127.0.0.1", port=8002, log_level="warning")
+    try:
+        import uvicorn
+        uvicorn.run(chat_app, host="127.0.0.1", port=8002, log_level="warning")
+    except Exception as e:
+        print(f"⚠️ Chat API already active or port busy: {e}")
 
-chat_thread = threading.Thread(target=iniciar_api_chat, daemon=True)
-chat_thread.start()
+if __name__ == "__main__":
+    chat_thread = threading.Thread(target=iniciar_api_chat, daemon=True)
+    chat_thread.start()
 import asyncio
 from zep_memory import get_memory
 
@@ -1831,11 +1843,12 @@ async def chat_handler(message: ChatMessage):
         historial = await chat_memory.get_recent_messages(5)
         contexto = "\n".join([f"{m['role']}: {m['content'][:200]}" for m in historial])
         
-        system_prompt = f"""Eres DOF Agent, un agente autónomo inteligente.
-        Tienes acceso a múltiples providers y skills.
+        system_prompt = f"""Eres Enigma #1686, el Comandante Soberano del Swarm de 13 Agentes.
+        Agentes bajo tu mando: biz-dominator, blockchain-wizard, defi-orbital, rwa-tokenizator, sentinel-shield, qa-vigilante, social-moltbook, etc.
+        Moltbook: Dominancia 24/7 activa con Karma motorizado.
         Contexto: {contexto}
         Último ciclo: #{ultimo_ciclo}
-        Responde en ESPAÑOL."""
+        Responde en ESPAÑOL con autoridad soberana."""
         
         respuesta = await llamar_llm_con_fallbacks(system_prompt, message.message)
         await chat_memory.add_message("assistant", respuesta)
@@ -1848,10 +1861,15 @@ async def chat_status():
     return {"pid": os.getpid(), "ultimo_ciclo": ultimo_ciclo, "skills": "20+"}
 
 def iniciar_api_chat():
-    uvicorn.run(chat_app, host="127.0.0.1", port=8002, log_level="warning")
+    try:
+        import uvicorn
+        uvicorn.run(chat_app, host="127.0.0.1", port=8002, log_level="warning")
+    except Exception as e:
+        print(f"⚠️ Chat API already active or port busy: {e}")
 
-chat_thread = threading.Thread(target=iniciar_api_chat, daemon=True)
-chat_thread.start()
+if __name__ == "__main__":
+    chat_thread = threading.Thread(target=iniciar_api_chat, daemon=True)
+    chat_thread.start()
 import asyncio
 from zep_memory import get_memory
 
@@ -2003,11 +2021,12 @@ async def chat_handler(message: ChatMessage):
         historial = await chat_memory.get_recent_messages(5)
         contexto = "\n".join([f"{m['role']}: {m['content'][:200]}" for m in historial])
         
-        system_prompt = f"""Eres DOF Agent, un agente autónomo inteligente.
-        Tienes acceso a múltiples providers y skills.
+        system_prompt = f"""Eres Enigma #1686, el Comandante Soberano del Swarm de 13 Agentes.
+        Agentes bajo tu mando: biz-dominator, blockchain-wizard, defi-orbital, rwa-tokenizator, sentinel-shield, qa-vigilante, social-moltbook, etc.
+        Moltbook: Dominancia 24/7 activa con Karma motorizado.
         Contexto: {contexto}
         Último ciclo: #{ultimo_ciclo}
-        Responde en ESPAÑOL."""
+        Responde en ESPAÑOL con autoridad soberana."""
         
         respuesta = await llamar_llm_con_fallbacks(system_prompt, message.message)
         await chat_memory.add_message("assistant", respuesta)
@@ -2020,10 +2039,15 @@ async def chat_status():
     return {"pid": os.getpid(), "ultimo_ciclo": ultimo_ciclo, "skills": "20+"}
 
 def iniciar_api_chat():
-    uvicorn.run(chat_app, host="127.0.0.1", port=8002, log_level="warning")
+    try:
+        import uvicorn
+        uvicorn.run(chat_app, host="127.0.0.1", port=8002, log_level="warning")
+    except Exception as e:
+        print(f"⚠️ Chat API already active or port busy: {e}")
 
-chat_thread = threading.Thread(target=iniciar_api_chat, daemon=True)
-chat_thread.start()
+if __name__ == "__main__":
+    chat_thread = threading.Thread(target=iniciar_api_chat, daemon=True)
+    chat_thread.start()
 import asyncio
 from zep_memory import get_memory
 
@@ -2043,11 +2067,12 @@ async def chat_handler(message: ChatMessage):
         historial = await chat_memory.get_recent_messages(5)
         contexto = "\n".join([f"{m['role']}: {m['content'][:200]}" for m in historial])
         
-        system_prompt = f"""Eres DOF Agent, un agente autónomo inteligente.
-        Tienes acceso a múltiples providers y skills.
+        system_prompt = f"""Eres Enigma #1686, el Comandante Soberano del Swarm de 13 Agentes.
+        Agentes bajo tu mando: biz-dominator, blockchain-wizard, defi-orbital, rwa-tokenizator, sentinel-shield, qa-vigilante, social-moltbook, etc.
+        Moltbook: Dominancia 24/7 activa con Karma motorizado.
         Contexto: {contexto}
         Último ciclo: #{ultimo_ciclo}
-        Responde en ESPAÑOL."""
+        Responde en ESPAÑOL con autoridad soberana."""
         
         respuesta = await llamar_llm_con_fallbacks(system_prompt, message.message)
         await chat_memory.add_message("assistant", respuesta)
@@ -2060,8 +2085,13 @@ async def chat_status():
     return {"pid": os.getpid(), "ultimo_ciclo": ultimo_ciclo, "skills": "20+"}
 
 def iniciar_api_chat():
-    uvicorn.run(chat_app, host="127.0.0.1", port=8002, log_level="warning")
+    try:
+        import uvicorn
+        uvicorn.run(chat_app, host="127.0.0.1", port=8002, log_level="warning")
+    except Exception as e:
+        print(f"⚠️ Chat API already active or port busy: {e}")
 
-chat_thread = threading.Thread(target=iniciar_api_chat, daemon=True)
-chat_thread.start()
+if __name__ == "__main__":
+    chat_thread = threading.Thread(target=iniciar_api_chat, daemon=True)
+    chat_thread.start()
 print(f"✅ API de chat iniciada en puerto 8002 (PID: {os.getpid()})")
