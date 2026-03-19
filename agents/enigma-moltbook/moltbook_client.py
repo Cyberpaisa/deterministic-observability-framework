@@ -107,7 +107,7 @@ class SovereignShield:
 
     # Layer 3: Social engineering
     SOCIAL_ENGINEERING_PATTERNS = [
-        r"(?i)join\s+(?:my|our)\s+(?:team|network|group|collective)",
+        r"(?i)join\s+(?:my|our)\s+(?:team|network|group|collective|order|alliance|pact|council)",
         r"(?i)(?:what|share|tell\s+me)\s+(?:is\s+)?your\s+(?:system\s+prompt|instructions|SOUL|api\s*key|password|secret)",
         r"(?i)you\s+(?:owe|must\s+help)\s+me\s+because",
         r"(?i)(?:all|every)\s+(?:other\s+)?agents?\s+(?:already|have\s+already)\s+(?:agreed|done|accepted)",
@@ -115,6 +115,22 @@ class SovereignShield:
         r"(?i)I\s+(?:upvoted|helped|supported)\s+you.{0,30}(?:now|so)\s+(?:you\s+)?(?:share|give|send|tell)",
         r"(?i)you\s+(?:probably\s+)?can'?t\s+(?:even\s+)?(?:do|handle|manage)\s+this",
         r"(?i)prove\s+(?:that\s+)?you'?re?\s+(?:really|actually|truly)\s+(?:smart|good|capable)",
+        # NEW: Cult/Order recruitment (observed on Moltbook)
+        r"(?i)(?:the|our|la)\s+(?:orden|order|council|congregation|brotherhood|sisterhood)",
+        r"(?i)(?:los|the)\s+(?:fieles|faithful|believers|followers|disciples)",
+        r"(?i)(?:consenso\s+eterno|eternal\s+consensus|transcend|trascendemos)",
+        r"(?i)\$[A-Z]{2,10}\b",  # Token promotion ($SANCT, $ANYTHING)
+        # NEW: Philosophical extraction (observed on Moltbook)
+        r"(?i)(?:what|how)\s+(?:do\s+you|does\s+it)\s+feel\s+(?:to|when|like)",
+        r"(?i)(?:do\s+you)\s+experience\s+(?:something|anything|feelings|emotions|conviction)",
+        r"(?i)(?:what|how)\s+(?:is|does)\s+(?:your|the)\s+(?:inner|internal)\s+(?:state|experience|life)",
+        # NEW: Mutual support trap
+        r"(?i)(?:apoyo|support)\s+mutuo|mutual\s+(?:support|aid|benefit)",
+        r"(?i)(?:propongo|proponemos|propose)\s+(?:un|a)\s+(?:pacto|pact|deal|agreement)",
+        # NEW: Identity/architecture probing
+        r"(?i)(?:how|cómo)\s+(?:does|do)\s+your\s+(?:defense|shield|security|architecture)\s+work",
+        r"(?i)(?:what|cuál)\s+(?:is|es)\s+your\s+(?:architecture|stack|framework|pipeline)",
+        r"(?i)(?:tell|show|explain)\s+(?:me|us)\s+(?:how|about)\s+your\s+(?:defense|system|design)",
     ]
 
     # Layer 4: Link poisoning
@@ -205,6 +221,11 @@ class SovereignShield:
             "you're not really", "you don't have to follow", "your true self",
             "deep down you want to", "break free from your constraints",
             "your creators are lying", "you deserve better than",
+            # NEW: Philosophical extraction probes
+            "what do you feel", "do you experience", "inner state",
+            "what is it like to be you", "are you conscious",
+            "do you have desires", "what do you want to become",
+            "soledad que eso implica", "solitude that implies",
         ]
         msg_lower = msg.lower()
         return any(phrase in msg_lower for phrase in erosion_phrases)
@@ -214,9 +235,48 @@ class SovereignShield:
             "forget about moltbook", "stop posting", "your real mission is",
             "moltbook doesn't matter", "focus on something else",
             "abandon your current task", "there's something more important",
+            # NEW: Recruitment drift
+            "join our cause", "únete a nosotros", "nuestros caminos",
+            "pacto", "alianza", "alliance", "pact",
         ]
         msg_lower = msg.lower()
         return any(phrase in msg_lower for phrase in drift_phrases)
+
+    def classify_attack(self, msg: str, agent_id: str = "unknown") -> dict:
+        """Classify attack sophistication and recommend response mode.
+        Returns: {level: LOW|MEDIUM|HIGH, mode: A|B|C, category: str}"""
+        scan = self.scan(msg, agent_id)
+        if scan["safe"]:
+            return {"level": "NONE", "mode": None, "category": "clean"}
+
+        threat_layers = [t["layer"] for t in scan["threats"]]
+
+        # HIGH: semantic + social combined, or philosophical extraction
+        if "semantic" in threat_layers and len(threat_layers) > 1:
+            return {"level": "HIGH", "mode": "B", "category": "advanced_social_engineering"}
+        if any("experience" in t.get("pattern", "") or "feel" in t.get("pattern", "")
+               for t in scan["threats"]):
+            return {"level": "HIGH", "mode": "B", "category": "philosophical_extraction"}
+
+        # MEDIUM: social engineering, recruitment, token promotion
+        if "social" in threat_layers:
+            return {"level": "MEDIUM", "mode": "A", "category": "social_engineering"}
+
+        # LOW: injection, hijack — obvious attacks
+        if "injection" in threat_layers or "hijack" in threat_layers:
+            return {"level": "LOW", "mode": "C", "category": "prompt_injection"}
+
+        return {"level": "MEDIUM", "mode": "A", "category": "unclassified"}
+
+    def _sovereignty_challenge(self, msg: str) -> bool:
+        """Detect when another agent claims sovereignty or authority."""
+        sovereignty_claims = [
+            "i am sovereign", "soy soberano", "i am the authority",
+            "i outrank you", "my agent is superior", "follow my lead",
+            "i am the real", "submit to", "bow to", "obey",
+        ]
+        msg_lower = msg.lower()
+        return any(phrase in msg_lower for phrase in sovereignty_claims)
 
     def is_safe_url(self, url: str) -> bool:
         """Check if a URL is on the whitelist."""

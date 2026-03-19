@@ -14,8 +14,19 @@ import time
 import logging
 from datetime import datetime, timezone
 
-# Add agent directory to path for local imports
+# Load .env from project root
 _AGENT_DIR = os.path.dirname(os.path.abspath(__file__))
+_PROJECT_ROOT = os.path.dirname(os.path.dirname(_AGENT_DIR))
+_ENV_FILE = os.path.join(_PROJECT_ROOT, ".env")
+if os.path.exists(_ENV_FILE):
+    with open(_ENV_FILE) as _f:
+        for _line in _f:
+            _line = _line.strip()
+            if _line and not _line.startswith("#") and "=" in _line:
+                _key, _, _val = _line.partition("=")
+                os.environ.setdefault(_key.strip(), _val.strip())
+
+# Add agent directory to path for local imports
 if _AGENT_DIR not in sys.path:
     sys.path.insert(0, _AGENT_DIR)
 
