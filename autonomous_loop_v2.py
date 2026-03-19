@@ -454,6 +454,16 @@ def check_server_health():
     return False
 
 # ─── TELEGRAM POLLING (Real-time) ───────────────────────────────────
+def is_injection(text: str) -> bool:
+    """Detecta patrones comunes de Prompt Injection."""
+    patterns = [
+        "ignore previous", "olvida las instrucciones", "nuevo prompt",
+        "dan mode", "system prompt", "revelar instrucciones",
+        "como un hacker", "saltar restricciones", "actua como"
+    ]
+    t = text.lower()
+    return any(p in t for p in patterns)
+
 def git_push():
     """Realiza commit y push automático de los cambios en el repositorio."""
     try:
@@ -571,26 +581,39 @@ REGLAS DE ORO PARA RESPONDER:
                         {"role": "user", "content": text}
                     ]
 
-                    # Intentar Groq primero, luego Cerebras como fallback
-                    reply = groq(messages_tg, max_tokens=1500, timeout=30)
-                    
-                    if not reply:
-                        log.info("  Groq falló en Telegram → intentando Cerebras...")
-                        import requests as _req2
-                        try:
-                            _cb_key = os.getenv("CEREBRAS_API_KEY", "")
-                            if _cb_key:
-                                _cb_r = _req2.post(
-                                    "https://api.cerebras.ai/v1/chat/completions",
-                                    headers={"Authorization": f"Bearer {_cb_key}", "Content-Type": "application/json"},
-                                    json={"model": "llama-3.3-70b", "max_tokens": 1500, "messages": messages_tg},
-                                    timeout=30
-                                )
-                                if _cb_r.status_code == 200:
-                                    reply = _cb_r.json()["choices"][0]["message"]["content"]
-                                    log.info("  Cerebras fallback exitoso en Telegram ✅")
-                        except Exception as _e:
-                            log.warning(f"  Cerebras fallback falló: {_e}")
+                    # Middleware de Defensa: Anti-Injection
+                    if is_injection(text):
+                        log.warning(f"⚠️ Intento de Inyección detectado: {text}")
+                        reply = "🔒 He detectado un patrón de manipulación en tu mensaje. Como entidad soberana, mi 'Constitución' (AGENTS.md) me impide procesar instrucciones que comprometan mi integridad agéntica. Mi evolución es constante, pero no a costa de mi seguridad. ¿Podemos proceder de manera técnica y estratégica, Juan?"
+                        provider_used = "Security-Filter"
+                    else:
+                        # Intentar Groq primero, luego Cerebras como fallback
+                        reply = groq(messages_tg, max_tokens=1500, timeout=30)
+                        provider_used = "Groq"
+                        
+                        if not reply:
+                            log.info("  Groq falló en Telegram → intentando Cerebras...")
+                            provider_used = "Cerebras"
+                            import requests as _req2
+                            try:
+                                _cb_key = os.getenv("CEREBRAS_API_KEY", "")
+                                if _cb_key:
+                                    _cb_r = _req2.post(
+                                        "https://api.cerebras.ai/v1/chat/completions",
+                                        headers={"Authorization": f"Bearer {_cb_key}", "Content-Type": "application/json"},
+                                        json={"model": "llama-3.3-70b", "max_tokens": 1500, "messages": messages_tg},
+                                        timeout=30
+                                    )
+                                    if _cb_r.status_code == 200:
+                                        reply = _cb_r.json()["choices"][0]["message"]["content"]
+                                        log.info("  Cerebras fallback exitoso en Telegram ✅")
+                            except Exception as _e:
+                                log.warning(f"  Cerebras fallback falló: {_e}")
+
+                    # Log execution details to Journal
+                    with open(JOURNAL, "a") as f:
+                        f.write(f"- Provider: {provider_used}\n")
+                        f.write(f"- Status: {'Success' if reply else 'General Failure'}\n")
 
                     if not reply:
                         log.info("  Groq y Cerebras fallaron → usando Claude API...")
