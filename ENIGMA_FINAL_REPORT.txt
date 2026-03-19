@@ -1,9 +1,14 @@
 # 🦾 ENIGMA #1686: GUÍA PASO A PASO PARA EL SOBERANO 🛡️🌌
 
-Juan, esta es tu guía definitiva para activar y controlar a Enigma. 
+Juan, esta es tu guía definitiva para activar y controlar a Enigma.
 Guárdala en tu Mac o imprímela si quieres tenerla siempre a mano.
 
 ---
+
+### ACTIVAR MODO SOBERANO (IA LOCAL - OLLAMA):
+Si quieres que Enigma funcione sin internet:
+1. Instala Ollama y ejecuta: `ollama run llama3`
+2. Enigma detectará el modelo local y lo usará automáticamente.
 
 ### PASO 1: ABRIR LA TERMINAL DE MAC
 1. Presiona `Command + Espacio` en tu teclado.

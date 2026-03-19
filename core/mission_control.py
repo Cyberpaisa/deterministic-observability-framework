@@ -29,10 +29,15 @@ class MissionControl:
         self.tasks_file = os.path.join(self.base_dir, "data/tasks.json")
         self.agents_config = os.path.join(self.base_dir, "core/chains_config.json")
         self.providers = [
+            {"name": "Ollama (Local)", "key": "ollama", "url": os.getenv("OLLAMA_HOST", "http://localhost:11434") + "/api/generate", "model": "llama3"},
             {"name": "OpenAI", "key": os.getenv("OPENAI_API_KEY"), "url": "https://api.openai.com/v1/chat/completions", "model": "gpt-4o-mini"},
             {"name": "Anthropic", "key": os.getenv("ANTHROPIC_API_KEY"), "url": "https://api.anthropic.com/v1/messages", "model": "claude-3-5-sonnet-20240620"},
             {"name": "Groq", "key": os.getenv("GROQ_API_KEY"), "url": "https://api.groq.com/openai/v1/chat/completions", "model": "llama-3.3-70b-versatile"},
-            {"name": "Nvidia", "key": os.getenv("NVIDIA_API_KEY"), "url": "https://integrate.api.nvidia.com/v1/chat/completions", "model": "meta/llama-3.3-70b-instruct"}
+            {"name": "Nvidia", "key": os.getenv("NVIDIA_API_KEY"), "url": "https://integrate.api.nvidia.com/v1/chat/completions", "model": "meta/llama-3.3-70b-instruct"},
+            {"name": "Mistral", "key": os.getenv("MISTRAL_API_KEY"), "url": "https://api.mistral.ai/v1/chat/completions", "model": "mistral-large-latest"},
+            {"name": "Cerebras", "key": os.getenv("CEREBRAS_API_KEY"), "url": "https://api.cerebras.ai/v1/chat/completions", "model": "llama3.1-70b"},
+            {"name": "SambaNova", "key": os.getenv("SAMBANOVA_API_KEY"), "url": "https://api.sambanova.ai/v1/chat/completions", "model": "Meta-Llama-3.3-70B-Instruct"},
+            {"name": "DeepSeek", "key": os.getenv("DEEPSEEK_API_KEY"), "url": "https://api.deepseek.com/v1/chat/completions", "model": "deepseek-chat"}
         ]
         self.optimizer = HardwareOptimizer()
         self.backup_manager = CloudBackupManager()
@@ -83,7 +88,13 @@ class MissionControl:
             try:
                 headers = {"Authorization": f"Bearer {p['key']}", "Content-Type": "application/json"}
                 
-                if p["name"] == "Anthropic":
+                if p["name"] == "Ollama (Local)":
+                    payload = {
+                        "model": p["model"],
+                        "prompt": f"{system_prompt}\n\nUsuario: {message}\nEnigma:",
+                        "stream": False
+                    }
+                elif p["name"] == "Anthropic":
                     headers = {
                         "x-api-key": p["key"],
                         "anthropic-version": "2023-06-01",
@@ -101,9 +112,11 @@ class MissionControl:
                         "temperature": 0.7
                     }
 
-                response = requests.post(p["url"], headers=headers, json=payload, timeout=10)
+                response = requests.post(p["url"], headers=headers, json=payload, timeout=15)
                 if response.status_code == 200:
                     result = response.json()
+                    if p["name"] == "Ollama (Local)":
+                        return result["response"]
                     if p["name"] == "Anthropic":
                         return result["content"][0]["text"]
                     return result["choices"][0]["message"]["content"]
