@@ -431,7 +431,23 @@ function Z3Verifier() {
    ═══════════════════════════════════════════════════════ */
 
 function SovereignLabView() {
+  const [running, setRunning] = useState(false);
+  const [progress, setProgress] = useState(0);
   const lab = MOCK.lab;
+
+  const startExperiment = () => {
+    setRunning(true);
+    let p = 0;
+    const interval = setInterval(() => {
+      p += 5;
+      setProgress(p);
+      if (p >= 100) {
+        clearInterval(interval);
+        setRunning(false);
+      }
+    }, 200);
+  };
+
   return (
     <div>
       <SectionHead title="Sovereign Recovery Lab" sub="Forensic Cryptography · Asset Recovery · Hardware Glitching" icon={Cpu} />
@@ -462,9 +478,16 @@ function SovereignLabView() {
               <div style={{ fontSize: 10, color: "#64748b", marginBottom: 4 }}>PUBLIC_KEY:</div>
               <code style={{ fontSize: 10, color: "#58a6ff", wordBreak: "break-all", fontFamily: "monospace" }}>{lab.target_pubkey}</code>
               <div style={{ marginTop: 16, height: 120, background: "linear-gradient(45deg, rgba(88,166,255,0.05) 25%, transparent 25%)", backgroundSize: "10px 10px", borderRadius: 8, position: "relative", overflow: "hidden" }}>
-                <div className="glitch-line" style={{ position: "absolute", top: "40%", left: 0, right: 0, height: 2, background: "#58a6ff", opacity: 0.5 }} />
-                <div style={{ padding: 12, fontSize: 9, color: "#64748b", fontFamily: "monospace" }}>[SCANNING_ECC_SPACE]</div>
+                <div className="glitch-line" style={{ position: "absolute", top: `${progress}%`, left: 0, right: 0, height: 2, background: "#58a6ff", opacity: 0.5, transition: "top 0.2s linear" }} />
+                <div style={{ padding: 12, fontSize: 9, color: "#64748b", fontFamily: "monospace" }}>{running ? `[SCANNING_ECC_SPACE: ${progress}%]` : "[IDLE_LAB_READY]"}</div>
               </div>
+              <button 
+                onClick={startExperiment}
+                disabled={running}
+                style={{ width: "100%", marginTop: 16, padding: "10px", borderRadius: 8, background: running ? "rgba(88,166,255,0.1)" : "#58a6ff", color: running ? "#58a6ff" : "black", border: "none", fontSize: 11, fontWeight: 700, cursor: "pointer", transition: "all 0.2s" }}
+              >
+                {running ? "SCANNING PHASE 1..." : "START SCAN (SECP256K1)"}
+              </button>
             </div>
           </div>
         </Panel>
