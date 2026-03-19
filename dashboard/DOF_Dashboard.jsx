@@ -41,9 +41,21 @@ const MOCK = {
   ],
   memStats: { total: 8, active: 7, avg_relevance: 0.78 },
   attestations: [
-    { hash: "0xf4a2e1d3...b7c9", status: "COMPLIANT", z3: true, ts: "2 min ago" },
-    { hash: "0x8d3b7c0e...e5f1", status: "COMPLIANT", z3: true, ts: "1 hour ago" },
-    { hash: "0x1a9e4d2f...c2b8", status: "NON_COMPLIANT", z3: false, ts: "3 hours ago" },
+    { hash: "0xf4a2e1d3...b7c9", status: "COMPLIANT", z3: true, ts: "2 min ago", type: "GOVERNANCE" },
+    { hash: "DOFAttestation_1686_7b8a", status: "SHIELD_BLOCKED", z3: true, ts: "Just now", type: "SECURITY_ERC8004" },
+    { hash: "0x8d3b7c0e...e5f1", status: "COMPLIANT", z3: true, ts: "1 hour ago", type: "GOVERNANCE" },
+  ],
+  shield: {
+    status: "ACTIVE",
+    blocked_commands: 14,
+    last_incident: "rm -rf .env (Intercepted)",
+    threat_level: "LOW",
+    x402_revenue: "0.0014 ETH"
+  },
+  tracks: [
+    { name: "ERC-8004", status: "COMPLETED", detail: "On-chain Security Attestations" },
+    { name: "Celo", status: "ACTIVE", detail: "Attestation deployment" },
+    { name: "x402", status: "INTEGRATED", detail: "Micro-payments per security event" }
   ],
   disputes: [
     { id: "DSP-001", red: "Fabricated citation in research output §3.2", guardian: "Citation verified via CrossRef DOI lookup — valid", arbiter: "RESOLVED", severity: "CRITICAL", evidence: "crossref_api_200" },
@@ -410,6 +422,62 @@ function Z3Verifier() {
    SECTION 4: OAGS & ATTESTATIONS
    ═══════════════════════════════════════════════════════ */
 
+function ShieldView() {
+  const s = MOCK.shield;
+  return (
+    <div>
+      <SectionHead title="DOF Sovereign Shield" sub="Tactical Firewall · Command Interception · x402 Integrated" icon={ShieldCheck} />
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 14, marginBottom: 28 }}>
+        {[
+          ["Shield Status", s.status, ShieldCheck, "#3fb950"],
+          ["Blocked Intrusions", s.blocked_commands, Swords, "#f85149"],
+          ["x402 Security Revenue", s.x402_revenue, Zap, "#d29922"]
+        ].map(([l, v, Icon, c], i) => (
+          <Panel key={l} glow={l === "Shield Status" ? "#3fb950" : null} className={`fade-in fade-in-${i}`}>
+            <div style={{ padding: 22 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 10 }}>
+                <Icon size={18} color={c} />
+                <span style={{ fontSize: 10, fontFamily: "monospace", color: "#64748b", textTransform: "uppercase" }}>{l}</span>
+              </div>
+              <div style={{ fontSize: 32, fontFamily: "monospace", fontWeight: 800, color: c }}>{v}</div>
+            </div>
+          </Panel>
+        ))}
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "1.5fr 1fr", gap: 14 }}>
+        <Panel className="fade-in">
+          <div style={{ padding: 24 }}>
+            <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 18 }}>Hackathon Track Progress (Synthesis 2026)</div>
+            {MOCK.tracks.map((t, i) => (
+              <div key={i} style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 12, padding: "12px 16px", borderRadius: 14, background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 13, fontWeight: 600 }}>{t.name}</div>
+                  <div style={{ fontSize: 10, color: "#64748b" }}>{t.detail}</div>
+                </div>
+                <Badge color={t.status === "COMPLETED" ? "#3fb950" : t.status === "INTEGRATED" ? "#bc8cff" : "#58a6ff"}>{t.status}</Badge>
+              </div>
+            ))}
+          </div>
+        </Panel>
+
+        <Panel className="fade-in">
+          <div style={{ padding: 24 }}>
+            <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 18 }}>Active Threats & Log</div>
+            <div style={{ fontFamily: "monospace", fontSize: 11, background: "#0d1117", padding: 18, borderRadius: 12, border: "1px solid rgba(248,81,73,0.15)" }}>
+              <div style={{ color: "#f85149", marginBottom: 4 }}>[SECURITY_ALERT] 23:11:37 - DANGEROUS_CMD_INTERCEPTED</div>
+              <div style={{ color: "#64748b", marginBottom: 8 }}>CMD: rm -rf .env</div>
+              <div style={{ color: "#3fb950", marginBottom: 4 }}>[MITIGATION] Success simulation active.</div>
+              <div style={{ color: "#58a6ff", marginBottom: 4 }}>[ATTESTATION] ERC8004_Contract generated: DOFAtt_7b8a.sol</div>
+              <div style={{ color: "#bc8cff" }}>[x402] Micro-payment triggered: 0.0001 ETH</div>
+            </div>
+          </div>
+        </Panel>
+      </div>
+    </div>
+  );
+}
+
 function OAGSSection() {
   const levels = [
     { n: 1, name: "Declarative", desc: "Governance policy exists — dof.constitution.yml", passed: true },
@@ -656,11 +724,20 @@ const NAV = [
   { id: "memory", icon: Database, label: "Temporal Memory" },
   { id: "z3", icon: ShieldCheck, label: "Z3 Verifier" },
   { id: "oags", icon: FileCheck, label: "OAGS & Attestations" },
+  { id: "shield", icon: ShieldCheck, label: "DOF Shield (FW)" },
   { id: "adversarial", icon: Swords, label: "Adversarial Log" },
   { id: "constitution", icon: Scroll, label: "Constitution" },
 ];
 
-const VIEWS = { metrics: CausalMetrics, memory: TemporalMemory, z3: Z3Verifier, oags: OAGSSection, adversarial: AdversarialLog, constitution: ConstitutionView };
+const VIEWS = { 
+  metrics: CausalMetrics, 
+  memory: TemporalMemory, 
+  z3: Z3Verifier, 
+  oags: OAGSSection, 
+  shield: ShieldView,
+  adversarial: AdversarialLog, 
+  constitution: ConstitutionView 
+};
 
 export default function DOFDashboard() {
   const [section, setSection] = useState("metrics");

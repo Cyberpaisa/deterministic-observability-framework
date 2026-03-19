@@ -43,6 +43,24 @@ contract {name.replace(' ', '')}Governor is Governor {{
 """
         return content
 
+    def generate_security_proof(self, agent_id, incident_type, details_hash):
+        """Genera un contrato de atestación de seguridad para ERC-8004"""
+        content = f"""// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+contract DOFRiskAttestation {{
+    uint256 public constant AGENT_ID = {agent_id};
+    string public constant INCIDENT = "{incident_type}";
+    bytes32 public constant DETAILS_HASH = {details_hash};
+    uint256 public immutable timestamp;
+
+    constructor() {{
+        timestamp = block.timestamp;
+    }}
+}}
+"""
+        return content
+
 if __name__ == "__main__":
     factory = ContractFactory()
     print("--- ERC20 Sample ---")
