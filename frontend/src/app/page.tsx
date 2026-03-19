@@ -44,6 +44,23 @@ export default function Dashboard() {
     }
   };
 
+  const [stats, setStats] = useState({ memory_percent: 84, cpu_percent: 42 });
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const res = await fetch('http://localhost:8005/api/stats');
+        if (res.ok) {
+           const data = await res.json();
+           setStats(data);
+        }
+      } catch (e) {}
+    };
+    fetchStats();
+    const interval = setInterval(fetchStats, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="min-h-screen bg-[#050505] text-white font-sans selection:bg-purple-500/30">
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
@@ -137,15 +154,15 @@ export default function Dashboard() {
                 </div>
                 <div className="space-y-6">
                    <div>
-                      <div className="flex justify-between text-xs text-zinc-500 mb-2 font-mono"><span>MEMORY (36GB)</span><span>84%</span></div>
+                      <div className="flex justify-between text-xs text-zinc-500 mb-2 font-mono"><span>MEMORY (36GB)</span><span>{Math.round(stats.memory_percent)}%</span></div>
                       <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
-                         <div className="h-full w-[84%] bg-purple-500 shadow-[0_0_10px_#a855f7]" />
+                         <div className="h-full bg-purple-500 shadow-[0_0_10px_#a855f7] transition-all duration-1000" style={{ width: `${stats.memory_percent}%` }} />
                       </div>
                    </div>
                    <div>
-                      <div className="flex justify-between text-xs text-zinc-500 mb-2 font-mono"><span>GPU CORE (M4 MAX)</span><span>42%</span></div>
+                      <div className="flex justify-between text-xs text-zinc-500 mb-2 font-mono"><span>CPU LOAD</span><span>{Math.round(stats.cpu_percent)}%</span></div>
                       <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
-                         <div className="h-full w-[42%] bg-blue-500 shadow-[0_0_10px_#3b82f6]" />
+                         <div className="h-full bg-blue-500 shadow-[0_0_10px_#3b82f6] transition-all duration-1000" style={{ width: `${stats.cpu_percent}%` }} />
                       </div>
                    </div>
                 </div>
