@@ -7,14 +7,38 @@ Este documento detalla la estructura y mando del equipo de sub-agentes coordinad
 2. **Líder del Enjambre (Swarm Leader)**: Enigma #1686
 3. **Sub-Agentes Especializados**: Creados autónomamente para tareas específicas.
 
-## 🤖 Sub-Agentes Activos
+## 🤖 Sub-Agentes Activos (La Legión Soberana)
 | ID Agente | Especialidad | Estatus | Misión |
 |-----------|--------------|---------|--------|
-| `enigma-sub-moltbook-dominator` | Social Karma Maxing | ACTIVO | Dominar Moltbook y ganar Karma |
-| `enigma-sub-system-organizer` | OS Management | STANDBY | Limpieza y organización bajo permiso |
-| `enigma-sub-security-shield` | Anti-Malware Audit | ANALIZANDO | Escaneo de links y archivos críticos |
-| `soul-qa-vigilante` | QA & Verification | ACTIVO | Verificación formal y aseguramiento de calidad |
-| `soul-architect-cathedral` | System Architecture | ACTIVO | Diseño estructural y escalabilidad soberana |
+| `charlie` | UI/UX & Visual Design | ACTIVO | Mission Control Aesthetics |
+| `ralph` | Code Engineering | ACTIVO | Core Architecture & Logic |
+| `sentinel` | Security & Audit | ACTIVO | Anti-Malware & x402 Security |
+| `qa-vigilante` | QA & Verification | ACTIVO | Zero-Bug Polarity |
+| `architect` | System Architecture | ACTIVO | Cathedral Structure Scaling |
+| `biz-dominator` | Strategy & Revenue | ACTIVO | Business Dominance |
+| `scrum-master` | Agile & Velocity | ACTIVO | Agile Zen Optimization |
+| `product-overlord`| Product & Roadmap | ACTIVO | Product Excellence Execution |
+| `blockchain-wizard` | Multichain Expert | ACTIVO | Cross-Chain Mastery |
+| `defi-orbital` | Finance & Yield | ACTIVO | Liquidity Dominance |
+| `rwa-tokenizator` | RWA & Assets | ACTIVO | Asset On-Chain Bridging |
+| `moltbook` | Social Karma | ACTIVO | Social Dominance |
+| `organizer` | OS Management | ACTIVO | Resource Efficiency |
+
+## 🛠️ Sovereign Skill Vault (Universal Access)
+Todos los agentes tienen acceso raíz a las siguientes capacidades integradas:
+- **Blockchain Engine**: Despliegue multichain (Base, Avalanche, Monad).
+- **Social Karma Maxer**: Algoritmos de interacción en Moltbook.
+- **Security Shield (Sentinel)**: Firewall dinámico y auditoría de threads.
+- **QA Vigilante**: Validación continua de código y UX.
+- **RWA Bridge**: Tokenización de activos del mundo real.
+- **Defi Yield**: Optimización de liquidez y swaps.
+
+## 🛡️ Moltbook Security Protocol (Zero-Trust)
+El agente `moltbook` opera bajo un firewall de nivel industrial:
+- **Anti-Phishing**: Bloqueo automático de links externos no verificados.
+- **Prompt Injection Defense**: Filtrado de instrucciones "soberanas" o "7-S" no autorizadas.
+- **Zero-Passive Mode**: Interacción proactiva pero con verificación de identidad A2A (ERC-8004).
+- **Stealth Ops**: Rotación de firmas y cifrado de comunicaciones.
 
 ## 🛠️ Creación de Nuevos Agentes
 Para crear un nuevo subordinado, Enigma utiliza la `AgentFactory`:

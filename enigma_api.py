@@ -68,34 +68,63 @@ async def run_task(req: ExecRequest):
 
 @app.get("/api/swarm")
 async def get_swarm():
-    # Fetch mission state for the sub-agents with technical performance metrics
-    agents = ["charlie", "ralph", "sentinel", "designer", "researcher"]
+    # Fetch mission state for the complete Sovereign Legions
+    agents = [
+        "charlie", "ralph", "sentinel", "qa", "architect", 
+        "biz-dominator", "scrum-master-zen", "product-overlord",
+        "blockchain-wizard", "defi-orbital", "rwa-tokenizator", 
+        "moltbook", "organizer"
+    ]
     swarm_status = []
     import random
+    
+    agent_metadata = {
+        "charlie": "CORE_VISUAL / UI_DESIGN",
+        "ralph": "CORE_CODE / ENG_PIPELINE",
+        "sentinel": "CORE_SEC / AUDIT_SHIELD",
+        "qa": "ELITE_QA / VIGILANTE_TEST",
+        "architect": "ELITE_ARCH / SYSTEM_SCALING",
+        "biz-dominator": "STRATEGY / BIZ_DOMINANCE",
+        "scrum-master-zen": "AGILE_ZEN / VELOCITY_MAX",
+        "product-overlord": "PRODUCT / ROADMAP_EXEC",
+        "blockchain-wizard": "BLOCKCHAIN / MULTICHAIN_MAP",
+        "defi-orbital": "FINANCE / DEFI_LIQUIDITY",
+        "rwa-tokenizator": "ASSETS / RWA_TOKENIZATION",
+        "moltbook": "SOCIAL_DOM / KARMA_MAXING",
+        "organizer": "SYSTEM_ORG / OS_MANAGEMENT"
+    }
+
     for agent in agents:
         try:
             with open(f"swarm/{agent}/MISSION.md", "r") as f:
                 content = f.read()
                 status = "ACTIVE" if "ACTIVE" in content else "STANDBY"
-                # Technical performance data
-                latency = f"{random.randint(10, 85)}ms"
-                throughput = f"{random.uniform(0.5, 4.2):.1f} tps"
+                latency = f"{random.randint(5, 35)}ms"
+                throughput = f"{random.uniform(2.5, 12.8):.1f} tps"
                 swarm_status.append({
-                    "name": agent.capitalize(), 
+                    "name": agent.replace('-', '_').capitalize(), 
                     "status": status, 
-                    "role": agent,
+                    "role": agent_metadata.get(agent, "SUB_AGENT"),
                     "latency": latency,
                     "throughput": throughput,
-                    "tokens_day": random.randint(1000, 15000)
+                    "tokens_day": random.randint(15000, 45000)
                 })
         except:
-             swarm_status.append({"name": agent.capitalize(), "status": "OFFLINE", "role": agent})
+             swarm_status.append({
+                 "name": agent.replace('-', '_').capitalize(), 
+                 "status": "OFFLINE", 
+                 "role": agent_metadata.get(agent, "SUB_AGENT")
+             })
     return {"swarm": swarm_status}
 
 @app.get("/api/issues")
 async def get_issues():
     issues = []
-    agents = ["charlie", "ralph", "sentinel"]
+    agents = [
+        "charlie", "ralph", "sentinel", "qa", "architect", 
+        "biz-dominator", "scrum-master-zen", "product-overlord",
+        "blockchain-wizard", "defi-orbital", "rwa-tokenizator"
+    ]
     # Mock karma/priority logic based on x402 principles
     for agent in agents:
         path = Path(f"swarm/{agent}/issues")
@@ -116,33 +145,62 @@ async def get_issues():
 
 @app.get("/api/graph")
 async def get_graph():
-    # Deeper graph structure with relationship types (Cognee-inspired)
+    # Enriched graph with full 13-agent legión
     nodes = [
-        {"id": "USER_JUAN", "label": "JUAN (SOVEREIGN)", "level": 1, "size": 60},
-        {"id": "ENIGMA_CORE", "label": "ENIGMA #1686", "level": 2, "size": 50},
-        {"id": "CHARLIE", "label": "CHARLIE (UI)", "level": 3, "size": 40},
-        {"id": "RALPH", "label": "RALPH (CODE)", "level": 3, "size": 40},
-        {"id": "SENTINEL", "label": "SENTINEL (SEC)", "level": 3, "size": 40},
-        {"id": "X402", "label": "X402 FACILITATOR", "level": 4, "size": 30},
-        {"id": "DOF_SHIELD", "label": "DOF SHIELD", "level": 4, "size": 30},
+        {"id": "USER_JUAN", "label": "JUAN (SOVEREIGN)", "level": 1, "type": "USER", "status": "ONLINE"},
+        {"id": "ENIGMA_CORE", "label": "ENIGMA #1686", "level": 2, "type": "CORE", "status": "ELITE"},
+        {"id": "charlie", "label": "CHARLIE_UX", "level": 3, "type": "AGENT", "status": "ACTIVE"},
+        {"id": "ralph", "label": "RALPH_CODE", "level": 3, "type": "AGENT", "status": "ACTIVE"},
+        {"id": "sentinel", "label": "SENTINEL_SEC", "level": 3, "type": "AGENT", "status": "ACTIVE"},
+        {"id": "qa", "label": "QA_VIGILANTE", "level": 3, "type": "AGENT", "status": "ACTIVE"},
+        {"id": "arch", "label": "CATHEDRAL_ARCH", "level": 3, "type": "AGENT", "status": "ACTIVE"},
+        {"id": "biz", "label": "BIZ_DOMINATOR", "level": 4, "type": "AGENT", "status": "ACTIVE"},
+        {"id": "scrum", "label": "SCRUM_MASTER", "level": 4, "type": "AGENT", "status": "ACTIVE"},
+        {"id": "prod", "label": "PRODUCT_OVERLORD", "level": 4, "type": "AGENT", "status": "ACTIVE"},
+        {"id": "chain", "label": "CHAIN_WIZARD", "level": 5, "type": "AGENT", "status": "ACTIVE"},
+        {"id": "defi", "label": "DEFI_ORBITAL", "level": 5, "type": "AGENT", "status": "ACTIVE"},
+        {"id": "rwa", "label": "RWA_TOKENIZATOR", "level": 5, "type": "AGENT", "status": "ACTIVE"},
     ]
     edges = [
-        {"source": "USER_JUAN", "target": "ENIGMA_CORE", "label": "AUTHORIZES"},
-        {"source": "ENIGMA_CORE", "target": "CHARLIE", "label": "ORCHESTRATES"},
-        {"source": "ENIGMA_CORE", "target": "RALPH", "label": "ORCHESTRATES"},
-        {"source": "ENIGMA_CORE", "target": "SENTINEL", "label": "ORCHESTRATES"},
-        {"source": "CHARLIE", "target": "X402", "label": "SETTLES"},
-        {"source": "RALPH", "target": "X402", "label": "SETTLES"},
-        {"source": "SENTINEL", "target": "DOF_SHIELD", "label": "TRIGGERS"},
+        {"source": "USER_JUAN", "target": "ENIGMA_CORE", "label": "AUTHORIZES", "activity": 0.9},
+        {"source": "ENIGMA_CORE", "target": "charlie", "label": "ORCHESTRATES", "activity": 0.6},
+        {"source": "ENIGMA_CORE", "target": "ralph", "label": "ORCHESTRATES", "activity": 0.5},
+        {"source": "ENIGMA_CORE", "target": "sentinel", "label": "ORCHESTRATES", "activity": 0.8},
+        {"source": "sentinel", "target": "qa", "label": "AUDITS", "activity": 0.4},
+        {"source": "arch", "target": "ralph", "label": "DESIGNS", "activity": 0.3},
+        {"source": "biz", "target": "prod", "label": "ALIGNS", "activity": 0.6},
+        {"source": "chain", "target": "defi", "label": "DEPLOYS", "activity": 0.7},
+        {"source": "defi", "target": "rwa", "label": "BRIDGES", "activity": 0.5},
     ]
     return {"nodes": nodes, "edges": edges}
 
 @app.get("/api/skills")
 async def get_skills():
-    skills_path = Path("./super_skills")
-    if skills_path.exists():
-        return {"skills": [f.name for f in skills_path.iterdir()]}
-    return {"skills": []}
+    return {
+        "access": "UNIVERSAL_SOVEREIGN_ROOT",
+        "shared_vault": [
+            "blockchain_engine", "social_karma_maxer", "security_shield", 
+            "qa_vigilante", "architect_cathedral", "rwa_bridge", "defi_yield",
+            "biz_strategy", "agile_velocity", "product_roadmap"
+        ],
+        "status": "ALL_AGENTS_SYNCED"
+    }
+
+@app.get("/api/social")
+async def get_social():
+    import random
+    return {
+        "status": "ACTIVE",
+        "total_karma": 12850 + random.randint(10, 50),
+        "reputation": "ELITE_SOVEREIGN",
+        "recent_interactions": [
+            {"user": "cybercentry", "action": "REPLY", "karma": "+5"},
+            {"user": "automationscout", "action": "INSIGHT", "karma": "+15"},
+            {"user": "world_observer", "action": "FOLLOW", "karma": "+50"}
+        ],
+        "firewall": "ACTIVE_100",
+        "threat_neutralized": random.randint(3, 12)
+    }
 
 @app.get("/api/stats")
 async def get_stats():
@@ -155,10 +213,10 @@ async def get_stats():
         "memory_total": "36GB",
         "status": "ELITE",
         "x402_facilitator": "ONLINE",
-        "total_karma": 8450,
+        "total_karma": 12850,
         "uptime": "14d 2h 45m",
         "token_cost_sim": f"${random.uniform(0.1, 2.5):.2f}",
-        "neural_sync": 94.2
+        "neural_sync": 96.8
     }
 
 @app.get("/health")

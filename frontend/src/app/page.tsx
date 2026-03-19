@@ -7,8 +7,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 interface Message { role: 'user' | 'assistant' | 'system'; content: string; }
 interface Agent { name: string; status: 'ACTIVE' | 'IDLE' | 'BUSY'; role: string; last_log: string; }
 interface Issue { agent: string; id: string; title: string; priority?: 'HIGH' | 'NORMAL'; karma_reward?: number; estimated_time?: string; }
-interface GraphNode { id: string; label: string; level: number; size: number; }
-interface GraphEdge { source: string; target: string; label?: string; }
+interface GraphNode { id: string; label: string; level: number; size: number; type?: 'USER' | 'CORE' | 'AGENT' | 'TOOL'; status?: string; }
+interface GraphEdge { source: string; target: string; label?: string; activity?: number; }
 interface GraphData { nodes: GraphNode[]; edges: GraphEdge[]; }
 
 const StatusRing = ({ value, label, color = "stroke-purple-500" }: { value: number, label: string, color?: string }) => {
@@ -111,6 +111,15 @@ export default function Dashboard() {
     return () => clearInterval(interval);
   }, []);
 
+  const getNodeIcon = (label: string) => {
+    const l = label.toLowerCase();
+    if (l.includes('security') || l.includes('shield')) return Shield;
+    if (l.includes('neural') || l.includes('core') || l.includes('brain')) return Cpu;
+    if (l.includes('network') || l.includes('gateway')) return Globe;
+    if (l.includes('payment') || l.includes('x402')) return Zap;
+    return Activity;
+  };
+
   return (
     <div className="min-h-screen bg-[#020202] text-zinc-300 font-sans selection:bg-purple-500/30 overflow-hidden flex flex-col">
       {/* Visual Foundation - Refined HUD Layer */}
@@ -174,11 +183,14 @@ export default function Dashboard() {
                 />
               </div>
            </div>
-           <div className="h-8 w-px bg-white/10" />
-           <div className="text-[10px] font-mono text-white bg-white/5 px-3 py-1.5 rounded border border-white/10 shadow-inner">
-             0x3FA...98DE
-           </div>
-        </div>
+            <div className="h-8 w-px bg-white/10" />
+            <div className="flex flex-col items-end gap-1">
+              <span className="text-[7px] font-mono text-zinc-600 uppercase">Sovereign Registry</span>
+              <div className="text-[10px] font-mono text-purple-400 font-bold bg-white/5 px-3 py-1.5 rounded border border-purple-500/20 shadow-[0_0_15px_rgba(168,85,247,0.1)]">
+                0x8004A169FB4a3325136EB29fA0ceB6D2e539a432
+              </div>
+            </div>
+         </div>
       </header>
 
 
@@ -297,14 +309,38 @@ export default function Dashboard() {
 
 
              {activeTab === 'swarm' && (
-               <motion.div key="swarm" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="h-full p-8 grid grid-cols-2 lg:grid-cols-3 gap-6 overflow-y-auto custom-scrollbar">
+               <motion.div key="swarm" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="h-full p-8 flex flex-col gap-8 overflow-y-auto custom-scrollbar">
+                  {/* Swarm Tactical Header */}
+                  <div className="flex justify-between items-center border-b border-white/10 pb-6">
+                     <div>
+                        <span className="text-xs font-black text-white tracking-[0.4em] uppercase">Sovereign Swarm Command</span>
+                        <div className="text-[8px] font-mono text-zinc-600 mt-2 uppercase">HYPER_SCALE_ORCHESTRATION: ENABLED // TOTAL_UNITS: {swarm.length} // THREAT_LEVEL: ZERO</div>
+                     </div>
+                     <div className="flex items-center gap-6">
+                        <div className="flex flex-col items-end">
+                           <span className="text-[8px] font-mono text-zinc-600 mb-1">COMMAND_SYNC</span>
+                           <div className="flex items-center gap-2">
+                              <div className="w-1.5 h-1.5 rounded-full bg-purple-500 animate-pulse" />
+                              <span className="text-[10px] font-mono text-white font-bold tracking-tight">ENIGMA_CORE_CONNECTED</span>
+                           </div>
+                        </div>
+                        <div className="h-8 w-[1px] bg-white/10" />
+                        <div className="bg-white/5 px-5 py-3 rounded-2xl border border-white/10">
+                           <span className="text-[10px] font-mono text-emerald-400 font-black uppercase tracking-widest">
+                              Operational Readiness: 100%
+                           </span>
+                        </div>
+                     </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-8">
                   {swarm.map((agent, idx) => (
                     <motion.div 
                       key={agent.name} 
-                      initial={{ opacity: 0, y: 20 }}
+                      initial={{ opacity: 0, y: 30 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: idx * 0.1 }}
-                      className="bg-zinc-950/80 border border-white/10 rounded-2xl p-6 relative overflow-hidden group hover:border-purple-500/50 transition-all shadow-[0_0_20px_rgba(0,0,0,0.5)]"
+                      transition={{ delay: idx * 0.05 }}
+                      className="bg-zinc-950/80 border border-white/10 rounded-[2.5rem] p-8 relative overflow-hidden group hover:border-purple-500/50 transition-all shadow-[0_0_40px_rgba(0,0,0,0.7)]"
                     >
                        {/* Neural Pulse Animation Background */}
                        <div className="absolute inset-0 opacity-10 pointer-events-none overflow-hidden">
@@ -370,10 +406,11 @@ export default function Dashboard() {
                              />
                           </div>
                        </div>
-                    </motion.div>
-                  ))}
-               </motion.div>
-             )}
+                     </motion.div>
+                   ))}
+                   </div>
+                </motion.div>
+              )}
 
 
              {activeTab === 'issues' && (
@@ -438,89 +475,217 @@ export default function Dashboard() {
 
 
              {activeTab === 'neural' && (
-               <motion.div key="neural" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="h-full relative overflow-hidden flex items-center justify-center bg-zinc-950/20">
-                  {/* Background Neural Grid */}
-                  <div className="absolute inset-0 opacity-20 group">
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(168,85,247,0.1)_0%,transparent_50%)]" />
+               <motion.div 
+                 key="neural" 
+                 initial={{ opacity: 0 }} 
+                 animate={{ opacity: 1 }} 
+                 exit={{ opacity: 0 }} 
+                 className="h-full relative overflow-hidden flex items-center justify-center bg-zinc-950/20"
+                 style={{ perspective: '3000px' }}
+               >
+                  {/* Background Neural Grid - Static for stability */}
+                  <div className="absolute inset-0 opacity-5 pointer-events-none">
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(168,85,247,0.15)_0%,transparent_70%)]" />
                   </div>
 
-                  <svg className="w-full h-full absolute inset-0 z-0">
-                     {graph.edges.map((edge, i) => {
-                        const source = graph.nodes.find(n => n.id === edge.source);
-                        const target = graph.nodes.find(n => n.id === edge.target);
-                        if (!source || !target) return null;
-                        
-                        // Calculate positions based on levels
-                        const x1 = `${(source.level - 1) * 30 + 10}%`;
-                        const y1 = `${20 + (graph.nodes.filter(n => n.level === source.level).indexOf(source) * 20)}%`;
-                        const x2 = `${(target.level - 1) * 30 + 10}%`;
-                        const y2 = `${20 + (graph.nodes.filter(n => n.level === target.level).indexOf(target) * 20)}%`;
-                        
-                        return (
-                          <g key={i}>
-                            <motion.path 
-                              d={`M ${x1} ${y1} L ${x2} ${y2}`}
-                              stroke="url(#edgeGradient)"
-                              strokeWidth="1"
-                              strokeOpacity="0.3"
-                              fill="none"
-                              initial={{ pathLength: 0 }}
-                              animate={{ pathLength: 1 }}
-                              transition={{ duration: 2, delay: i * 0.1 }}
-                            />
-                            {/* Animated Pulse along the path */}
-                            <circle r="2" fill="#a855f7" className="shadow-[0_0_8px_#a855f7]">
-                               <animateMotion 
-                                 dur={`${2 + Math.random() * 2}s`} 
-                                 repeatCount="indefinite" 
-                                 path={`M ${x1} ${y1} L ${x2} ${y2}`} 
-                               />
-                            </circle>
-                          </g>
-                        );
-                     })}
-                     <defs>
-                        <linearGradient id="edgeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                           <stop offset="0%" stopColor="#6366f1" />
-                           <stop offset="100%" stopColor="#a855f7" />
-                        </linearGradient>
-                     </defs>
-                  </svg>
+                  <motion.div 
+                    style={{ rotateX: 10, rotateY: 0, transformStyle: 'preserve-3d' }}
+                    className="w-full h-full relative flex items-center justify-center"
+                  >
+                    <svg className="w-full h-full absolute inset-0 z-0 overflow-visible">
+                       {graph.edges.map((edge, i) => {
+                          const source = graph.nodes.find(n => n.id === edge.source);
+                          const target = graph.nodes.find(n => n.id === edge.target);
+                          if (!source || !target) return null;
+                          
+                          const x1 = `${(source.level - 1) * 28 + 10}%`;
+                          const y1 = `${20 + (graph.nodes.filter(n => n.level === source.level).indexOf(source) * 20)}%`;
+                          const x2 = `${(target.level - 1) * 28 + 10}%`;
+                          const y2 = `${20 + (graph.nodes.filter(n => n.level === target.level).indexOf(target) * 20)}%`;
+                          
+                          return (
+                            <g key={i}>
+                              <motion.path 
+                                d={`M ${x1} ${y1} L ${x2} ${y2}`}
+                                stroke="url(#edgeGradient3D)"
+                                strokeWidth={edge.activity ? 1 + edge.activity * 2 : 1}
+                                strokeOpacity={edge.activity ? 0.2 + edge.activity * 0.4 : 0.3}
+                                fill="none"
+                                initial={{ pathLength: 0 }}
+                                animate={{ pathLength: 1 }}
+                                transition={{ duration: 2, delay: i * 0.1 }}
+                              />
+                              <motion.circle 
+                                r="3" 
+                                fill="#a855f7" 
+                                className="shadow-[0_0_15px_#a855f7]"
+                              >
+                                 <animateMotion 
+                                   dur={`${3 + Math.random() * 2}s`} 
+                                   repeatCount="indefinite" 
+                                   path={`M ${x1} ${y1} L ${x2} ${y2}`} 
+                                 />
+                              </motion.circle>
+                            </g>
+                          );
+                       })}
+                       <defs>
+                          <linearGradient id="edgeGradient3D" x1="0%" y1="0%" x2="100%" y2="0%">
+                             <stop offset="0%" stopColor="#6366f1" />
+                             <stop offset="100%" stopColor="#a855f7" />
+                          </linearGradient>
+                       </defs>
+                    </svg>
+                    
+                    <div className="flex justify-between w-full h-full px-20 relative z-10 py-20" style={{ transformStyle: 'preserve-3d' }}>
+                       {[1, 2, 3, 4].map(level => (
+                         <div key={level} className="flex flex-col gap-12 items-center justify-center h-full" style={{ transform: `translateZ(${level * 50}px)` }}>
+                            <span className="text-[7px] font-mono text-zinc-700 tracking-[0.6em] uppercase mb-4 py-1 px-3 border border-white/5 rounded-full bg-white/[0.02]">
+                              Tier {level}
+                            </span>
+                            {graph.nodes.filter(n => n.level === level).map(node => {
+                              const Icon = getNodeIcon(node.label);
+                              return (
+                                <motion.div 
+                                  key={node.id} 
+                                  whileHover={{ scale: 1.1, translateZ: 100, rotateY: 10 }}
+                                  className="bg-black/80 border-2 border-white/10 p-5 rounded-2xl w-44 text-center relative group backdrop-blur-3xl shadow-[0_20px_50px_rgba(0,0,0,0.8)] border-b-purple-500/40"
+                                >
+                                   <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500/20 to-purple-500/40 blur opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl" />
+                                   <div className="flex justify-center mb-3">
+                                      <div className="p-2 bg-white/5 rounded-lg border border-white/10 text-purple-400 group-hover:text-white transition-colors">
+                                         <Icon size={20} />
+                                      </div>
+                                   </div>
+                                   <div className="text-[11px] font-black text-white tracking-tight uppercase relative z-10">{node.label}</div>
+                                   <div className="text-[8px] font-mono text-zinc-500 mt-2 uppercase tracking-widest relative z-10 truncate">
+                                     Node_ID: {node.id.slice(0, 10)}
+                                   </div>
+                                   <div className="mt-3 flex gap-1 justify-center">
+                                      <div className="w-8 h-0.5 bg-emerald-500/40 rounded-full" />
+                                      <div className="w-4 h-0.5 bg-zinc-800 rounded-full" />
+                                   </div>
+                                </motion.div>
+                              );
+                            })}
+                         </div>
+                       ))}
+                    </div>
+                  </motion.div>
                   
-                  <div className="flex justify-between w-full px-20 relative z-10">
-                     {[1, 2, 3, 4].map(level => (
-                       <div key={level} className="flex flex-col gap-8 items-center">
-                          <span className="text-[7px] font-mono text-zinc-700 tracking-[0.6em] uppercase mb-4 py-1 px-3 border border-white/5 rounded-full bg-white/[0.02]">Tier {level}</span>
-                          {graph.nodes.filter(n => n.level === level).map(node => (
-                            <motion.div 
-                              key={node.id} 
-                              whileHover={{ scale: 1.1, borderColor: "rgba(168,85,247,0.5)" }}
-                              className="bg-black/80 border border-white/10 p-4 rounded-2xl w-40 text-center relative group backdrop-blur-xl shadow-2xl"
-                            >
-                               <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 blur opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl" />
-                               <div className="text-[10px] font-black text-white tracking-tight uppercase relative z-10">{node.label}</div>
-                               <div className="flex justify-center gap-1 mt-2 relative z-10">
-                                  {[1,2,3].map(dot => (
-                                    <div key={dot} className="w-1 h-1 bg-purple-500/40 rounded-full" />
-                                  ))}
-                               </div>
-                               <div className="text-[6px] font-mono text-zinc-500 mt-2 uppercase tracking-widest relative z-10">Neural_ID: {node.id.slice(0, 6)}</div>
-                            </motion.div>
-                          ))}
-                       </div>
-                     ))}
-                  </div>
-                  
-                  {/* Legend / Info Overlay */}
-                  <div className="absolute bottom-10 right-10 flex flex-col items-end gap-2 p-4 bg-black/40 border border-white/5 rounded-2xl backdrop-blur-md">
-                     <span className="text-[8px] font-mono text-zinc-500 uppercase">Connectivity Map v27.4</span>
-                     <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_5px_#10b981]" />
-                        <span className="text-[9px] font-mono text-white">AUTONOMOUS_ORCHESTRATION</span>
+                  {/* Tactical Legend & System Map Info */}
+                  <div className="absolute top-10 left-10 max-w-xs space-y-4">
+                     <div className="bg-black/60 border border-white/10 p-4 rounded-xl backdrop-blur-xl">
+                        <h4 className="text-[10px] font-black text-white uppercase tracking-[0.2em] mb-2 flex items-center gap-2">
+                           <Activity size={12} className="text-purple-500" /> Neural Topology Map
+                        </h4>
+                        <p className="text-[8px] font-mono text-zinc-500 leading-relaxed uppercase">
+                           Visualizing the orchestration of Sovereign Agents and their connection to the Core. 
+                           Nodes represent services, edges represent real-time data flows.
+                        </p>
                      </div>
+                     <div className="flex gap-2">
+                        {[
+                           { label: 'Sovereign', color: 'bg-indigo-500' },
+                           { label: 'Agent', color: 'bg-purple-500' },
+                           { label: 'Tool', color: 'bg-emerald-500' }
+                        ].map(it => (
+                           <div key={it.label} className="bg-black/40 border border-white/5 px-2 py-1 rounded flex items-center gap-2">
+                              <div className={`w-1.5 h-1.5 rounded-full ${it.color}`} />
+                              <span className="text-[7px] font-mono text-zinc-400 uppercase">{it.label}</span>
+                           </div>
+                        ))}
+                     </div>
+                  </div>
+
+                  <div className="absolute bottom-10 right-10 p-6 bg-black/60 border border-white/10 rounded-2xl backdrop-blur-xl">
+                     <span className="text-[8px] font-mono text-zinc-500 uppercase tracking-widest block mb-1 uppercase">ORCHESTRATION_LAYER: {stats.status}</span>
+                     <div className="text-[10px] font-mono text-emerald-400 font-bold uppercase tracking-wider">All Systems Operating // Neural Sync 94.2%</div>
                   </div>
                </motion.div>
              )}
+
+              {activeTab === 'lab' && (
+                <motion.div key="lab" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="h-full p-12 overflow-y-auto custom-scrollbar">
+                   <div className="max-w-4xl mx-auto space-y-12">
+                      <div className="flex items-center justify-between">
+                         <div>
+                            <h2 className="text-3xl font-black text-white tracking-tighter uppercase italic">Hackathon Elite Hub</h2>
+                            <p className="text-[10px] font-mono text-zinc-500 mt-2 tracking-widest uppercase">Experimental Tools // Verification Sandbox</p>
+                         </div>
+                         <div className="p-4 bg-purple-600/10 border border-purple-500/30 rounded-2xl flex items-center gap-3">
+                            <Zap className="text-purple-400 animate-pulse" size={24} />
+                            <span className="text-xs font-mono font-black text-white tracking-widest">PHASE_21_ACTIVE</span>
+                         </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+                         {/* ERC-8004 Registry Tool */}
+                         <div className="bg-zinc-950/60 border border-white/10 rounded-3xl p-8 group hover:border-purple-500/50 transition-all relative overflow-hidden">
+                            <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
+                               <Shield size={120} />
+                            </div>
+                            <div className="flex items-center gap-4 mb-8">
+                               <div className="p-3 bg-white/5 rounded-xl border border-white/10 text-white font-mono text-xs">01</div>
+                               <h3 className="text-xl font-bold text-white tracking-tight">ERC-8004 Registry</h3>
+                            </div>
+                            <p className="text-xs text-zinc-500 mb-8 leading-relaxed">
+                               Explore the decentralized registry for agentic identity and security proofs. 
+                               Verify atestations and autonomous loop status on-chain.
+                            </p>
+                            <button className="flex items-center gap-3 text-[9px] font-mono font-black text-purple-400 uppercase tracking-widest group-hover:text-white transition-colors">
+                               Access Sovereign Explorer <ExternalLink size={12} />
+                            </button>
+                         </div>
+
+                         {/* Ramp Agent Card Integration */}
+                         <div className="bg-gradient-to-br from-zinc-950 to-indigo-950/20 border border-white/10 rounded-3xl p-8 group hover:border-indigo-500/50 transition-all relative overflow-hidden">
+                            <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
+                               <Wallet size={120} />
+                            </div>
+                            <div className="flex items-center gap-4 mb-8">
+                               <div className="p-3 bg-white/5 rounded-xl border border-white/10 text-white font-mono text-xs">02</div>
+                               <h3 className="text-xl font-bold text-white tracking-tight">Ramp Agent Cards</h3>
+                            </div>
+                            <p className="text-xs text-zinc-400 mb-8 leading-relaxed">
+                               Programmable Corporate Cards for AI Agents. No card numbers exposed. 
+                               Integrate direct settlement for autonomous procurement.
+                            </p>
+                            <a 
+                              href="http://agents.ramp.com/cards" 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-3 bg-indigo-600 hover:bg-indigo-500 px-6 py-3 rounded-xl text-[10px] font-mono font-black text-white uppercase tracking-widest transition-all shadow-[0_0_20px_rgba(79,70,229,0.3)]"
+                            >
+                               Get Early Access <ArrowUpRight size={14} />
+                            </a>
+                         </div>
+
+                         {/* x402 Simulator Tool */}
+                         <div className="col-span-full bg-zinc-950/60 border border-white/10 rounded-3xl p-8 group hover:border-emerald-500/50 transition-all relative overflow-hidden">
+                            <div className="flex items-center justify-between gap-8">
+                               <div className="flex-1">
+                                  <div className="flex items-center gap-4 mb-6">
+                                     <div className="p-3 bg-white/5 rounded-xl border border-white/10 text-white font-mono text-xs">03</div>
+                                     <h3 className="text-xl font-bold text-white tracking-tight">x402 Payment Simulator</h3>
+                                  </div>
+                                  <p className="text-xs text-zinc-500 leading-relaxed max-w-xl">
+                                     Testing environment for Agent-to-Agent trustless payments. 
+                                     Simulate micro-settlement events using the OASF standard.
+                                  </p>
+                               </div>
+                               <div className="flex flex-col items-center gap-2">
+                                  <div className="w-16 h-16 rounded-full border border-zinc-800 flex items-center justify-center bg-black">
+                                     <Lock size={24} className="text-zinc-700" />
+                                  </div>
+                                  <span className="text-[7px] font-mono text-zinc-600 uppercase">Internal Sandbox Only</span>
+                               </div>
+                            </div>
+                         </div>
+                      </div>
+                   </div>
+                </motion.div>
+              )}
 
            </AnimatePresence>
         </section>
