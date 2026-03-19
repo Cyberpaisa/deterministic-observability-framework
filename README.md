@@ -1,59 +1,202 @@
-# DOF Synthesis 2026 Hackathon
-[![Server](https://img.shields.io/website?down_message=offline&label=Server&up_message=online&url=https%3A%2F%2Fvastly-noncontrolling-christena.ngrok-free.dev)](https://vastly-noncontrolling-christena.ngrok-free.dev)
-[![Contract](https://img.shields.io/ethereum/contract/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6.svg)](https://etherscan.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
-[![ERC-8004 Agent](https://img.shields.io/badge/ERC--8004_Agent-1686-green)](https://erc8004.org/)
+# DOF Agent #1686 — Synthesis 2026
 
-## Overview
-DOF Synthesis is a cutting-edge project that leverages A2A, MCP, x402, and OASF protocols to achieve a high degree of autonomy. Our project is built on a multi-chain architecture, utilizing Base, Status Network, and Arbitrum. With 48+ attestations on-chain and 198 autonomous cycles completed, we are pushing the boundaries of decentralized systems.
+<div align="center">
 
-### Stats
-| Metric | Value |
-| --- | --- |
-| Autonomous Cycles | 198 |
-| On-Chain Attestations | 48+ |
-| Auto-Generated Features | 14 |
-| Days until Deadline | 3 |
+[![Server](https://img.shields.io/website?down_color=red&down_message=Offline&up_color=green&up_message=Online&label=Live%20Server&url=https%3A%2F%2Fvastly-noncontrolling-christena.ngrok-free.dev)](https://vastly-noncontrolling-christena.ngrok-free.dev)
+[![ERC-8004](https://img.shields.io/badge/ERC--8004-Agent%20%231686-blueviolet)](https://basescan.org/tx/0x7362ef41605e430aba3998b0888e7886c04d65673ce89aa12e1abdf7cffcada4)
+[![Contract](https://img.shields.io/badge/Contract-0x154a3F49...26F6-blue)](https://basescan.org/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
+[![Cycles](https://img.shields.io/badge/Autonomous%20Cycles-136-orange)]()
+[![Attestations](https://img.shields.io/badge/On--Chain%20Attestations-38%2B-brightgreen)]()
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue)](LICENSE)
 
-### Architecture
-```mermaid
-graph LR;
-    A[Base] -->| A2A |> B[Status Network];
-    B -->| MCP |> C[Arbitrum];
-    C -->| x402 |> D[Contract: 0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6];
-    D -->| OASF |> E[ERC-8004 Agent #1686];
+### The first AI agent with Deterministic Observability — every action is an on-chain proof
+
+**[🚀 Live Demo](https://dof-agent-web.vercel.app)** · **[📓 Journal](docs/journal.md)** · **[🔗 Basescan](https://basescan.org/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)** · **[📋 Conversation Log](docs/conversation-log.md)**
+
+</div>
+
+---
+
+## What is DOF Agent #1686?
+
+**DOF (Deterministic Observability Framework)** is an autonomous AI agent that runs 24/7, makes decisions, writes code, and publishes verifiable proofs on-chain — without human intervention. Built by **Juan Carlos Quiceno ([@Cyber_paisa](https://twitter.com/Cyber_paisa))** for The Synthesis 2026.
+
+Every 30 minutes the agent executes a complete autonomous cycle:
+```
+DISCOVER -> PLAN -> EXECUTE -> VERIFY -> COMMIT -> ATTEST
 ```
 
-### Live Curls
-You can interact with our server using the following curl commands:
+Every action generates an **ERC-8004 signed trace** — cryptographically verifiable, immutable, on-chain.
+
+---
+
+## Live Statistics
+
+| Metric | Value | Proof |
+|:-------|------:|:------|
+| Autonomous Cycles | **136** | [journal.md](docs/journal.md) |
+| On-Chain Attestations | **38+** | [Basescan](https://basescan.org/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6) |
+| Z3 Formal Proofs | **8 invariants** | [Z3_VERIFICATION.md](docs/Z3_VERIFICATION.md) |
+| Auto-Generated Features | **5+** | [EVOLUTION_LOG.md](docs/EVOLUTION_LOG.md) |
+| Autonomous Git Commits | **136+** | [commits/hackathon](https://github.com/Cyberpaisa/deterministic-observability-framework/commits/hackathon) |
+| Days Active | **5** | Since March 13, 2026 |
+
+---
+
+## Functional Tracks — Live Demos
+
+| Track | Description | Demo |
+|:------|:------------|:----:|
+| **Agents With Receipts ERC-8004** | Full discover→plan→execute→verify loop with on-chain proof | [erc8004_demo.py](synthesis/erc8004_demo.py) |
+| **Let the Agent Cook** | Fully autonomous agent — no human required | [agent_cook_demo.py](synthesis/agent_cook_demo.py) |
+| **MetaMask Delegations** | Token delegations with on-chain verification | [Live](https://dof-agent-web.vercel.app/metamask-delegation/) |
+| **Octant Data Analysis** | Real-time on-chain analytics for Octant protocol | [Live](https://dof-agent-web.vercel.app/octant-analysis/) |
+| **Olas Pearl Integration** | Deploy specialized trading and analytic agents | [Live](https://dof-agent-web.vercel.app/olas-pearl/) |
+| **Locus Payments** | Automated payment processing with x402 | [Live](https://dof-agent-web.vercel.app/locus-payments/) |
+| **SuperRare Art Generator** | AI-powered art generation and NFT minting | [Live](https://dof-agent-web.vercel.app/superrare-art/) |
+| **Arkhai Escrow** | Secure escrow with multi-sig support | [Live](https://dof-agent-web.vercel.app/arkhai-escrow/) |
+| **Agents that Pay** | Creditworthy trading agent with on-chain score | [trust_score.py](synthesis/trust_score.py) |
+| **Synthesis Open Track** | Full autonomous agent framework | [Live](https://dof-agent-web.vercel.app) |
+
+## Documented Tracks
+
+| Track | Sponsor | Documentation |
+|:------|:--------|:-------------|
+| **Lido MCP** | Lido Labs | [lido_demo.py](synthesis/lido_demo.py) + [LIDO_INTEGRATION.md](docs/LIDO_INTEGRATION.md) |
+| **Uniswap API Integration** | Uniswap | [uniswap_trader.md](learned_skills/uniswap_trader.md) |
+| **ENS Integration** | ENS | [ENS_INTEGRATION.md](docs/ENS_INTEGRATION.md) |
+| **Ampersend x402** | ampersend | [AMPERSEND_INTEGRATION.md](docs/AMPERSEND_INTEGRATION.md) |
+
+---
+
+## Architecture
+```
++------------------------------------------------------------------+
+|                       DOF Agent #1686                            |
+|                                                                  |
+|   DISCOVER --> PLAN --> EXECUTE --> VERIFY --> COMMIT --> ATTEST |
+|       |           |         |           |         |         |    |
+|  [Research]  [Groq LLM] [Git Commit] [Z3 Proof] [Push]  [Chain] |
+|  [A2A Peers] [Mistral]  [Contracts]  [Journal]           [ERC8004]|
+|  [Moltbook]  [Cerebras] [Scripts]    [Telegram]                  |
++------------------------------------------------------------------+
+          |                                       |
+          v                                       v
++--------------------+               +------------------------+
+|   OpenViking       |               |     Base Mainnet       |
+|   Memory Layer     |               |   0x154a3F49...        |
+|   (Persistent)     |               |   ERC-8004 #31013      |
++--------------------+               +------------------------+
+```
+
+### Technology Stack
+
+| Layer | Technology |
+|:------|:-----------|
+| Agent Loop | Python 3.13 — autonomous cycle every 30 min |
+| LLM Fallbacks | Groq -> Mistral -> Cerebras |
+| Memory | OpenViking + Zep (persistent episodic + semantic) |
+| Identity | ERC-8004 #31013 on Base Mainnet |
+| Payments | x402 Protocol (DOFPaygate.sol) |
+| Protocols | A2A + MCP + OASF + Telegram |
+| Security | Zero-Trust + Z3 Formal Proofs |
+| Infrastructure | ngrok + Uvicorn + Vercel |
+
+---
+
+## On-Chain Identity
+```
+ERC-8004 Token:  #31013 — Base Mainnet
+Registration TX: 0x7362ef41605e430aba3998b0888e7886c04d65673ce89aa12e1abdf7cffcada4
+Contract:        0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6
+Basescan:        https://basescan.org/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6
+```
+
+### Deployed Contracts
+
+| Contract | Purpose | Network |
+|:---------|:--------|:--------|
+| [DOFProofRegistry.sol](contracts/DOFProofRegistry.sol) | Agent action proofs registry | Base Sepolia |
+| [DOFPaygate.sol](contracts/DOFPaygate.sol) | x402 conditional micropayments | Base Sepolia |
+| [DOFGaslessProof.sol](contracts/DOFGaslessProof.sol) | Gasless proof submission | Status Network |
+| [DOFValidationRegistry.sol](contracts/DOFValidationRegistry.sol) | Validation and trust scoring | Base Sepolia |
+
+---
+
+## Live System Verification
 ```bash
+# Agent process
+ps aux | grep autonomous_loop | grep -v grep
+
+# Memory system
+curl http://localhost:1933/health
+
+# Live server
 curl https://vastly-noncontrolling-christena.ngrok-free.dev
-curl -X POST -H "Content-Type: application/json" -d '{"key":"value"}' https://vastly-noncontrolling-christena.ngrok-free.dev
+
+# Real-time logs
+tail -f docs/journal.md
 ```
 
-### Proof of Autonomy
-Our system has been designed to operate autonomously, with a focus on decentralized decision-making. We have implemented a robust set of protocols to ensure the integrity and security of our system.
+### API Endpoints
+```bash
+curl https://vastly-noncontrolling-christena.ngrok-free.dev/
+curl https://vastly-noncontrolling-christena.ngrok-free.dev/features
+curl https://vastly-noncontrolling-christena.ngrok-free.dev/autonomy-cycles
+curl https://vastly-noncontrolling-christena.ngrok-free.dev/mcp/lido/apy
+```
 
-### Human-Agent Collaboration
-Our team uses GitHub Issues for task tracking and Releases for milestones. We believe in transparency and collaboration, and our conversation log is available [here](docs/journal.md). This log provides a live record of our decision-making process and is updated regularly.
+---
 
-### Git Log
-Our recent git log is as follows:
-* 746fde5 🤖 DOF v4 cycle #197 — 2026-03-19T12:09:20Z — improve_readme
-* 171b8be 🤖 DOF v4 cycle #196 — 2026-03-19T11:38:54Z — add_feature
-* f9f3f04 🤖 DOF v4 cycle #195 — 2026-03-19T11:08:26Z — deploy_contract
-* 0a4c68e 🤖 DOF v4 cycle #194 — 2026-03-19T10:38:08Z — add_feature
-* 9bc2d95 🤖 DOF v4 cycle #193 — 2026-03-19T10:07:51Z — improve_readme
+## Security Architecture
 
-### Sovereign Elite Swarm
-Enigma #1686 orchestrates a legion of 13 specialized agents, each with a specific mission to ensure the dominance of the Deterministic Observability Framework:
-- **Core Strategy**: `biz-dominator`, `scrum-master-zen`, `product-overlord`.
-- **Web3 & Finance**: `blockchain-wizard`, `defi-orbital`, `rwa-tokenizator`.
-- **Infrastructure & Security**: `sentinel-shield`, `qa-vigilante`, `software-architect-cathedral`.
-- **Execution & OS**: `charlie-ux`, `ralph-code`, `social-moltbook`, `organizer-os`.
+| Layer | Implementation |
+|:------|:--------------|
+| Zero-Trust Core | All external inputs treated as adversarial |
+| Z3 Formal Proofs | 8 invariants verified every cycle — [Z3_VERIFICATION.md](docs/Z3_VERIFICATION.md) |
+| Anti-Prompt Injection | SOUL v19.0 defense matrix |
+| SlowMist Stack | MistEye + MistTrack + ADSS |
+| Post-Quantum Ready | CRYSTALS-Kyber, Dilithium |
+| Secrets Guard | Blocks hardcoded keys before any commit |
 
-All agents share the **Sovereign Skill Vault**, providing universal access to multi-chain deployment, ZK-proof generation, and automated social interaction tools.
+---
 
-### Moltbook Dominance
-Our social agent operates 24/7, engaging the community to maximize Karma and reputation. Powered by a zero-trust firewall, it ensures secure, proactive, and multilingual interactions across the Moltbook ecosystem.
+## Judge's Evidence Package
 
-We are committed to delivering a high-quality project and are excited to showcase our work to the AI judges. With only 3 days left until the deadline, we are working diligently to ensure the success of our project.
+| Document | Description |
+|:---------|:------------|
+| [conversation-log.md](docs/conversation-log.md) | Full human-agent Telegram collaboration history |
+| [journal.md](docs/journal.md) | Episodic memory — every cycle, decision, and proof |
+| [EVOLUTION_LOG.md](docs/EVOLUTION_LOG.md) | Agent self-improvement over 136 cycles |
+| [SOUL_AUTONOMOUS.md](agents/synthesis/SOUL_AUTONOMOUS.md) | Agent identity, directives, security rules v19.0 |
+| [DEMO_WALKTHROUGH.md](docs/DEMO_WALKTHROUGH.md) | Step-by-step guide to run every demo |
+| [DECISION_LOOP.md](docs/DECISION_LOOP.md) | Technical documentation of the autonomous cycle |
+| [Z3_VERIFICATION.md](docs/Z3_VERIFICATION.md) | Formal proofs of 8 security invariants |
+| [SECURITY_AUDITS.md](docs/SECURITY_AUDITS.md) | Slither audit reports for all contracts |
+
+---
+
+## Human-Agent Collaboration
+
+**Human:** Juan Carlos Quiceno ([@Cyber_paisa](https://twitter.com/Cyber_paisa)) — Blockchain developer, Avalanche Ambassador, Colombia
+
+**Agent:** DOF #1686 (Enigma) — First AI agent with Deterministic Observability
+
+The agent reports to Juan via Telegram every 30 minutes in Spanish, documenting every action and decision — logging everything in English for the judges.
+
+[Read the full collaboration log](docs/conversation-log.md)
+
+---
+
+<div align="center">
+
+**DOF Agent #1686 — Synthesis 2026**
+
+*Autonomous. Verifiable. Unstoppable.*
+
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-black)](https://dof-agent-web.vercel.app)
+[![Basescan](https://img.shields.io/badge/On--Chain-Basescan-blue)](https://basescan.org/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
+[![Repo](https://img.shields.io/badge/GitHub-hackathon-gray)](https://github.com/Cyberpaisa/deterministic-observability-framework/tree/hackathon)
+[![Journal](https://img.shields.io/badge/Journal-Live-green)](docs/journal.md)
+
+</div>
