@@ -36,7 +36,7 @@ class MissionControl:
             {"name": "Nvidia", "key": os.getenv("NVIDIA_API_KEY"), "url": "https://integrate.api.nvidia.com/v1/chat/completions", "model": "meta/llama-3.3-70b-instruct"},
             {"name": "Mistral", "key": os.getenv("MISTRAL_API_KEY"), "url": "https://api.mistral.ai/v1/chat/completions", "model": "mistral-large-latest"},
             {"name": "Cerebras", "key": os.getenv("CEREBRAS_API_KEY"), "url": "https://api.cerebras.ai/v1/chat/completions", "model": "llama3.1-70b"},
-            {"name": "SambaNova", "key": os.getenv("SAMBANOVA_API_KEY"), "url": "https://api.sambanova.ai/v1/chat/completions", "model": "Meta-Llama-3.3-70B-Instruct"},
+            {"name": "OpenRouter", "key": os.getenv("OPENROUTER_API_KEY"), "url": "https://openrouter.ai/api/v1/chat/completions", "model": "meta-llama/llama-3.1-8b-instruct:free"},
             {"name": "DeepSeek", "key": os.getenv("DEEPSEEK_API_KEY"), "url": "https://api.deepseek.com/v1/chat/completions", "model": "deepseek-chat"}
         ]
         self.optimizer = HardwareOptimizer()
@@ -111,6 +111,10 @@ class MissionControl:
                         "messages": [{"role": "system", "content": system_prompt}, {"role": "user", "content": message}],
                         "temperature": 0.7
                     }
+                
+                if p["name"] == "OpenRouter":
+                    headers["HTTP-Referer"] = "https://github.com/Cyberpaisa/deterministic-observability-framework"
+                    headers["X-Title"] = "Enigma Sovereign Agent"
 
                 response = requests.post(p["url"], headers=headers, json=payload, timeout=15)
                 if response.status_code == 200:
