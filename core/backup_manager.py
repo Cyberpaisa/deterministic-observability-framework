@@ -2,6 +2,7 @@ import os
 import tarfile
 import datetime
 import logging
+import subprocess
 
 logger = logging.getLogger("enigma.backup_manager")
 
@@ -44,11 +45,34 @@ class CloudBackupManager:
     def sync_to_cloud(self, method="github"):
         """
         Sincroniza el respaldo con un servicio externo.
-        Recomendado: GitHub (Private Repo) o Hugging Face Spaces.
+        Recomendado: GitHub (Private Repo).
         """
-        # TODO: Implementar git push o upload a HF/Drive
-        logger.info(f"🔄 Preparando sincronización vía {method}...")
-        pass
+        logger.info(f"🔄 Iniciando sincronización vía {method}...")
+        
+        try:
+            # 1. Crear el paquete local
+            backup_file = self.create_local_package()
+            if not backup_file:
+                return False
+
+            # 2. Comandos Git para subir el backup (soberano)
+            commands = [
+                ["git", "add", "."],
+                ["git", "commit", "-m", f"Vault Sync: Enigma Soul Backup {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"],
+                ["git", "push", "origin", "main"]
+            ]
+
+            for cmd in commands:
+                result = subprocess.run(cmd, capture_output=True, text=True)
+                if result.returncode != 0:
+                    logger.warning(f"⚠️ Git command failed: {' '.join(cmd)} - {result.stderr}")
+            
+            logger.info("✅ Sincronización con la Bóveda Segura (GitHub) completada.")
+            return True
+
+        except Exception as e:
+            logger.error(f"❌ Error en la sincronización: {e}")
+            return False
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)

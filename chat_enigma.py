@@ -102,11 +102,8 @@ def main():
                 break
             
             print("\n🤖 Enigma: ", end="", flush=True)
-            except Exception as e:
-                print(f"\n⚠️ [Tokens Agotados/Error API] Cambiando a Cerebro Local (M4 Max)...")
-                response = bridge.talk_local(user_input)
-            
-            print(response)
+            respuesta = consultar_llm(user_input)
+            print(respuesta)
             
         except KeyboardInterrupt:
             break

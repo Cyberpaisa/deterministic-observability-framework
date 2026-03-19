@@ -34,20 +34,28 @@ class HardwareOptimizer:
         return info
 
     def apply_optimizations(self):
-        """Aplica variables de entorno para aceleración por hardware."""
+        """Aplica variables de entorno para aceleración por hardware elite."""
         info = self.detect_capabilities()
         
         if info["is_apple_silicon"]:
-            logger.info(f"🚀 Apple Silicon detectado ({info['chip_family']}). Optimizando para Metal Performance Shaders (MPS)...")
-            os.environ["PYTORCH_ENABLE_MPS_FALLBACK"] = "1"
-            os.environ["OLLAMA_NUM_GPU"] = "1" # Forzar uso de GPU en Ollama
-            os.environ["MLX_MAX_MEM"] = f"{int(info['ram_gb'] * 0.70)}G" # Usar hasta el 70% de RAM para MLX
+            logger.info(f"🚀 Apple M4 Max detected logic ({info['chip_family']}). Maximizing Neural Engine & Metal...")
             
-            # Sugerencia de modelos basados en 36GB RAM
+            # Variables críticas para M4 Max
+            os.environ["PYTORCH_ENABLE_MPS_FALLBACK"] = "1"
+            os.environ["OLLAMA_NUM_GPU"] = "99" # Forzar máxima GPU en Apple Silicon
+            os.environ["MLX_MAX_MEM"] = f"{int(info['ram_gb'] * 0.85)}G" # M4 Max permite hasta 85% de RAM unificada
+            os.environ["GGUF_USE_METAL"] = "1"
+            
+            # Estrategias basadas en RAM (M4 Max suele venir con 36GB, 64GB o 128GB)
             if info["ram_gb"] >= 32:
-                logger.info("💎 Memoria detectada >= 32GB. Recomendado: Qwen2.5-32B o Llama-3.1-70B (4-bit).")
+                logger.info("💎 Memoria elite detectada. Habilitando modelos pesados (Llama-3.1-70B/Qwen2.5-32B).")
+                os.environ["ENIGMA_MODEL_TIER"] = "ELITE"
             else:
-                logger.info("📊 Memoria detectada < 32GB. Recomendado: Llama-3.1-8B o Mistral-Nemo-12B.")
+                logger.info("📊 Memoria estándar detectada. Usando modelos optimizados (Mistral-Nemo).")
+                os.environ["ENIGMA_MODEL_TIER"] = "STANDARD"
+            
+            # Comando para verificar uso de GPU (Sugerencia)
+            logger.info("💡 Consejo: Usa 'asitop' o 'sudo powermetrics' para ver la potencia del M4 Max en acción.")
         
         return info
 
