@@ -98,12 +98,17 @@ export default function Dashboard() {
   };
 
   const [stats, setStats] = useState<any>({ memory_percent: 84, cpu_percent: 42, total_karma: 0, x402_facilitator: 'OFFLINE' });
+  const [skills, setSkills] = useState<string[]>([]);
 
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const res = await fetch('http://localhost:8005/api/stats');
-        if (res.ok) setStats(await res.json());
+        const [sRes, skRes] = await Promise.all([
+          fetch('http://localhost:8005/api/stats'),
+          fetch('http://localhost:8005/api/skills')
+        ]);
+        if (sRes.ok) setStats(await sRes.json());
+        if (skRes.ok) setSkills((await skRes.json()).active_skills);
       } catch (e) {}
     };
     fetchStats();

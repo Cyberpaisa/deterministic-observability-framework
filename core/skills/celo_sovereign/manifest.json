@@ -1,0 +1,15 @@
+{
+    "name": "celo-sovereign",
+    "description": "High-level agentic flow for Celo Alfajores attestations and payments.",
+    "version": "1.0.0",
+    "tags": [
+        "universal",
+        "blockchain",
+        "high-impact"
+    ],
+    "authorized_agents": [
+        "blockchain-wizard",
+        "defi-orbital",
+        "enigma-core"
+    ]
+}

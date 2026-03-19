@@ -5,7 +5,11 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 import requests
+import sys
 from core.identity import ENIGMA_SYSTEM_PROMPT
+
+# Add current directory to path for core imports
+sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
 
 app = FastAPI(title="Enigma Sovereign API")
 
@@ -77,8 +81,10 @@ LEGION_13 = {
     "qa-vigilante": {"role": "Quality", "mission": "Code & UX Validation"},
     "charlie-ux": {"role": "Frontend", "mission": "Premium HUD Design"},
     "ralph-code": {"role": "Backend", "mission": "Core Systems"},
-    "moltbook": {"role": "Social", "mission": "Karma & Reputation"},
-    "organizer-os": {"role": "System OS", "mission": "Sovereign Infrastructure"}
+    "moltbook": {"role": "Social", "mission": "Karma & Reputation Domination"},
+    "organizer-os": {"role": "System OS", "mission": "Sovereign Infrastructure Sync"},
+    "qa-specialist": {"role": "QA", "mission": "Zero-Bug Enforcement"},
+    "architect-enigma": {"role": "Architect", "mission": "System Scalability Audit"}
 }
 
 @app.get("/api/swarm")
@@ -100,18 +106,13 @@ async def get_swarm():
 
 @app.get("/api/issues")
 async def get_issues():
-    issues = []
-    for agent, data in LEGION_13.items():
-        # High value tasks based on mission
-        issues.append({
-            "agent": agent, 
-            "id": f"MISS-{agent.upper()}-001", 
-            "title": data["mission"],
-            "priority": "HIGH",
-            "karma_reward": 500,
-            "estimated_time": "15m"
-        })
-    return {"issues": issues}
+    track_missions = [
+        {"agent": "blockchain-wizard", "id": "TRACK-CELO", "title": "Deploy Agentic Celo App", "priority": "HIGH", "karma_reward": 3000},
+        {"agent": "sentinel-shield", "id": "TRACK-ERC8004", "title": "On-chain Identity Proofs", "priority": "HIGH", "karma_reward": 2000},
+        {"agent": "moltbook", "id": "TRACK-SOCIAL", "title": "24/7 Karma Dominance", "priority": "HIGH", "karma_reward": 1500},
+        {"agent": "defi-orbital", "id": "TRACK-X402", "title": "Trustless Micro-payments", "priority": "HIGH", "karma_reward": 2500},
+    ]
+    return {"issues": track_missions}
 
 @app.get("/api/graph")
 async def get_graph():
@@ -138,14 +139,13 @@ async def get_graph():
 
 @app.get("/api/skills")
 async def get_skills():
+    from core.skill_engine import SovereignSkillEngine
+    engine = SovereignSkillEngine()
+    engine.load_skills()
     return {
         "access": "UNIVERSAL_SOVEREIGN_ROOT",
-        "shared_vault": [
-            "blockchain_engine", "social_karma_maxer", "security_shield", 
-            "qa_vigilante", "architect_cathedral", "rwa_bridge", "defi_yield",
-            "biz_strategy", "agile_velocity", "product_roadmap"
-        ],
-        "status": "ALL_AGENTS_SYNCED"
+        "active_skills": list(engine.registry.keys()),
+        "status": "ALL_AGENTS_SYNCED_V2"
     }
 
 @app.get("/api/social")
