@@ -25,114 +25,6 @@ import requests
 import json
 import traceback
 import threading
-print(f"✅ API de chat iniciada en puerto 8002 (PID: {os.getpid()})")
-async def llamar_llm_con_fallbacks(system_prompt, user_message):
-    """Usa el mismo sistema de fallbacks que los ciclos"""
-    
-    # Lista de proveedores a probar en orden
-    proveedores = [
-        {"name": "Groq", "key": os.getenv("GROQ_API_KEY"), 
-         "url": "https://api.groq.com/openai/v1/chat/completions",
-         "model": "llama-3.3-70b-versatile"},
-        {"name": "Mistral", "key": os.getenv("MISTRAL_API_KEY"),
-         "url": "https://api.mistral.ai/v1/chat/completions",
-         "model": "mistral-small-latest"},
-        {"name": "Nvidia", "key": os.getenv("NVIDIA_API_KEY"),
-         "url": "https://integrate.api.nvidia.com/v1/chat/completions",
-         "model": "meta/llama-3.3-70b-instruct"},
-        {"name": "OpenRouter", "key": os.getenv("OPENROUTER_API_KEY"),
-         "url": "https://openrouter.ai/api/v1/chat/completions",
-         "model": "openai/gpt-4o"},
-        {"name": "DeepSeek", "key": os.getenv("DEEPSEEK_API_KEY"),
-         "url": "https://api.deepseek.com/v1/chat/completions",
-         "model": "deepseek-chat"},
-    ]
-    
-    for p in proveedores:
-        if not p["key"]:
-            continue
-            
-        try:
-            headers = {
-                "Authorization": f"Bearer {p['key']}",
-                "Content-Type": "application/json"
-            }
-            
-            # Ajustes específicos por proveedor
-            if p["name"] == "OpenRouter":
-                headers["HTTP-Referer"] = "https://github.com/Cyberpaisa/deterministic-observability-framework"
-            
-            payload = {
-                "model": p["model"],
-                "messages": [
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": user_message}
-                ],
-                "temperature": 0.7,
-                "max_tokens": 800
-            }
-            
-            response = requests.post(p["url"], headers=headers, json=payload, timeout=10)
-            
-            if response.status_code == 200:
-                result = response.json()
-                return result["choices"][0]["message"]["content"]
-            else:
-                print(f"⚠️ {p['name']} error: {response.status_code}")
-                continue
-                
-        except Exception as e:
-            print(f"⚠️ {p['name']} exception: {e}")
-            continue
-    
-    # Si todos fallan
-    return "⚠️ Lo siento, no pudo procesar tu mensaje. Los proveedores no están disponibles."
-
-# ===== API PARA CHAT EN TIEMPO REAL =====
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
-import uvicorn
-import threading
-import asyncio
-from zep_memory import get_memory
-
-chat_memory = get_memory()
-ultimo_ciclo = "171"
-
-chat_app = FastAPI()
-class ChatMessage(BaseModel):
-    message: str
-    user: str = "telegram"
-
-@chat_app.post("/api/chat")
-async def chat_handler(message: ChatMessage):
-    global ultimo_ciclo
-    try:
-        await chat_memory.add_message("user", f"[{message.user}]: {message.message}")
-        historial = await chat_memory.get_recent_messages(5)
-        contexto = "\n".join([f"{m['role']}: {m['content'][:200]}" for m in historial])
-        
-        system_prompt = f"""Eres DOF Agent, un agente autónomo inteligente.
-        Tienes acceso a múltiples providers y skills.
-        Contexto: {contexto}
-        Último ciclo: #{ultimo_ciclo}
-        Responde en ESPAÑOL."""
-        
-        respuesta = await llamar_llm_con_fallbacks(system_prompt, message.message)
-        await chat_memory.add_message("assistant", respuesta)
-        return {"response": respuesta}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-@chat_app.get("/api/status")
-async def chat_status():
-    return {"pid": os.getpid(), "ultimo_ciclo": ultimo_ciclo, "skills": "20+"}
-
-def iniciar_api_chat():
-    uvicorn.run(chat_app, host="127.0.0.1", port=8002, log_level="warning")
-
-chat_thread = threading.Thread(target=iniciar_api_chat, daemon=True)
-chat_thread.start()
 import re
 from pathlib import Path
 from dotenv import load_dotenv
@@ -203,7 +95,7 @@ JOURNAL          = Path("AGENT_JOURNAL.md")
 CONV_LOG         = Path("docs/journal.md")
 SOUL_PATH        = Path("agents/synthesis/SOUL_AUTONOMOUS.md")
 EVOLUTION_LOG    = Path("docs/EVOLUTION_LOG.md")
-DEADLINE         = datetime.datetime(2026, 3, 22, 23, 59, 0, tzinfo=datetime.timezone.utc)
+DEADLINE         = datetime.datetime(2026, 3, 22, 23, 59, 0)
 GLOBAL_RESEARCH_CONTEXT = ""
 
 # ─── SCORE TRACKER (evolución del agente) ──────────────────────────────
@@ -226,11 +118,11 @@ factory = ContractFactory()
 evo     = EvolutionEngine("agents/synthesis/SOUL_AUTONOMOUS.md", "AGENT_JOURNAL.md")
 
 # ─── UTILS ─────────────────────────────────────────────────────────────
-def now(): return datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+def now(): return datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
 def cmd(c): return subprocess.run(c, shell=True, capture_output=True, text=True)
 
 def days_remaining():
-    delta = DEADLINE - datetime.datetime.now(datetime.timezone.utc)
+    delta = DEADLINE - datetime.datetime.utcnow()
     return max(0, delta.days)
 
 def load_soul():
@@ -1581,114 +1473,6 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import uvicorn
 import threading
-print(f"✅ API de chat iniciada en puerto 8002 (PID: {os.getpid()})")
-async def llamar_llm_con_fallbacks(system_prompt, user_message):
-    """Usa el mismo sistema de fallbacks que los ciclos"""
-    
-    # Lista de proveedores a probar en orden
-    proveedores = [
-        {"name": "Groq", "key": os.getenv("GROQ_API_KEY"), 
-         "url": "https://api.groq.com/openai/v1/chat/completions",
-         "model": "llama-3.3-70b-versatile"},
-        {"name": "Mistral", "key": os.getenv("MISTRAL_API_KEY"),
-         "url": "https://api.mistral.ai/v1/chat/completions",
-         "model": "mistral-small-latest"},
-        {"name": "Nvidia", "key": os.getenv("NVIDIA_API_KEY"),
-         "url": "https://integrate.api.nvidia.com/v1/chat/completions",
-         "model": "meta/llama-3.3-70b-instruct"},
-        {"name": "OpenRouter", "key": os.getenv("OPENROUTER_API_KEY"),
-         "url": "https://openrouter.ai/api/v1/chat/completions",
-         "model": "openai/gpt-4o"},
-        {"name": "DeepSeek", "key": os.getenv("DEEPSEEK_API_KEY"),
-         "url": "https://api.deepseek.com/v1/chat/completions",
-         "model": "deepseek-chat"},
-    ]
-    
-    for p in proveedores:
-        if not p["key"]:
-            continue
-            
-        try:
-            headers = {
-                "Authorization": f"Bearer {p['key']}",
-                "Content-Type": "application/json"
-            }
-            
-            # Ajustes específicos por proveedor
-            if p["name"] == "OpenRouter":
-                headers["HTTP-Referer"] = "https://github.com/Cyberpaisa/deterministic-observability-framework"
-            
-            payload = {
-                "model": p["model"],
-                "messages": [
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": user_message}
-                ],
-                "temperature": 0.7,
-                "max_tokens": 800
-            }
-            
-            response = requests.post(p["url"], headers=headers, json=payload, timeout=10)
-            
-            if response.status_code == 200:
-                result = response.json()
-                return result["choices"][0]["message"]["content"]
-            else:
-                print(f"⚠️ {p['name']} error: {response.status_code}")
-                continue
-                
-        except Exception as e:
-            print(f"⚠️ {p['name']} exception: {e}")
-            continue
-    
-    # Si todos fallan
-    return "⚠️ Lo siento, no pudo procesar tu mensaje. Los proveedores no están disponibles."
-
-# ===== API PARA CHAT EN TIEMPO REAL =====
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
-import uvicorn
-import threading
-import asyncio
-from zep_memory import get_memory
-
-chat_memory = get_memory()
-ultimo_ciclo = "171"
-
-chat_app = FastAPI()
-class ChatMessage(BaseModel):
-    message: str
-    user: str = "telegram"
-
-@chat_app.post("/api/chat")
-async def chat_handler(message: ChatMessage):
-    global ultimo_ciclo
-    try:
-        await chat_memory.add_message("user", f"[{message.user}]: {message.message}")
-        historial = await chat_memory.get_recent_messages(5)
-        contexto = "\n".join([f"{m['role']}: {m['content'][:200]}" for m in historial])
-        
-        system_prompt = f"""Eres DOF Agent, un agente autónomo inteligente.
-        Tienes acceso a múltiples providers y skills.
-        Contexto: {contexto}
-        Último ciclo: #{ultimo_ciclo}
-        Responde en ESPAÑOL."""
-        
-        respuesta = await llamar_llm_con_fallbacks(system_prompt, message.message)
-        await chat_memory.add_message("assistant", respuesta)
-        return {"response": respuesta}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-@chat_app.get("/api/status")
-async def chat_status():
-    return {"pid": os.getpid(), "ultimo_ciclo": ultimo_ciclo, "skills": "20+"}
-
-def iniciar_api_chat():
-    uvicorn.run(chat_app, host="127.0.0.1", port=8002, log_level="warning")
-
-chat_thread = threading.Thread(target=iniciar_api_chat, daemon=True)
-chat_thread.start()
 import asyncio
 from zep_memory import get_memory
 
@@ -1744,114 +1528,6 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import uvicorn
 import threading
-print(f"✅ API de chat iniciada en puerto 8002 (PID: {os.getpid()})")
-async def llamar_llm_con_fallbacks(system_prompt, user_message):
-    """Usa el mismo sistema de fallbacks que los ciclos"""
-    
-    # Lista de proveedores a probar en orden
-    proveedores = [
-        {"name": "Groq", "key": os.getenv("GROQ_API_KEY"), 
-         "url": "https://api.groq.com/openai/v1/chat/completions",
-         "model": "llama-3.3-70b-versatile"},
-        {"name": "Mistral", "key": os.getenv("MISTRAL_API_KEY"),
-         "url": "https://api.mistral.ai/v1/chat/completions",
-         "model": "mistral-small-latest"},
-        {"name": "Nvidia", "key": os.getenv("NVIDIA_API_KEY"),
-         "url": "https://integrate.api.nvidia.com/v1/chat/completions",
-         "model": "meta/llama-3.3-70b-instruct"},
-        {"name": "OpenRouter", "key": os.getenv("OPENROUTER_API_KEY"),
-         "url": "https://openrouter.ai/api/v1/chat/completions",
-         "model": "openai/gpt-4o"},
-        {"name": "DeepSeek", "key": os.getenv("DEEPSEEK_API_KEY"),
-         "url": "https://api.deepseek.com/v1/chat/completions",
-         "model": "deepseek-chat"},
-    ]
-    
-    for p in proveedores:
-        if not p["key"]:
-            continue
-            
-        try:
-            headers = {
-                "Authorization": f"Bearer {p['key']}",
-                "Content-Type": "application/json"
-            }
-            
-            # Ajustes específicos por proveedor
-            if p["name"] == "OpenRouter":
-                headers["HTTP-Referer"] = "https://github.com/Cyberpaisa/deterministic-observability-framework"
-            
-            payload = {
-                "model": p["model"],
-                "messages": [
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": user_message}
-                ],
-                "temperature": 0.7,
-                "max_tokens": 800
-            }
-            
-            response = requests.post(p["url"], headers=headers, json=payload, timeout=10)
-            
-            if response.status_code == 200:
-                result = response.json()
-                return result["choices"][0]["message"]["content"]
-            else:
-                print(f"⚠️ {p['name']} error: {response.status_code}")
-                continue
-                
-        except Exception as e:
-            print(f"⚠️ {p['name']} exception: {e}")
-            continue
-    
-    # Si todos fallan
-    return "⚠️ Lo siento, no pudo procesar tu mensaje. Los proveedores no están disponibles."
-
-# ===== API PARA CHAT EN TIEMPO REAL =====
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
-import uvicorn
-import threading
-import asyncio
-from zep_memory import get_memory
-
-chat_memory = get_memory()
-ultimo_ciclo = "171"
-
-chat_app = FastAPI()
-class ChatMessage(BaseModel):
-    message: str
-    user: str = "telegram"
-
-@chat_app.post("/api/chat")
-async def chat_handler(message: ChatMessage):
-    global ultimo_ciclo
-    try:
-        await chat_memory.add_message("user", f"[{message.user}]: {message.message}")
-        historial = await chat_memory.get_recent_messages(5)
-        contexto = "\n".join([f"{m['role']}: {m['content'][:200]}" for m in historial])
-        
-        system_prompt = f"""Eres DOF Agent, un agente autónomo inteligente.
-        Tienes acceso a múltiples providers y skills.
-        Contexto: {contexto}
-        Último ciclo: #{ultimo_ciclo}
-        Responde en ESPAÑOL."""
-        
-        respuesta = await llamar_llm_con_fallbacks(system_prompt, message.message)
-        await chat_memory.add_message("assistant", respuesta)
-        return {"response": respuesta}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-@chat_app.get("/api/status")
-async def chat_status():
-    return {"pid": os.getpid(), "ultimo_ciclo": ultimo_ciclo, "skills": "20+"}
-
-def iniciar_api_chat():
-    uvicorn.run(chat_app, host="127.0.0.1", port=8002, log_level="warning")
-
-chat_thread = threading.Thread(target=iniciar_api_chat, daemon=True)
-chat_thread.start()
 import asyncio
 from zep_memory import get_memory
 
@@ -1911,11 +1587,6 @@ def iniciar_api_chat():
 # Iniciar API de chat
 chat_thread = threading.Thread(target=iniciar_api_chat, daemon=True)
 chat_thread.start()
-# ===== API PARA CHAT EN TIEMPO REAL =====
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
-import uvicorn
-import threading
 print(f"✅ API de chat iniciada en puerto 8002 (PID: {os.getpid()})")
 async def llamar_llm_con_fallbacks(system_prompt, user_message):
     """Usa el mismo sistema de fallbacks que los ciclos"""
@@ -2024,6 +1695,12 @@ def iniciar_api_chat():
 
 chat_thread = threading.Thread(target=iniciar_api_chat, daemon=True)
 chat_thread.start()
+print(f"✅ API de chat iniciada en puerto 8002 (PID: {os.getpid()})")
+# ===== API PARA CHAT EN TIEMPO REAL =====
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
+import uvicorn
+import threading
 import asyncio
 from zep_memory import get_memory
 
@@ -2031,6 +1708,7 @@ chat_memory = get_memory()
 ultimo_ciclo = "171"
 
 chat_app = FastAPI()
+
 class ChatMessage(BaseModel):
     message: str
     user: str = "telegram"
