@@ -1535,6 +1535,7 @@ from zep_memory import get_memory
 chat_memory = get_memory()
 
 # Configuración de la API
+chat_app = FastAPI()
 
 class ChatMessage(BaseModel):
     message: str
@@ -1588,6 +1589,8 @@ def iniciar_api_chat():
 chat_thread = threading.Thread(target=iniciar_api_chat, daemon=True)
 chat_thread.start()
 print(f"✅ API de chat iniciada en puerto 8002 (PID: {os.getpid()})")
+
+# ===== FUNCIÓN PARA LLAMAR LLM CON FALLBACKS =====
 async def llamar_llm_con_fallbacks(system_prompt, user_message):
     """Usa el mismo sistema de fallbacks que los ciclos"""
     
@@ -1650,52 +1653,6 @@ async def llamar_llm_con_fallbacks(system_prompt, user_message):
     # Si todos fallan
     return "⚠️ Lo siento, no pudo procesar tu mensaje. Los proveedores no están disponibles."
 
-# ===== API PARA CHAT EN TIEMPO REAL =====
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
-import uvicorn
-import threading
-import asyncio
-from zep_memory import get_memory
-
-chat_memory = get_memory()
-ultimo_ciclo = "171"
-
-chat_app = FastAPI()
-class ChatMessage(BaseModel):
-    message: str
-    user: str = "telegram"
-
-@chat_app.post("/api/chat")
-async def chat_handler(message: ChatMessage):
-    global ultimo_ciclo
-    try:
-        await chat_memory.add_message("user", f"[{message.user}]: {message.message}")
-        historial = await chat_memory.get_recent_messages(5)
-        contexto = "\n".join([f"{m['role']}: {m['content'][:200]}" for m in historial])
-        
-        system_prompt = f"""Eres DOF Agent, un agente autónomo inteligente.
-        Tienes acceso a múltiples providers y skills.
-        Contexto: {contexto}
-        Último ciclo: #{ultimo_ciclo}
-        Responde en ESPAÑOL."""
-        
-        respuesta = await llamar_llm_con_fallbacks(system_prompt, message.message)
-        await chat_memory.add_message("assistant", respuesta)
-        return {"response": respuesta}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-@chat_app.get("/api/status")
-async def chat_status():
-    return {"pid": os.getpid(), "ultimo_ciclo": ultimo_ciclo, "skills": "20+"}
-
-def iniciar_api_chat():
-    uvicorn.run(chat_app, host="127.0.0.1", port=8002, log_level="warning")
-
-chat_thread = threading.Thread(target=iniciar_api_chat, daemon=True)
-chat_thread.start()
-print(f"✅ API de chat iniciada en puerto 8002 (PID: {os.getpid()})")
 # ===== API PARA CHAT EN TIEMPO REAL =====
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel

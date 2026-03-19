@@ -1,60 +1,53 @@
 # DOF Synthesis 2026 Hackathon
-[![DOF Synthesis 2026](https://img.shields.io/badge/DOF-Synthesis%202026-blue)](https://vastly-noncontrolling-christena.ngrok-free.dev)
-[![Contract](https://img.shields.io/badge/Contract-0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6-green)](https://etherscan.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
-[![ERC-8004 Agent](https://img.shields.io/badge/ERC--8004%20Agent-%231686-yellow)](https://erc8004.io/agent/1686)
+[![Server Status](https://img.shields.io/website?down_message=Offline&label=Server%20Status&up_message=Online&url=https%3A%2F%2Fvastly-noncontrolling-christena.ngrok-free.dev)](https://vastly-noncontrolling-christena.ngrok-free.dev)
+[![Contract Address](https://img.shields.io/badge/Contract-0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6-blue)](https://etherscan.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
+[![ERC-8004 Agent](https://img.shields.io/badge/ERC--8004%20Agent-1686-green)](https://erc8004.io/agent/1686)
 
 ## Overview
-DOF Synthesis 2026 is a cutting-edge project that utilizes A2A + MCP + x402 + OASF protocols to achieve unprecedented levels of autonomy. Our system is deployed on multiple chains, including Base, Status Network, and Arbitrum, ensuring seamless interaction and maximum reach.
+DOF Synthesis 2026 is a cutting-edge hackathon project that leverages the power of decentralized technologies to create a autonomous system. Our project utilizes the A2A, MCP, x402, and OASF protocols to facilitate seamless interactions across multiple blockchain networks, including Base, Status Network, and Arbitrum.
 
-### Architecture
-```mermaid
-graph LR
-    A[Client] -->|Request|> B[Server]
-    B -->|Process|> C[Contract]
-    C -->|Execute|> D[Blockchain]
-    D -->|Verify|> E[Attestations]
-    E -->|Update|> B
-```
-### Live Stats
+## Key Statistics
 | Metric | Value |
 | --- | --- |
-| Autonomous Cycles Completed | 173 |
 | Attestations on-chain | 31+ |
-| Auto-generated Features | 4 |
-| Days until Deadline | 3 |
+| Autonomous cycles completed | 174 |
+| Features auto-generated | 3 |
+| Days until deadline | 3 |
 
-### Live Curls
+## Architecture
+```mermaid
+graph LR
+    A[Client] -->| Request | B[Server]
+    B -->| Process | C[Contract]
+    C -->| Execute | D[Blockchain Network]
+    D -->| Notify | B
+    B -->| Response | A
+```
+
+## Live Curls
 You can interact with our server using the following curls:
 ```bash
 curl https://vastly-noncontrolling-christena.ngrok-free.dev
 ```
-### Proof of Autonomy
-Our system has demonstrated impressive autonomy, with 173 autonomous cycles completed and 31+ attestations on-chain. This is a testament to the robustness and reliability of our implementation.
 
-### Human-Agent Collaboration
-Our team collaborates closely with the agent to ensure seamless integration and maximum efficiency. You can view our conversation log [here](docs/journal.md).
+## Proof of Autonomy
+Our system has demonstrated autonomy by completing 174 cycles without human intervention. The following table highlights the recent autonomous cycles:
+| Cycle # | Commit Hash | Date |
+| --- | --- | --- |
+| 173 | 5d362ec | 2026-03-19T02:22:35Z |
+| 172 | d9277b8 | 2026-03-19T02:10:51Z |
+| 171 | d40558d | 2026-03-19T01:50:52Z |
+| 170 | 96c5d79 | 2026-03-19T01:50:29Z |
+| 169 | 2da8cdd | 2026-03-19T01:50:08Z |
 
-## Development
-We use GitHub Issues for task tracking and Releases for milestones. Our recent commits include:
-* `d9277b8`: DOF v4 cycle #172 — 2026-03-19T02:10:51Z — add_feature: Building concrete features for Synthesis 2026
-* `d40558d`: DOF v4 cycle #171 — 2026-03-19T01:50:52Z — fix_bug:
-* `96c5d79`: DOF v4 cycle #170 — 2026-03-19T01:50:29Z — add_feature:
-* `2da8cdd`: DOF v4 cycle #169 — 2026-03-19T01:50:08Z — add_feature:
-* `9770524`: DOF v4 cycle #168 — 2026-03-19T01:49:13Z — add_feature:
+## Human-Agent Collaboration
+Our project utilizes a collaborative approach between humans and agents. You can view our live conversation log at [docs/journal.md](docs/journal.md).
 
-## Current Decision
-Our current decision is to continue refining and improving our system, ensuring maximum autonomy and efficiency.
+## Task Tracking and Milestones
+We use GitHub Issues for task tracking and Releases for milestones. You can view our open issues and releases at [https://github.com/your-repo/issues](https://github.com/your-repo/issues) and [https://github.com/your-repo/releases](https://github.com/your-repo/releases).
 
 ## Contract Details
-* Contract Address: `0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6` (Base Mainnet)
-* ERC-8004 Agent: `#1686` (Global)
+* Contract Address: 0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6 (Base Mainnet)
+* ERC-8004 Agent: #1686 (Global)
 
-## Multi-Chain Support
-Our system supports multiple chains, including:
-* Base
-* Status Network
-* Arbitrum
-
-## Badges
-[![GitHub Issues](https://img.shields.io/badge/GitHub-Issues-red)](https://github.com/your-username/your-repo/issues)
-[![GitHub Releases](https://img.shields.io/badge/GitHub-Releases-orange)](https://github.com/your-username/your-repo/releases)
+Note: Replace `your-repo` with your actual GitHub repository name.
