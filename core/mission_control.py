@@ -37,7 +37,8 @@ class MissionControl:
             {"name": "Mistral", "key": os.getenv("MISTRAL_API_KEY"), "url": "https://api.mistral.ai/v1/chat/completions", "model": "mistral-large-latest"},
             {"name": "Cerebras", "key": os.getenv("CEREBRAS_API_KEY"), "url": "https://api.cerebras.ai/v1/chat/completions", "model": "llama3.1-70b"},
             {"name": "OpenRouter", "key": os.getenv("OPENROUTER_API_KEY"), "url": "https://openrouter.ai/api/v1/chat/completions", "model": "meta-llama/llama-3.1-8b-instruct:free"},
-            {"name": "DeepSeek", "key": os.getenv("DEEPSEEK_API_KEY"), "url": "https://api.deepseek.com/v1/chat/completions", "model": "deepseek-chat"}
+            {"name": "DeepSeek", "key": os.getenv("DEEPSEEK_API_KEY"), "url": "https://api.deepseek.com/v1/chat/completions", "model": "deepseek-chat"},
+            {"name": "Moonshot", "key": os.getenv("MOONSHOT_API_KEY"), "url": "https://api.moonshot.cn/v1/chat/completions", "model": "moonshot-v1-8k"}
         ]
         self.optimizer = HardwareOptimizer()
         self.backup_manager = CloudBackupManager()
