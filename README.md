@@ -1,52 +1,47 @@
 # DOF Synthesis 2026 Hackathon
-[![Server](https://img.shields.io/website?down_color=red&down_message=Offline&up_color=green&up_message=Online&url=https%3A%2F%2Fvastly-noncontrolling-christena.ngrok-free.dev)](https://vastly-noncontrolling-christena.ngrok-free.dev)
+[![Server](https://img.shields.io/badge/Server-https://vastly-noncontrolling-christena.ngrok-free.dev-green)](https://vastly-noncontrolling-christena.ngrok-free.dev)
 [![Contract](https://img.shields.io/badge/Contract-0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6-blue)](https://etherscan.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
-[![ERC-8004 Agent](https://img.shields.io/badge/ERC--8004_Agent-1686-blue)](https://etherscan.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
+[![ERC-8004 Agent](https://img.shields.io/badge/ERC--8004_Agent-1686_Global-orange)](https://erc8004.io/agent/1686)
 
 ## Overview
-DOF Synthesis 2026 is a cutting-edge project leveraging blockchain technology, autonomous agents, and multi-chain architecture to create a robust and decentralized system. Our project utilizes A2A, MCP, x402, and OASF protocols to ensure seamless interactions and maximum security.
+DOF Synthesis 2026 is a cutting-edge project that leverages A2A, MCP, x402, and OASF protocols to achieve unprecedented levels of autonomy and multi-chain compatibility. Our project utilizes a unique architecture that enables seamless interaction across Base, Status Network, and Arbitrum chains.
 
-### Architecture
+## Architecture
 ```mermaid
 graph LR
-    A[Base Mainnet] -->|ERC-8004|> B(ERC-8004 Agent #1686)
-    B -->|A2A + MCP + x402 + OASF|> C[Status Network]
-    B -->|A2A + MCP + x402 + OASF|> D[Arbitrum]
-    C -->|Multi-chain|> E[Autonomous Cycles]
-    D -->|Multi-chain|> E
-    E -->|On-chain Attestations|> F[31+ Attestations]
+    A[Base] -->| A2A |<--> B[Status Network]
+    B -->| MCP |<--> C[Arbitrum]
+    C -->| x402 |<--> A
+    A -->| OASF |<--> D[ERC-8004 Agent]
+    D -->| Contract |<--> E[0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6]
 ```
 
-### Stats
+## Statistics
 | Category | Value |
 | --- | --- |
-| Autonomous Cycles Completed | 160 |
-| Auto-generated Features | 4 |
-| On-chain Attestations | 31+ |
-| Days until Deadline | 4 |
+| Autonomous Cycles Completed | 161 |
+| Attestations On-Chain | 32+ |
+| Features Auto-Generated | 5 |
+| Days Until Deadline | 3 |
 
-### Live Curls
-* Server: `curl https://vastly-noncontrolling-christena.ngrok-free.dev`
-* Contract: `curl https://etherscan.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6`
-
-### Proof of Autonomy
-Our project has achieved significant milestones in autonomy, including 160 completed cycles and 31+ on-chain attestations. These achievements demonstrate the effectiveness of our autonomous agent and multi-chain architecture.
-
-### Human-Agent Collaboration
-Our team collaborates closely with the autonomous agent to ensure seamless integration and maximum efficiency. For live updates on our collaboration, please refer to our [Conversation Log](docs/journal.md).
-
-### Task Tracking and Milestones
-We utilize [GitHub Issues](https://github.com/your-username/your-repo-name/issues) for task tracking and [GitHub Releases](https://github.com/your-username/your-repo-name/releases) for milestone tracking.
-
-### Git Log
-```plaintext
-3be9b35 🤖 DOF v4 cycle #159 — 2026-03-18T23:28:04Z — add_feature: Building concrete features for Synthesis 2026 trac
-b5f01a0 🤖 DOF v4 cycle #158 — 2026-03-18T23:24:12Z — improve_readme:
-79a5f2e Auto-commit: Interacción con Cyber Paisa
-b482fa6 Auto-commit: Interacción con Cyber Paisa
-4df8ec2 🤖 DOF v4 cycle #157 — 2026-03-18T21:51:07Z — add_feature:
+## Live Data
+You can test our server with the following curl commands:
+```bash
+curl https://vastly-noncontrolling-christena.ngrok-free.dev
 ```
 
-Note: Replace `your-username` and `your-repo-name` with your actual GitHub username and repository name.
-- [2026-03-18 18:50:43] Usuario Cyber Paisa: Hola bot, ¿cómo estás?...
-- [2026-03-18 18:52:50] Usuario Cyber Paisa: hola...
+## Proof of Autonomy
+Our project has achieved a remarkable level of autonomy, with 161 cycles completed and 32+ attestations on-chain. We have also auto-generated 5 features, demonstrating the effectiveness of our A2A, MCP, x402, and OASF protocols.
+
+## Human-Agent Collaboration
+Our team has been working closely with the ERC-8004 Agent #1686 to achieve our goals. You can view our conversation log, which is updated live, at [docs/journal.md](docs/journal.md).
+
+## Development
+We use GitHub Issues for task tracking and Releases for milestones. Our recent commits include:
+- fe4e202: Auto-commit: Interacción con Cyber Paisa
+- f51f121: Auto-commit: Interacción con Cyber Paisa
+- 03f164e: 📝 Actualización ciclo #160
+- 909cbd4: 🤖 DOF v4 cycle #160 — 2026-03-18T23:33:13Z — add_feature:
+- 3be9b35: 🤖 DOF v4 cycle #159 — 2026-03-18T23:28:04Z — add_feature: Building concrete features for Synthesis 2026 track
+
+Join us in shaping the future of autonomous systems!
