@@ -1,6 +1,8 @@
-import os
 import sys
 from autonomous_loop_v2 import groq
+from core.llm_bridge import LLMBridge
+
+bridge = LLMBridge()
 
 def main():
     print("🧠 --- ENIGMA TERMINAL CHAT (AGENTE SOBERANO) --- 🦾")
@@ -20,7 +22,12 @@ def main():
             ]
             
             print("\n🤖 Enigma: ", end="", flush=True)
-            response = groq(prompt, max_tokens=1000)
+            try:
+                response = groq(prompt, max_tokens=1000)
+            except Exception as e:
+                print(f"\n⚠️ [Tokens Agotados/Error API] Cambiando a Cerebro Local (M4 Max)...")
+                response = bridge.talk_local(user_input)
+            
             print(response)
             
         except KeyboardInterrupt:
