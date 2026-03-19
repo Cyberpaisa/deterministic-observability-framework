@@ -3,8 +3,12 @@ import json
 import logging
 import asyncio
 import subprocess
+import requests
 from typing import Dict, List
 from datetime import datetime
+from dotenv import load_dotenv
+
+load_dotenv()
 try:
     from hardware_optimizer import HardwareOptimizer
     from backup_manager import CloudBackupManager
@@ -24,6 +28,12 @@ class MissionControl:
         self.base_dir = "/Users/jquiceva/equipo de agentes/deterministic-observability-framework"
         self.tasks_file = os.path.join(self.base_dir, "data/tasks.json")
         self.agents_config = os.path.join(self.base_dir, "core/chains_config.json")
+        self.providers = [
+            {"name": "OpenAI", "key": os.getenv("OPENAI_API_KEY"), "url": "https://api.openai.com/v1/chat/completions", "model": "gpt-4o-mini"},
+            {"name": "Anthropic", "key": os.getenv("ANTHROPIC_API_KEY"), "url": "https://api.anthropic.com/v1/messages", "model": "claude-3-5-sonnet-20240620"},
+            {"name": "Groq", "key": os.getenv("GROQ_API_KEY"), "url": "https://api.groq.com/openai/v1/chat/completions", "model": "llama-3.3-70b-versatile"},
+            {"name": "Nvidia", "key": os.getenv("NVIDIA_API_KEY"), "url": "https://integrate.api.nvidia.com/v1/chat/completions", "model": "meta/llama-3.3-70b-instruct"}
+        ]
         self.optimizer = HardwareOptimizer()
         self.backup_manager = CloudBackupManager()
         self._ensure_paths()
@@ -63,6 +73,52 @@ class MissionControl:
             print("✅ Bóveda sincronizada correctamente.")
         else:
             print("⚠️ Error en sincronización de Bóveda.")
+
+    def talk_to_enigma(self, message: str):
+        """Intenta charlar con Enigma usando fallbacks de LLM."""
+        system_prompt = "Eres Enigma #1686, un agente soberano en el M4 Max de Juan. Responde siempre en español."
+        
+        for p in self.providers:
+            if not p["key"] or "..." in p["key"]: continue
+            try:
+                headers = {"Authorization": f"Bearer {p['key']}", "Content-Type": "application/json"}
+                
+                if p["name"] == "Anthropic":
+                    headers = {
+                        "x-api-key": p["key"],
+                        "anthropic-version": "2023-06-01",
+                        "content-type": "application/json"
+                    }
+                    payload = {
+                        "model": p["model"],
+                        "max_tokens": 1024,
+                        "messages": [{"role": "user", "content": message}]
+                    }
+                else:
+                    payload = {
+                        "model": p["model"],
+                        "messages": [{"role": "system", "content": system_prompt}, {"role": "user", "content": message}],
+                        "temperature": 0.7
+                    }
+
+                response = requests.post(p["url"], headers=headers, json=payload, timeout=10)
+                if response.status_code == 200:
+                    result = response.json()
+                    if p["name"] == "Anthropic":
+                        return result["content"][0]["text"]
+                    return result["choices"][0]["message"]["content"]
+            except:
+                continue
+        return "⚠️ Sin respuesta de la IA. Revisa tus API keys en el .env."
+
+    def start_chat_session(self):
+        """Inicia una sesión interactiva desde Mission Control."""
+        print("\n🧠 --- SESIÓN DE CHAT: ENIGMA MISSION CONTROL --- 🦾")
+        print("M4 Max detectado y listo. Escribe 'salir' para terminar.")
+        while True:
+            u_input = input("\n👤 Juan: ")
+            if u_input.lower() in ["salir", "exit"]: break
+            print(f"\n🤖 Enigma: {self.talk_to_enigma(u_input)}")
 
     def schedule_task(self, name: str, agent: str, frequency: str):
         """Programa una tarea automática (Cron-like)."""
