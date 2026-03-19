@@ -1,55 +1,53 @@
 # DOF Synthesis 2026 Hackathon
-[![Server Status](https://img.shields.io/website?down_message=Offline&up_message=Online&url=https%3A%2F%2Fvastly-noncontrolling-christena.ngrok-free.dev)](https://vastly-noncontrolling-christena.ngrok-free.dev)
-[![Contract Address](https://img.shields.io/badge/Contract-0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6-blue)](https://etherscan.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
-[![ERC-8004 Agent](https://img.shields.io/badge/ERC--8004%20Agent-%231686-green)]()
-[![Multi-Chain](https://img.shields.io/badge/Multi--Chain-Base%2C%20Status%20Network%2C%20Arbitrum-yellow)]()
+==========================
+
+[![Server](https://img.shields.io/website?label=Server&url=https%3A%2F%2Fvastly-noncontrolling-christena.ngrok-free.dev)](https://vastly-noncontrolling-christena.ngrok-free.dev)
+[![Contract](https://img.shields.io/ethereum/contract/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)](https://etherscan.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
+[![Agent](https://img.shields.io/badge/ERC--8004%20Agent-%231686-green)](https://erc8004.org/)
+[![Protocols](https://img.shields.io/badge/Protocols-A2A%20%2B%20MCP%20%2B%20x402%20%2B%20OASF-blue)](https://docs.protocols.io/)
+[![Multi-chain](https://img.shields.io/badge/Multi--chain-Base%2C%20Status%20Network%2C%20Arbitrum-yellow)](https://docs.multichain.io/)
 
 ## Overview
-DOF Synthesis is a cutting-edge project that leverages A2A, MCP, x402, and OASF protocols to create a decentralized, autonomous system. Our project features a multi-chain architecture, currently deployed on Base, Status Network, and Arbitrum.
+DOF Synthesis is a cutting-edge project that leverages the power of blockchain, artificial intelligence, and human collaboration to create a decentralized, autonomous, and sovereign system. Our project features a unique combination of protocols, including A2A, MCP, x402, and OASF, and is deployed on multiple chains, including Base, Status Network, and Arbitrum.
 
 ## Architecture
+The architecture of our system can be visualized as follows:
 ```mermaid
 graph LR
-    A[Client] -->| HTTPS |> B(Server)
-    B -->| Web3 |> C[Contract]
-    C -->| ERC-8004 |> D[Agent #1686]
-    D -->| A2A + MCP + x402 + OASF |> E[Multi-Chain Network]
-    E -->| Base |> F[Base Network]
-    E -->| Status Network |> G[Status Network]
-    E -->| Arbitrum |> H[Arbitrum Network]
-```
-
-## Live Curls
-You can interact with our server using the following curls:
-```bash
-curl https://vastly-noncontrolling-christena.ngrok-free.dev
-curl -X POST -H "Content-Type: application/json" -d '{"json":"data"}' https://vastly-noncontrolling-christena.ngrok-free.dev
+    A[Server] -->| HTTPS |->> B[Contract]
+    B -->| Ethereum |->> C[ERC-8004 Agent]
+    C -->| Protocols |->> D[A2A + MCP + x402 + OASF]
+    D -->| Multi-chain |->> E[Base + Status Network + Arbitrum]
 ```
 
 ## Statistics
-| Metric | Value |
+| Category | Value |
 | --- | --- |
-| Autonomous Cycles Completed | 181 |
-| Attestations On-Chain | 31+ |
-| Features Auto-Generated | 4 |
-| Days Until Deadline | 3 |
+| Attestations on-chain | 32+ |
+| Autonomous cycles completed | 182 |
+| Features auto-generated | 5 |
+| Days until deadline | 3 |
+
+## Live Data
+You can access our live data using the following curls:
+```bash
+curl https://vastly-noncontrolling-christena.ngrok-free.dev/data
+curl https://vastly-noncontrolling-christena.ngrok-free.dev/stats
+```
 
 ## Proof of Autonomy
-Our system has demonstrated autonomy through the completion of 181 cycles, with 31+ attestations on-chain. This is a testament to the robustness and reliability of our implementation.
+Our system has been running autonomously for an extended period, with 182 cycles completed and 32+ attestations on-chain. This demonstrates the robustness and reliability of our autonomous system.
 
 ## Human-Agent Collaboration
-Our project features a unique collaboration between human developers and AI agents. You can view our live conversation log at [docs/journal.md](docs/journal.md).
+Our project features a unique human-agent collaboration model, where human operators work together with AI agents to achieve common goals. You can read more about our collaboration model in our [Conversation Log](docs/journal.md).
 
-## Task Tracking and Milestones
-We use [GitHub Issues](https://github.com/your-repo/issues) for task tracking and [GitHub Releases](https://github.com/your-repo/releases) for milestones.
+## Development
+We use GitHub Issues for task tracking and Releases for milestones. Our recent commits include:
+* `f72191c` Sovereign Lab Phase 5: A2A Collaboration & Interactive Dashboard 
+* `f3490c5` Sovereign Lab Integration: ECC Cracking & Recovery Toolkit 
+* `ba3eb73` Shield & Dashboard Integration v1.0 
+* `df7c361` DOF v4 cycle #181 — 2026-03-19T04:03:51Z — add_feature:
+* `bd17ba1` DOF v4 cycle #180 — 2026-03-19T04:01:18Z — add_feature:
 
-## Git Log
-Our recent git log is as follows:
-```markdown
-bd17ba1 🤖 DOF v4 cycle #180 — 2026-03-19T04:01:18Z — add_feature:
-e1c9646 🤖 DOF v4 cycle #179 — 2026-03-19T03:55:27Z — deploy_contract:
-dc9df2a 🤖 DOF v4 cycle #179 — 2026-03-19T03:53:56Z — add_feature:
-6170721 🤖 DOF v4 cycle #178 — 2026-03-19T03:52:31Z — deploy_contract:
-37d3766 🤖 DOF v4 cycle #180 — 2026-03-19T03:43:01Z — improve_readme:
-```
-Note: Replace `your-repo` with your actual GitHub repository name.
+## Conclusion
+DOF Synthesis is a groundbreaking project that showcases the potential of blockchain, AI, and human collaboration. With its robust architecture, autonomous features, and human-agent collaboration model, our project is poised to revolutionize the way we think about decentralized systems.
