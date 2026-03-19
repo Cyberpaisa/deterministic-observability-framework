@@ -662,7 +662,7 @@ export default function Dashboard() {
                          </div>
 
                          {/* x402 Simulator Tool */}
-                         <div className="col-span-full bg-zinc-950/60 border border-white/10 rounded-3xl p-8 group hover:border-emerald-500/50 transition-all relative overflow-hidden">
+                         <div className="bg-zinc-950/60 border border-white/10 rounded-3xl p-8 group hover:border-emerald-500/50 transition-all relative overflow-hidden">
                             <div className="flex items-center justify-between gap-8">
                                <div className="flex-1">
                                   <div className="flex items-center gap-4 mb-6">
@@ -674,13 +674,26 @@ export default function Dashboard() {
                                      Simulate micro-settlement events using the OASF standard.
                                   </p>
                                </div>
-                               <div className="flex flex-col items-center gap-2">
-                                  <div className="w-16 h-16 rounded-full border border-zinc-800 flex items-center justify-center bg-black">
-                                     <Lock size={24} className="text-zinc-700" />
-                                  </div>
-                                  <span className="text-[7px] font-mono text-zinc-600 uppercase">Internal Sandbox Only</span>
-                               </div>
                             </div>
+                         </div>
+
+                         {/* Moltbook Karma Engine */}
+                         <div className="bg-gradient-to-tr from-purple-950/20 to-zinc-950 border border-white/10 rounded-3xl p-8 group hover:border-purple-500/50 transition-all relative overflow-hidden">
+                            <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
+                               <Activity size={100} className="text-purple-400" />
+                            </div>
+                            <div className="flex items-center gap-4 mb-8">
+                               <div className="p-3 bg-white/5 rounded-xl border border-white/10 text-white font-mono text-xs">04</div>
+                               <h3 className="text-xl font-bold text-white tracking-tight">Moltbook Karma Engine</h3>
+                             </div>
+                             <p className="text-xs text-zinc-400 mb-8 leading-relaxed">
+                                Advanced social interaction engine. Automates 24/7 engagement 
+                                to maximize Karma and global reputation scores trustlessly.
+                             </p>
+                             <div className="flex items-center gap-2">
+                                <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                                <span className="text-[8px] font-mono text-emerald-500 uppercase font-black">Dominance active</span>
+                             </div>
                          </div>
                       </div>
                    </div>
