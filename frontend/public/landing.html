@@ -353,25 +353,6 @@
         .chat-input button svg { width: 16px; height: 16px; fill: white; }
         .chat-input button:disabled { opacity: 0.4; cursor: not-allowed; }
 
-        /* ═══════════════════ TOUR ═══════════════════ */
-        .tour-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 400; display: none; }
-        .tour-overlay.active { display: block; }
-        .tour-tip { position: fixed; z-index: 401; background: #1a1a2e; border: 1px solid rgba(139,92,246,0.3); border-radius: 16px; padding: 20px 24px; max-width: 320px; box-shadow: 0 12px 40px rgba(0,0,0,0.5); }
-        html.light .tour-tip { background: white; border-color: rgba(109,40,217,0.2); box-shadow: 0 12px 40px rgba(0,0,0,0.1); }
-        .tour-tip h4 { font-size: 15px; font-weight: 700; margin-bottom: 8px; color: var(--violet); }
-        .tour-tip p { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.6; margin-bottom: 16px; }
-        html.light .tour-tip p { color: rgba(0,0,0,0.5); }
-        .tour-btns { display: flex; justify-content: space-between; align-items: center; }
-        .tour-skip { font-size: 12px; color: rgba(255,255,255,0.3); cursor: pointer; background: none; border: none; font-family: inherit; }
-        .tour-skip:hover { color: rgba(255,255,255,0.5); }
-        html.light .tour-skip { color: rgba(0,0,0,0.3); }
-        .tour-next { padding: 8px 20px; border-radius: 999px; background: var(--purple); color: white; font-size: 12px; font-weight: 600; border: none; cursor: pointer; font-family: inherit; }
-        .tour-next:hover { background: var(--indigo); }
-        .tour-dots { display: flex; gap: 4px; }
-        .tour-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.15); }
-        .tour-dot.active { background: var(--violet); }
-        html.light .tour-dot { background: rgba(0,0,0,0.1); }
-
         @media (max-width: 480px) {
             .chat-panel { width: calc(100vw - 24px); right: 12px; bottom: 80px; }
         }
@@ -781,18 +762,6 @@
     </div>
 </div>
 
-<!-- ═══════════════════ TOUR OVERLAY ═══════════════════ -->
-<div class="tour-overlay" id="tourOverlay"></div>
-<div class="tour-tip" id="tourTip" style="display:none">
-    <h4 id="tourTitle"></h4>
-    <p id="tourDesc"></p>
-    <div class="tour-btns">
-        <button class="tour-skip" id="tourSkip">Skip tour</button>
-        <div class="tour-dots" id="tourDots"></div>
-        <button class="tour-next" id="tourNext">Next</button>
-    </div>
-</div>
-
 <script>
 // ═══════════════════ THEME TOGGLE ═══════════════════
 !function(){
@@ -1138,11 +1107,11 @@ document.querySelectorAll('.counter').forEach(e=>counterObs.observe(e));
                 addMsg(data.reply,'agent',data.governance);
                 history.push({role:'assistant',content:data.reply});
             } else {
-                addMsg('I encountered an error. Please try again.','agent');
+                addMsg('I\'m available on the full DOF deployment. Set GROQ_API_KEY in Vercel env vars to enable me.','agent');
             }
         }catch(e){
             hideTyping();
-            addMsg('Connection error. The agent may be offline.','agent');
+            addMsg('I need the /api/chat backend to respond. Deploy from the hackathon repo with GROQ_API_KEY configured.','agent');
         }
         sending=false;
         sendBtn.disabled=false;
@@ -1153,58 +1122,6 @@ document.querySelectorAll('.counter').forEach(e=>counterObs.observe(e));
     input.addEventListener('keydown',e=>{if(e.key==='Enter')send()});
 }();
 
-// ═══════════════════ GUIDED TOUR ═══════════════════
-!function(){
-    if(localStorage.getItem('dof-tour-done'))return;
-    const steps=[
-        {el:'.hero-c',title:'Welcome to DOF',desc:'The Deterministic Observability Framework — where every AI agent action is governed by math, not promises.'},
-        {el:'.sg',title:'Real Numbers',desc:'238+ autonomous cycles, 48+ on-chain attestations, 8/8 Z3 proofs — all verifiable.'},
-        {el:'.pipeline',title:'The Pipeline',desc:'7 deterministic steps from identity to supervisor. No shortcuts. No LLM in governance.'},
-        {el:'#tracks',title:'Live Tracks',desc:'10 working tracks — each one a real application powered by the DOF pipeline.'},
-        {el:'#evidence',title:'Verify Everything',desc:'On-chain records, open source code, formal proofs. Don\'t trust — verify.'},
-        {el:'.chat-fab',title:'Ask Me Anything',desc:'Chat with Enigma #1686, the DOF Agent. I can answer questions about the framework in real time.'}
-    ];
-    let step=0;
-    const overlay=document.getElementById('tourOverlay');
-    const tip=document.getElementById('tourTip');
-    const title=document.getElementById('tourTitle');
-    const desc=document.getElementById('tourDesc');
-    const dots=document.getElementById('tourDots');
-    const nextBtn=document.getElementById('tourNext');
-    const skipBtn=document.getElementById('tourSkip');
-
-    function show(){
-        if(step>=steps.length){end();return;}
-        const s=steps[step];
-        const el=document.querySelector(s.el);
-        if(!el){step++;show();return;}
-        overlay.classList.add('active');
-        tip.style.display='block';
-        title.textContent=s.title;
-        desc.textContent=s.desc;
-        nextBtn.textContent=step===steps.length-1?'Start':'Next';
-        dots.innerHTML=steps.map((_,i)=>`<div class="tour-dot ${i===step?'active':''}"></div>`).join('');
-        const r=el.getBoundingClientRect();
-        const tipW=320,tipH=160;
-        let top=r.bottom+16,left=r.left;
-        if(top+tipH>window.innerHeight)top=r.top-tipH-16;
-        if(left+tipW>window.innerWidth)left=window.innerWidth-tipW-20;
-        if(left<20)left=20;
-        tip.style.top=Math.max(20,top)+'px';
-        tip.style.left=left+'px';
-        el.scrollIntoView({behavior:'smooth',block:'center'});
-    }
-    function end(){
-        overlay.classList.remove('active');
-        tip.style.display='none';
-        localStorage.setItem('dof-tour-done','1');
-    }
-    nextBtn.addEventListener('click',()=>{step++;show()});
-    skipBtn.addEventListener('click',end);
-
-    // Start tour after 2s
-    setTimeout(show,2000);
-}();
 </script>
 </body>
 </html>
