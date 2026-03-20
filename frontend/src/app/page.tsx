@@ -1190,19 +1190,36 @@ export default function Dashboard() {
                    {/* Tracks */}
                    <div>
                       <h2 className="text-lg font-black text-white tracking-tight uppercase mb-4">Hackathon Tracks</h2>
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <p className="text-xs font-mono text-zinc-500 mb-6">10 tracks with on-chain verification and live agent demonstrations.</p>
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                          {[
-                            { track: 'Open Track', prize: '$28,308', desc: 'Full DOF demo — governance, Z3 proofs, on-chain attestations, 14-agent swarm', status: 'ACTIVE', color: 'border-purple-500/50 bg-purple-500/5' },
-                            { track: 'ERC-8004 Agents With Receipts', prize: '$4,000', desc: 'On-chain receipts for every agent action — Z3 proof hashes published to Avalanche', status: 'ACTIVE', color: 'border-emerald-500/50 bg-emerald-500/5' },
-                            { track: 'Let the Agent Cook', prize: '$4,000', desc: '238+ autonomous cycles, zero human input — GLADIATOR loop with safety guardrails', status: 'ACTIVE', color: 'border-indigo-500/50 bg-indigo-500/5' },
+                            { track: 'Synthesis Open Track', partner: 'Synthesis', prize: '$28,308', desc: 'Full DOF demo — governance, Z3 proofs, on-chain attestations, 14-agent swarm', status: 'ACTIVE', color: 'border-purple-500/50 bg-purple-500/5', iconBg: 'bg-purple-500', icon: (<svg viewBox="0 0 24 24" className="w-4 h-4 text-white" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>) },
+                            { track: 'ERC-8004 Agent Receipts', partner: 'ERC-8004', prize: '$4,000', desc: 'On-chain receipts for every agent action — Z3 proof hashes published to Avalanche & Base', status: 'ACTIVE', color: 'border-emerald-500/50 bg-emerald-500/5', iconBg: 'bg-emerald-500', icon: (<svg viewBox="0 0 24 24" className="w-4 h-4 text-white" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 12l2 2 4-4"/></svg>) },
+                            { track: 'Let the Agent Cook', partner: 'Synthesis', prize: '$4,000', desc: '238+ autonomous cycles, zero human input — GLADIATOR loop with safety guardrails', status: 'ACTIVE', color: 'border-indigo-500/50 bg-indigo-500/5', iconBg: 'bg-indigo-500', icon: (<svg viewBox="0 0 24 24" className="w-4 h-4 text-white" fill="currentColor"><path d="M12 2a5 5 0 015 5c0 2.76-2.24 5-5 5s-5-2.24-5-5a5 5 0 015-5zm0 12c5.52 0 10 2.24 10 5v3H2v-3c0-2.76 4.48-5 10-5z"/></svg>) },
+                            { track: 'Private Agents', partner: 'Nillion / Lit Protocol', prize: '$11,500', desc: 'Privacy-preserving agent governance — deterministic rules enforce data boundaries without exposing internals', status: 'ACTIVE', color: 'border-rose-500/50 bg-rose-500/5', iconBg: 'bg-rose-500', icon: (<svg viewBox="0 0 24 24" className="w-4 h-4 text-white" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>) },
+                            { track: 'Agent Services on Base', partner: 'Base (Coinbase)', prize: '$5,000', desc: 'ERC-8004 identity minted on Base — agent receipts and proof hashes anchored on-chain', status: 'ACTIVE', color: 'border-blue-500/50 bg-blue-500/5', iconBg: 'bg-blue-600', icon: (<svg viewBox="0 0 24 24" className="w-4 h-4 text-white" fill="currentColor"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8" stroke="white" strokeWidth="2" fill="none"/></svg>) },
+                            { track: 'Best Agent on Celo', partner: 'Celo', prize: '$5,000', desc: 'Multi-chain attestation support — DOF agents publish governance proofs across EVM chains', status: 'ACTIVE', color: 'border-yellow-500/50 bg-yellow-500/5', iconBg: 'bg-yellow-500', icon: (<svg viewBox="0 0 24 24" className="w-4 h-4 text-white" fill="currentColor"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4" fill="none" stroke="white" strokeWidth="2"/></svg>) },
+                            { track: 'ERC-8183 Intent Protocol', partner: 'ERC-8183', prize: '$2,000', desc: 'Agent intent declarations verified by Z3 proofs before on-chain execution', status: 'ACTIVE', color: 'border-cyan-500/50 bg-cyan-500/5', iconBg: 'bg-cyan-500', icon: (<svg viewBox="0 0 24 24" className="w-4 h-4 text-white" fill="none" stroke="currentColor" strokeWidth="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>) },
+                            { track: 'Best Self Protocol', partner: 'Self Protocol', prize: '$1,000', desc: 'Self-sovereign agent identity with deterministic trust scoring and on-chain reputation', status: 'ACTIVE', color: 'border-orange-500/50 bg-orange-500/5', iconBg: 'bg-orange-500', icon: (<svg viewBox="0 0 24 24" className="w-4 h-4 text-white" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>) },
+                            { track: 'Agents That Pay', partner: 'x402 Protocol', prize: '$1,500', desc: 'Autonomous payment flows governed by constitution rules — MPP pattern with safety guardrails', status: 'ACTIVE', color: 'border-teal-500/50 bg-teal-500/5', iconBg: 'bg-teal-500', icon: (<svg viewBox="0 0 24 24" className="w-4 h-4 text-white" fill="none" stroke="currentColor" strokeWidth="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>) },
+                            { track: 'Mechanism Design', partner: 'Flashbots / MEV', prize: '$1,000', desc: 'Game-theoretic governance mechanisms — formal verification of agent incentive alignment', status: 'ACTIVE', color: 'border-fuchsia-500/50 bg-fuchsia-500/5', iconBg: 'bg-fuchsia-500', icon: (<svg viewBox="0 0 24 24" className="w-4 h-4 text-white" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>) },
                          ].map((t) => (
-                            <div key={t.track} className={`border rounded-2xl p-5 ${t.color} hover:scale-[1.02] transition-transform`}>
+                            <div key={t.track} className={`border rounded-2xl p-5 ${t.color} hover:scale-[1.02] transition-transform cursor-pointer group`}>
+                               <div className="flex items-center gap-3 mb-4">
+                                  <div className={`w-8 h-8 rounded-lg ${t.iconBg} flex items-center justify-center flex-shrink-0`}>
+                                     {t.icon}
+                                  </div>
+                                  <span className="text-xs font-mono text-zinc-400">{t.partner}</span>
+                               </div>
                                <div className="flex items-center justify-between mb-2">
-                                  <span className="text-[9px] font-mono text-emerald-400 font-bold uppercase">{t.status}</span>
+                                  <h3 className="text-sm font-black text-white">{t.track}</h3>
                                   <span className="text-sm font-black text-white">{t.prize}</span>
                                </div>
-                               <h3 className="text-sm font-black text-white mt-1">{t.track}</h3>
                                <p className="text-[10px] font-mono text-zinc-500 mt-2 leading-relaxed">{t.desc}</p>
+                               <div className="flex items-center justify-between mt-4 pt-3 border-t border-white/5">
+                                  <span className="text-[8px] font-mono text-emerald-400 font-bold uppercase tracking-wider">{t.status}</span>
+                                  <ArrowUpRight className="w-3.5 h-3.5 text-zinc-600 group-hover:text-white transition-colors" />
+                               </div>
                             </div>
                          ))}
                       </div>

@@ -12,7 +12,7 @@
 
 [![Tests](https://img.shields.io/badge/Tests-986_passing-brightgreen?style=flat-square)]()
 [![Cycles](https://img.shields.io/badge/Autonomous_Cycles-238+-orange?style=flat-square)]()
-[![Attestations](https://img.shields.io/badge/On--Chain_Attestations-38+-blue?style=flat-square)]()
+[![Attestations](https://img.shields.io/badge/On--Chain_Attestations-48+-blue?style=flat-square)]()
 [![LOC](https://img.shields.io/badge/LOC-27K+-lightgrey?style=flat-square)]()
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue?style=flat-square)](LICENSE)
 
@@ -53,6 +53,34 @@ Every autonomous cycle produces a signed ERC-8004 receipt containing the agent i
 ### Track 3: Let the Agent Cook -- $4,000
 
 238+ autonomous cycles executed with **zero human input**. The agent runs its own discovery loop, selects tasks, executes them, verifies results, commits code, and attests on-chain -- every 30 minutes, 24/7. The journal documents every cycle.
+
+### Track 4: Private Agents -- $11,500
+
+Privacy-preserving agent governance. DOF enforces data boundaries deterministically -- no internals exposed, no PII leakage. The `PrivacyLeakGenerator` runs 4 attack vectors (PII, API keys, memory, tool inputs) and the governance layer blocks 71%+ without any LLM in the loop.
+
+### Track 5: Agent Services on Base -- $5,000
+
+ERC-8004 identity minted on Base Mainnet (Token #31013). Agent receipts and proof hashes anchored on-chain via `DOFChainAdapter`. Every autonomous cycle produces a verifiable receipt on Basescan.
+
+### Track 6: Best Agent on Celo -- $5,000
+
+Multi-chain attestation support. DOF agents publish governance proofs across EVM chains -- Avalanche, Base, and Celo. The `DOFChainAdapter` abstracts chain-specific logic, enabling portable agent identity.
+
+### Track 7: ERC-8183 Intent Protocol -- $2,000
+
+Agent intent declarations verified by Z3 formal proofs before on-chain execution. The agent declares what it intends to do, Z3 proves the intent is safe, and only then does the chain adapter execute.
+
+### Track 8: Best Self Protocol -- $1,000
+
+Self-sovereign agent identity with deterministic trust scoring. The `TrustGateway` assigns trust levels based on governance compliance, Z3 proof history, and on-chain reputation -- no central authority.
+
+### Track 9: Agents That Pay -- $1,500
+
+Autonomous payment flows governed by constitution rules. The MPP (Machine-to-Machine Payment Protocol) pattern ensures agents can pay for services while safety guardrails prevent unauthorized spending.
+
+### Track 10: Mechanism Design -- $1,000
+
+Game-theoretic governance mechanisms with formal verification. Z3 proves incentive alignment properties -- agents cannot profit from violating governance rules, making compliance the dominant strategy.
 
 ---
 
@@ -130,7 +158,7 @@ Every autonomous cycle produces a signed ERC-8004 receipt containing the agent i
 |:-------|------:|
 | Unit tests | **986** |
 | Autonomous cycles | **238+** |
-| On-chain attestations | **38+** |
+| On-chain attestations | **48+** |
 | Core modules | **70+** |
 | Lines of code | **27,000+** |
 | Z3 theorems | **4/4 PROVEN** |
