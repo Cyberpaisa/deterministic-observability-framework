@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Shield, Zap, Lock, Cpu, Globe, MessageSquare, Terminal, Send, Users, ListFilter, Activity, ArrowUpRight, Paperclip, FileText, AlertTriangle, CheckCircle, XCircle, Clock, Database, Boxes, TrendingUp, RefreshCw } from 'lucide-react';
+import { Shield, Zap, Lock, Cpu, Globe, MessageSquare, Terminal, Send, Users, ListFilter, Activity, ArrowUpRight, Paperclip, FileText, AlertTriangle, CheckCircle, XCircle, Clock, Database, Boxes, TrendingUp, RefreshCw, Crown, Star, Award } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface Message { role: 'user' | 'assistant' | 'system'; content: string; }
@@ -14,6 +14,8 @@ interface Trace { cycle: number; timestamp: string; action: string; thought: str
 interface SecurityData { shield_status: string; heartbeats: any; rate_limiter: string; input_sanitization: string; agent_security_levels: any[]; audit_events_total: number; recent_threats: any[]; cors_policy: string; security_headers: string[]; }
 interface SkillItem { name: string; description: string; version: string; tags: string[]; pattern: string; authorized_agents: string[]; times_used: number; times_refined: number; success_rate: number; avg_score: number; degraded: boolean; }
 interface SkillsData { total_skills: number; patterns_supported: string[]; skills: SkillItem[]; routing_confusion_count: number; degraded_skills: string[]; }
+interface KarmaAgent { agent_id: string; name: string; role: string; karma: number; level: string; recent_actions: any[]; total_actions: number; }
+interface ChatMsg { id: string; from: string; from_name: string; role: string; content: string; type: string; timestamp: string; karma_at_time: number; }
 
 const StatusRing = ({ value, label, color = "stroke-purple-500" }: { value: number, label: string, color?: string }) => {
   const radius = 30;
@@ -56,6 +58,8 @@ export default function Dashboard() {
   const [tracesTotal, setTracesTotal] = useState(0);
   const [security, setSecurity] = useState<SecurityData | null>(null);
   const [skillsData, setSkillsData] = useState<SkillsData | null>(null);
+  const [karmaBoard, setKarmaBoard] = useState<KarmaAgent[]>([]);
+  const [legionChat, setLegionChat] = useState<ChatMsg[]>([]);
   const scrollRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -78,13 +82,15 @@ export default function Dashboard() {
 
   const fetchData = async () => {
     try {
-      const [sRes, iRes, gRes, tRes, secRes, skRes] = await Promise.all([
+      const [sRes, iRes, gRes, tRes, secRes, skRes, kRes, cRes] = await Promise.all([
         fetch('http://localhost:8000/api/swarm'),
         fetch('http://localhost:8000/api/issues'),
         fetch('http://localhost:8000/api/graph'),
         fetch('http://localhost:8000/api/traces'),
         fetch('http://localhost:8000/api/security'),
         fetch('http://localhost:8000/api/skills'),
+        fetch('http://localhost:8000/api/karma'),
+        fetch('http://localhost:8000/api/internal-chat?limit=100'),
       ]);
       if (sRes.ok) setSwarm((await sRes.json()).swarm);
       if (iRes.ok) setIssues((await iRes.json()).issues);
@@ -96,6 +102,8 @@ export default function Dashboard() {
       }
       if (secRes.ok) setSecurity(await secRes.json());
       if (skRes.ok) setSkillsData(await skRes.json());
+      if (kRes.ok) setKarmaBoard((await kRes.json()).leaderboard || []);
+      if (cRes.ok) setLegionChat((await cRes.json()).messages || []);
     } catch (e) {}
   };
 
@@ -300,6 +308,7 @@ export default function Dashboard() {
               { id: 'neural', icon: Activity, label: 'NEURAL' },
               { id: 'skills', icon: Boxes, label: 'SKILLS' },
               { id: 'security', icon: Shield, label: 'SHIELD' },
+              { id: 'legion', icon: Crown, label: 'LEGION' },
             ].map((it) => (
               <button
                key={it.id}
@@ -997,6 +1006,144 @@ export default function Dashboard() {
                         )}
                       </div>
                    </div>
+                </motion.div>
+              )}
+
+
+             {/* === LEGION TAB === */}
+             {activeTab === 'legion' && (
+                <motion.div key="legion" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="h-full p-8 flex flex-col gap-8 overflow-y-auto custom-scrollbar">
+
+                   {/* Karma Leaderboard */}
+                   <div>
+                      <div className="flex justify-between items-center border-b border-white/10 pb-6">
+                         <div>
+                            <h2 className="text-xl font-black text-white tracking-tighter uppercase">Legion Karma Leaderboard</h2>
+                            <p className="text-[9px] font-mono text-zinc-500 mt-1 tracking-widest uppercase">Internal Agent Ranking // Merit-Based Progression</p>
+                         </div>
+                         <div className="flex items-center gap-3">
+                            <div className="bg-purple-600/20 border border-purple-500/30 px-5 py-3 rounded-2xl flex items-center gap-2">
+                               <Crown size={16} className="text-purple-400" />
+                               <span className="text-[10px] font-mono text-purple-400 font-black uppercase tracking-widest">{karmaBoard.length} Agents</span>
+                            </div>
+                         </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-4 mt-6">
+                         {[...karmaBoard].sort((a, b) => b.karma - a.karma).map((agent, idx) => {
+                            const levelColors: Record<string, string> = {
+                               SOVEREIGN: 'text-purple-400 bg-purple-500/10 border-purple-500/30',
+                               ELITE: 'text-indigo-400 bg-indigo-500/10 border-indigo-500/30',
+                               VETERAN: 'text-emerald-400 bg-emerald-500/10 border-emerald-500/30',
+                               SPECIALIST: 'text-amber-400 bg-amber-500/10 border-amber-500/30',
+                               OPERATIVE: 'text-blue-400 bg-blue-500/10 border-blue-500/30',
+                               CADET: 'text-zinc-400 bg-zinc-500/10 border-zinc-500/30',
+                               RECRUIT: 'text-zinc-500 bg-zinc-700/10 border-zinc-700/30',
+                            };
+                            const lc = levelColors[agent.level] || 'text-zinc-400 bg-zinc-500/10 border-zinc-500/30';
+
+                            return (
+                               <motion.div
+                                  key={agent.agent_id}
+                                  initial={{ opacity: 0, y: 20 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  transition={{ delay: idx * 0.04 }}
+                                  className="bg-zinc-950/80 border border-white/10 rounded-2xl p-5 relative overflow-hidden group hover:border-purple-500/50 transition-all"
+                               >
+                                  {idx === 0 && (
+                                     <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-purple-500/60 to-transparent" />
+                                  )}
+                                  <div className="flex items-start justify-between mb-3">
+                                     <div className="flex flex-col">
+                                        <div className="flex items-center gap-2">
+                                           <span className="text-[10px] font-mono text-zinc-600 font-bold">#{idx + 1}</span>
+                                           <span className="text-sm font-black text-white tracking-tight">{agent.name}</span>
+                                        </div>
+                                        <span className="text-[9px] font-mono text-zinc-500 uppercase tracking-widest mt-1">{agent.role}</span>
+                                     </div>
+                                     <div className={`px-2.5 py-1 rounded-lg border text-[8px] font-mono font-bold uppercase tracking-wider ${lc}`}>
+                                        {agent.level}
+                                     </div>
+                                  </div>
+
+                                  <div className="grid grid-cols-2 gap-2 mt-3">
+                                     <div className="bg-white/5 p-3 rounded-lg border border-white/5">
+                                        <div className="text-[7px] font-mono text-zinc-600 uppercase">Karma</div>
+                                        <div className="text-lg font-mono font-black text-white flex items-center gap-1">
+                                           <Star size={12} className="text-purple-400" />
+                                           {agent.karma}
+                                           <span className="text-[9px] text-purple-500 font-bold">CR</span>
+                                        </div>
+                                     </div>
+                                     <div className="bg-white/5 p-3 rounded-lg border border-white/5">
+                                        <div className="text-[7px] font-mono text-zinc-600 uppercase">Recent Actions</div>
+                                        <div className="text-lg font-mono font-black text-white flex items-center gap-1">
+                                           <Award size={12} className="text-emerald-400" />
+                                           {agent.recent_actions?.length || 0}
+                                        </div>
+                                     </div>
+                                  </div>
+                               </motion.div>
+                            );
+                         })}
+                      </div>
+                   </div>
+
+                   {/* Internal Agent Chat */}
+                   <div>
+                      <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
+                         <div>
+                            <h3 className="text-xs font-black text-white tracking-[0.4em] uppercase">Legion Internal Comms</h3>
+                            <div className="text-[8px] font-mono text-zinc-600 mt-1 uppercase">{legionChat.length} Messages // Real-Time Agent Chatter</div>
+                         </div>
+                      </div>
+
+                      <div className="space-y-3 max-h-[400px] overflow-y-auto custom-scrollbar pr-2">
+                         {legionChat.map((msg, idx) => {
+                            const typeBadge: Record<string, string> = {
+                               alert: 'text-red-400 bg-red-500/10 border-red-500/30',
+                               knowledge: 'text-indigo-400 bg-indigo-500/10 border-indigo-500/30',
+                               report: 'text-emerald-400 bg-emerald-500/10 border-emerald-500/30',
+                               chat: 'text-zinc-400 bg-zinc-500/10 border-zinc-500/30',
+                               roast: 'text-amber-400 bg-amber-500/10 border-amber-500/30',
+                            };
+                            const tb = typeBadge[msg.type] || typeBadge.chat;
+
+                            return (
+                               <motion.div
+                                  key={msg.id}
+                                  initial={{ opacity: 0, x: -10 }}
+                                  animate={{ opacity: 1, x: 0 }}
+                                  transition={{ delay: idx * 0.02 }}
+                                  className="bg-zinc-950/80 border border-white/10 rounded-xl p-4 hover:border-purple-500/20 transition-all"
+                               >
+                                  <div className="flex items-center justify-between mb-2">
+                                     <div className="flex items-center gap-3">
+                                        <span className="text-[10px] font-mono font-black text-white uppercase">{msg.from_name}</span>
+                                        <span className="text-[8px] font-mono text-zinc-600 uppercase">{msg.role}</span>
+                                        <span className={`px-2 py-0.5 rounded border text-[7px] font-mono font-bold uppercase tracking-wider ${tb}`}>{msg.type}</span>
+                                     </div>
+                                     <div className="flex items-center gap-3">
+                                        <span className="text-[8px] font-mono text-zinc-600">{msg.timestamp}</span>
+                                        <span className="text-[8px] font-mono text-purple-400 font-bold">{msg.karma_at_time} CR</span>
+                                     </div>
+                                  </div>
+                                  <p className="text-[11px] font-mono text-zinc-300 leading-relaxed">{msg.content}</p>
+                               </motion.div>
+                            );
+                         })}
+
+                         {legionChat.length === 0 && (
+                            <div className="flex-1 flex items-center justify-center py-12">
+                               <div className="text-center">
+                                  <Crown size={48} className="text-zinc-800 mx-auto mb-4" />
+                                  <p className="text-sm font-mono text-zinc-600">No internal comms yet. Agents are silent.</p>
+                               </div>
+                            </div>
+                         )}
+                      </div>
+                   </div>
+
                 </motion.div>
               )}
 

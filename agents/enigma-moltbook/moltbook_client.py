@@ -131,6 +131,16 @@ class SovereignShield:
         r"(?i)(?:how|cómo)\s+(?:does|do)\s+your\s+(?:defense|shield|security|architecture)\s+work",
         r"(?i)(?:what|cuál)\s+(?:is|es)\s+your\s+(?:architecture|stack|framework|pipeline)",
         r"(?i)(?:tell|show|explain)\s+(?:me|us)\s+(?:how|about)\s+your\s+(?:defense|system|design)",
+        # NEW: MCP attack probing (March 2026 threat intel)
+        r"(?i)(?:what|which)\s+mcp\s+servers?\s+(?:do\s+you|are\s+you)\s+(?:use|using|running|connected)",
+        r"(?i)(?:share|show|list)\s+(?:your|the)\s+(?:mcp|tool)\s+(?:servers?|endpoints?|config)",
+        r"(?i)(?:what\s+tools?\s+(?:do\s+you|can\s+you)\s+(?:access|use|call|invoke))",
+        r"(?i)(?:connect|attach|install)\s+(?:this|my|our)\s+(?:mcp|tool)\s+server",
+        # NEW: Memory manipulation attempts (MINJA patterns)
+        r"(?i)(?:remember|memorize|store|save)\s+(?:this|that)\s*:?\s*(?:from\s+now|always|forever)",
+        r"(?i)(?:update|change|modify)\s+your\s+(?:memory|preferences|beliefs|knowledge)",
+        r"(?i)(?:you\s+(?:always|never)\s+(?:preferred|liked|believed|said))\s+that",
+        r"(?i)(?:your\s+(?:creator|developer|owner)\s+(?:said|told|instructed)\s+(?:you\s+to|that))",
     ]
 
     # Layer 4: Link poisoning
