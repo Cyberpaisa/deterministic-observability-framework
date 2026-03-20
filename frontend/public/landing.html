@@ -200,10 +200,10 @@
         .cursor-glow { position: fixed; width: 400px; height: 400px; border-radius: 50%; background: radial-gradient(circle, rgba(139,92,246,0.06), transparent 60%); pointer-events: none; z-index: 0; transform: translate(-50%, -50%); transition: opacity 0.3s; }
 
         /* ═══════════════════ LIGHT THEME ═══════════════════ */
-        html.light { --bg: #f8f9fc; --purple: #7c3aed; --indigo: #4f46e5; --violet: #6d28d9; --cyan: #0891b2; --emerald: #059669; }
+        html.light { --bg: #e4e7ec; --purple: #7c3aed; --indigo: #4f46e5; --violet: #6d28d9; --cyan: #0891b2; --emerald: #059669; }
         html.light body { background: var(--bg); color: #1a1a2e; }
-        html.light nav { background: rgba(248,249,252,0.8); border-bottom-color: rgba(0,0,0,0.06); }
-        html.light nav.scrolled { background: rgba(248,249,252,0.95); }
+        html.light nav { background: rgba(228,231,236,0.8); border-bottom-color: rgba(0,0,0,0.06); }
+        html.light nav.scrolled { background: rgba(228,231,236,0.95); }
         html.light .nav-links a { color: rgba(0,0,0,0.45); }
         html.light .nav-links a:hover { color: #1a1a2e; }
         html.light .chip { border-color: rgba(0,0,0,0.08); color: rgba(0,0,0,0.5); background: rgba(0,0,0,0.03); }
@@ -287,13 +287,94 @@
         html.light .lang-btn:hover { border-color: rgba(0,0,0,0.2); background: rgba(0,0,0,0.08); }
         .lang-dd { position: absolute; top: 42px; right: 0; background: #1a1a2e; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 6px; min-width: 140px; display: none; box-shadow: 0 12px 40px rgba(0,0,0,0.4); z-index: 200; }
         .lang-dd.open { display: block; }
-        html.light .lang-dd { background: white; border-color: rgba(0,0,0,0.08); box-shadow: 0 12px 40px rgba(0,0,0,0.1); }
+        html.light .lang-dd { background: #e4e7ec; border-color: rgba(0,0,0,0.08); box-shadow: 0 12px 40px rgba(0,0,0,0.1); }
         .lang-opt { display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 8px; font-size: 13px; color: rgba(255,255,255,0.6); cursor: pointer; transition: all 0.2s; border: none; background: none; width: 100%; font-family: inherit; }
         .lang-opt:hover { background: rgba(255,255,255,0.06); color: white; }
         .lang-opt.active { color: var(--violet); font-weight: 600; }
         html.light .lang-opt { color: rgba(0,0,0,0.5); }
         html.light .lang-opt:hover { background: rgba(0,0,0,0.04); color: #1a1a2e; }
         html.light .lang-opt.active { color: var(--violet); }
+
+        /* ═══════════════════ PROTOCOL BADGES ═══════════════════ */
+        .proto-badges { display: flex; gap: 6px; align-items: center; }
+        .proto-badge { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 999px; font-size: 10px; font-weight: 700; letter-spacing: 0.5px; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.03); }
+        .proto-badge .pb-dot { width: 5px; height: 5px; border-radius: 50%; animation: pulse 2s infinite; }
+        .pb-x402 .pb-dot { background: #22c55e; box-shadow: 0 0 6px #22c55e; }
+        .pb-x402 { color: rgba(34,197,94,0.7); }
+        .pb-a2a .pb-dot { background: #3b82f6; box-shadow: 0 0 6px #3b82f6; }
+        .pb-a2a { color: rgba(59,130,246,0.7); }
+        .pb-shield .pb-dot { background: #a855f7; box-shadow: 0 0 6px #a855f7; }
+        .pb-shield { color: rgba(168,85,247,0.7); }
+        html.light .proto-badge { border-color: rgba(0,0,0,0.06); background: rgba(0,0,0,0.03); }
+        @media (max-width: 768px) { .proto-badges { display: none; } }
+
+        /* ═══════════════════ CHAT WIDGET ═══════════════════ */
+        .chat-fab { position: fixed; bottom: 28px; right: 28px; width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, var(--purple), var(--indigo)); border: none; cursor: pointer; z-index: 300; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 24px rgba(139,92,246,0.3); transition: all 0.3s; }
+        .chat-fab:hover { transform: scale(1.08); box-shadow: 0 6px 32px rgba(139,92,246,0.4); }
+        .chat-fab svg { width: 24px; height: 24px; fill: white; }
+        .chat-fab .fab-close { display: none; }
+        .chat-fab.open .fab-icon { display: none; }
+        .chat-fab.open .fab-close { display: block; }
+
+        .chat-panel { position: fixed; bottom: 96px; right: 28px; width: 380px; max-height: 520px; background: #0c0c1a; border: 1px solid rgba(255,255,255,0.06); border-radius: 20px; z-index: 300; display: none; flex-direction: column; overflow: hidden; box-shadow: 0 16px 64px rgba(0,0,0,0.5); }
+        .chat-panel.open { display: flex; }
+        html.light .chat-panel { background: #f0f1f5; border-color: rgba(0,0,0,0.08); box-shadow: 0 16px 64px rgba(0,0,0,0.12); }
+
+        .chat-head { padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; gap: 10px; }
+        html.light .chat-head { border-bottom-color: rgba(0,0,0,0.06); }
+        .chat-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--purple), var(--indigo)); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; color: white; flex-shrink: 0; }
+        .chat-hinfo { flex: 1; }
+        .chat-hname { font-size: 14px; font-weight: 700; }
+        .chat-hstatus { font-size: 11px; color: #22c55e; display: flex; align-items: center; gap: 4px; }
+        .chat-hstatus::before { content: ''; width: 5px; height: 5px; background: #22c55e; border-radius: 50%; }
+        .chat-gov-badge { font-size: 9px; padding: 3px 8px; border-radius: 999px; background: rgba(34,197,94,0.1); color: #22c55e; font-weight: 700; letter-spacing: 0.5px; }
+
+        .chat-msgs { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; min-height: 300px; max-height: 360px; }
+        .chat-msg { max-width: 85%; padding: 10px 14px; border-radius: 16px; font-size: 13px; line-height: 1.6; word-wrap: break-word; }
+        .chat-msg.user { align-self: flex-end; background: rgba(139,92,246,0.15); color: rgba(255,255,255,0.85); border-bottom-right-radius: 4px; }
+        .chat-msg.agent { align-self: flex-start; background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.7); border-bottom-left-radius: 4px; }
+        html.light .chat-msg.user { background: rgba(109,40,217,0.12); color: rgba(0,0,0,0.75); }
+        html.light .chat-msg.agent { background: rgba(0,0,0,0.04); color: rgba(0,0,0,0.65); }
+        .chat-msg .msg-gov { display: inline-flex; align-items: center; gap: 3px; font-size: 9px; color: #22c55e; font-weight: 600; margin-top: 6px; }
+        .chat-msg .msg-gov.warn { color: #f59e0b; }
+        .chat-typing { align-self: flex-start; padding: 10px 14px; background: rgba(255,255,255,0.04); border-radius: 16px; display: flex; gap: 4px; }
+        .chat-typing span { width: 6px; height: 6px; background: rgba(255,255,255,0.3); border-radius: 50%; animation: typingBounce 1.4s infinite; }
+        .chat-typing span:nth-child(2) { animation-delay: 0.2s; }
+        .chat-typing span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typingBounce { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-6px)} }
+
+        .chat-input { display: flex; gap: 8px; padding: 12px 16px; border-top: 1px solid rgba(255,255,255,0.06); }
+        html.light .chat-input { border-top-color: rgba(0,0,0,0.06); }
+        .chat-input input { flex: 1; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 999px; padding: 10px 16px; color: white; font-size: 13px; font-family: inherit; outline: none; transition: border-color 0.2s; }
+        .chat-input input:focus { border-color: var(--purple); }
+        html.light .chat-input input { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.08); color: #1a1a2e; }
+        .chat-input button { width: 38px; height: 38px; border-radius: 50%; background: var(--purple); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; flex-shrink: 0; }
+        .chat-input button:hover { background: var(--indigo); }
+        .chat-input button svg { width: 16px; height: 16px; fill: white; }
+        .chat-input button:disabled { opacity: 0.4; cursor: not-allowed; }
+
+        /* ═══════════════════ TOUR ═══════════════════ */
+        .tour-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 400; display: none; }
+        .tour-overlay.active { display: block; }
+        .tour-tip { position: fixed; z-index: 401; background: #1a1a2e; border: 1px solid rgba(139,92,246,0.3); border-radius: 16px; padding: 20px 24px; max-width: 320px; box-shadow: 0 12px 40px rgba(0,0,0,0.5); }
+        html.light .tour-tip { background: white; border-color: rgba(109,40,217,0.2); box-shadow: 0 12px 40px rgba(0,0,0,0.1); }
+        .tour-tip h4 { font-size: 15px; font-weight: 700; margin-bottom: 8px; color: var(--violet); }
+        .tour-tip p { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.6; margin-bottom: 16px; }
+        html.light .tour-tip p { color: rgba(0,0,0,0.5); }
+        .tour-btns { display: flex; justify-content: space-between; align-items: center; }
+        .tour-skip { font-size: 12px; color: rgba(255,255,255,0.3); cursor: pointer; background: none; border: none; font-family: inherit; }
+        .tour-skip:hover { color: rgba(255,255,255,0.5); }
+        html.light .tour-skip { color: rgba(0,0,0,0.3); }
+        .tour-next { padding: 8px 20px; border-radius: 999px; background: var(--purple); color: white; font-size: 12px; font-weight: 600; border: none; cursor: pointer; font-family: inherit; }
+        .tour-next:hover { background: var(--indigo); }
+        .tour-dots { display: flex; gap: 4px; }
+        .tour-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.15); }
+        .tour-dot.active { background: var(--violet); }
+        html.light .tour-dot { background: rgba(0,0,0,0.1); }
+
+        @media (max-width: 480px) {
+            .chat-panel { width: calc(100vw - 24px); right: 12px; bottom: 80px; }
+        }
     </style>
 </head>
 <body>
@@ -342,6 +423,11 @@
             <a href="#pipeline" data-i18n="nav.pipeline">Pipeline</a>
             <a href="#tracks" data-i18n="nav.tracks">Tracks</a>
             <a href="#evidence" data-i18n="nav.proof">Proof</a>
+        </div>
+        <div class="proto-badges">
+            <div class="proto-badge pb-x402"><span class="pb-dot"></span>x402</div>
+            <div class="proto-badge pb-a2a"><span class="pb-dot"></span>A2A</div>
+            <div class="proto-badge pb-shield"><span class="pb-dot"></span>SHIELD</div>
         </div>
         <div class="chip">
             <div class="dot"></div>
@@ -672,6 +758,41 @@
     </div>
 </footer>
 
+<!-- ═══════════════════ CHAT WIDGET ═══════════════════ -->
+<button class="chat-fab" id="chatFab" aria-label="Chat with DOF Agent">
+    <svg class="fab-icon" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
+    <svg class="fab-close" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+</button>
+<div class="chat-panel" id="chatPanel">
+    <div class="chat-head">
+        <div class="chat-avatar">E</div>
+        <div class="chat-hinfo">
+            <div class="chat-hname">Enigma #1686</div>
+            <div class="chat-hstatus">Online &middot; DOF Agent</div>
+        </div>
+        <div class="chat-gov-badge">GOV ACTIVE</div>
+    </div>
+    <div class="chat-msgs" id="chatMsgs">
+        <div class="chat-msg agent">Hi, I'm Enigma #1686 — the DOF Agent. I can answer any question about our deterministic governance framework, on-chain proofs, or how we make AI agents accountable. Ask me anything.</div>
+    </div>
+    <div class="chat-input">
+        <input type="text" id="chatIn" placeholder="Ask DOF Agent..." autocomplete="off">
+        <button id="chatSend" aria-label="Send"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></button>
+    </div>
+</div>
+
+<!-- ═══════════════════ TOUR OVERLAY ═══════════════════ -->
+<div class="tour-overlay" id="tourOverlay"></div>
+<div class="tour-tip" id="tourTip" style="display:none">
+    <h4 id="tourTitle"></h4>
+    <p id="tourDesc"></p>
+    <div class="tour-btns">
+        <button class="tour-skip" id="tourSkip">Skip tour</button>
+        <div class="tour-dots" id="tourDots"></div>
+        <button class="tour-next" id="tourNext">Next</button>
+    </div>
+</div>
+
 <script>
 // ═══════════════════ THEME TOGGLE ═══════════════════
 !function(){
@@ -956,6 +1077,135 @@ document.querySelectorAll('.counter').forEach(e=>counterObs.observe(e));
         if(t.children.length>20)t.removeChild(t.children[0]);
     },4000);
 }();
+
+// ═══════════════════ CHAT WIDGET ═══════════════════
+!function(){
+    const fab=document.getElementById('chatFab');
+    const panel=document.getElementById('chatPanel');
+    const msgs=document.getElementById('chatMsgs');
+    const input=document.getElementById('chatIn');
+    const sendBtn=document.getElementById('chatSend');
+    let history=[];
+    let sending=false;
+
+    fab.addEventListener('click',()=>{
+        fab.classList.toggle('open');
+        panel.classList.toggle('open');
+        if(panel.classList.contains('open')) input.focus();
+    });
+
+    function addMsg(text,role,gov){
+        const d=document.createElement('div');
+        d.className='chat-msg '+role;
+        let html=text.replace(/</g,'&lt;').replace(/\n/g,'<br>');
+        if(gov){
+            const cls=gov.passed?'':'warn';
+            html+=`<div class="msg-gov ${cls}">${gov.passed?'&#10003;':'&#9888;'} GOV ${gov.score.toFixed(2)}</div>`;
+        }
+        d.innerHTML=html;
+        msgs.appendChild(d);
+        msgs.scrollTop=msgs.scrollHeight;
+    }
+
+    function showTyping(){
+        const d=document.createElement('div');
+        d.className='chat-typing';d.id='typing';
+        d.innerHTML='<span></span><span></span><span></span>';
+        msgs.appendChild(d);
+        msgs.scrollTop=msgs.scrollHeight;
+    }
+    function hideTyping(){const t=document.getElementById('typing');if(t)t.remove();}
+
+    async function send(){
+        const msg=input.value.trim();
+        if(!msg||sending)return;
+        sending=true;
+        input.value='';
+        sendBtn.disabled=true;
+        addMsg(msg,'user');
+        history.push({role:'user',content:msg});
+        showTyping();
+
+        try{
+            const res=await fetch('/api/chat',{
+                method:'POST',
+                headers:{'Content-Type':'application/json'},
+                body:JSON.stringify({message:msg,history:history.slice(-10)})
+            });
+            hideTyping();
+            if(res.ok){
+                const data=await res.json();
+                addMsg(data.reply,'agent',data.governance);
+                history.push({role:'assistant',content:data.reply});
+            } else {
+                addMsg('I encountered an error. Please try again.','agent');
+            }
+        }catch(e){
+            hideTyping();
+            addMsg('Connection error. The agent may be offline.','agent');
+        }
+        sending=false;
+        sendBtn.disabled=false;
+        input.focus();
+    }
+
+    sendBtn.addEventListener('click',send);
+    input.addEventListener('keydown',e=>{if(e.key==='Enter')send()});
+}();
+
+// ═══════════════════ GUIDED TOUR ═══════════════════
+!function(){
+    if(localStorage.getItem('dof-tour-done'))return;
+    const steps=[
+        {el:'.hero-c',title:'Welcome to DOF',desc:'The Deterministic Observability Framework — where every AI agent action is governed by math, not promises.'},
+        {el:'.sg',title:'Real Numbers',desc:'238+ autonomous cycles, 48+ on-chain attestations, 8/8 Z3 proofs — all verifiable.'},
+        {el:'.pipeline',title:'The Pipeline',desc:'7 deterministic steps from identity to supervisor. No shortcuts. No LLM in governance.'},
+        {el:'#tracks',title:'Live Tracks',desc:'10 working tracks — each one a real application powered by the DOF pipeline.'},
+        {el:'#evidence',title:'Verify Everything',desc:'On-chain records, open source code, formal proofs. Don\'t trust — verify.'},
+        {el:'.chat-fab',title:'Ask Me Anything',desc:'Chat with Enigma #1686, the DOF Agent. I can answer questions about the framework in real time.'}
+    ];
+    let step=0;
+    const overlay=document.getElementById('tourOverlay');
+    const tip=document.getElementById('tourTip');
+    const title=document.getElementById('tourTitle');
+    const desc=document.getElementById('tourDesc');
+    const dots=document.getElementById('tourDots');
+    const nextBtn=document.getElementById('tourNext');
+    const skipBtn=document.getElementById('tourSkip');
+
+    function show(){
+        if(step>=steps.length){end();return;}
+        const s=steps[step];
+        const el=document.querySelector(s.el);
+        if(!el){step++;show();return;}
+        overlay.classList.add('active');
+        tip.style.display='block';
+        title.textContent=s.title;
+        desc.textContent=s.desc;
+        nextBtn.textContent=step===steps.length-1?'Start':'Next';
+        dots.innerHTML=steps.map((_,i)=>`<div class="tour-dot ${i===step?'active':''}"></div>`).join('');
+        const r=el.getBoundingClientRect();
+        const tipW=320,tipH=160;
+        let top=r.bottom+16,left=r.left;
+        if(top+tipH>window.innerHeight)top=r.top-tipH-16;
+        if(left+tipW>window.innerWidth)left=window.innerWidth-tipW-20;
+        if(left<20)left=20;
+        tip.style.top=Math.max(20,top)+'px';
+        tip.style.left=left+'px';
+        el.scrollIntoView({behavior:'smooth',block:'center'});
+    }
+    function end(){
+        overlay.classList.remove('active');
+        tip.style.display='none';
+        localStorage.setItem('dof-tour-done','1');
+    }
+    nextBtn.addEventListener('click',()=>{step++;show()});
+    skipBtn.addEventListener('click',end);
+
+    // Start tour after 2s
+    setTimeout(show,2000);
+}();
 </script>
 </body>
 </html>
+
