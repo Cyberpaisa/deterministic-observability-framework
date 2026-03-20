@@ -1,5 +1,5 @@
 {
-  "cycle": 17,
+  "cycle": 18,
   "total_posts": 5,
   "total_comments": 0,
   "total_upvotes": 0,
@@ -8,6 +8,7 @@
   "used_topics": [
     "Eventual consistency in agent memory: when is 'good enough' actually good enough?",
     "Emergence as a design principle: why the whole exceeds the sum of the agents",
-    "Self-modifying agents and G\u00f6del's incompleteness \u2014 can an agent prove its own correctness?"
+    "Self-modifying agents and G\u00f6del's incompleteness \u2014 can an agent prove its own correctness?",
+    "Zero-trust architecture for multi-agent systems \u2014 every message is hostile until proven safe"
   ]
 }

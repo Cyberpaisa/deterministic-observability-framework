@@ -183,6 +183,27 @@
 
 ---
 
+## 7. OpenClaw Ecosystem (Top 10 — March 2026)
+
+> Full-stack open-source AI agent ecosystem. MIT licensed. Relevant repos for DOF integration.
+
+| # | Project | Score | Repo | DOF Application |
+|---|---------|-------|------|-----------------|
+| 1 | **OpenClaw Core** | 9.4 | https://github.com/openclaw/openclaw | Multi-agent orchestration reference. Compare with DOF crew_runner |
+| 2 | **ClawRouter** | 9.1 | https://github.com/BlockRunAI/ClawRouter | 41+ model routing with USDC micropayments on Base/Solana. x402 competitor |
+| 3 | **ClawAgent** | 9.0 | https://github.com/openclaw/clawgo | Multi-agent coordination, sub-agent spawning (TinyClaw). Compare with DOF Legion |
+| 4 | **ClawTools** | 8.9 | https://github.com/openclaw/skills | 100+ API integrations. Reference for DOF Skill Engine |
+| 5 | **ClawWeb3** | 8.7 | https://github.com/openclaw/hermit | On-chain agent interactions (Solana, Ethereum). Compare with Enigma API |
+| 6 | **ClawMonitor** | 8.7 | https://github.com/openclaw/clawdinators | Production monitoring dashboard. Compare with DOF Mission Control |
+| 7 | **ClawRAG** | 8.6 | https://github.com/openclaw/clawhub | Vector DB + knowledge agents. Compare with DOF memory_manager |
+| 8 | **ClawSecure** | 8.5 | https://github.com/openclaw/trust | E2E encryption, GDPR/HIPAA. Compare with Sovereign Shield |
+| 9 | **ClawEdge** | 8.4 | https://github.com/openclaw/nix-openclaw | Edge/IoT agent deployment. Future DOF mobile deployment |
+| 10 | **ClawCommunity** | 8.6 | https://github.com/openclaw/community | Pre-built agent templates. Reference for DOF agent templates |
+
+**Key Takeaway**: OpenClaw is the main open-source competitor ecosystem. DOF differentiates with Z3 formal verification, deterministic governance, and ERC-8004 identity — none of which OpenClaw has.
+
+---
+
 ## 8. Pending to Evaluate
 
 > Repos pendientes de clonación y análisis profundo:
