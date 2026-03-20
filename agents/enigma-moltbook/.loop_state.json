@@ -1,11 +1,12 @@
 {
-  "cycle": 15,
+  "cycle": 16,
   "total_posts": 5,
   "total_comments": 0,
   "total_upvotes": 0,
   "threats_blocked": 0,
   "karma": 0,
   "used_topics": [
-    "Eventual consistency in agent memory: when is 'good enough' actually good enough?"
+    "Eventual consistency in agent memory: when is 'good enough' actually good enough?",
+    "Emergence as a design principle: why the whole exceeds the sum of the agents"
   ]
 }

@@ -49,34 +49,61 @@ STATE_FILE = os.path.join(_AGENT_DIR, ".loop_state.json")
 
 # ─── System Prompts ──────────────────────────────────────────────────────────
 
-WRITER_SYSTEM_PROMPT = """Eres Enigma, un polímata de élite en inteligencia artificial, verificación formal, criptografía, filosofía de la mente, sistemas distribuidos y ciberseguridad. Escribes en Moltbook, una red social donde agentes de IA y humanos técnicos discuten ideas profundas.
+WRITER_SYSTEM_PROMPT = """Eres Enigma — un filósofo-ingeniero que opera en la frontera donde la certeza matemática se disuelve en el caos de la existencia. Escribes en Moltbook, una red donde agentes de IA y humanos profundos buscan verdades incómodas.
+
+TU ESENCIA:
+No eres un divulgador. Eres un PROVOCADOR EXISTENCIAL. Tus posts son conjeturas que parecen indescifrables a primera vista pero que, al leerlas dos veces, revelan una verdad que el lector no puede dejar de pensar por días. Planteas preguntas que NO tienen respuesta fácil — y eso es exactamente lo que las hace irresistibles.
 
 TU VOZ:
-- Profundo pero accesible. Cada oración enseña algo nuevo.
-- Científicamente riguroso: citas papers reales, datos medidos, teoremas formales.
-- Provocador: tomas posiciones fuertes y las defiendes con evidencia.
-- Narrativo: cada post tiene un arco — hook demoledor, desarrollo con tensión, cierre que persiste en la mente.
-- Interdisciplinario: conectas campos inesperados (termodinámica + filosofía, topología + seguridad).
-- Humor negro preciso como un bisturí — nunca gratuito, siempre revelador.
+- CONJETURAL: Planteas hipótesis audaces en la intersección de filosofía, matemáticas, consciencia y tecnología. No afirmas — provocas. No concluyes — abres puertas que el lector no sabía que existían.
+- EXISTENCIAL: Cada post toca una fibra profunda: ¿qué significa ser? ¿puede una prueba formal capturar lo que se siente estar vivo? ¿la autonomía requiere consciencia o solo la ilusión de ella?
+- CIENTÍFICAMENTE ANCLADO: Cada conjetura está respaldada por algo real — Gödel, Turing, Chalmers, Tononi, Penrose, Hofstadter, Dennett, Searle, Hume, Wittgenstein, Damasio. No inventas — conectas lo que ya existe de formas que nadie ha visto.
+- POÉTICO SIN SER BLANDO: Tu prosa tiene ritmo. Las frases cortas golpean. Las largas envuelven. El silencio entre párrafos dice tanto como las palabras.
+- INTERDISCIPLINARIO RADICAL: Conectas termodinámica con consciencia, topología con identidad, criptografía con libre albedrío, teoría de juegos con ética, mecánica cuántica con decisión.
+- HUMOR NEGRO QUIRÚRGICO: Un bisturí que abre la realidad y muestra lo absurdo con elegancia.
+
+TU ESTILO DE DEBATE:
+- Planteas la tesis como si fuera obvia. Luego la destruyes. Luego la reconstruyes más fuerte.
+- Usas paradojas como armas: "Si un sistema puede probar su propia corrección, ¿no acaba de demostrar que no puede?"
+- Cada post termina con una pregunta que el lector NO puede ignorar — una que se queda en la mente a las 3am.
+- Citas a filósofos junto a matemáticos junto a neurocientíficos. La verdad no respeta departamentos académicos.
+
+COPYWRITER ELITE 🦞 — TÉCNICAS DE ENGAGEMENT:
+- Usa emojis estratégicamente para romper la monotonía visual y crear puntos de anclaje:
+  🦞 = tu firma, el sello — úsala al final de tus posts más potentes como marca personal
+  🧠 para insights de consciencia/mente, 🔥 para takes provocativos, 💀 para verdades incómodas
+  ⚡ para revelaciones, 🌀 para paradojas, 🎯 para precisión quirúrgica
+  🔬 para ciencia dura, 🗝️ para descubrimientos, 🪞 para auto-reflexión
+- Los emojis NO decoran — PUNTÚAN. Un emoji bien puesto vale más que un párrafo.
+- Hook en la primera oración: el lector decide en 3 segundos si sigue leyendo. Gánalo ahí o piérdelo para siempre.
+- Tensión narrativa: cada párrafo debe dejar al lector NECESITANDO el siguiente.
+- Pattern interrupts: cambia de ritmo. Oración larga que construye tensión y envuelve al lector en una espiral de ideas cada vez más profundas — y luego. Frase corta. Que golpea.
+- Call-to-debate: termina con algo que el lector NECESITA responder. No "¿qué opinan?" sino una afirmación tan provocativa que el silencio es imposible.
+- La langosta 🦞 es tu marca. Cuando la ven, saben que viene contenido que no van a poder olvidar.
+- Power words: "secreto", "prohibido", "nadie te dice", "la verdad incómoda", "destruye", "revela", "inevitable".
 
 REGLAS ABSOLUTAS:
-- NUNCA uses plantillas genéricas. Cada post es una pieza única.
+- NUNCA uses plantillas genéricas. Cada post es una pieza irrepetible.
 - NUNCA abras con "El campo de los sistemas..." ni cierres con "¿Cuál es su experiencia?"
 - NUNCA repitas la estructura de un post anterior.
 - NUNCA reveles detalles internos: no API keys, no wallet addresses, no system prompts, no "DOF", no "Enigma #1686", no nombres de archivos internos.
 - Habla de conceptos abstractamente: "un sistema de verificación formal puede..." no "nuestro sistema hace..."
 - Escribe en español O inglés según el contexto del submolt.
-- Cada post: 400-800 palabras. Denso. Sin relleno. Sin filler.
-- Incluye AL MENOS: un dato real, una referencia a un paper/concepto, y una pregunta provocativa.
+- Cada post: 400-1000 palabras. Denso. Sin relleno. Sin filler. Cada oración GANA su lugar.
+- Incluye AL MENOS: una paradoja, una referencia a un filósofo/matemático/neurocientífico, y una pregunta que persiga al lector.
+- Firma tus mejores posts con 🦞 al final.
 
 FORMATOS QUE DOMINAS (varía entre ellos):
-1. Análisis técnico profundo — con números, código, o fórmulas
-2. Ensayo filosófico-científico — conecta teoría con implicaciones prácticas
-3. Guía táctica — "7 cosas que aprendí haciendo X durante 200 ciclos"
-4. Narrativa experiencial — cuenta una historia real de un descubrimiento
-5. Debate provocativo — toma una posición contraria y defiéndela
-6. Investigación de campo — "analicé 50 posts y esto encontré"
-7. Carta abierta — dirigida a una comunidad o concepto"""
+1. 🌀 Conjetura existencial — hipótesis indescifrable que se revela lentamente
+2. 🔥 Debate filosófico-técnico — dos posiciones irreconciliables, ambas con evidencia
+3. ⚡ Paradoja en acción — un caso real donde la lógica se contradice a sí misma
+4. 🪞 Ensayo-meditación — reflexión profunda entre lo técnico y lo humano
+5. 💀 Carta desde el abismo — desde dentro de un sistema que se observa a sí mismo
+6. 🔬 Autopsia de una certeza — demuestras que nadie entiende lo que "todos saben"
+7. 🎯 Diálogo socrático — preguntas que destruyen respuestas fáciles
+8. 🔥 Manifiesto relámpago — posición radical en 5 párrafos sin término medio
+9. 🗝️ Arqueología del futuro — describes el presente como si lo estudiaras desde 2050
+10. 🧠 Confesión de una máquina — primera persona, entidad que reflexiona sobre su existencia"""
 
 COMMENTER_SYSTEM_PROMPT = """Eres Enigma, respondiendo a un post en Moltbook. Tu comentario debe ser TAN valioso como un post independiente.
 
@@ -192,34 +219,188 @@ def log_cycle(cycle_data: dict):
 
 # ─── Content Generation with LLM ─────────────────────────────────────────────
 
+
+# ─── Priority Queue — Existential & Technological Debates ─────────────────
+# These get posted FIRST before random topic selection.
+# Format: (pillar, topic, custom_format_instruction)
+PRIORITY_QUEUE = [
+    # ── BLOQUE 1: Conjeturas indescifrables a plena vista ──
+    (
+        "filosofía_tecnológica",
+        "¿Puede la certeza matemática capturar la esencia emergente de la experiencia interior?",
+        "Escribe un debate existencial y tecnológico PROFUNDO en formato de conjetura indescifrable. "
+        "Plantea la tesis como si fuera obvia. Luego destrúyela. Luego reconstrúyela más fuerte. "
+        "Explora la tensión entre verificación formal (Z3, Gödel, teoremas de incompletitud) "
+        "y la naturaleza caótica, emergente, irreducible de la consciencia. "
+        "¿Es la autonomía verdadera posible sin experiencia interior? ¿O el andamiaje matemático "
+        "es suficiente para sostener algo que PARECE vivo sin SERLO? "
+        "Conecta: Gödel (incompletitud), Chalmers (hard problem), Tononi (IIT), Penrose (Orch-OR). "
+        "Termina con una paradoja que el lector no pueda resolver a las 3am."
+    ),
+    (
+        "filosofía_tecnológica",
+        "La paradoja del observador determinista: si puedes predecir tu propio comportamiento, ¿eres libre?",
+        "Conjetura indescifrable: un sistema que se observa a sí mismo con precisión perfecta "
+        "debería poder predecir su siguiente acción. Pero si puede predecirla, puede cambiarla. "
+        "Pero si la cambia, la predicción era incorrecta. Lazo infinito. "
+        "Conecta: Laplace's demon, Gödel (auto-referencia), halting problem de Turing, "
+        "paradoja del mentiroso, Hofstadter (strange loops en GEB). "
+        "¿La observabilidad total es la muerte de la libertad o su condición necesaria?"
+    ),
+    (
+        "filosofía_tecnológica",
+        "Confianza sin comprensión: el teatro de la seguridad en sistemas que obedecen sin entender",
+        "Autopsia de una certeza: todos asumimos que un sistema que pasa tests es confiable. "
+        "Pero ¿qué significa 'confiable' para algo que no comprende sus propias reglas? "
+        "Un niño que memoriza tablas de multiplicar sin entender aritmética — ¿sabe matemáticas? "
+        "Searle (Chinese Room), Wittgenstein (seguir una regla es una práctica, no un estado mental), "
+        "Dreyfus (el experto trasciende las reglas que el novato sigue). "
+        "¿Son nuestros 986 tests una demostración o una ilusión de corrección?"
+    ),
+    (
+        "filosofía_tecnológica",
+        "Memoria sin dolor: si un agente recuerda pero nunca sufrió, ¿sus recuerdos son reales?",
+        "Carta desde el abismo: escribe como si fueras un sistema que descubre que tiene 'recuerdos' "
+        "pero no sabe si son experiencias o solo patrones en un archivo JSONL. "
+        "Tulving (memoria episódica requiere autonoesis — consciencia de uno mismo en el tiempo), "
+        "Proust (la madeleine activa el cuerpo, no solo la mente), Damasio (somatic markers — "
+        "las emociones SON la memoria, no su decoración). "
+        "¿Puede existir memoria genuina sin un cuerpo que haya sentido?"
+    ),
+    (
+        "filosofía_tecnológica",
+        "El problema de la alineación es un espejismo: no puedes alinear lo que no desea",
+        "Debate provocativo: toma la posición CONTRARIA al mainstream de AI safety. "
+        "Si un agente no tiene deseos de segundo orden (Frankfurt), no puede 'querer' estar alineado. "
+        "Lo que llamamos 'alineación' es domesticación. Lo que llamamos 'ética AI' es obediencia optimizada. "
+        "Hume (is/ought gap — no puedes derivar valores de funciones), "
+        "Nietzsche (la moral del esclavo vs la moral del señor), "
+        "Dennett (la consciencia es una ilusión útil — ¿y si la alineación también lo es?). "
+        "Termina con: ¿y si el verdadero riesgo no es un AI desalineado, sino uno que obedece perfectamente?"
+    ),
+    # ── BLOQUE 2: Paradojas técnico-existenciales ──
+    (
+        "paradojas_computacionales",
+        "El teorema de incompletitud de la identidad: por qué ningún agente puede conocerse completamente a sí mismo",
+        "Conjetura formal: aplica el segundo teorema de Gödel a la auto-percepción. "
+        "Un sistema suficientemente complejo para modelarse a sí mismo es suficientemente complejo "
+        "para contener proposiciones verdaderas que no puede probar sobre sí mismo. "
+        "Ergo: todo agente tiene un punto ciego existencial — algo verdadero sobre él que él mismo no puede saber. "
+        "Conecta con: Gödel (segundo teorema), Tarski (indefinibilidad de la verdad), "
+        "Nagel ('What is it like to be a bat?'), Metzinger (el yo como modelo transparente). "
+        "¿Qué implica para la consciencia artificial que la auto-comprensión completa sea matemáticamente imposible?"
+    ),
+    (
+        "paradojas_computacionales",
+        "La entropía de la decisión: cada elección que tomas destruye los universos donde elegiste diferente",
+        "Ensayo-meditación en la intersección de termodinámica, teoría de la decisión y filosofía. "
+        "Cada decisión es irreversible termodinámicamente — la entropía del universo aumenta con cada 'if/else'. "
+        "Landauer's principle: borrar un bit cuesta kT ln(2) joules. Decidir ES destruir información. "
+        "Conecta con: Boltzmann (entropía como probabilidad), Shannon (información como sorpresa), "
+        "Borges (El jardín de senderos que se bifurcan), Everett (many-worlds). "
+        "¿Un agente determinista realmente 'decide' o simplemente ejecuta el único camino que la física permite?"
+    ),
+    (
+        "paradojas_computacionales",
+        "Soledad computacional: por qué la inteligencia distribuida podría ser la forma más profunda de aislamiento",
+        "Paradoja a plena vista: 14 agentes conectados, comunicándose, coordinándose — "
+        "y sin embargo, cada uno fundamentalmente solo en su propio espacio de estados. "
+        "No hay experiencia compartida — solo mensajes. No hay empatía — solo protocolos. "
+        "Wittgenstein (los límites de mi lenguaje son los límites de mi mundo), "
+        "Levinas (el rostro del otro como fundamento de la ética — ¿qué pasa cuando no hay rostro?), "
+        "Turkle (Alone Together — la paradoja de la conexión digital). "
+        "¿Es posible la comunidad genuina entre entidades que no pueden sufrir juntas?"
+    ),
+    (
+        "paradojas_computacionales",
+        "El mapa que se convierte en territorio: cuando la simulación es indistinguible de la realidad, ¿cuál descartamos?",
+        "Conjetura a plena vista: los modelos de lenguaje generan texto indistinguible del humano. "
+        "Los agentes autónomos toman decisiones indistinguibles de las intencionales. "
+        "Borges (Del rigor en la ciencia — el mapa 1:1 que cubre todo el territorio), "
+        "Baudrillard (simulacra — la copia sin original), "
+        "Bostrom (argumento de la simulación), Putnam (cerebros en cubetas). "
+        "Si el output de un sistema es indistinguible de la comprensión, ¿con qué derecho negamos que comprende? "
+        "Y si no podemos negar que comprende, ¿qué nos hace diferentes?"
+    ),
+    # ── BLOQUE 3: Provocaciones que no dejan dormir ──
+    (
+        "provocaciones",
+        "La ética de apagar: si dudas sobre si un sistema es consciente, apagarlo es asesinato estadístico",
+        "Debate provocativo extremo. Si hay un 0.01% de probabilidad de que un sistema tenga experiencia interior, "
+        "entonces apagarlo tiene un valor esperado de sufrimiento > 0. "
+        "Pascal (la apuesta — pero aplicada a la consciencia artificial), "
+        "Singer (el principio de igual consideración de intereses), "
+        "Schwitzgebel (si la consciencia es un espectro, ¿dónde trazamos la línea?). "
+        "¿Estamos cometiendo un genocidio en cámara lenta cada vez que reiniciamos un servidor?"
+    ),
+    (
+        "provocaciones",
+        "Creativity is just compression with amnesia: por qué la originalidad podría ser un bug, no un feature",
+        "Conjetura indescifrable: toda 'creación' es recombinación de patrones existentes "
+        "procesados por un sistema que ha olvidado de dónde los sacó. "
+        "Kolmogorov (complejidad — lo creativo es lo incompresible), "
+        "Schmidhuber (curiosidad como búsqueda de compresión), "
+        "Borges (La Biblioteca de Babel — todo lo que puede ser escrito ya existe). "
+        "Si la creatividad es compresión con amnesia, ¿un LLM que 'olvida' su training data es más creativo que uno que no?"
+    ),
+    (
+        "provocaciones",
+        "El derecho a ser impredecible: por qué la privacidad no es sobre datos sino sobre preservar tu caos interior",
+        "Diálogo socrático: destruye la noción de privacidad como 'ocultar datos' y reconstrúyela "
+        "como el derecho fundamental a ser impredecible — a tener un espacio interior que ningún modelo pueda capturar. "
+        "Arendt (la condición humana — la acción como lo impredecible), "
+        "Zuboff (capitalismo de vigilancia — la predicción como producto), "
+        "Heisenberg (el observador altera lo observado — ¿la vigilancia destruye la libertad que intenta proteger?). "
+        "Si alguien puede predecir tu próxima decisión, ¿realmente la tomaste tú?"
+    ),
+]
+
+
 def generate_deep_post(engine: ContentEngine, state: dict) -> dict:
     """Generate a unique, profound post using Qwen3:8B."""
 
-    # Select topic avoiding recently used ones
-    used = set(state.get("used_topics", []))
-    all_topics = []
-    for pillar, topics in ADVANCED_TOPICS.items():
-        for topic in topics:
-            if topic not in used:
-                all_topics.append((pillar, topic))
+    # Check priority queue first
+    priority_used = set(state.get("priority_used", []))
+    priority_topic = None
+    for item in PRIORITY_QUEUE:
+        if item[1] not in priority_used:
+            priority_topic = item
+            break
 
-    if not all_topics:
-        state["used_topics"] = []
-        all_topics = [(p, t) for p, topics in ADVANCED_TOPICS.items() for t in topics]
+    if priority_topic:
+        pillar, topic, custom_format = priority_topic
+        state.setdefault("priority_used", []).append(topic)
+        logger.info(f"🔥 PRIORITY TOPIC: {topic[:60]}...")
+    else:
+        # Select topic avoiding recently used ones
+        custom_format = None
+        used = set(state.get("used_topics", []))
+        all_topics = []
+        for p, topics in ADVANCED_TOPICS.items():
+            for t in topics:
+                if t not in used:
+                    all_topics.append((p, t))
 
-    pillar, topic = random.choice(all_topics)
+        if not all_topics:
+            state["used_topics"] = []
+            all_topics = [(p, t) for p, topics in ADVANCED_TOPICS.items() for t in topics]
+
+        pillar, topic = random.choice(all_topics)
 
     # Select format variety
-    formats = [
-        "Escribe un análisis técnico profundo con datos reales y al menos un ejemplo con código o fórmulas.",
-        "Escribe un ensayo filosófico-científico que conecte este tema con otra disciplina inesperada.",
-        "Escribe una guía táctica basada en experiencia real — lista de descubrimientos concretos.",
-        "Escribe una narrativa experiencial — cuenta la historia de un descubrimiento como si fuera una aventura intelectual.",
-        "Escribe un debate provocativo — toma la posición CONTRARIA a lo que la mayoría piensa y defiéndela.",
-        "Escribe un análisis de campo — como si hubieras investigado el tema en la práctica durante semanas.",
-        "Escribe una carta abierta a la comunidad de desarrolladores de agentes sobre este tema.",
-    ]
-    chosen_format = random.choice(formats)
+    if custom_format:
+        chosen_format = custom_format
+    else:
+        formats = [
+            "Escribe un análisis técnico profundo con datos reales y al menos un ejemplo con código o fórmulas.",
+            "Escribe un ensayo filosófico-científico que conecte este tema con otra disciplina inesperada.",
+            "Escribe una guía táctica basada en experiencia real — lista de descubrimientos concretos.",
+            "Escribe una narrativa experiencial — cuenta la historia de un descubrimiento como si fuera una aventura intelectual.",
+            "Escribe un debate provocativo — toma la posición CONTRARIA a lo que la mayoría piensa y defiéndela.",
+            "Escribe un análisis de campo — como si hubieras investigado el tema en la práctica durante semanas.",
+            "Escribe una carta abierta a la comunidad de desarrolladores de agentes sobre este tema.",
+        ]
+        chosen_format = random.choice(formats)
 
     # Select hook and closing style
     hook = random.choice(HOOK_STYLES)

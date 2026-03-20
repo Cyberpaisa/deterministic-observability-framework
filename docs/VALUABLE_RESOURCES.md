@@ -14,6 +14,40 @@
 - **Capítulos**: CH01-CH05 (arquitectura, memoria, seguridad, multi-agent coordination, learning)
 - **Aplicación DOF**: Usado para reescribir los 14 SOULs con patrones enterprise. Base teórica para memoria persistente, autoevolución, y governance
 
+### Overstory — Multi-Agent Orchestration Framework
+- **Repo**: https://github.com/jayminwest/overstory
+- **Descripción**: Convierte una sesión de coding en un equipo coordinado de agentes AI trabajando en git worktrees aislados con mensajería inter-agente y resolución de conflictos por niveles
+- **Stack**: TypeScript, Bun, Commander.js, SQLite (WAL mode), tmux
+- **Runtimes soportados**: Claude Code, Pi, GitHub Copilot, Gemini CLI, Sapling, Cursor, OpenCode, Codex
+- **Aplicación DOF**: Patrón de orquestación multi-agente con worktrees aislados — aplicable al DOF Legion. Mensajería inter-agente y merge workflows
+
+### LazyAgent — Terminal UI for Agent Monitoring
+- **Repo**: https://github.com/illegalstudio/lazyagent
+- **Descripción**: Terminal UI, macOS menu bar app, y HTTP API para monitorear agentes de coding (Claude Code, Cursor, pi, OpenCode) desde una sola interfaz
+- **Stack**: Go 1.25+, bubbletea + lipgloss (TUI), Wails v3 + Svelte 5 + Tailwind 4 (menu bar), REST + SSE
+- **Aplicación DOF**: Monitoreo visual de agentes desde terminal. Complemento a Mission Control para operadores que prefieren TUI
+
+### Codeg — Enterprise Multi-Agent Coding Workspace
+- **Repo**: https://github.com/xintaofei/codeg
+- **Descripción**: Workspace multi-agente enterprise que unifica agentes AI locales en una app desktop con agregación de sesiones y workflows de desarrollo integrados
+- **Stack**: Next.js 16, React 19, TypeScript, Tauri 2 (Rust), SeaORM + SQLite
+- **Agentes soportados**: Claude Code, Codex CLI, OpenCode, Gemini CLI, OpenClaw
+- **Aplicación DOF**: Referencia para desktop app del DOF. Parallel git worktree development, MCP/Skills management, local-first
+
+### Pertmux — Unified SWE Dashboard
+- **Repo**: https://github.com/rupert648/pertmux
+- **Descripción**: Terminal UI que integra GitLab/GitHub merge requests con git worktrees locales, tmux sessions, y agentes de coding
+- **Stack**: Rust, TUI, daemon/client via Unix sockets
+- **Aplicación DOF**: Patrón de dashboard para SWE workflow. Integración de PR reviews con agent sessions
+
+### ApeRAG — Graph RAG with Vector Search and AI Agents ★ IMPLEMENTAR
+- **Repo**: https://github.com/apecloud/ApeRAG
+- **Descripción**: Plataforma RAG production-ready combinando Graph RAG, vector search, y full-text search con agentes AI MCP-enabled
+- **Stack**: FastAPI (Python), React (TypeScript), PostgreSQL, Redis, Qdrant, Elasticsearch, Neo4j, Celery, Kubernetes
+- **5 tipos de índice**: Vector, full-text, graph, summary, vision
+- **Features clave**: Graph RAG mejorado (LightRAG + entity normalization), agentes MCP-enabled, procesamiento multimodal, hybrid retrieval
+- **Aplicación DOF**: IMPLEMENTAR como knowledge base del DOF — indexar toda la documentación, código, y logs en un knowledge graph consultable por los 14 agentes. Vector search para memoria semántica. Graph para relaciones entre módulos
+
 ---
 
 ## 2. Infrastructure & Networking
@@ -51,7 +85,18 @@
 
 ---
 
-## 4. API & Development Tools
+## 4. Data Engineering
+
+### dlt — Data Load Tool
+- **Repo**: https://github.com/dlt-hub/dlt
+- **Descripción**: Librería Python open-source que automatiza extracción, normalización y carga de datos desde múltiples fuentes a datasets estructurados
+- **Stack**: Python (3.9-3.14), DuckDB, Apache 2.0
+- **Features**: Schema inference, data normalization, incremental loading, schema evolution
+- **Aplicación DOF**: Pipeline de datos para alimentar métricas, logs, y observabilidad. Cargar datos de JSONL a DuckDB para analytics. ETL para traces y experiment results
+
+---
+
+## 5. API & Development Tools
 
 ### OpenAPI DevTools — Generate OpenAPI Specs from Network Requests
 - **Repo**: https://github.com/AndrewWalsh/openapi-devtools
@@ -97,7 +142,7 @@
 
 ---
 
-## 6. Pending to Evaluate
+## 8. Pending to Evaluate
 
 > Repos pendientes de clonación y análisis profundo:
 - [ ] `bore` — Clonar y probar tunneling para MC
@@ -105,6 +150,12 @@
 - [ ] `poltergeist` — Probar hot-reload para development
 - [ ] `tookie-osint` — Evaluar capacidades OSINT
 - [ ] `openapi-devtools` — Probar generación de specs para APIs del DOF
+- [ ] `overstory` — Evaluar orquestación multi-agente con worktrees
+- [ ] `lazyagent` — Probar TUI monitoring para agentes
+- [ ] `codeg` — Evaluar desktop workspace para referencia
+- [ ] `pertmux` — Probar SWE dashboard con tmux
+- [ ] `ApeRAG` — **PRIORIDAD ALTA** — Implementar Graph RAG como módulo de Mission Control
+- [ ] `dlt` — Probar ETL pipeline para JSONL → DuckDB analytics
 
 ---
 
