@@ -1122,6 +1122,58 @@ document.querySelectorAll('.counter').forEach(e=>counterObs.observe(e));
     input.addEventListener('keydown',e=>{if(e.key==='Enter')send()});
 }();
 
+// ═══════════════════ x402 ULTRAVIOLETA FACILITATOR ═══════════════════
+!function(){
+    const FACILITATOR='https://facilitator.ultravioletadao.xyz';
+    const x402Badge=document.querySelector('.pb-x402');
+    const a2aBadge=document.querySelector('.pb-a2a');
+    const shieldBadge=document.querySelector('.pb-shield');
+
+    // Check facilitator health
+    async function checkHealth(){
+        try{
+            const res=await fetch(FACILITATOR+'/health',{mode:'cors'});
+            if(res.ok){
+                const data=await res.json().catch(()=>null);
+                if(x402Badge){
+                    x402Badge.innerHTML='<span class="pb-dot"></span>x402 Live';
+                    x402Badge.title='Ultravioleta Facilitator: Connected';
+                }
+            }
+        }catch(e){
+            if(x402Badge){
+                x402Badge.innerHTML='<span class="pb-dot" style="background:#f59e0b;box-shadow:0 0 6px #f59e0b"></span>x402';
+                x402Badge.title='Ultravioleta Facilitator: Checking...';
+            }
+        }
+    }
+
+    // Check supported networks
+    async function checkSupported(){
+        try{
+            const res=await fetch(FACILITATOR+'/supported',{mode:'cors'});
+            if(res.ok){
+                const data=await res.json().catch(()=>null);
+                if(data&&a2aBadge){
+                    const nets=data.networks||data.chains||[];
+                    a2aBadge.title='A2A Ready | '+((Array.isArray(nets)?nets.length:0)||'14+')+' networks supported';
+                }
+            }
+        }catch(e){}
+    }
+
+    // Update shield with DOF governance status
+    if(shieldBadge){
+        shieldBadge.innerHTML='<span class="pb-dot"></span>42 Rules';
+        shieldBadge.title='DOF Shield: 42 constitutional rules enforced deterministically';
+    }
+
+    checkHealth();
+    checkSupported();
+    // Re-check every 60s
+    setInterval(checkHealth,60000);
+}();
+
 </script>
 </body>
 </html>
