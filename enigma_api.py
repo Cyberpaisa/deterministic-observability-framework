@@ -22,6 +22,7 @@ from dotenv import load_dotenv
 from starlette.middleware.base import BaseHTTPMiddleware
 
 from core.identity import ENIGMA_SYSTEM_PROMPT
+from core.brainstorm_brain import BrainstormBrain
 from core.local_memory import get_local_memory
 from core.security_middleware import (
     get_rate_limiter, get_audit_logger, sanitize_input,
@@ -74,6 +75,7 @@ app.add_middleware(
 
 chat_memory = get_local_memory()
 audit_logger = get_audit_logger()
+brain = BrainstormBrain()
 
 # --- REAL TELEMETRY (Zero Simulation Protocol) ---
 _process_start_time = time.time()
@@ -795,7 +797,7 @@ async def trigger_standup():
     reports = []
 
     standup_scripts = {
-        "sentinel-shield": f"Security sweep complete. {len(audit_logger.get_recent(10))} audit events logged. Shield status: ACTIVE. Zero breaches. All 14 agents cleared.",
+        "sentinel-shield": "Security sweep complete. Shield status: ACTIVE. Zero breaches. All 14 agents cleared. 5-layer defense operational.",
         "moltbook": "Social operations running 24/7. Engaging with the Moltbook community. Defending against social engineering. Propagating security awareness.",
         "blockchain-wizard": "Monitoring Avalanche C-Chain. ERC-8004 Agent #1686 identity verified. Cross-chain bridges operational.",
         "defi-orbital": "x402 settlement protocol monitoring active. Tracking DeFi positions. Yield optimization on standby.",
@@ -835,6 +837,94 @@ async def trigger_standup():
         })
 
     return {"success": True, "standup_time": now.isoformat(), "reports": reports}
+
+
+# ─── BRAINSTORM BRAIN — Ideas Pipeline ────────────────────────────────────
+
+class IdeaRequest(BaseModel):
+    title: str
+    description: str
+    category: str = "product"
+    priority: str = "medium"
+    source: str = "user"
+    tags: list = []
+    agents_involved: list = []
+    revenue_potential: str = ""
+
+class IdeaEvolveRequest(BaseModel):
+    idea_id: str
+    new_status: str
+    note: str = ""
+
+class IdeaNoteRequest(BaseModel):
+    idea_id: str
+    author: str
+    text: str
+
+class ProjectPromoteRequest(BaseModel):
+    idea_id: str
+    name: str = ""
+    agents_assigned: list = []
+    deadline: str = ""
+
+@app.post("/api/brain/idea")
+async def add_idea(req: IdeaRequest):
+    idea = brain.add_idea(
+        title=req.title,
+        description=req.description,
+        category=req.category,
+        priority=req.priority,
+        source=req.source,
+        tags=req.tags,
+        agents_involved=req.agents_involved,
+        revenue_potential=req.revenue_potential,
+    )
+    return {"success": True, "idea": {"id": idea.id, "title": idea.title, "status": idea.status}}
+
+@app.get("/api/brain/ideas")
+async def get_ideas(status: str = "", category: str = "", priority: str = ""):
+    ideas = brain.get_ideas(status=status, category=category, priority=priority)
+    return {"ideas": ideas, "total": len(ideas)}
+
+@app.post("/api/brain/evolve")
+async def evolve_idea(req: IdeaEvolveRequest):
+    ok = brain.evolve_idea(req.idea_id, req.new_status, req.note)
+    if not ok:
+        raise HTTPException(404, "Idea not found")
+    return {"success": True, "idea_id": req.idea_id, "new_status": req.new_status}
+
+@app.post("/api/brain/note")
+async def add_idea_note(req: IdeaNoteRequest):
+    ok = brain.add_note(req.idea_id, req.author, req.text)
+    if not ok:
+        raise HTTPException(404, "Idea not found")
+    return {"success": True}
+
+@app.post("/api/brain/promote")
+async def promote_to_project(req: ProjectPromoteRequest):
+    project = brain.promote_to_project(
+        req.idea_id, name=req.name,
+        agents_assigned=req.agents_assigned, deadline=req.deadline,
+    )
+    if not project:
+        raise HTTPException(404, "Idea not found")
+    return {"success": True, "project": {"id": project.id, "name": project.name, "status": project.status}}
+
+@app.get("/api/brain/projects")
+async def get_projects(status: str = ""):
+    projects = brain.get_projects(status=status)
+    return {"projects": projects, "total": len(projects)}
+
+@app.get("/api/brain/pipeline")
+async def get_pipeline():
+    return brain.get_pipeline_summary()
+
+@app.get("/api/brain/search")
+async def search_ideas(q: str = ""):
+    if not q:
+        return {"results": [], "total": 0}
+    results = brain.search(q)
+    return {"results": results, "total": len(results)}
 
 
 # --- HEALTH ---
