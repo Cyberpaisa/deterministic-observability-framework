@@ -141,7 +141,7 @@
         <div>
             <div class="card">
                 <h3>Delegate Governance Tokens</h3>
-                <form id="delegationForm" onsubmit="return submitDelegation()">
+                <form id="delegationForm" onsubmit="event.preventDefault(); submitDelegation();">
                     <label>Delegate To (Ethereum Address)</label>
                     <input type="text" id="delegateAddress" placeholder="0x..." required>
 
