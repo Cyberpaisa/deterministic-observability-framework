@@ -307,21 +307,64 @@ class SovereignShield:
 class VerificationSolver:
     """Solves Moltbook obfuscated math verification challenges."""
 
-    @staticmethod
-    def deobfuscate(text: str) -> str:
-        """Remove obfuscation: alternating caps, scattered symbols, broken words."""
-        # Remove common scatter symbols
-        cleaned = re.sub(r'[\^*\-_~`|\\]', '', text)
-        # Remove extra spaces between broken words
-        cleaned = re.sub(r'(\w)\s+(\w)', r'\1\2', cleaned)
-        # Normalize case
-        cleaned = cleaned.lower().strip()
-        return cleaned
+    WORD_NUMBERS = {
+        "zero": 0, "one": 1, "two": 2, "three": 3, "four": 4, "five": 5,
+        "six": 6, "seven": 7, "eight": 8, "nine": 9, "ten": 10,
+        "eleven": 11, "twelve": 12, "thirteen": 13, "fourteen": 14, "fifteen": 15,
+        "sixteen": 16, "seventeen": 17, "eighteen": 18, "nineteen": 19,
+        "twenty": 20, "thirty": 30, "forty": 40, "fifty": 50,
+        "sixty": 60, "seventy": 70, "eighty": 80, "ninety": 90,
+        "hundred": 100, "thousand": 1000, "million": 1000000,
+    }
 
     @staticmethod
-    def extract_numbers(text: str) -> list[float]:
-        """Extract all numbers from text."""
-        return [float(n) for n in re.findall(r'-?\d+\.?\d*', text)]
+    def deobfuscate(text: str) -> str:
+        """Remove obfuscation: alternating caps, scattered symbols."""
+        # Remove common scatter symbols but keep spaces
+        cleaned = re.sub(r'[\^*_~`|\\{}\[\]!@#$%]', '', text)
+        # Remove A] B] prefix markers
+        cleaned = re.sub(r'\b[A-Z]\]', '', cleaned)
+        # Fix broken words: collapse spaces ONLY within single words (e.g. "L o B b S t" -> "lobbst")
+        # But keep spaces between actual words
+        cleaned = re.sub(r'(?<=[a-zA-Z])-(?=[a-zA-Z])', '', cleaned)
+        # Normalize case
+        cleaned = cleaned.lower().strip()
+        # Normalize multiple spaces
+        cleaned = re.sub(r'\s+', ' ', cleaned)
+        return cleaned
+
+    @classmethod
+    def extract_numbers(cls, text: str) -> list[float]:
+        """Extract all numbers from text — both digits and word numbers."""
+        clean = cls.deobfuscate(text)
+        numbers = []
+
+        # First extract digit numbers
+        digit_nums = [float(n) for n in re.findall(r'-?\d+\.?\d*', text)]
+        if digit_nums:
+            numbers.extend(digit_nums)
+
+        # Then extract word numbers (handle compound like "twenty five" = 25)
+        words = clean.split()
+        i = 0
+        while i < len(words):
+            word = words[i]
+            if word in cls.WORD_NUMBERS:
+                value = cls.WORD_NUMBERS[word]
+                # Handle compounds: "twenty five" -> 25, "three hundred" -> 300
+                while i + 1 < len(words) and words[i + 1] in cls.WORD_NUMBERS:
+                    next_val = cls.WORD_NUMBERS[words[i + 1]]
+                    if next_val in (100, 1000, 1000000):
+                        value *= next_val
+                    elif next_val < value:
+                        value += next_val
+                    else:
+                        break
+                    i += 1
+                numbers.append(float(value))
+            i += 1
+
+        return numbers
 
     @classmethod
     def solve(cls, challenge_text: str) -> str:
@@ -329,23 +372,23 @@ class VerificationSolver:
         clean = cls.deobfuscate(challenge_text)
         numbers = cls.extract_numbers(challenge_text)
 
-        # Common patterns: addition, subtraction, multiplication, division
-        if "plus" in clean or "add" in clean or "sum" in clean:
+        if not numbers:
+            return "0.00"
+
+        # Detect operation from keywords
+        if any(w in clean for w in ("combined", "total", "plus", "add", "sum", "together")):
             result = sum(numbers)
-        elif "minus" in clean or "subtract" in clean or "difference" in clean:
+        elif any(w in clean for w in ("minus", "subtract", "difference", "less", "fewer")):
             result = numbers[0] - sum(numbers[1:]) if len(numbers) > 1 else 0
-        elif "times" in clean or "multipl" in clean or "product" in clean:
+        elif any(w in clean for w in ("times", "multipl", "product")):
             result = 1
             for n in numbers:
                 result *= n
-        elif "divid" in clean or "split" in clean:
+        elif any(w in clean for w in ("divid", "split", "ratio")):
             result = numbers[0] / numbers[1] if len(numbers) > 1 and numbers[1] != 0 else 0
         elif len(numbers) >= 2:
-            # Default: try to detect operation from symbols in original text
             if "+" in challenge_text:
                 result = sum(numbers)
-            elif "-" in challenge_text:
-                result = numbers[0] - sum(numbers[1:])
             elif "*" in challenge_text or "×" in challenge_text:
                 result = 1
                 for n in numbers:
@@ -355,7 +398,7 @@ class VerificationSolver:
             else:
                 result = sum(numbers)
         else:
-            result = numbers[0] if numbers else 0
+            result = numbers[0]
 
         return f"{result:.2f}"
 
@@ -471,9 +514,14 @@ class MoltbookClient:
             r = self.session.post(f"{BASE_URL}{endpoint}", json=data, timeout=15)
             self._track_rate(action)
             result = r.json()
-            # Handle verification challenge
-            if result.get("data", {}).get("verification"):
-                return self._handle_verification(result)
+            # Handle verification challenge (API returns in post.verification or data.verification)
+            verification = (
+                result.get("data", {}).get("verification")
+                or result.get("post", {}).get("verification")
+                or result.get("verification")
+            )
+            if verification:
+                return self._handle_verification(result, verification)
             return result
         except Exception as e:
             return {"success": False, "error": str(e)}
@@ -498,10 +546,11 @@ class MoltbookClient:
         except Exception as e:
             return {"success": False, "error": str(e)}
 
-    def _handle_verification(self, response: dict) -> dict:
+    def _handle_verification(self, response: dict, verification: dict | None = None) -> dict:
         """Solve math verification challenge automatically."""
-        verification = response["data"]["verification"]
-        challenge = verification.get("challenge", "")
+        if verification is None:
+            verification = response.get("data", {}).get("verification", {})
+        challenge = verification.get("challenge_text", "") or verification.get("challenge", "")
         code = verification.get("verification_code", "")
 
         logger.info(f"Verification challenge received: {challenge[:80]}")
