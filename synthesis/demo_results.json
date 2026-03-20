@@ -13,8 +13,8 @@
   },
   "llm": {
     "model": "moonshotai/kimi-k2-instruct",
-    "chars": 772,
-    "duration_ms": 2247
+    "chars": 504,
+    "duration_ms": 1660
   },
   "governance": {
     "passed": true,
@@ -29,26 +29,32 @@
     "theorems_proven": 4,
     "total_theorems": 4,
     "all_proven": true,
-    "combined_proof_hash": "0xc287e47414b04c5906ceea27db88d84849547d91c92f141b419bf7fc1e2fc6b9",
+    "combined_proof_hash": "0x406228279d7d83e4e245f46bad736aa7939c37c082d85aa905870f5cb04aa082",
     "individual_hashes": [
-      "0x5ca5c230b353e4ab27a6f59c56905cf4cc82c9a3e686c7a2cbdddaec950a0b3c",
-      "0x2c9a49c6cd8b47fa4691d83b9b27c1d7333e9e8421ddc01f1bb17f1fa5200e89",
-      "0x7ab895f2428065eaab34c4e8e0d1a5385499e3537d9630502d325e8ee6b8d46d",
-      "0xce28cec0b9a85778b17483c0b95b24e04f3639efbdad671b3028823b3b9a71af"
+      "0x78582c5993137e9d2f56c5c4c750fdf35eadc0cfc0a46eeca0682e71405c3a96",
+      "0x2ed6927a89d987f57421ff1db5dd9b21e9baf5572867c248a3703bc27a1a0582",
+      "0x4dc07f9f13e3140586be049843fc9d4a1c090aa414d67608c3b7edb6604f7563",
+      "0xece9c9079b0a0f59a663840bb71f44f3607b0ae6b3d049fc02d2011e222829f9"
     ]
   },
   "on_chain": {
-    "status": "error",
-    "error": "{'code': -32000, 'message': 'insufficient funds for transfer'}"
+    "status": "confirmed",
+    "tx_hash": "6c96e01a3de7ce54ac0a3acdbf7aba487c37da54194a306d794e68c39bb54040",
+    "chain_id": 43114,
+    "chain_name": "Avalanche C-Chain",
+    "explorer_url": "https://snowtrace.io/tx/6c96e01a3de7ce54ac0a3acdbf7aba487c37da54194a306d794e68c39bb54040",
+    "proof_hash": "0x406228279d7d83e4e245f46bad736aa7939c37c082d85aa905870f5cb04aa082",
+    "agent_id": 1686,
+    "gas_used": 305714
   },
   "supervisor": {
     "decision": "RETRY",
-    "score": 5.78,
-    "quality": 5.5,
-    "actionability": 6.5,
+    "score": 5.48,
+    "quality": 6.0,
+    "actionability": 4.5,
     "completeness": 6.0,
     "factuality": 5.0
   },
-  "total_ms": 3348,
-  "timestamp": "2026-03-20T15:12:42.929915+00:00"
+  "total_ms": 4961,
+  "timestamp": "2026-03-20T15:38:10.420199+00:00"
 }

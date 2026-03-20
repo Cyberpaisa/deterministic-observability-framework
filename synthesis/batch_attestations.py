@@ -107,7 +107,7 @@ def main(dry_run: bool = False):
 
     # Load chain adapter
     adapter = None
-    private_key = os.environ.get("AVALANCHE_PRIVATE_KEY") or os.environ.get("DOF_PRIVATE_KEY")
+    private_key = os.environ.get("APEX_PRIVATE_KEY") or os.environ.get("AVABUILDER_PRIVATE_KEY") or os.environ.get("AVALANCHE_PRIVATE_KEY") or os.environ.get("DOF_PRIVATE_KEY")
     try:
         from core.chain_adapter import DOFChainAdapter
         adapter = DOFChainAdapter.from_chain_name("avalanche", dry_run=dry_run)

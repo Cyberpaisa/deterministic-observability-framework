@@ -269,7 +269,7 @@ contract Vault {
             "timestamp": datetime.now(timezone.utc).isoformat(),
         })
 
-        private_key = os.environ.get("AVALANCHE_PRIVATE_KEY") or os.environ.get("DOF_PRIVATE_KEY")
+        private_key = os.environ.get("APEX_PRIVATE_KEY") or os.environ.get("AVABUILDER_PRIVATE_KEY") or os.environ.get("AVALANCHE_PRIVATE_KEY") or os.environ.get("DOF_PRIVATE_KEY")
         if not private_key and not dry_run:
             print("  WARNING: No private key found. Running as dry run.")
             dry_run = True

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-20T15:13:45.231584+00:00",
+  "generated_at": "2026-03-20T15:38:51.746953+00:00",
   "agent_id": 1686,
   "erc8004_token": 31013,
   "erc8004_registration_tx": "0x7362ef41605e430aba3998b0888e7886c04d65673ce89aa12e1abdf7cffcada4",
@@ -15,12 +15,14 @@
       "proof_hash": "0x27f2dd91f673d0988ab30830280f07842b9d2fe0cd831f5181072b96f6850a53",
       "z3_proven": true,
       "on_chain": {
-        "status": "dry_run",
-        "tx_hash": "0x240da1f990afaf6567e6ef089265f5ff07d69676f0ae743a455ceefb1ecb7e27",
+        "status": "confirmed",
+        "tx_hash": "13bc436ec56a318a5f4c849427a9f42a319c464116872cfdc16880d61a9d2b09",
         "chain_id": 43114,
         "chain_name": "Avalanche C-Chain",
+        "explorer_url": "https://snowtrace.io/tx/13bc436ec56a318a5f4c849427a9f42a319c464116872cfdc16880d61a9d2b09",
         "proof_hash": "0x27f2dd91f673d0988ab30830280f07842b9d2fe0cd831f5181072b96f6850a53",
-        "agent_id": 1686
+        "agent_id": 1686,
+        "gas_used": 259731
       }
     },
     {
@@ -32,12 +34,14 @@
       "proof_hash": "0x3a47e8c0ea7e03b5dc26ad310122e6a8dba47048b7e128b6562494d954406f1f",
       "z3_proven": true,
       "on_chain": {
-        "status": "dry_run",
-        "tx_hash": "0x52240f593e516358473366134fff750e54d4ac9dde06761671af82e1515d1f99",
+        "status": "confirmed",
+        "tx_hash": "95f475b36e5a2e4eec16450995ff7c86f06dd560d4456eed8c82ca469596f813",
         "chain_id": 43114,
         "chain_name": "Avalanche C-Chain",
+        "explorer_url": "https://snowtrace.io/tx/95f475b36e5a2e4eec16450995ff7c86f06dd560d4456eed8c82ca469596f813",
         "proof_hash": "0x3a47e8c0ea7e03b5dc26ad310122e6a8dba47048b7e128b6562494d954406f1f",
-        "agent_id": 1686
+        "agent_id": 1686,
+        "gas_used": 259766
       }
     },
     {
@@ -49,12 +53,14 @@
       "proof_hash": "0x32ac1f0bdb324c402856a268bbf2f2a1c1a573d36e30182781be7978ea3d59e0",
       "z3_proven": true,
       "on_chain": {
-        "status": "dry_run",
-        "tx_hash": "0x06c5f9319010df6710858ca2fdb4643120151adf1398f22a60d7b7c8a34b8fb3",
+        "status": "confirmed",
+        "tx_hash": "851a90d866b4cfc5ea98d0bc6add10c1fdb98b1b8c6927f04a1290de036b8492",
         "chain_id": 43114,
         "chain_name": "Avalanche C-Chain",
+        "explorer_url": "https://snowtrace.io/tx/851a90d866b4cfc5ea98d0bc6add10c1fdb98b1b8c6927f04a1290de036b8492",
         "proof_hash": "0x32ac1f0bdb324c402856a268bbf2f2a1c1a573d36e30182781be7978ea3d59e0",
-        "agent_id": 1686
+        "agent_id": 1686,
+        "gas_used": 259742
       }
     },
     {
@@ -66,12 +72,14 @@
       "proof_hash": "0xa2e02896fb0bb86c21622b52a0c884f737c4386f83ef5e9a2e238b0364cb738b",
       "z3_proven": true,
       "on_chain": {
-        "status": "dry_run",
-        "tx_hash": "0xe520a4941b9a68ad948e9ff913f020b2690a26b9c4dbb4b46e353b7d1869b9cf",
+        "status": "confirmed",
+        "tx_hash": "514ff2970d62663c8954d00fe6a489cc86fbcb0956a4c34f4b854cbfd175f4da",
         "chain_id": 43114,
         "chain_name": "Avalanche C-Chain",
+        "explorer_url": "https://snowtrace.io/tx/514ff2970d62663c8954d00fe6a489cc86fbcb0956a4c34f4b854cbfd175f4da",
         "proof_hash": "0xa2e02896fb0bb86c21622b52a0c884f737c4386f83ef5e9a2e238b0364cb738b",
-        "agent_id": 1686
+        "agent_id": 1686,
+        "gas_used": 259718
       }
     },
     {
@@ -83,12 +91,14 @@
       "proof_hash": "0x36b1831b005b478a62fb11905f8af68ad6abf77df2f3dd29f2ca7c5c1cd4dcfd",
       "z3_proven": true,
       "on_chain": {
-        "status": "dry_run",
-        "tx_hash": "0x864ba5e111e189cf61361b4d9770c3bff56d20644db2b6203ff0b6df6a6612ed",
+        "status": "confirmed",
+        "tx_hash": "f94f88fcc250b24ba738a5c88da083adccaac3b2f0fe75e8476a781f9ea50ed0",
         "chain_id": 43114,
         "chain_name": "Avalanche C-Chain",
+        "explorer_url": "https://snowtrace.io/tx/f94f88fcc250b24ba738a5c88da083adccaac3b2f0fe75e8476a781f9ea50ed0",
         "proof_hash": "0x36b1831b005b478a62fb11905f8af68ad6abf77df2f3dd29f2ca7c5c1cd4dcfd",
-        "agent_id": 1686
+        "agent_id": 1686,
+        "gas_used": 282416
       }
     },
     {
@@ -100,12 +110,14 @@
       "proof_hash": "0x3127d197077d8124b3d88b52b76746d517554fccbb89434d32e3b33671a3c106",
       "z3_proven": true,
       "on_chain": {
-        "status": "dry_run",
-        "tx_hash": "0xc17d1c57aeb9e2958153b184d3dca429bad9971a582fb85a6639e6c62d331647",
+        "status": "confirmed",
+        "tx_hash": "5b912cab64d1c81fc1c30a1eefcc866fe90c0302d00403b4fa719dbdb3fc432b",
         "chain_id": 43114,
         "chain_name": "Avalanche C-Chain",
+        "explorer_url": "https://snowtrace.io/tx/5b912cab64d1c81fc1c30a1eefcc866fe90c0302d00403b4fa719dbdb3fc432b",
         "proof_hash": "0x3127d197077d8124b3d88b52b76746d517554fccbb89434d32e3b33671a3c106",
-        "agent_id": 1686
+        "agent_id": 1686,
+        "gas_used": 282464
       }
     },
     {
@@ -117,12 +129,14 @@
       "proof_hash": "0x15f478fb53831441de4109a7c2ba34d195f2221b51299f40c591ade1942369b0",
       "z3_proven": true,
       "on_chain": {
-        "status": "dry_run",
-        "tx_hash": "0x6590ff50d4778f7e8d9b6fb865238666f1b03c705c7883905d87ff9497310b91",
+        "status": "confirmed",
+        "tx_hash": "5f8585f5506ec07adb84cdf6292a3d5e6b724ff45579f162147d9a7bfc0e45a2",
         "chain_id": 43114,
         "chain_name": "Avalanche C-Chain",
+        "explorer_url": "https://snowtrace.io/tx/5f8585f5506ec07adb84cdf6292a3d5e6b724ff45579f162147d9a7bfc0e45a2",
         "proof_hash": "0x15f478fb53831441de4109a7c2ba34d195f2221b51299f40c591ade1942369b0",
-        "agent_id": 1686
+        "agent_id": 1686,
+        "gas_used": 259766
       }
     },
     {
@@ -134,12 +148,14 @@
       "proof_hash": "0x3afa69f1e40a268606083d67db93273b7569f180e6a921ff11756e35e1e33a22",
       "z3_proven": true,
       "on_chain": {
-        "status": "dry_run",
-        "tx_hash": "0xfc6dd8f80d28e54fb9460ffe2cda4909e5fd0e30c9e607b3b2c93cf957a9de21",
+        "status": "confirmed",
+        "tx_hash": "b118ffe19b97eb745695f08e64b948d6a638c3dad5f7379da4353eb853c9f68b",
         "chain_id": 43114,
         "chain_name": "Avalanche C-Chain",
+        "explorer_url": "https://snowtrace.io/tx/b118ffe19b97eb745695f08e64b948d6a638c3dad5f7379da4353eb853c9f68b",
         "proof_hash": "0x3afa69f1e40a268606083d67db93273b7569f180e6a921ff11756e35e1e33a22",
-        "agent_id": 1686
+        "agent_id": 1686,
+        "gas_used": 259731
       }
     },
     {
@@ -151,12 +167,14 @@
       "proof_hash": "0x0975a17e1b10168fd7660efca6847813a735e5683955587df6c5794519565b61",
       "z3_proven": true,
       "on_chain": {
-        "status": "dry_run",
-        "tx_hash": "0xeb83bd5968ed7ae55347ac41482a113eaecf0028f7d4ea37a762f06118e83a0b",
+        "status": "confirmed",
+        "tx_hash": "4e6324e58b35c7240a1800849000b9a25e7e3ff09b7f410fce10e8d8fb0355bf",
         "chain_id": 43114,
         "chain_name": "Avalanche C-Chain",
+        "explorer_url": "https://snowtrace.io/tx/4e6324e58b35c7240a1800849000b9a25e7e3ff09b7f410fce10e8d8fb0355bf",
         "proof_hash": "0x0975a17e1b10168fd7660efca6847813a735e5683955587df6c5794519565b61",
-        "agent_id": 1686
+        "agent_id": 1686,
+        "gas_used": 259766
       }
     },
     {
@@ -168,19 +186,21 @@
       "proof_hash": "0x8caf34624e87f0f229e46be1aa9dedf924f896588335acc9ce6c8b12a5533211",
       "z3_proven": true,
       "on_chain": {
-        "status": "dry_run",
-        "tx_hash": "0xef50d5c57fc11a4d2516cddef535cdaed5e3542a4ab6824aa0c62278fa9dd7da",
+        "status": "confirmed",
+        "tx_hash": "e0789d5ec09a012dab7a051cdb9129ea4df6cb39928897fd03a64d5d8371d497",
         "chain_id": 43114,
         "chain_name": "Avalanche C-Chain",
+        "explorer_url": "https://snowtrace.io/tx/e0789d5ec09a012dab7a051cdb9129ea4df6cb39928897fd03a64d5d8371d497",
         "proof_hash": "0x8caf34624e87f0f229e46be1aa9dedf924f896588335acc9ce6c8b12a5533211",
-        "agent_id": 1686
+        "agent_id": 1686,
+        "gas_used": 259730
       }
     }
   ],
   "summary": {
     "total": 10,
     "governance_passed": 6,
-    "on_chain_confirmed": 0,
-    "on_chain_dry_run": 10
+    "on_chain_confirmed": 10,
+    "on_chain_dry_run": 0
   }
 }
