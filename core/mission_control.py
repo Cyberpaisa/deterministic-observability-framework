@@ -29,7 +29,7 @@ class MissionControl:
         self.tasks_file = os.path.join(self.base_dir, "data/tasks.json")
         self.agents_config = os.path.join(self.base_dir, "core/chains_config.json")
         self.providers = [
-            {"name": "Ollama (Local)", "key": "ollama", "url": os.getenv("OLLAMA_HOST", "http://localhost:11434") + "/api/generate", "model": "llama3"},
+            {"name": "Ollama (Local)", "key": "ollama", "url": os.getenv("OLLAMA_HOST", "http://localhost:11434") + "/api/generate", "model": "qwen3:8b"},
             {"name": "OpenAI", "key": os.getenv("OPENAI_API_KEY"), "url": "https://api.openai.com/v1/chat/completions", "model": "gpt-4o-mini"},
             {"name": "Anthropic", "key": os.getenv("ANTHROPIC_API_KEY"), "url": "https://api.anthropic.com/v1/messages", "model": "claude-3-5-sonnet-20240620"},
             {"name": "Groq", "key": os.getenv("GROQ_API_KEY"), "url": "https://api.groq.com/openai/v1/chat/completions", "model": "llama-3.3-70b-versatile"},

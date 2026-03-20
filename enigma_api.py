@@ -205,7 +205,7 @@ async def chat_endpoint(req: ChatRequest, request: Request):
         system_prompt = f"{ENIGMA_SYSTEM_PROMPT}\n\nCONTEXTO RECIENTE:\n{contexto}"
 
         payload = {
-            "model": "enigma",
+            "model": "qwen3:8b",
             "prompt": req.message,
             "stream": False,
             "system": system_prompt

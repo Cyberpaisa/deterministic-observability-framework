@@ -13,8 +13,8 @@ class LLMBridge:
     """
     def __init__(self):
         self.local_url = os.getenv("OLLAMA_HOST", "http://localhost:11434/api/generate")
-        self.primary_model = "qwen2.5:32b" # Recomendado para M4 Max
-        self.fallback_model = "llama3.1:8b" # Rápido y ligero
+        self.primary_model = "qwen3:8b"  # Principal — tool calling + thinking mode
+        self.fallback_model = "llama3:latest"  # Fallback local
 
     def talk_local(self, prompt: str, model: str = "") -> str:
         """Habla con el cerebro local (Ollama) si no hay internet o tokens."""
