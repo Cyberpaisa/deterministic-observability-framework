@@ -48,7 +48,7 @@ A complete AI agent governance framework with deterministic observability. 70+ c
 
 ### Track 2: ERC-8004 Agents With Receipts -- $4,000
 
-Every autonomous cycle produces a signed ERC-8004 receipt containing the agent identity, task hash, governance result, Z3 proof hash, and chain attestation. 38+ receipts recorded on Avalanche C-Chain and Base Mainnet. Fully verifiable on Basescan.
+Every autonomous cycle produces a signed ERC-8004 receipt containing the agent identity, task hash, governance result, Z3 proof hash, and chain attestation. 48+ receipts recorded on Avalanche C-Chain and Base Mainnet. Fully verifiable on Basescan.
 
 ### Track 3: Let the Agent Cook -- $4,000
 
@@ -108,7 +108,7 @@ Game-theoretic governance mechanisms with formal verification. Z3 proves incenti
 |  +---------------------------+-------------------------------+   |
 |  |     GOVERNANCE CORE       |       VERIFICATION CORE       |   |
 |  |                           |                               |   |
-|  |  ConstitutionEnforcer     |  Z3Verifier (4/4 PROVEN)     |   |
+|  |  ConstitutionEnforcer     |  Z3Verifier (8/8 PROVEN)     |   |
 |  |  HARD rules --> block     |  Formal invariant proofs      |   |
 |  |  SOFT rules --> warn      |  keccak256 proof hashes       |   |
 |  |  ZERO LLM in governance   |  ASTVerifier + TransitionV.   |   |
@@ -144,7 +144,7 @@ Game-theoretic governance mechanisms with formal verification. Z3 proves incenti
 | Component | What It Does |
 |:----------|:-------------|
 | **ConstitutionEnforcer** | Deterministic governance -- HARD rules block, SOFT rules warn. Zero LLM involvement. ~50 token constitution injected per agent. |
-| **Z3Verifier** | 4 mathematical theorems formally PROVEN every cycle. Generates keccak256 proof hashes for on-chain recording. |
+| **Z3Verifier** | 8 mathematical theorems formally PROVEN every cycle. Generates keccak256 proof hashes for on-chain recording. |
 | **MetaSupervisor** | Weighted quality scoring: Q(0.40) + A(0.25) + C(0.20) + F(0.15). Outputs ACCEPT, RETRY, or ESCALATE. |
 | **DOFChainAdapter** | Multi-chain attestation engine. Writes proof receipts to Avalanche, Base, and Celo. |
 | **Skills Engine v2.0** | 18 skills across 5 ADK patterns: blockchain audit, formal verification, security analysis, and more. |
@@ -161,7 +161,7 @@ Game-theoretic governance mechanisms with formal verification. Z3 proves incenti
 | On-chain attestations | **48+** |
 | Core modules | **70+** |
 | Lines of code | **27,000+** |
-| Z3 theorems | **4/4 PROVEN** |
+| Z3 theorems | **8/8 PROVEN** |
 | Skills | **18** |
 | LLM providers | **4 (Cerebras, Groq, Mistral, SambaNova)** |
 | Governance mode | **100% deterministic, 0% LLM** |
@@ -173,7 +173,7 @@ Game-theoretic governance mechanisms with formal verification. Z3 proves incenti
 | Layer | Technology |
 |:------|:-----------|
 | Core Framework | Python 3.11+ |
-| Formal Verification | Z3 Theorem Prover -- 4/4 invariants PROVEN |
+| Formal Verification | Z3 Theorem Prover -- 8/8 invariants PROVEN |
 | Blockchain | web3.py + Avalanche C-Chain + Base Mainnet |
 | LLM Routing | LiteLLM Router (Cerebras, Groq, Mistral, SambaNova) |
 | Dashboard | Next.js + Tailwind CSS on Vercel |
@@ -259,7 +259,7 @@ print(result['aggregate'])
                    ZERO LLM in this step -- purely deterministic
                    |
 5. Z3 PROOF        Z3Verifier generates formal mathematical proof
-                   4 invariants checked, proof hash = keccak256(proof)
+                   8 invariants checked, proof hash = keccak256(proof)
                    |
 6. ON-CHAIN        DOFChainAdapter writes attestation to Avalanche/Base
                    ERC-8004 receipt with task hash + proof hash

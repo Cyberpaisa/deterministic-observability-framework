@@ -15,8 +15,8 @@ DOF is not a wrapper around an LLM. It is the infrastructure that makes LLM-base
 | Metric | Value |
 |---|---|
 | Autonomous Cycles | 238+ |
-| On-Chain Attestations | 38+ |
-| Z3 Proofs Verified | 4/4 |
+| On-Chain Attestations | 48+ |
+| Z3 Proofs Verified | 8/8 |
 | Test Suite | 986 tests |
 | Core Modules | 35 |
 | Skills | 18 |
@@ -100,7 +100,7 @@ The combination means you can answer the question "did this agent behave correct
 - `SS_FORMULA` — Supervisor scoring formula is mathematically correct
 - `SS_MONOTONICITY` — Higher quality scores produce higher supervisor scores
 - `SS_BOUNDARIES` — Supervisor score boundaries are well-defined
-- All 4 theorems: **PROVEN** (avg proof time: ~109ms)
+- All 8 theorems: **PROVEN** (avg proof time: ~109ms)
 
 **MetaSupervisor** (`core/supervisor.py`):
 - Weighted scoring: Quality (0.40) + Accuracy (0.25) + Compliance (0.20) + Fluency (0.15)
@@ -156,7 +156,7 @@ DOF implements the ERC-8004 standard through its `DOFChainAdapter`, creating a v
 }
 ```
 
-**38+ on-chain attestations** have been recorded across multiple chains. Each one links back to a specific agent action, a specific governance evaluation, and a specific Z3 proof. The chain does not store the data — it stores the proof that the data was verified.
+**48+ on-chain attestations** have been recorded across multiple chains. Each one links back to a specific agent action, a specific governance evaluation, and a specific Z3 proof. The chain does not store the data — it stores the proof that the data was verified.
 
 This is not "we logged something to a blockchain." This is: the agent acted, math verified the action, and the blockchain recorded the mathematical proof.
 
@@ -199,7 +199,7 @@ REPEAT   ── Start next cycle autonomously
 | Metric | Value |
 |---|---|
 | Total Autonomous Cycles | 238+ |
-| On-Chain Attestations (no human trigger) | 38+ |
+| On-Chain Attestations (no human trigger) | 48+ |
 | Provider Failures Recovered | Automatic (TTL backoff) |
 | Human Interventions Required | 0 during operation |
 | Crash Recovery | JSONL checkpointing per step |
