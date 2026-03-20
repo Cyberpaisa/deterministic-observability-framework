@@ -310,6 +310,7 @@ export default function Dashboard() {
               { id: 'skills', icon: Boxes, label: 'SKILLS' },
               { id: 'security', icon: Shield, label: 'SHIELD' },
               { id: 'legion', icon: Crown, label: 'LEGION' },
+              { id: 'hackathon', icon: Award, label: 'HACK' },
             ].map((it) => (
               <button
                key={it.id}
@@ -1142,6 +1143,132 @@ export default function Dashboard() {
                                </div>
                             </div>
                          )}
+                      </div>
+                   </div>
+
+                </motion.div>
+              )}
+
+             {/* === HACKATHON TAB === */}
+             {activeTab === 'hackathon' && (
+                <motion.div key="hackathon" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="h-full p-8 flex flex-col gap-8 overflow-y-auto custom-scrollbar">
+
+                   {/* Hero */}
+                   <div className="relative overflow-hidden rounded-3xl border border-purple-500/30 bg-gradient-to-br from-purple-900/20 via-zinc-950 to-indigo-900/20 p-8">
+                      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 via-indigo-500 to-emerald-500" />
+                      <div className="flex items-start justify-between">
+                         <div>
+                            <div className="flex items-center gap-3 mb-2">
+                               <span className="text-[10px] font-mono text-purple-400 bg-purple-500/20 border border-purple-500/30 px-3 py-1 rounded-full font-bold uppercase tracking-widest">Synthesis 2026</span>
+                               <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/20 border border-emerald-500/30 px-3 py-1 rounded-full font-bold uppercase tracking-widest">ERC-8004 #31013</span>
+                            </div>
+                            <h1 className="text-3xl font-black text-white tracking-tight mt-4">DOF Agent #1686</h1>
+                            <p className="text-sm font-mono text-zinc-400 mt-2 max-w-2xl">Deterministic Observability Framework — Math-verified, blockchain-attested AI agent governance. Every action governed by rules, verified by Z3 proofs, recorded on-chain.</p>
+                         </div>
+                         <div className="flex gap-4">
+                            <StatusRing value={100} label="Z3 Proofs" color="stroke-emerald-500" />
+                            <StatusRing value={77} label="Gov Score" color="stroke-purple-500" />
+                         </div>
+                      </div>
+                   </div>
+
+                   {/* Stats Grid */}
+                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                      {[
+                         { label: 'Autonomous Cycles', value: '238+', color: 'text-purple-400', bg: 'bg-purple-500/10 border-purple-500/30' },
+                         { label: 'On-Chain Attestations', value: '38+', color: 'text-emerald-400', bg: 'bg-emerald-500/10 border-emerald-500/30' },
+                         { label: 'Z3 Theorems Proven', value: '4/4', color: 'text-indigo-400', bg: 'bg-indigo-500/10 border-indigo-500/30' },
+                         { label: 'Unit Tests', value: '986', color: 'text-amber-400', bg: 'bg-amber-500/10 border-amber-500/30' },
+                      ].map((stat) => (
+                         <div key={stat.label} className={`border rounded-2xl p-5 ${stat.bg}`}>
+                            <div className="text-[8px] font-mono text-zinc-500 uppercase tracking-widest">{stat.label}</div>
+                            <div className={`text-2xl font-black mt-1 ${stat.color}`}>{stat.value}</div>
+                         </div>
+                      ))}
+                   </div>
+
+                   {/* Tracks */}
+                   <div>
+                      <h2 className="text-lg font-black text-white tracking-tight uppercase mb-4">Hackathon Tracks</h2>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                         {[
+                            { track: 'Open Track', prize: '$28,308', desc: 'Full DOF demo — governance, Z3 proofs, on-chain attestations, 14-agent swarm', status: 'ACTIVE', color: 'border-purple-500/50 bg-purple-500/5' },
+                            { track: 'ERC-8004 Agents With Receipts', prize: '$4,000', desc: 'On-chain receipts for every agent action — Z3 proof hashes published to Avalanche', status: 'ACTIVE', color: 'border-emerald-500/50 bg-emerald-500/5' },
+                            { track: 'Let the Agent Cook', prize: '$4,000', desc: '238+ autonomous cycles, zero human input — GLADIATOR loop with safety guardrails', status: 'ACTIVE', color: 'border-indigo-500/50 bg-indigo-500/5' },
+                         ].map((t) => (
+                            <div key={t.track} className={`border rounded-2xl p-5 ${t.color} hover:scale-[1.02] transition-transform`}>
+                               <div className="flex items-center justify-between mb-2">
+                                  <span className="text-[9px] font-mono text-emerald-400 font-bold uppercase">{t.status}</span>
+                                  <span className="text-sm font-black text-white">{t.prize}</span>
+                               </div>
+                               <h3 className="text-sm font-black text-white mt-1">{t.track}</h3>
+                               <p className="text-[10px] font-mono text-zinc-500 mt-2 leading-relaxed">{t.desc}</p>
+                            </div>
+                         ))}
+                      </div>
+                   </div>
+
+                   {/* Pipeline */}
+                   <div>
+                      <h2 className="text-lg font-black text-white tracking-tight uppercase mb-4">DOF Pipeline</h2>
+                      <div className="flex items-center gap-2 overflow-x-auto pb-2">
+                         {['Identity (ERC-8004)', 'Task Input', 'LLM Analysis', 'Governance Check', 'Z3 Proof', 'On-Chain TX', 'Supervisor', 'Output'].map((step, i) => (
+                            <React.Fragment key={step}>
+                               <div className="bg-zinc-950/80 border border-white/10 rounded-xl px-4 py-3 text-center min-w-[120px] hover:border-purple-500/50 transition-all">
+                                  <div className="text-[8px] font-mono text-zinc-600 uppercase">Step {i + 1}</div>
+                                  <div className="text-[10px] font-mono font-bold text-white mt-1">{step}</div>
+                               </div>
+                               {i < 7 && <ArrowUpRight size={14} className="text-purple-500/50 flex-shrink-0 rotate-45" />}
+                            </React.Fragment>
+                         ))}
+                      </div>
+                   </div>
+
+                   {/* On-Chain Evidence */}
+                   <div>
+                      <h2 className="text-lg font-black text-white tracking-tight uppercase mb-4">On-Chain Evidence</h2>
+                      <div className="space-y-3">
+                         {[
+                            { label: 'ERC-8004 Registration', chain: 'Base Mainnet', hash: '0x7362ef41605e430aba3998b0888e7886c04d65673ce89aa12e1abdf7cffcada4', url: 'https://basescan.org/tx/0x7362ef41605e430aba3998b0888e7886c04d65673ce89aa12e1abdf7cffcada4' },
+                            { label: 'DOF Proof Registry', chain: 'Avalanche C-Chain', hash: '0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6', url: 'https://snowtrace.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6' },
+                            { label: 'Attestation Wrapper', chain: 'Base Mainnet', hash: '0x8004A169FB4a3325136EB29fA0ceB6D2e539a432', url: 'https://basescan.org/address/0x8004A169FB4a3325136EB29fA0ceB6D2e539a432' },
+                         ].map((evidence) => (
+                            <a key={evidence.label} href={evidence.url} target="_blank" rel="noopener noreferrer"
+                               className="flex items-center justify-between bg-zinc-950/80 border border-white/10 rounded-xl p-4 hover:border-purple-500/30 transition-all group">
+                               <div>
+                                  <div className="text-[10px] font-mono font-bold text-white">{evidence.label}</div>
+                                  <div className="text-[8px] font-mono text-zinc-600 mt-1">{evidence.chain}</div>
+                               </div>
+                               <div className="flex items-center gap-2">
+                                  <span className="text-[9px] font-mono text-zinc-500 group-hover:text-purple-400 transition-colors">{evidence.hash.slice(0, 12)}...{evidence.hash.slice(-6)}</span>
+                                  <ArrowUpRight size={14} className="text-zinc-600 group-hover:text-purple-400 transition-colors" />
+                               </div>
+                            </a>
+                         ))}
+                      </div>
+                   </div>
+
+                   {/* Tech Stack */}
+                   <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                      {['Z3 Theorem Prover', 'Solidity / EVM', 'LiteLLM Router', 'JSONL Audit Logs', 'ChromaDB Memory', 'web3.py', 'Next.js Dashboard', 'ERC-8004 Identity'].map((tech) => (
+                         <div key={tech} className="bg-zinc-950/60 border border-white/5 rounded-lg px-3 py-2 text-center">
+                            <span className="text-[9px] font-mono text-zinc-400">{tech}</span>
+                         </div>
+                      ))}
+                   </div>
+
+                   {/* Pitch */}
+                   <div className="border border-white/10 rounded-2xl p-6 bg-gradient-to-r from-purple-900/10 to-transparent">
+                      <p className="text-sm font-mono text-zinc-300 italic leading-relaxed">
+                         &ldquo;Agent acted autonomously. Math proved it. Blockchain recorded it.&rdquo;
+                      </p>
+                      <div className="flex gap-4 mt-4">
+                         <a href="https://github.com/Cyberpaisa/deterministic-observability-framework/tree/hackathon" target="_blank" rel="noopener noreferrer"
+                            className="text-[9px] font-mono text-purple-400 hover:text-white transition-colors uppercase tracking-widest">GitHub Repo &rarr;</a>
+                         <a href="https://basescan.org/tx/0x7362ef41605e430aba3998b0888e7886c04d65673ce89aa12e1abdf7cffcada4" target="_blank" rel="noopener noreferrer"
+                            className="text-[9px] font-mono text-emerald-400 hover:text-white transition-colors uppercase tracking-widest">Base TX &rarr;</a>
+                         <a href="https://snowtrace.io/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6" target="_blank" rel="noopener noreferrer"
+                            className="text-[9px] font-mono text-indigo-400 hover:text-white transition-colors uppercase tracking-widest">Avalanche Contract &rarr;</a>
                       </div>
                    </div>
 
