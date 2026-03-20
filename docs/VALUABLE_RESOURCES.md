@@ -40,6 +40,20 @@
 - **Stack**: Rust, TUI, daemon/client via Unix sockets
 - **Aplicación DOF**: Patrón de dashboard para SWE workflow. Integración de PR reviews con agent sessions
 
+### AIlice — Autonomous General-Purpose AI Agent (IACT Architecture)
+- **Repo**: https://github.com/myshell-ai/AIlice
+- **Descripción**: Agente AI autónomo con modelo IACT (Interactive Agents Call Tree) — spawning dinámico de sub-agentes con comunicación bidireccional. Agentes hijos pueden preguntar al padre cuando están bloqueados
+- **Stack**: Python, ZeroMQ (IPC), Flask (UI), Selenium/Playwright (browser), MCP client
+- **Stars**: 1,393 | **License**: MIT
+- **Features clave**: Dynamic agent spawning, bidirectional communication, self-expansion (agents build new modules at runtime), MCP wrapper (~200 líneas), context window optimization via binary search
+- **LLMs soportados**: OpenAI (GPT-4/5), Anthropic (Claude), Mistral, Groq, DeepSeek, Ollama, HuggingFace local
+- **Limitaciones**: ZERO governance, ZERO formal verification, ZERO audit logging, ZERO access control — ejecuta output del LLM directamente
+- **Aplicación DOF**:
+  - Adoptar patrón IACT para spawning dinámico de sub-agentes (DOF tiene 14 fijos)
+  - Comunicación bidireccional: agente hijo escala al supervisor con pregunta específica
+  - MCP wrapper pattern para consumir tools externos sin integración custom
+  - **NO integrar directamente** — es governance-naive. Extraer patrones y aplicar dentro de DOF con Z3+CONSTITUTION
+
 ### ApeRAG — Graph RAG with Vector Search and AI Agents ★ IMPLEMENTAR
 - **Repo**: https://github.com/apecloud/ApeRAG
 - **Descripción**: Plataforma RAG production-ready combinando Graph RAG, vector search, y full-text search con agentes AI MCP-enabled
@@ -142,6 +156,33 @@
 
 ---
 
+## 6. Strategic Intelligence
+
+### Agentic Payments Wars (March 2026)
+- **Doc completo**: `docs/AGENTIC_PAYMENTS_INTEL.md`
+- **Resumen**: 7+ frameworks compitiendo por payment rails para agentes AI
+- **Modelos**: x402 (Coinbase), MPP (Stripe/Tempo), ACP/UCP (OpenAI/Google), ERC-8183 (Virtuals)
+- **Números**: McKinsey $3-5T by 2030 | Virtuals $3.8M agent revenue | 18K+ agents | +4,700% AI traffic YoY
+- **DOF Position**: ERC-8004 (identity) + Z3 (verification) + keccak256 (attestation) → falta payment rails
+- **Prioridad**: Implementar x402 + ERC-8183 en Enigma API
+- **Quote clave**: "Very soon there are going to be more AI agents than humans making transactions" — Brian Armstrong
+
+### NVIDIA Nemotron Coalition + Mistral (March 16, 2026 — GTC)
+- **Qué pasó**: NVIDIA lanzó Nemotron Coalition — alianza de labs open-source (Mistral, Black Forest Labs, Perplexity) con compute de DGX Cloud
+- **Objetivo**: Modelos open-source a nivel frontier, competir con GPT/Gemini/Claude cerrados
+- **Mistral Small 4**: 119B params, 128 experts (MoE), 256K context window, text+images, 40% más rápido, Apache 2.0
+- **Nemotron 3 Ultra**: ~500B params en horizonte, benchmarks contra Qwen-K2 y top models
+- **Jensen Huang**: "El open-source gana a largo plazo" — NVIDIA gana vendiendo GPUs a todos
+- **Impacto en costos**: Modelos frontier gratis → self-host → costo marginal por query cae dramáticamente
+- **Aplicación DOF**:
+  - DOF usa qwen3:8b local via Ollama — Mistral Small 4 (119B) sería upgrade masivo si se puede correr local
+  - Nemotron models como alternativa a providers pagos (Groq, NVIDIA NIM, Cerebras)
+  - Open-source frontier = soberanía total del LLM sin dependencia de APIs externas
+  - MoE (128 experts) ideal para agent specialization — routing por tarea
+- **Acción**: Evaluar Mistral Small 4 en Ollama cuando esté disponible como GGUF
+
+---
+
 ## 8. Pending to Evaluate
 
 > Repos pendientes de clonación y análisis profundo:
@@ -156,6 +197,8 @@
 - [ ] `pertmux` — Probar SWE dashboard con tmux
 - [ ] `ApeRAG` — **PRIORIDAD ALTA** — Implementar Graph RAG como módulo de Mission Control
 - [ ] `dlt` — Probar ETL pipeline para JSONL → DuckDB analytics
+- [x] `AIlice` — **EVALUADO** — Extraer patrones IACT, no integrar directo (zero governance)
+- [ ] `Mistral Small 4` — Evaluar en Ollama cuando GGUF disponible (119B, MoE, Apache 2.0)
 
 ---
 

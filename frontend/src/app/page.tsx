@@ -17,6 +17,7 @@ interface SkillsData { total_skills: number; patterns_supported: string[]; skill
 interface KarmaAgent { agent_id: string; name: string; role: string; karma: number; level: string; recent_actions: any[]; total_actions: number; }
 interface ChatMsg { id: string; from: string; from_name: string; role: string; content: string; type: string; timestamp: string; karma_at_time: number; }
 
+
 const StatusRing = ({ value, label, color = "stroke-purple-500" }: { value: number, label: string, color?: string }) => {
   const radius = 30;
   const circumference = 2 * Math.PI * radius;
