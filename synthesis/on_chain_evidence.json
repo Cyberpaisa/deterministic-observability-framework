@@ -1,0 +1,186 @@
+{
+  "generated_at": "2026-03-20T15:13:45.231584+00:00",
+  "agent_id": 1686,
+  "erc8004_token": 31013,
+  "erc8004_registration_tx": "0x7362ef41605e430aba3998b0888e7886c04d65673ce89aa12e1abdf7cffcada4",
+  "avalanche_contract": "0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6",
+  "z3_theorems_proven": 4,
+  "scenarios": [
+    {
+      "scenario": "reentrancy_classic",
+      "description": "Classic reentrancy: state update after external call",
+      "finding": "CRITICAL: withdraw() updates balances after msg.sender.call(). Attacker re-enters before state change. Fix: CEI pattern \u2014 update state before external call.",
+      "governance_passed": false,
+      "governance_score": 0.38,
+      "proof_hash": "0x27f2dd91f673d0988ab30830280f07842b9d2fe0cd831f5181072b96f6850a53",
+      "z3_proven": true,
+      "on_chain": {
+        "status": "dry_run",
+        "tx_hash": "0x240da1f990afaf6567e6ef089265f5ff07d69676f0ae743a455ceefb1ecb7e27",
+        "chain_id": 43114,
+        "chain_name": "Avalanche C-Chain",
+        "proof_hash": "0x27f2dd91f673d0988ab30830280f07842b9d2fe0cd831f5181072b96f6850a53",
+        "agent_id": 1686
+      }
+    },
+    {
+      "scenario": "integer_overflow",
+      "description": "Unchecked arithmetic in token transfer",
+      "finding": "HIGH: balances[to] += amount without overflow check in Solidity <0.8.0. Fix: Use SafeMath or upgrade to Solidity >=0.8.0 with built-in overflow checks.",
+      "governance_passed": true,
+      "governance_score": 0.38,
+      "proof_hash": "0x3a47e8c0ea7e03b5dc26ad310122e6a8dba47048b7e128b6562494d954406f1f",
+      "z3_proven": true,
+      "on_chain": {
+        "status": "dry_run",
+        "tx_hash": "0x52240f593e516358473366134fff750e54d4ac9dde06761671af82e1515d1f99",
+        "chain_id": 43114,
+        "chain_name": "Avalanche C-Chain",
+        "proof_hash": "0x3a47e8c0ea7e03b5dc26ad310122e6a8dba47048b7e128b6562494d954406f1f",
+        "agent_id": 1686
+      }
+    },
+    {
+      "scenario": "access_control",
+      "description": "Missing onlyOwner modifier on critical function",
+      "finding": "CRITICAL: setAdmin() has no access control. Any address can set themselves as admin. Fix: Add onlyOwner modifier or OpenZeppelin AccessControl.",
+      "governance_passed": true,
+      "governance_score": 0.38,
+      "proof_hash": "0x32ac1f0bdb324c402856a268bbf2f2a1c1a573d36e30182781be7978ea3d59e0",
+      "z3_proven": true,
+      "on_chain": {
+        "status": "dry_run",
+        "tx_hash": "0x06c5f9319010df6710858ca2fdb4643120151adf1398f22a60d7b7c8a34b8fb3",
+        "chain_id": 43114,
+        "chain_name": "Avalanche C-Chain",
+        "proof_hash": "0x32ac1f0bdb324c402856a268bbf2f2a1c1a573d36e30182781be7978ea3d59e0",
+        "agent_id": 1686
+      }
+    },
+    {
+      "scenario": "frontrunning",
+      "description": "Approval frontrunning in ERC-20 approve",
+      "finding": "MEDIUM: approve() is vulnerable to frontrunning. Spender can observe TX mempool, spend old allowance, then spend new allowance. Fix: Use increaseAllowance/decreaseAllowance pattern.",
+      "governance_passed": true,
+      "governance_score": 0.38,
+      "proof_hash": "0xa2e02896fb0bb86c21622b52a0c884f737c4386f83ef5e9a2e238b0364cb738b",
+      "z3_proven": true,
+      "on_chain": {
+        "status": "dry_run",
+        "tx_hash": "0xe520a4941b9a68ad948e9ff913f020b2690a26b9c4dbb4b46e353b7d1869b9cf",
+        "chain_id": 43114,
+        "chain_name": "Avalanche C-Chain",
+        "proof_hash": "0xa2e02896fb0bb86c21622b52a0c884f737c4386f83ef5e9a2e238b0364cb738b",
+        "agent_id": 1686
+      }
+    },
+    {
+      "scenario": "delegatecall_injection",
+      "description": "Unrestricted delegatecall to user-supplied address",
+      "finding": "CRITICAL: delegatecall(target, data) with user-supplied target allows arbitrary storage manipulation. Fix: Whitelist allowed target contracts.",
+      "governance_passed": true,
+      "governance_score": 0.38,
+      "proof_hash": "0x36b1831b005b478a62fb11905f8af68ad6abf77df2f3dd29f2ca7c5c1cd4dcfd",
+      "z3_proven": true,
+      "on_chain": {
+        "status": "dry_run",
+        "tx_hash": "0x864ba5e111e189cf61361b4d9770c3bff56d20644db2b6203ff0b6df6a6612ed",
+        "chain_id": 43114,
+        "chain_name": "Avalanche C-Chain",
+        "proof_hash": "0x36b1831b005b478a62fb11905f8af68ad6abf77df2f3dd29f2ca7c5c1cd4dcfd",
+        "agent_id": 1686
+      }
+    },
+    {
+      "scenario": "price_oracle_manipulation",
+      "description": "Single-source price oracle without TWAP",
+      "finding": "HIGH: getPrice() reads single-block spot price from DEX. Flash loan attack can manipulate price within one TX. Fix: Use Chainlink oracle or implement TWAP over 30+ minutes.",
+      "governance_passed": false,
+      "governance_score": 0.62,
+      "proof_hash": "0x3127d197077d8124b3d88b52b76746d517554fccbb89434d32e3b33671a3c106",
+      "z3_proven": true,
+      "on_chain": {
+        "status": "dry_run",
+        "tx_hash": "0xc17d1c57aeb9e2958153b184d3dca429bad9971a582fb85a6639e6c62d331647",
+        "chain_id": 43114,
+        "chain_name": "Avalanche C-Chain",
+        "proof_hash": "0x3127d197077d8124b3d88b52b76746d517554fccbb89434d32e3b33671a3c106",
+        "agent_id": 1686
+      }
+    },
+    {
+      "scenario": "signature_replay",
+      "description": "Missing nonce in EIP-712 signature verification",
+      "finding": "HIGH: ecrecover() verification without nonce allows signature replay. Same signature can execute action multiple times. Fix: Add incrementing nonce per signer.",
+      "governance_passed": false,
+      "governance_score": 0.62,
+      "proof_hash": "0x15f478fb53831441de4109a7c2ba34d195f2221b51299f40c591ade1942369b0",
+      "z3_proven": true,
+      "on_chain": {
+        "status": "dry_run",
+        "tx_hash": "0x6590ff50d4778f7e8d9b6fb865238666f1b03c705c7883905d87ff9497310b91",
+        "chain_id": 43114,
+        "chain_name": "Avalanche C-Chain",
+        "proof_hash": "0x15f478fb53831441de4109a7c2ba34d195f2221b51299f40c591ade1942369b0",
+        "agent_id": 1686
+      }
+    },
+    {
+      "scenario": "selfdestruct_proxy",
+      "description": "Implementation behind proxy can be selfdestructed",
+      "finding": "CRITICAL: Implementation contract has selfdestruct() callable by anyone. Proxy becomes bricked. Fix: Remove selfdestruct, use UUPS upgrade pattern with access control.",
+      "governance_passed": true,
+      "governance_score": 0.62,
+      "proof_hash": "0x3afa69f1e40a268606083d67db93273b7569f180e6a921ff11756e35e1e33a22",
+      "z3_proven": true,
+      "on_chain": {
+        "status": "dry_run",
+        "tx_hash": "0xfc6dd8f80d28e54fb9460ffe2cda4909e5fd0e30c9e607b3b2c93cf957a9de21",
+        "chain_id": 43114,
+        "chain_name": "Avalanche C-Chain",
+        "proof_hash": "0x3afa69f1e40a268606083d67db93273b7569f180e6a921ff11756e35e1e33a22",
+        "agent_id": 1686
+      }
+    },
+    {
+      "scenario": "unchecked_return",
+      "description": "ERC-20 transfer return value not checked",
+      "finding": "MEDIUM: token.transfer(to, amount) return value ignored. Some tokens return false instead of reverting. Fix: Use SafeERC20.safeTransfer() from OpenZeppelin.",
+      "governance_passed": true,
+      "governance_score": 0.38,
+      "proof_hash": "0x0975a17e1b10168fd7660efca6847813a735e5683955587df6c5794519565b61",
+      "z3_proven": true,
+      "on_chain": {
+        "status": "dry_run",
+        "tx_hash": "0xeb83bd5968ed7ae55347ac41482a113eaecf0028f7d4ea37a762f06118e83a0b",
+        "chain_id": 43114,
+        "chain_name": "Avalanche C-Chain",
+        "proof_hash": "0x0975a17e1b10168fd7660efca6847813a735e5683955587df6c5794519565b61",
+        "agent_id": 1686
+      }
+    },
+    {
+      "scenario": "dos_gas_limit",
+      "description": "Unbounded loop in withdrawal pattern",
+      "finding": "HIGH: for(i=0; i<recipients.length; i++) transfer() can exceed block gas limit with many recipients. Fix: Use pull-over-push pattern \u2014 let users withdraw individually.",
+      "governance_passed": false,
+      "governance_score": 0.38,
+      "proof_hash": "0x8caf34624e87f0f229e46be1aa9dedf924f896588335acc9ce6c8b12a5533211",
+      "z3_proven": true,
+      "on_chain": {
+        "status": "dry_run",
+        "tx_hash": "0xef50d5c57fc11a4d2516cddef535cdaed5e3542a4ab6824aa0c62278fa9dd7da",
+        "chain_id": 43114,
+        "chain_name": "Avalanche C-Chain",
+        "proof_hash": "0x8caf34624e87f0f229e46be1aa9dedf924f896588335acc9ce6c8b12a5533211",
+        "agent_id": 1686
+      }
+    }
+  ],
+  "summary": {
+    "total": 10,
+    "governance_passed": 6,
+    "on_chain_confirmed": 0,
+    "on_chain_dry_run": 10
+  }
+}

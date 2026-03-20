@@ -12,46 +12,43 @@
     "objective": "Audit for reentrancy vulnerabilities"
   },
   "llm": {
-    "model": "mistral-large-latest",
-    "chars": 1927,
-    "duration_ms": 9421
+    "model": "moonshotai/kimi-k2-instruct",
+    "chars": 772,
+    "duration_ms": 2247
   },
   "governance": {
     "passed": true,
-    "score": 0.77,
+    "score": 0.54,
     "violations": [],
     "warnings": [
-      "[HAS_SOURCES] Should include source URLs"
+      "[HAS_SOURCES] Should include source URLs",
+      "[ACTIONABLE] Should include actionable steps or recommendations"
     ]
   },
   "z3": {
     "theorems_proven": 4,
     "total_theorems": 4,
     "all_proven": true,
-    "combined_proof_hash": "0x5e3fdc102407641df90b4a93fe8b8859e28a3f2851f64c28deb3da56dcfe21f0",
+    "combined_proof_hash": "0xc287e47414b04c5906ceea27db88d84849547d91c92f141b419bf7fc1e2fc6b9",
     "individual_hashes": [
-      "0x66c92b2dbca52fa3338ad6e82102d9863d6d44ad2215961375c3865400a3f17c",
-      "0x4072d9baa1eba42b9abf0deebe428235f11a76c8dd7c81526317aedbb9ce09bb",
-      "0xf1ccb4300edcbb6cda5098f9853944889309956444c14eda125a9141e9cc9301",
-      "0xbffe7771ac28826aa8922047d5e1559a301f06448338c5ed18808b110e2dc652"
+      "0x5ca5c230b353e4ab27a6f59c56905cf4cc82c9a3e686c7a2cbdddaec950a0b3c",
+      "0x2c9a49c6cd8b47fa4691d83b9b27c1d7333e9e8421ddc01f1bb17f1fa5200e89",
+      "0x7ab895f2428065eaab34c4e8e0d1a5385499e3537d9630502d325e8ee6b8d46d",
+      "0xce28cec0b9a85778b17483c0b95b24e04f3639efbdad671b3028823b3b9a71af"
     ]
   },
   "on_chain": {
-    "status": "dry_run",
-    "tx_hash": "0xf69cd8bf3a93bc936e7b61cc7296d34e06a07559964929f39162dde9607f7a80",
-    "chain_id": 43114,
-    "chain_name": "Avalanche C-Chain",
-    "proof_hash": "0x5e3fdc102407641df90b4a93fe8b8859e28a3f2851f64c28deb3da56dcfe21f0",
-    "agent_id": 1686
+    "status": "error",
+    "error": "{'code': -32000, 'message': 'insufficient funds for transfer'}"
   },
   "supervisor": {
-    "decision": "ACCEPT",
-    "score": 7.35,
-    "quality": 7.0,
-    "actionability": 8.0,
-    "completeness": 9.0,
+    "decision": "RETRY",
+    "score": 5.78,
+    "quality": 5.5,
+    "actionability": 6.5,
+    "completeness": 6.0,
     "factuality": 5.0
   },
-  "total_ms": 9447,
-  "timestamp": "2026-03-20T15:09:40.232199+00:00"
+  "total_ms": 3348,
+  "timestamp": "2026-03-20T15:12:42.929915+00:00"
 }
