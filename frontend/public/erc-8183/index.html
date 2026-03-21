@@ -58,6 +58,7 @@
         .toast-ok{background:rgba(74,222,128,.15);border:1px solid rgba(74,222,128,.3);color:#4ade80}
         .toast-info{background:rgba(168,85,247,.15);border:1px solid rgba(168,85,247,.3);color:#c084fc}
         @keyframes slideIn{from{transform:translateX(100px);opacity:0}to{transform:translateX(0);opacity:1}}
+        @keyframes slideUp{from{opacity:0;transform:translateX(-50%) translateY(20px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
     </style>
 </head>
 <body>
@@ -189,7 +190,12 @@ async function pipeline(action){
             var hexData='0x'+Array.from(new TextEncoder().encode(proofData)).map(function(b){return b.toString(16).padStart(2,'0')}).join('');
             var txReal=await window.ethereum.request({method:'eth_sendTransaction',params:[{from:walletAddr,to:'0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6',value:'0x0',data:hexData}]});
             tlog('TX: '+txReal,'log-ok');
-            tlog('Snowtrace: https://snowtrace.io/tx/'+txReal,'log-ok');
+            tlog('Snowtrace: <a href="https://snowtrace.io/tx/'+txReal+'" target="_blank" style="color:#4ade80;text-decoration:underline">https://snowtrace.io/tx/'+txReal+'</a>','log-ok');
+var snackbar=document.createElement('div');
+snackbar.style.cssText='position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#1a1a2e,#16213e);border:2px solid #4ade80;border-radius:16px;padding:20px 28px;z-index:9999;display:flex;flex-direction:column;align-items:center;gap:10px;box-shadow:0 8px 32px rgba(74,222,128,.3);animation:slideUp .4s ease';
+snackbar.innerHTML='<div style="color:#4ade80;font-size:14px;font-weight:700">✓ Transaction Confirmed on Avalanche</div><a href="https://snowtrace.io/tx/'+txReal+'" target="_blank" style="color:#818cf8;font-size:12px;text-decoration:underline;word-break:break-all">View on Snowtrace →</a><div style="color:rgba(255,255,255,.4);font-size:11px">'+txReal.slice(0,22)+'...</div>';
+document.body.appendChild(snackbar);
+setTimeout(function(){snackbar.remove()},8000);
         }catch(e){tlog('TX cancelled: '+e.message,'log-warn')}
     }
 }
