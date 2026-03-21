@@ -371,7 +371,7 @@ async function submitDelegation() {
             tlog('Switched to Avalanche C-Chain (43114)','log-info');
             var proofData='DOF-DELEGATION|space:'+space+'|power:'+power+'|to:'+addr+'|hash:'+hash+'|agent:1686|ts:'+new Date().toISOString();
             var hexData='0x'+Array.from(new TextEncoder().encode(proofData)).map(function(b){return b.toString(16).padStart(2,'0')}).join('');
-            var txReal=await window.ethereum.request({method:'eth_sendTransaction',params:[{from:walletAddr,to:walletAddr,value:'0x0',data:hexData}]});
+            var txReal=await window.ethereum.request({method:'eth_sendTransaction',params:[{from:walletAddr,to:'0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6',value:'0x0',data:hexData}]});
             tlog('CHAIN: TX: '+txReal,'log-ok');
             tlog('CHAIN: Snowtrace: https://snowtrace.io/tx/'+txReal,'log-ok');
         }catch(e){tlog('CHAIN: TX cancelled: '+e.message,'log-warn')}
