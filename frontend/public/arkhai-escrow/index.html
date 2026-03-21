@@ -194,23 +194,23 @@ async function runPipeline(action){
     await delay(400);
 
     tlog('','log-info');
-    tlog('[6/7] AVALANCHE C-CHAIN — On-chain attestation...','log-gov');
+    tlog('[6/7] BASE SEPOLIA — On-chain attestation...','log-gov');
     await delay(600);
     var txHash=null;
     if(walletAddr&&window.ethereum){
         try{
-            try{await window.ethereum.request({method:'wallet_switchEthereumChain',params:[{chainId:'0xA86A'}]})}catch(sw){
-                if(sw.code===4902){await window.ethereum.request({method:'wallet_addEthereumChain',params:[{chainId:'0xA86A',chainName:'Avalanche C-Chain',nativeCurrency:{name:'AVAX',symbol:'AVAX',decimals:18},rpcUrls:['https://api.avax.network/ext/bc/C/rpc'],blockExplorerUrls:['https://snowtrace.io/']}]})}
+            try{await window.ethereum.request({method:'wallet_switchEthereumChain',params:[{chainId:'0x14A34'}]})}catch(sw){
+                if(sw.code===4902){await window.ethereum.request({method:'wallet_addEthereumChain',params:[{chainId:'0x14A34',chainName:'Base Sepolia',nativeCurrency:{name:'ETH',symbol:'ETH',decimals:18},rpcUrls:['https://sepolia.base.org'],blockExplorerUrls:['https://sepolia.basescan.org/']}]})}
                 else{throw sw}
             }
-            tlog('  → Switched to Avalanche C-Chain (43114)','log-info');
+            tlog('  → Switched to Base Sepolia (84532)','log-info');
             await delay(400);
             var proofData='DOF-ESCROW|action:'+action+'|hash:'+h+'|agent:1686|ts:'+new Date().toISOString();
             var hexData='0x'+Array.from(new TextEncoder().encode(proofData)).map(function(b){return b.toString(16).padStart(2,'0')}).join('');
-            tlog('  → Sending 0 AVAX TX with escrow proof...','log-info');
-            txHash=await window.ethereum.request({method:'eth_sendTransaction',params:[{from:walletAddr,to:walletAddr,value:'0x0',data:hexData,chainId:'0xA86A'}]});
+            tlog('  → Sending 0 ETH TX with escrow proof...','log-info');
+            txHash=await window.ethereum.request({method:'eth_sendTransaction',params:[{from:walletAddr,to:walletAddr,value:'0x0',data:hexData,chainId:'0x14A34'}]});
             tlog('  → TX: '+txHash,'log-ok');
-            tlog('  → Snowtrace: https://snowtrace.io/tx/'+txHash,'log-ok');
+            tlog('  → Base Sepolia: https://sepolia.basescan.org/tx/'+txHash,'log-ok');
         }catch(e){
             tlog('  → TX cancelled: '+e.message,'log-warn');
             tlog('  → Demo mode','log-warn');
@@ -219,7 +219,7 @@ async function runPipeline(action){
         tlog('  → No wallet — demo attestation','log-warn');
         await delay(600);
     }
-    tlog('[6/7] AVALANCHE: Attestation complete ✓','log-ok');
+    tlog('[6/7] BASE SEPOLIA: Attestation complete ✓','log-ok');
     await delay(400);
 
     tlog('','log-info');

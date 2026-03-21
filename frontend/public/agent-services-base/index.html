@@ -82,7 +82,7 @@
                     <div class="pipe-step" id="p2"><span class="pipe-dot"></span> Z3 Verification</div>
                     <div class="pipe-step" id="p3"><span class="pipe-dot"></span> keccak256 Hash</div>
                     <div class="pipe-step" id="p4"><span class="pipe-dot"></span> MetaMask Signature</div>
-                    <div class="pipe-step" id="p5"><span class="pipe-dot"></span> Avalanche C-Chain</div>
+                    <div class="pipe-step" id="p5"><span class="pipe-dot"></span> Base Mainnet</div>
                 </div>
             </form>
         </div>
@@ -211,31 +211,31 @@ async function submitProof(){
     document.getElementById('p4').classList.remove('active');document.getElementById('p4').classList.add('done');
     await delay(400);
 
-    // Step 5: On-chain — REAL Avalanche C-Chain TX
+    // Step 5: On-chain — REAL Base Mainnet TX
     document.getElementById('p5').classList.add('active');
     tlog('','log-info');
-    tlog('[5/5] AVALANCHE C-CHAIN — Sending on-chain proof...','log-gov');
+    tlog('[5/5] BASE SEPOLIA — Sending on-chain proof...','log-gov');
     await delay(600);
     var tx=null;var txLink=null;
     if(walletAddr&&window.ethereum){
         try{
-            // Switch to Avalanche C-Chain (43114 = 0xA86A)
-            try{await window.ethereum.request({method:'wallet_switchEthereumChain',params:[{chainId:'0xA86A'}]})}catch(sw){
-                if(sw.code===4902){await window.ethereum.request({method:'wallet_addEthereumChain',params:[{chainId:'0xA86A',chainName:'Avalanche C-Chain',nativeCurrency:{name:'AVAX',symbol:'AVAX',decimals:18},rpcUrls:['https://api.avax.network/ext/bc/C/rpc'],blockExplorerUrls:['https://snowtrace.io/']}]})}
+            // Switch to Base Sepolia (84532 = 0x14A34)
+            try{await window.ethereum.request({method:'wallet_switchEthereumChain',params:[{chainId:'0x14A34'}]})}catch(sw){
+                if(sw.code===4902){await window.ethereum.request({method:'wallet_addEthereumChain',params:[{chainId:'0x14A34',chainName:'Base Sepolia',nativeCurrency:{name:'ETH',symbol:'ETH',decimals:18},rpcUrls:['https://sepolia.base.org'],blockExplorerUrls:['https://sepolia.basescan.org/']}]})}
                 else{throw sw}
             }
-            tlog('  → Switched to Avalanche C-Chain (43114)','log-info');
+            tlog('  → Switched to Base Sepolia (84532)','log-info');
             await delay(400);
             // Encode proof data as hex for input data
             var proofData='DOF-PROOF|type:'+type+'|task:'+desc+'|z3:'+thms+'|hash:'+h+'|agent:1686|ts:'+new Date().toISOString();
             var hexData='0x'+Array.from(new TextEncoder().encode(proofData)).map(function(b){return b.toString(16).padStart(2,'0')}).join('');
             tlog('  → Proof data: '+proofData.length+' bytes encoded','log-info');
             await delay(400);
-            tlog('  → Sending 0 AVAX TX with proof in input data...','log-info');
-            tx=await window.ethereum.request({method:'eth_sendTransaction',params:[{from:walletAddr,to:walletAddr,value:'0x0',data:hexData,chainId:'0xA86A'}]});
-            txLink='https://snowtrace.io/tx/'+tx;
+            tlog('  → Sending 0 ETH TX with proof in input data...','log-info');
+            tx=await window.ethereum.request({method:'eth_sendTransaction',params:[{from:walletAddr,to:walletAddr,value:'0x0',data:hexData,chainId:'0x14A34'}]});
+            txLink='https://sepolia.basescan.org/tx/'+tx;
             tlog('  → TX CONFIRMED: '+tx,'log-ok');
-            tlog('  → Snowtrace: '+txLink,'log-ok');
+            tlog('  → Base Sepolia: '+txLink,'log-ok');
         }catch(e){
             tlog('  → TX cancelled or failed: '+e.message,'log-warn');
             tlog('  → Falling back to demo mode','log-warn');
@@ -246,7 +246,7 @@ async function submitProof(){
         await delay(600);
         tx='0x'+Array.from(crypto.getRandomValues(new Uint8Array(32))).map(function(b){return b.toString(16).padStart(2,'0')}).join('');
     }
-    tlog('[5/5] AVALANCHE: Proof on-chain ✓','log-ok');
+    tlog('[5/5] BASE: Proof on-chain ✓','log-ok');
     document.getElementById('p5').classList.remove('active');document.getElementById('p5').classList.add('done');
     await delay(300);
 
@@ -255,11 +255,11 @@ async function submitProof(){
     tlog('Type: '+type+' | Z3: '+thms+' | Time: '+zt+'ms','log-ok');
     tlog('Hash: '+h.slice(0,22)+'...','log-info');
     tlog('TX: '+tx.slice(0,22)+'...','log-info');
-    if(txLink)tlog('View on Snowtrace: '+txLink,'log-ok');
+    if(txLink)tlog('View on Base Sepolia: '+txLink,'log-ok');
     tlog('','log-info');
 
     proofs.unshift({name:type+' #'+(200+proofs.length),desc:desc,status:'ON-CHAIN',meta:zt+'ms',color:'#4ade80',link:txLink});
-    renderProofs();toast(txLink?'Proof registered on Avalanche!':'Proof registered (demo)','ok');return false;
+    renderProofs();toast(txLink?'Proof registered on Base!':'Proof registered (demo)','ok');return false;
 }
 </script>
 </body>
