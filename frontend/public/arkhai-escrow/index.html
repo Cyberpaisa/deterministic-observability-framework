@@ -228,6 +228,8 @@ async function createEscrow(){
     var seller=document.getElementById('seller').value;var buyer=document.getElementById('buyer').value||walletAddr||'0xDemo';
     var amount=document.getElementById('amount').value;var token=document.getElementById('token').value;var terms=document.getElementById('terms').value;
     if(!seller||!amount||!terms){toast('Fill all fields','err');return false}
+    document.getElementById('terminal').scrollIntoView({behavior:'smooth',block:'center'});
+    await delay(300);
     tlog('--- CREATE ESCROW ---','log-ok');tlog('Amount: '+amount+' '+token+' | Seller: '+seller.slice(0,10)+'...','log-info');
     await runPipeline('create escrow');
     escrows.unshift({seller:seller,buyer:buyer,amount:amount,token:token,terms:terms,status:'FUNDED',created:new Date().toISOString()});
