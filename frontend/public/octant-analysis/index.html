@@ -124,12 +124,15 @@ async function connectWallet(){
     if(!window.ethereum){toast('MetaMask not detected','err');window.open('https://metamask.io','_blank');return}
     try{
         var accs=await window.ethereum.request({method:'eth_requestAccounts'});walletAddr=accs[0];
-        var bal=await window.ethereum.request({method:'eth_getBalance',params:[walletAddr,'latest']});var eth=(parseInt(bal,16)/1e18).toFixed(4);
-        document.getElementById('wallet-container').innerHTML='<div class="wallet-info"><div class="wallet-dot"></div><span style="font-family:monospace;color:rgba(255,255,255,.8)">'+walletAddr.slice(0,6)+'...'+walletAddr.slice(-4)+'</span><span style="color:rgba(255,255,255,.5);border-left:1px solid rgba(255,255,255,.2);padding-left:10px">'+eth+' ETH</span></div>';
+        try{await window.ethereum.request({method:'wallet_switchEthereumChain',params:[{chainId:'0xa86a'}]})}catch(sw){
+            if(sw.code===4902){await window.ethereum.request({method:'wallet_addEthereumChain',params:[{chainId:'0xa86a',chainName:'Avalanche C-Chain',nativeCurrency:{name:'AVAX',symbol:'AVAX',decimals:18},rpcUrls:['https://api.avax.network/ext/bc/C/rpc'],blockExplorerUrls:['https://snowtrace.io/']}]})}
+        }
+        var bal=await window.ethereum.request({method:'eth_getBalance',params:[walletAddr,'latest']});var avax=(parseInt(bal,16)/1e18).toFixed(4);
+        document.getElementById('wallet-container').innerHTML='<div class="wallet-info"><div class="wallet-dot"></div><span style="font-family:monospace;color:rgba(255,255,255,.8)">'+walletAddr.slice(0,6)+'...'+walletAddr.slice(-4)+'</span><span style="color:rgba(255,255,255,.5);border-left:1px solid rgba(255,255,255,.2);padding-left:10px">'+avax+' AVAX</span></div>';
         toast('Wallet connected','ok');tlog('Wallet: '+walletAddr,'log-ok');
         window.ethereum.on('accountsChanged',function(a){if(!a.length)location.reload();walletAddr=a[0]});
         window.ethereum.on('chainChanged',function(){location.reload()});
-    }catch(e){toast('Connection rejected','err')}
+    }catch(e){console.log(e)}
 }
 
 function drawChart(){
@@ -168,8 +171,22 @@ async function fundProject(){
     await step('p3','HASH: keccak256...','log-info',500);var h='0x'+Array.from(crypto.getRandomValues(new Uint8Array(32))).map(function(b){return b.toString(16).padStart(2,'0')}).join('');tlog('HASH: '+h.slice(0,22)+'...','log-ok');
     await step('p4','SIGN: Requesting signature...','log-warn',600);
     if(walletAddr&&window.ethereum){try{await window.ethereum.request({method:'personal_sign',params:['DOF Fund: '+proj+' '+amt+'ETH\nHash: '+h.slice(0,20),walletAddr]});tlog('SIGN: MetaMask confirmed','log-ok')}catch(e){tlog('SIGN: Rejected — demo','log-warn')}}else{tlog('SIGN: Demo mode','log-warn')}
-    await step('p5','CHAIN: Publishing attestation...','log-info',1200);var tx='0x'+Array.from(crypto.getRandomValues(new Uint8Array(32))).map(function(b){return b.toString(16).padStart(2,'0')}).join('');
-    tlog('TX: '+tx.slice(0,22)+'...','log-ok');tlog('=== FUNDING COMPLETE ===','log-ok');toast('Funded '+proj+' with '+amt+' ETH','ok');
+    await step('p5','AVALANCHE: Publishing attestation...','log-info',1200);
+    if(walletAddr&&window.ethereum){
+        try{
+            try{await window.ethereum.request({method:'wallet_switchEthereumChain',params:[{chainId:'0xa86a'}]})}catch(sw){
+                if(sw.code===4902){await window.ethereum.request({method:'wallet_addEthereumChain',params:[{chainId:'0xa86a',chainName:'Avalanche C-Chain',nativeCurrency:{name:'AVAX',symbol:'AVAX',decimals:18},rpcUrls:['https://api.avax.network/ext/bc/C/rpc'],blockExplorerUrls:['https://snowtrace.io/']}]})}
+                else{throw sw}
+            }
+            tlog('Switched to Avalanche C-Chain (43114)','log-info');
+            var proofData='DOF-OCTANT|project:'+proj+'|amount:'+amt+'|hash:'+h+'|agent:1686|ts:'+new Date().toISOString();
+            var hexData='0x'+Array.from(new TextEncoder().encode(proofData)).map(function(b){return b.toString(16).padStart(2,'0')}).join('');
+            var txReal=await window.ethereum.request({method:'eth_sendTransaction',params:[{from:walletAddr,to:walletAddr,value:'0x0',data:hexData}]});
+            tlog('TX: '+txReal,'log-ok');
+            tlog('Snowtrace: https://snowtrace.io/tx/'+txReal,'log-ok');
+        }catch(e){tlog('TX cancelled: '+e.message,'log-warn')}
+    }
+    tlog('=== FUNDING COMPLETE ===','log-ok');toast('Funded '+proj+' with '+amt+' ETH','ok');
     return false;
 }
 setTimeout(function(){tlog('On-chain sync: block #19,847,231','log-ok')},2000);

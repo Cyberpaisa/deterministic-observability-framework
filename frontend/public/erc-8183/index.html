@@ -126,10 +126,15 @@ tlog('Z3: Contract invariants ready','log-info');
 
 async function connectWallet(){
     if(!window.ethereum){toast('Install MetaMask','err');return}
-    try{var accs=await window.ethereum.request({method:'eth_requestAccounts'});walletAddr=accs[0];var bal=await window.ethereum.request({method:'eth_getBalance',params:[walletAddr,'latest']});var eth=(parseInt(bal,16)/1e18).toFixed(4);
-    document.getElementById('wallet-container').innerHTML='<div class="wallet-info"><div class="wallet-dot"></div><span style="font-family:monospace;color:rgba(255,255,255,.8)">'+walletAddr.slice(0,6)+'...'+walletAddr.slice(-4)+'</span><span style="color:rgba(255,255,255,.5);border-left:1px solid rgba(255,255,255,.2);padding-left:10px">'+eth+' ETH</span></div>';
-    toast('Wallet connected','ok');tlog('Wallet: '+walletAddr,'log-ok');
-    }catch(e){}
+    try{
+        var accs=await window.ethereum.request({method:'eth_requestAccounts'});walletAddr=accs[0];
+        try{await window.ethereum.request({method:'wallet_switchEthereumChain',params:[{chainId:'0xa86a'}]})}catch(sw){
+            if(sw.code===4902){await window.ethereum.request({method:'wallet_addEthereumChain',params:[{chainId:'0xa86a',chainName:'Avalanche C-Chain',nativeCurrency:{name:'AVAX',symbol:'AVAX',decimals:18},rpcUrls:['https://api.avax.network/ext/bc/C/rpc'],blockExplorerUrls:['https://snowtrace.io/']}]})}
+        }
+        var bal=await window.ethereum.request({method:'eth_getBalance',params:[walletAddr,'latest']});var avax=(parseInt(bal,16)/1e18).toFixed(4);
+        document.getElementById('wallet-container').innerHTML='<div class="wallet-info"><div class="wallet-dot"></div><span style="font-family:monospace;color:rgba(255,255,255,.8)">'+walletAddr.slice(0,6)+'...'+walletAddr.slice(-4)+'</span><span style="color:rgba(255,255,255,.5);border-left:1px solid rgba(255,255,255,.2);padding-left:10px">'+avax+' AVAX</span></div>';
+        toast('Wallet connected','ok');tlog('Wallet: '+walletAddr,'log-ok');
+    }catch(e){console.log(e)}
 }
 
 function saveJobs(){localStorage.setItem('erc8183_jobs',JSON.stringify(jobs))}
@@ -173,6 +178,20 @@ async function pipeline(action){
     var h='0x'+Array.from(crypto.getRandomValues(new Uint8Array(32))).map(function(b){return b.toString(16).padStart(2,'0')}).join('');
     tlog('HASH: '+h.slice(0,22)+'...','log-ok');
     if(walletAddr&&window.ethereum){try{await window.ethereum.request({method:'personal_sign',params:['ERC-8183: '+action+'\nHash: '+h.slice(0,20),walletAddr]});tlog('SIGN: MetaMask confirmed','log-ok')}catch(e){tlog('SIGN: Demo','log-warn')}}
+    if(walletAddr&&window.ethereum){
+        try{
+            try{await window.ethereum.request({method:'wallet_switchEthereumChain',params:[{chainId:'0xa86a'}]})}catch(sw){
+                if(sw.code===4902){await window.ethereum.request({method:'wallet_addEthereumChain',params:[{chainId:'0xa86a',chainName:'Avalanche C-Chain',nativeCurrency:{name:'AVAX',symbol:'AVAX',decimals:18},rpcUrls:['https://api.avax.network/ext/bc/C/rpc'],blockExplorerUrls:['https://snowtrace.io/']}]})}
+                else{throw sw}
+            }
+            tlog('Switched to Avalanche C-Chain (43114)','log-info');
+            var proofData='DOF-ERC8183|action:'+action+'|hash:'+h+'|agent:1686|ts:'+new Date().toISOString();
+            var hexData='0x'+Array.from(new TextEncoder().encode(proofData)).map(function(b){return b.toString(16).padStart(2,'0')}).join('');
+            var txReal=await window.ethereum.request({method:'eth_sendTransaction',params:[{from:walletAddr,to:walletAddr,value:'0x0',data:hexData}]});
+            tlog('TX: '+txReal,'log-ok');
+            tlog('Snowtrace: https://snowtrace.io/tx/'+txReal,'log-ok');
+        }catch(e){tlog('TX cancelled: '+e.message,'log-warn')}
+    }
 }
 
 async function createJob(){

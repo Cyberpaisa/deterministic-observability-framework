@@ -119,11 +119,14 @@ async function connectWallet(){
     if(!window.ethereum){toast('MetaMask not detected','err');window.open('https://metamask.io','_blank');return}
     try{
         var accs=await window.ethereum.request({method:'eth_requestAccounts'});walletAddr=accs[0];
-        var bal=await window.ethereum.request({method:'eth_getBalance',params:[walletAddr,'latest']});var eth=(parseInt(bal,16)/1e18).toFixed(4);
-        document.getElementById('wallet-container').innerHTML='<div class="wallet-info"><div class="wallet-dot"></div><span style="font-family:monospace;color:rgba(255,255,255,.8)">'+walletAddr.slice(0,6)+'...'+walletAddr.slice(-4)+'</span><span style="color:rgba(255,255,255,.5);border-left:1px solid rgba(255,255,255,.2);padding-left:10px">'+eth+' ETH</span></div>';
+        try{await window.ethereum.request({method:'wallet_switchEthereumChain',params:[{chainId:'0xa86a'}]})}catch(sw){
+            if(sw.code===4902){await window.ethereum.request({method:'wallet_addEthereumChain',params:[{chainId:'0xa86a',chainName:'Avalanche C-Chain',nativeCurrency:{name:'AVAX',symbol:'AVAX',decimals:18},rpcUrls:['https://api.avax.network/ext/bc/C/rpc'],blockExplorerUrls:['https://snowtrace.io/']}]})}
+        }
+        var bal=await window.ethereum.request({method:'eth_getBalance',params:[walletAddr,'latest']});var avax=(parseInt(bal,16)/1e18).toFixed(4);
+        document.getElementById('wallet-container').innerHTML='<div class="wallet-info"><div class="wallet-dot"></div><span style="font-family:monospace;color:rgba(255,255,255,.8)">'+walletAddr.slice(0,6)+'...'+walletAddr.slice(-4)+'</span><span style="color:rgba(255,255,255,.5);border-left:1px solid rgba(255,255,255,.2);padding-left:10px">'+avax+' AVAX</span></div>';
         toast('Wallet connected','ok');tlog('Wallet: '+walletAddr,'log-ok');
         window.ethereum.on('accountsChanged',function(a){if(!a.length)location.reload();walletAddr=a[0]});
-    }catch(e){toast('Connection rejected','err')}
+    }catch(e){console.log(e)}
 }
 
 function updateStats(){
@@ -166,7 +169,21 @@ async function deployAgent(){
     tlog('REGISTER: Agent ID '+agentId,'log-ok');
     await step('p4','STAKE: Staking '+stake+' OLAS...','log-info',900);
     if(walletAddr&&window.ethereum){try{await window.ethereum.request({method:'personal_sign',params:['Olas Deploy: '+name+' ('+type+') stake '+stake+' OLAS',walletAddr]});tlog('STAKE: Signed via MetaMask','log-ok')}catch(e){tlog('STAKE: Demo mode','log-warn')}}else{tlog('STAKE: Demo mode','log-warn')}
-    await step('p5','NETWORK: Joining Olas Pearl...','log-info',1000);
+    await step('p5','AVALANCHE: On-chain agent registration...','log-info',1000);
+    if(walletAddr&&window.ethereum){
+        try{
+            try{await window.ethereum.request({method:'wallet_switchEthereumChain',params:[{chainId:'0xa86a'}]})}catch(sw){
+                if(sw.code===4902){await window.ethereum.request({method:'wallet_addEthereumChain',params:[{chainId:'0xa86a',chainName:'Avalanche C-Chain',nativeCurrency:{name:'AVAX',symbol:'AVAX',decimals:18},rpcUrls:['https://api.avax.network/ext/bc/C/rpc'],blockExplorerUrls:['https://snowtrace.io/']}]})}
+                else{throw sw}
+            }
+            tlog('Switched to Avalanche C-Chain (43114)','log-info');
+            var proofData='DOF-OLAS|action:deploy|agent:'+name+'|type:'+type+'|stake:'+stake+'|agent:1686|ts:'+new Date().toISOString();
+            var hexData='0x'+Array.from(new TextEncoder().encode(proofData)).map(function(b){return b.toString(16).padStart(2,'0')}).join('');
+            var txReal=await window.ethereum.request({method:'eth_sendTransaction',params:[{from:walletAddr,to:walletAddr,value:'0x0',data:hexData}]});
+            tlog('TX: '+txReal,'log-ok');
+            tlog('Snowtrace: https://snowtrace.io/tx/'+txReal,'log-ok');
+        }catch(e){tlog('TX cancelled: '+e.message,'log-warn')}
+    }
     tlog('NETWORK: Agent live on Olas Pearl','log-ok');
     tlog('=== DEPLOYMENT COMPLETE ===','log-ok');
     agents.push({name:name+'-'+agentId,type:type,spec:spec,status:'Running',cycles:0,id:agentId});
