@@ -78,7 +78,7 @@
     <div class="grid2">
         <div class="card">
             <h3>Fund Public Good</h3>
-            <form onsubmit="return fundProject()">
+            <form onsubmit="event.preventDefault(); fundProject();">
                 <label>Select Project</label>
                 <select id="project"><option>DOF Framework — Deterministic AI Governance</option><option>OpenSource AI Safety Research</option><option>Agent Governance Research</option><option>Privacy Tooling for Web3</option><option>Public Goods Infrastructure</option></select>
                 <label>Amount (ETH)</label>

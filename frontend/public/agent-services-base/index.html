@@ -67,7 +67,7 @@
     <div class="grid2">
         <div class="card">
             <h3>Submit Proof</h3>
-            <form onsubmit="return submitProof()">
+            <form onsubmit="event.preventDefault(); submitProof();">
                 <label>Task Description</label>
                 <input type="text" id="taskDesc" placeholder="e.g. Audit Solidity contract for reentrancy">
                 <div class="row2">

@@ -79,7 +79,7 @@
     <div class="grid2">
         <div class="card">
             <h3>Deploy New Agent</h3>
-            <form onsubmit="return deployAgent()">
+            <form onsubmit="event.preventDefault(); deployAgent();">
                 <div class="row2">
                     <div><label>Agent Type</label><select id="agentType"><option>Collector</option><option>Trader</option><option>Analyst</option><option>Auditor</option><option>Governor</option></select></div>
                     <div><label>Agent Name</label><input type="text" id="agentName" placeholder="dof-agent" value="dof-agent"></div>

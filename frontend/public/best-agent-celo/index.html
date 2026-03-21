@@ -90,7 +90,7 @@
         <div class="card">
             <h3>Stablecoin Transfer</h3>
             <p style="color:rgba(255,255,255,.3);font-size:12px;margin-bottom:14px">Send cUSD/cEUR via DOF governance pipeline on Celo</p>
-            <form onsubmit="return doTransfer()">
+            <form onsubmit="event.preventDefault(); doTransfer();">
                 <label>Recipient Address</label>
                 <input type="text" id="f-to" placeholder="0x..." required>
                 <div class="row2">

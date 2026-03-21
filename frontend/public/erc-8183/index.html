@@ -93,7 +93,7 @@
     <div class="grid2">
         <div class="card">
             <h3>Create Job</h3>
-            <form onsubmit="return createJob()">
+            <form onsubmit="event.preventDefault(); createJob();">
                 <label>Job Title</label><input type="text" id="jobTitle" placeholder="e.g. Audit Solidity Contract" required>
                 <label>Description</label><textarea id="jobDesc" placeholder="Describe what needs to be done..." rows="2" required></textarea>
                 <div class="row2"><div><label>Budget (ETH)</label><input type="number" id="jobBudget" placeholder="0.5" step="0.01" min="0.01" value="0.5" required></div><div><label>Skills Required</label><select id="jobSkill"><option>Solidity Audit</option><option>Security Review</option><option>Code Analysis</option><option>Documentation</option><option>DeFi Analysis</option></select></div></div>
