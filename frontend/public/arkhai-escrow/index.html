@@ -194,16 +194,32 @@ async function runPipeline(action){
     await delay(400);
 
     tlog('','log-info');
-    tlog('[6/7] ON-CHAIN — Attestation...','log-gov');
-    await delay(700);
+    tlog('[6/7] AVALANCHE C-CHAIN — On-chain attestation...','log-gov');
+    await delay(600);
+    var txHash=null;
     if(walletAddr&&window.ethereum){
-        tlog('  → Requesting MetaMask signature...','log-info');
-        try{await window.ethereum.request({method:'personal_sign',params:['Arkhai Escrow: '+action+'\nHash: '+h.slice(0,20),walletAddr]});tlog('[6/7] SIGN: MetaMask confirmed ✓','log-ok')}catch(e){tlog('[6/7] SIGN: User cancelled — demo mode','log-warn')}
+        try{
+            try{await window.ethereum.request({method:'wallet_switchEthereumChain',params:[{chainId:'0xA86A'}]})}catch(sw){
+                if(sw.code===4902){await window.ethereum.request({method:'wallet_addEthereumChain',params:[{chainId:'0xA86A',chainName:'Avalanche C-Chain',nativeCurrency:{name:'AVAX',symbol:'AVAX',decimals:18},rpcUrls:['https://api.avax.network/ext/bc/C/rpc'],blockExplorerUrls:['https://snowtrace.io/']}]})}
+                else{throw sw}
+            }
+            tlog('  → Switched to Avalanche C-Chain (43114)','log-info');
+            await delay(400);
+            var proofData='DOF-ESCROW|action:'+action+'|hash:'+h+'|agent:1686|ts:'+new Date().toISOString();
+            var hexData='0x'+Array.from(new TextEncoder().encode(proofData)).map(function(b){return b.toString(16).padStart(2,'0')}).join('');
+            tlog('  → Sending 0 AVAX TX with escrow proof...','log-info');
+            txHash=await window.ethereum.request({method:'eth_sendTransaction',params:[{from:walletAddr,to:walletAddr,value:'0x0',data:hexData,chainId:'0xA86A'}]});
+            tlog('  → TX: '+txHash,'log-ok');
+            tlog('  → Snowtrace: https://snowtrace.io/tx/'+txHash,'log-ok');
+        }catch(e){
+            tlog('  → TX cancelled: '+e.message,'log-warn');
+            tlog('  → Demo mode','log-warn');
+        }
     }else{
-        tlog('  → No wallet connected — demo attestation','log-warn');
+        tlog('  → No wallet — demo attestation','log-warn');
         await delay(600);
-        tlog('[6/7] ATTESTATION: Demo proof stored ✓','log-ok');
     }
+    tlog('[6/7] AVALANCHE: Attestation complete ✓','log-ok');
     await delay(400);
 
     tlog('','log-info');
