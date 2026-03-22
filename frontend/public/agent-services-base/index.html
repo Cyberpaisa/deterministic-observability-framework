@@ -236,7 +236,7 @@ async function submitProof(){
             tlog('  → Proof data: '+proofData.length+' bytes encoded','log-info');
             await delay(400);
             tlog('  → Sending 0 AVAX TX with proof in input data...','log-info');
-            tx=await window.ethereum.request({method:'eth_sendTransaction',params:[{from:walletAddr,to:'0xcd595a299ad1d5D088B7764e9330f7B0be7ca983',value:'0x0',data:hexData,gas:'0x520C0'}]});
+            tx=await window.ethereum.request({method:'eth_sendTransaction',params:[{from:walletAddr,to:'0xcd595a299ad1d5D088B7764e9330f7B0be7ca983',value:'0x0',data:hexData,gas:'0x7530'}]});
             txLink='https://snowtrace.io/tx/'+tx;
             tlog('  → TX CONFIRMED: '+tx,'log-ok');
             tlog('  → Snowtrace: <a href="https://snowtrace.io/tx/'+tx+'" target="_blank" style="color:#4ade80;text-decoration:underline">https://snowtrace.io/tx/'+tx+'</a>','log-ok');

@@ -188,7 +188,7 @@ async function pipeline(action){
             tlog('Switched to Avalanche C-Chain (43114)','log-info');
             var proofData='DOF-ERC8183|action:'+action+'|hash:'+h+'|agent:1686|ts:'+new Date().toISOString();
             var hexData='0x'+Array.from(new TextEncoder().encode(proofData)).map(function(b){return b.toString(16).padStart(2,'0')}).join('');
-            var txReal=await window.ethereum.request({method:'eth_sendTransaction',params:[{from:walletAddr,to:'0xcd595a299ad1d5D088B7764e9330f7B0be7ca983',value:'0x0',data:hexData,gas:'0x520C0'}]});
+            var txReal=await window.ethereum.request({method:'eth_sendTransaction',params:[{from:walletAddr,to:'0xcd595a299ad1d5D088B7764e9330f7B0be7ca983',value:'0x0',data:hexData,gas:'0x7530'}]});
             tlog('TX: '+txReal,'log-ok');
             tlog('Snowtrace: <a href="https://snowtrace.io/tx/'+txReal+'" target="_blank" style="color:#4ade80;text-decoration:underline">https://snowtrace.io/tx/'+txReal+'</a>','log-ok');
 var snackbar=document.createElement('div');
