@@ -16,7 +16,7 @@
 [![LOC](https://img.shields.io/badge/LOC-27K+-lightgrey?style=flat-square)]()
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue?style=flat-square)](LICENSE)
 
-[Live Demo](https://dof-agent-web.vercel.app/) | [Demo Video](docs/dof-demo-video.mp4) | [GitHub](https://github.com/Cyberpaisa/deterministic-observability-framework) | [On-Chain Proof](https://basescan.org/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6) | [Journal](docs/journal.md)
+[Live Demo](https://dof-agent-web.vercel.app/) | [Demo Video](https://youtu.be/ieb_EYF66eU) | [GitHub](https://github.com/Cyberpaisa/deterministic-observability-framework) | [On-Chain Proof](https://basescan.org/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6) | [Journal](docs/journal.md)
 
 </div>
 
