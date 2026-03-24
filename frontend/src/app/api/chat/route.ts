@@ -65,7 +65,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Message required' }, { status: 400 });
     }
 
-    const apiKey = process.env.GROQ_API_KEY;
+    const apiKey = process.env.DEEPSEEK_API_KEY;
     if (!apiKey) {
       return NextResponse.json({ error: 'Service unavailable' }, { status: 503 });
     }
@@ -79,11 +79,11 @@ export async function POST(req: NextRequest) {
       { role: 'user', content: message.slice(0, 2000) }
     ];
 
-    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    const res = await fetch('https://api.deepseek.com/v1/chat/completions', {
       method: 'POST',
       headers: { 'Authorization': `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: 'llama-3.3-70b-versatile',
+        model: 'deepseek-chat',
         messages,
         max_tokens: 500,
         temperature: 0.7,
@@ -92,7 +92,7 @@ export async function POST(req: NextRequest) {
 
     if (!res.ok) {
       const err = await res.text();
-      console.error('Groq error:', err);
+      console.error('DeepSeek error:', err);
       return NextResponse.json({ error: 'LLM provider error' }, { status: 502 });
     }
 
@@ -105,8 +105,8 @@ export async function POST(req: NextRequest) {
       reply,
       governance,
       agent: 'Enigma #1686',
-      model: 'llama-3.3-70b-versatile',
-      provider: 'groq'
+      model: 'deepseek-chat',
+      provider: 'deepseek'
     });
   } catch (e) {
     console.error('Chat API error:', e);

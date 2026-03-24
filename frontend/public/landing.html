@@ -1107,11 +1107,11 @@ document.querySelectorAll('.counter').forEach(e=>counterObs.observe(e));
                 addMsg(data.reply,'agent',data.governance);
                 history.push({role:'assistant',content:data.reply});
             } else {
-                addMsg('I\'m available on the full DOF deployment. Set GROQ_API_KEY in Vercel env vars to enable me.','agent');
+                addMsg('I\'m available on the full DOF deployment. Set DEEPSEEK_API_KEY in Vercel env vars to enable me.','agent');
             }
         }catch(e){
             hideTyping();
-            addMsg('I need the /api/chat backend to respond. Deploy from the hackathon repo with GROQ_API_KEY configured.','agent');
+            addMsg('I need the /api/chat backend to respond. Deploy from the hackathon repo with DEEPSEEK_API_KEY configured.','agent');
         }
         sending=false;
         sendBtn.disabled=false;
