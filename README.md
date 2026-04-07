@@ -1,22 +1,19 @@
-# DOF -- Deterministic Observability Framework
+# DOF-MESH — Deterministic Observability Framework
 
 <div align="center">
 
-### Agent acted autonomously. Math proved it. Blockchain recorded it.
+### "Most frameworks verify what happened. DOF-MESH verifies what is *about to happen*."
 
-**DOF Agent #1686 | ERC-8004 Token #31013 | Synthesis Hackathon 2026**
+**Conflux Global Hackfest 2026 Submission**
 
-[![Live Dashboard](https://img.shields.io/badge/Live_Dashboard-Vercel-000?style=for-the-badge&logo=vercel)](https://dof-agent-web.vercel.app/)
-[![ERC-8004](https://img.shields.io/badge/ERC--8004-Agent_%231686-blueviolet?style=for-the-badge)](https://basescan.org/tx/0x7362ef41605e430aba3998b0888e7886c04d65673ce89aa12e1abdf7cffcada4)
-[![On-Chain](https://img.shields.io/badge/Avalanche-0x154a3F49...26F6-e84142?style=for-the-badge&logo=avalanche)](https://basescan.org/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
-
-[![Tests](https://img.shields.io/badge/Tests-986_passing-brightgreen?style=flat-square)]()
-[![Cycles](https://img.shields.io/badge/Autonomous_Cycles-238+-orange?style=flat-square)]()
-[![Attestations](https://img.shields.io/badge/On--Chain_Attestations-48+-blue?style=flat-square)]()
-[![LOC](https://img.shields.io/badge/LOC-27K+-lightgrey?style=flat-square)]()
+[![Conflux](https://img.shields.io/badge/Conflux-eSpace_Testnet-1AAB9B?style=for-the-badge)](https://evmtestnet.confluxscan.io/address/0x554cCa8ceBE30dF95CeeFfFBB9ede5bA7C7A9B83)
+[![Gasless](https://img.shields.io/badge/Gasless-SponsorWhitelistControl_Active-00C853?style=for-the-badge)](https://evmtestnet.confluxscan.io/tx/014b6bedde7fa449d48822752371bc6ee275d62325117a66ef7d8dfbea52d3b7)
+[![Z3](https://img.shields.io/badge/Z3_Formal_Proofs-4%2F4_PROVEN-6c5ce7?style=for-the-badge)](./CONFLUX_PROOF.md)
+[![Tests](https://img.shields.io/badge/Tests-4%2C308_passing-brightgreen?style=flat-square)]()
+[![Chains](https://img.shields.io/badge/Chains-8_active-blue?style=flat-square)]()
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue?style=flat-square)](LICENSE)
 
-[Live Demo](https://dof-agent-web.vercel.app/) | [Demo Video](https://youtu.be/ieb_EYF66eU) | [GitHub](https://github.com/Cyberpaisa/deterministic-observability-framework) | [On-Chain Proof](https://basescan.org/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6) | [Journal](docs/journal.md)
+[dofmesh.com](https://dofmesh.com) · [On-Chain Contract](https://evmtestnet.confluxscan.io/address/0x554cCa8ceBE30dF95CeeFfFBB9ede5bA7C7A9B83) · [Full Proof Evidence](./CONFLUX_PROOF.md) · [Quick Start](#quick-start)
 
 </div>
 
@@ -24,296 +21,233 @@
 
 ## The Problem
 
-AI agents today are black boxes. They act, but nobody can prove _what_ they did, _why_ they did it, or whether their governance was actually enforced. Trust is assumed. Audits are manual. Proofs are nonexistent.
+AI agents act autonomously — but nobody can prove *what* they decided, *why*, or whether governance was actually enforced. Trust is assumed. Audits are manual. The result: autonomous systems with no verifiable correctness guarantees.
 
-## Our Solution
+## The Solution
 
-DOF is a **deterministic governance and observability framework** for autonomous AI agents. Every decision passes through a mathematically verified pipeline -- no LLM in the governance loop, no probabilistic shortcuts, no trust assumptions.
-
-The pipeline is simple and absolute:
+DOF-MESH is a **deterministic governance framework** that mathematically proves every AI agent action is compliant *before* it executes. The verification path contains **zero LLM calls** — every decision is deterministic: regex, AST analysis, Z3 theorems, formal scoring.
 
 ```
-Identity --> Task --> LLM --> Governance --> Z3 Proof --> On-Chain --> Supervisor
-```
-
-Every agent action produces a cryptographic receipt. Every governance decision is formally verified. Every proof is recorded on-chain. The result: an autonomous agent whose behavior is **provably correct, publicly auditable, and permanently recorded**.
-
----
-
-## Hackathon Tracks
-
-### Track 1: Synthesis Open Track -- $28,308
-
-A complete AI agent governance framework with deterministic observability. 70+ core modules, 986 tests, 18 skills, 5 ADK patterns. The agent discovers tasks, plans execution, runs LLM inference across multiple providers, enforces governance without LLM, generates Z3 formal proofs, records attestations on-chain, and supervises its own output quality.
-
-### Track 2: ERC-8004 Agents With Receipts -- $4,000
-
-Every autonomous cycle produces a signed ERC-8004 receipt containing the agent identity, task hash, governance result, Z3 proof hash, and chain attestation. 48+ receipts recorded on Avalanche C-Chain and Base Mainnet. Fully verifiable on Basescan.
-
-### Track 3: Let the Agent Cook -- $4,000
-
-238+ autonomous cycles executed with **zero human input**. The agent runs its own discovery loop, selects tasks, executes them, verifies results, commits code, and attests on-chain -- every 30 minutes, 24/7. The journal documents every cycle.
-
-### Track 4: Private Agents -- $11,500
-
-Privacy-preserving agent governance. DOF enforces data boundaries deterministically -- no internals exposed, no PII leakage. The `PrivacyLeakGenerator` runs 4 attack vectors (PII, API keys, memory, tool inputs) and the governance layer blocks 71%+ without any LLM in the loop.
-
-### Track 5: Agent Services on Base -- $5,000
-
-ERC-8004 identity minted on Base Mainnet (Token #31013). Agent receipts and proof hashes anchored on-chain via `DOFChainAdapter`. Every autonomous cycle produces a verifiable receipt on Basescan.
-
-### Track 6: Best Agent on Celo -- $5,000
-
-Multi-chain attestation support. DOF agents publish governance proofs across EVM chains -- Avalanche, Base, and Celo. The `DOFChainAdapter` abstracts chain-specific logic, enabling portable agent identity.
-
-### Track 7: ERC-8183 Intent Protocol -- $2,000
-
-Agent intent declarations verified by Z3 formal proofs before on-chain execution. The agent declares what it intends to do, Z3 proves the intent is safe, and only then does the chain adapter execute.
-
-### Track 8: Best Self Protocol -- $1,000
-
-Self-sovereign agent identity with deterministic trust scoring. The `TrustGateway` assigns trust levels based on governance compliance, Z3 proof history, and on-chain reputation -- no central authority.
-
-### Track 9: Agents That Pay -- $1,500
-
-Autonomous payment flows governed by constitution rules. The MPP (Machine-to-Machine Payment Protocol) pattern ensures agents can pay for services while safety guardrails prevent unauthorized spending.
-
-### Track 10: Mechanism Design -- $1,000
-
-Game-theoretic governance mechanisms with formal verification. Z3 proves incentive alignment properties -- agents cannot profit from violating governance rules, making compliance the dominant strategy.
-
----
-
-## Architecture
-
-```
-+===================================================================+
-|                      DOF Agent #1686                              |
-|                                                                   |
-|  +-------------------------------------------------------------+ |
-|  |                    INTERFACE LAYER                           | |
-|  |  CLI | A2A Server | Telegram | Dashboard (Vercel) | Voice   | |
-|  +-------------------------------------------------------------+ |
-|                              |                                    |
-|  +-------------------------------------------------------------+ |
-|  |                   EXPERIMENT LAYER                           | |
-|  |  ExperimentDataset | BatchRunner | Schema | Parametric Sweep | |
-|  +-------------------------------------------------------------+ |
-|                              |                                    |
-|  +-------------------------------------------------------------+ |
-|  |                 OBSERVABILITY LAYER                          | |
-|  |  RunTrace | StepTrace | 5 Derived Metrics | JSONL Audit     | |
-|  +-------------------------------------------------------------+ |
-|                              |                                    |
-|  +---------------------------+-------------------------------+   |
-|  |     GOVERNANCE CORE       |       VERIFICATION CORE       |   |
-|  |                           |                               |   |
-|  |  ConstitutionEnforcer     |  Z3Verifier (8/8 PROVEN)     |   |
-|  |  HARD rules --> block     |  Formal invariant proofs      |   |
-|  |  SOFT rules --> warn      |  keccak256 proof hashes       |   |
-|  |  ZERO LLM in governance   |  ASTVerifier + TransitionV.   |   |
-|  +---------------------------+-------------------------------+   |
-|                              |                                    |
-|  +-------------------------------------------------------------+ |
-|  |                    CORE INFRASTRUCTURE                       | |
-|  |                                                             | |
-|  |  crew_runner.py ---- Orchestration, retry x3, crew_factory  | |
-|  |  providers.py ------ TTL backoff (5/10/20m), provider chains| |
-|  |  supervisor.py ----- MetaSupervisor weighted scoring        | |
-|  |  memory_manager.py - ChromaDB + HuggingFace embeddings      | |
-|  |  checkpointing.py -- JSONL persistence per step             | |
-|  |  skill_engine.py --- 18 skills, 5 ADK patterns              | |
-|  |  metrics.py -------- JSONL logger with rotation             | |
-|  +-------------------------------------------------------------+ |
-|                              |                                    |
-|  +---------------------------+-------------------------------+   |
-|  |   8 SPECIALIZED AGENTS    |     ON-CHAIN LAYER            |   |
-|  |   (config/agents.yaml)    |                               |   |
-|  |                           |  DOFChainAdapter              |   |
-|  |   16 Tools                |  Avalanche C-Chain            |   |
-|  |   4 MCP Servers           |  Base Mainnet                 |   |
-|  |                           |  Celo (multi-chain ready)     |   |
-|  +---------------------------+-------------------------------+   |
-+===================================================================+
+Agent Output
+     ↓
+[1] Constitution    →  Hard rules block. Soft rules warn. YAML-defined. Zero LLM.
+     ↓
+[2] AST Verifier   →  Static analysis of any generated code before execution.
+     ↓
+[3] Z3 Verifier    →  4 formal theorems PROVEN in <35ms:
+                       GCR_INVARIANT · SS_FORMULA · SS_MONOTONICITY · SS_BOUNDARIES
+     ↓
+[4] TRACER Score   →  Multi-dimensional quality score (Quality · Accuracy · Compliance · Format)
+     ↓
+[5] Proof Hash     →  keccak256 of full governance payload — immutable fingerprint
+     ↓
+[6] Conflux TX     →  Proof recorded on-chain. Gasless. Permanent. Publicly verifiable.
 ```
 
 ---
 
-## Core Components
+## Conflux Integration
 
-| Component | What It Does |
-|:----------|:-------------|
-| **ConstitutionEnforcer** | Deterministic governance -- HARD rules block, SOFT rules warn. Zero LLM involvement. ~50 token constitution injected per agent. |
-| **Z3Verifier** | 8 mathematical theorems formally PROVEN every cycle. Generates keccak256 proof hashes for on-chain recording. |
-| **MetaSupervisor** | Weighted quality scoring: Q(0.40) + A(0.25) + C(0.20) + F(0.15). Outputs ACCEPT, RETRY, or ESCALATE. |
-| **DOFChainAdapter** | Multi-chain attestation engine. Writes proof receipts to Avalanche, Base, and Celo. |
-| **Skills Engine v2.0** | 18 skills across 5 ADK patterns: blockchain audit, formal verification, security analysis, and more. |
-| **ProviderManager** | LiteLLM router across Cerebras, Groq, Mistral, SambaNova. TTL backoff, automatic failover, deterministic ordering. |
+### Why Conflux
 
----
+Conflux has one capability no other EVM chain offers natively: **Gas Sponsorship via `SponsorWhitelistControl`**. This is not a wrapper or workaround — it is a Core Space internal contract (`0x0888000000000000000000000000000000000001`) that lets a deployer sponsor all transaction fees for users of a given contract.
 
-## The Numbers
+For a governance framework, this is the right primitive: **agents prove their compliance on-chain without needing to hold any CFX**. The protocol sponsors the gas. Zero friction for agent adoption.
 
-| Metric | Value |
-|:-------|------:|
-| Unit tests | **986** |
-| Autonomous cycles | **238+** |
-| On-chain attestations | **48+** |
-| Core modules | **70+** |
-| Lines of code | **27,000+** |
-| Z3 theorems | **8/8 PROVEN** |
-| Skills | **18** |
-| LLM providers | **4 (Cerebras, Groq, Mistral, SambaNova)** |
-| Governance mode | **100% deterministic, 0% LLM** |
+### Live Contract — DOFProofRegistry
 
----
+| Field | Value |
+|---|---|
+| Contract Address | `0x554cCa8ceBE30dF95CeeFfFBB9ede5bA7C7A9B83` |
+| Network | Conflux eSpace Testnet (Chain ID: 71) |
+| RPC | `https://evmtestnet.confluxrpc.com` |
+| Proofs Registered | 36+ |
+| Gasless Status | **Active** — SponsorWhitelistControl configured April 6, 2026 |
+| Explorer | [View on ConfluxScan](https://evmtestnet.confluxscan.io/address/0x554cCa8ceBE30dF95CeeFfFBB9ede5bA7C7A9B83) |
 
-## Tech Stack
+### Gas Sponsorship Setup — Verified On-Chain
 
-| Layer | Technology |
-|:------|:-----------|
-| Core Framework | Python 3.11+ |
-| Formal Verification | Z3 Theorem Prover -- 8/8 invariants PROVEN |
-| Blockchain | web3.py + Avalanche C-Chain + Base Mainnet |
-| LLM Routing | LiteLLM Router (Cerebras, Groq, Mistral, SambaNova) |
-| Dashboard | Next.js + Tailwind CSS on Vercel |
-| Vector Memory | ChromaDB + HuggingFace embeddings (all-MiniLM-L6-v2) |
-| Persistence | JSONL audit logs -- zero external telemetry dependencies |
-| Protocols | A2A + MCP + ERC-8004 |
+Three transactions activated gasless operation on April 6, 2026:
 
----
+| Step | Function | CFX Deposited | TX Hash | Status |
+|---|---|---|---|---|
+| 1 | `setSponsorForGas` | 10 CFX (upper bound: 1,000,000 drip) | [`014b6bed...d3b7`](https://evmtestnet.confluxscan.io/tx/014b6bedde7fa449d48822752371bc6ee275d62325117a66ef7d8dfbea52d3b7) | ✅ Confirmed |
+| 2 | `setSponsorForCollateral` | 10 CFX | [`d6199877...c9f`](https://evmtestnet.confluxscan.io/tx/d6199877d1ff08c204e3ef60dd914852d305bdacde23c29058067c20e621cc9f) | ✅ Confirmed |
+| 3 | `addPrivilegeByAdmin` | — (global whitelist `0x00...0`) | [`2e47f3fd...2a3`](https://evmtestnet.confluxscan.io/tx/2e47f3fd80d82c251a1c572cadbc2b87c377eeb2a092893094d939ce676862a3) | ✅ Confirmed |
 
-## On-Chain Identity
+**Result:** Any address can register governance proofs on `DOFProofRegistry` at zero gas cost.
 
-```
-ERC-8004 Token:    #31013 -- Base Mainnet
-Agent ID:          #1686
-Registration TX:   0x7362ef41605e430aba3998b0888e7886c04d65673ce89aa12e1abdf7cffcada4
-Contract:          0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6
-Basescan:          https://basescan.org/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6
-```
+### Hackathon Attestation TX
 
-| Contract | Purpose | Network |
-|:---------|:--------|:--------|
-| DOFProofRegistry.sol | Agent action proofs registry | Base Sepolia |
-| DOFPaygate.sol | x402 conditional micropayments | Base Sepolia |
-| DOFGaslessProof.sol | Gasless proof submission | Status Network |
-| DOFValidationRegistry.sol | Validation and trust scoring | Base Sepolia |
+The complete governance cycle was executed and attested on-chain for this hackathon. The proof payload is encoded directly in the transaction log:
+
+| Field | Value |
+|---|---|
+| TX Hash | [`0x6994475597c4052f...b2343`](https://evmtestnet.confluxscan.io/tx/0x6994475597c4052f33012458ed75fac6458b53a88f2fa991ff0e3943ab9b2343) |
+| Block | 248,350,045 |
+| Agent ID | #1687 |
+| Decoded Payload | `dof-v0.6.0 conflux-hackathon z3=4/4 tracer=0.504` |
+| Timestamp | April 6, 2026 |
+| Sponsoring Wallet | `0xEAFdc9C3019fC80620f16c30313E3B663248A655` |
 
 ---
 
 ## Quick Start
 
 ```bash
-# Clone and setup
-git clone https://github.com/Cyberpaisa/deterministic-observability-framework.git
+git clone https://github.com/Cyberpaisa/deterministic-observability-framework
 cd deterministic-observability-framework
-git checkout hackathon
 pip install -r requirements.txt
 
-# Run the hackathon demo (dry run -- no API keys needed)
-python3 synthesis/hackathon_demo.py --dry-run
+# Run full governance cycle — dry-run, no wallet required
+python3 scripts/conflux_demo.py --dry-run
 
-# Run all 986 tests
-python3 -m unittest discover tests/
+# Run with real Conflux TX (add CONFLUX_PRIVATE_KEY to .env)
+python3 scripts/conflux_demo.py
+```
 
-# Run the interactive CLI (15 options)
-python3 main.py
+**Expected output (real mode):**
 
-# Run a deterministic experiment (requires GROQ_API_KEY in .env)
-python3 -c "
-from core.experiment import run_experiment
-result = run_experiment(n_runs=10, deterministic=True)
-print(result['aggregate'])
-"
+```
+━━━ STEP 1: Constitution (zero LLM) ━━━
+  Passed: True  |  Score: 1.0000  |  Violations: 0  |  Warnings: 1
+
+━━━ STEP 2: Z3 Formal Verification ━━━
+  GCR invariant:    PROVEN (24.2ms)
+  SS formula:       PROVEN (2.4ms)
+  SS monotonicity:  PROVEN (7.7ms)
+  SS boundaries:    PROVEN (0.5ms)
+  ✅ 4/4 PROVEN — 34.8ms total
+
+━━━ STEP 3: TRACER Score ━━━
+  ✅ 0.504/1.0  (Q=0.6  A=0.45  C=0.62  F=0.5)
+
+━━━ STEP 4: Proof Hash ━━━
+  0x05235c88f0f826c279...781e2d6f
+
+━━━ STEP 5: On-Chain Attestation (Conflux Testnet) ━━━
+  Contract: 0x554cCa8ceBE30dF95CeeFfFBB9ede5bA7C7A9B83
+  Chain ID: 71
+  ✅ TX confirmed — gasless
+
+━━━ STEP 6: Summary ━━━
+  Constitution: ✅  Z3: ✅ 4/4  TRACER: ✅  Conflux: ✅
+
+╔══════════════════════════════════════════════════════╗
+║    DOF-MESH x Conflux — Global Hackfest 2026         ║
+║  Agent acted autonomously. Math proved it.           ║
+║  Blockchain recorded it. On Conflux.                 ║
+╚══════════════════════════════════════════════════════╝
 ```
 
 ---
 
-## Evidence for Judges
-
-| Document | Description |
-|:---------|:------------|
-| [journal.md](docs/journal.md) | Episodic memory -- every cycle, decision, and proof |
-| [conversation-log.md](docs/conversation-log.md) | Full human-agent Telegram collaboration history |
-| [EVOLUTION_LOG.md](docs/EVOLUTION_LOG.md) | Agent self-improvement across 238+ cycles |
-| [Z3_VERIFICATION.md](docs/Z3_VERIFICATION.md) | Formal proofs of security invariants |
-| [DEMO_WALKTHROUGH.md](docs/DEMO_WALKTHROUGH.md) | Step-by-step guide to run every demo |
-| [DECISION_LOOP.md](docs/DECISION_LOOP.md) | Technical documentation of the autonomous cycle |
-| [SECURITY_AUDITS.md](docs/SECURITY_AUDITS.md) | Slither audit reports for all contracts |
-
----
-
-## How The Pipeline Works
+## Architecture
 
 ```
-1. IDENTITY        Agent #1686 authenticates via ERC-8004 token #31013
-                   |
-2. TASK            Discovery loop finds next task (or receives via A2A/Telegram)
-                   |
-3. LLM INFERENCE   LiteLLM routes to best available provider
-                   Fallback chain: Cerebras --> Groq --> Mistral --> SambaNova
-                   |
-4. GOVERNANCE      ConstitutionEnforcer evaluates output
-                   HARD rules: block on violation | SOFT rules: warn and log
-                   ZERO LLM in this step -- purely deterministic
-                   |
-5. Z3 PROOF        Z3Verifier generates formal mathematical proof
-                   8 invariants checked, proof hash = keccak256(proof)
-                   |
-6. ON-CHAIN        DOFChainAdapter writes attestation to Avalanche/Base
-                   ERC-8004 receipt with task hash + proof hash
-                   |
-7. SUPERVISOR      MetaSupervisor scores: Q(0.40)+A(0.25)+C(0.20)+F(0.15)
-                   Decision: ACCEPT --> next cycle | RETRY --> re-execute | ESCALATE --> human
+DOF-MESH v0.6.0
+│
+├── 7-Layer Governance Pipeline
+│   ├── Constitution          — YAML rules, zero LLM, HARD_RULES block, SOFT_RULES warn
+│   ├── AST Verifier          — static code analysis before execution
+│   ├── Tool Hook Gate PRE    — intercepts all tool calls before they run
+│   ├── Supervisor Engine     — Q(0.4) + A(0.25) + C(0.2) + F(0.15) cross-turn monitoring
+│   ├── Adversarial Guard     — red/blue pipeline, 11 injection patterns
+│   ├── Memory Layer          — ChromaDB + reproducible session state
+│   └── Z3 SMT Verifier       — 4/4 invariants PROVEN (GCR · SS · SS_MONO · SS_BOUND)
+│
+├── Conflux Layer
+│   ├── core/adapters/conflux_gateway.py   — web3.py v7 compatible gateway
+│   ├── SponsorWhitelistControl            — 0x0888...0001, gasless for all users
+│   └── DOFProofRegistry.sol               — same ABI deployed across 8 chains
+│
+├── 4,308 tests  ·  142 modules  ·  57K+ LOC
+├── 238+ autonomous cycles in logs/daemon/cycles.jsonl
+└── 8 active chains: Avalanche · Base · Celo · Conflux · Polygon · SKALE · Fuji · Base Sepolia
 ```
 
----
+### ConfluxGateway Usage
 
-## Repository Structure
+```python
+from core.adapters.conflux_gateway import ConfluxGateway
+from core.chain_adapter import DOFChainAdapter
 
-```
-deterministic-observability-framework/
-  core/                     # 70+ modules -- the framework engine
-    governance.py            # ConstitutionEnforcer, HARD/SOFT rules
-    observability.py         # RunTrace, StepTrace, 5 derived metrics
-    supervisor.py            # MetaSupervisor weighted scoring
-    providers.py             # LiteLLM router, TTL backoff
-    skill_engine.py          # 18 skills, 5 ADK patterns
-    experiment.py            # Batch runner, statistical aggregation
-    memory_manager.py        # ChromaDB + HuggingFace embeddings
-    checkpointing.py         # JSONL persistence per step
-    ...
-  agents/                   # 8 specialized agents with SOUL.md
-  contracts/                # Solidity contracts (4 deployed)
-  synthesis/                # Hackathon demos and scripts
-  config/                   # Agent configs, LLM provider chains
-  tests/                    # 986 unit tests
-  frontend/                 # Next.js dashboard (Vercel)
-  docs/                     # Architecture docs, journal, logs
-  logs/                     # JSONL audit trails
+# Connect to Conflux eSpace Testnet
+gw = ConfluxGateway(use_testnet=True)
+
+# Access SponsorWhitelistControl (internal contract)
+sponsor = gw.get_sponsor_contract()
+
+# Publish a governance proof — gasless for the caller
+adapter = DOFChainAdapter.from_chain_name("conflux_testnet")
+result = adapter.publish_attestation(
+    proof_hash="0x...",
+    agent_id=1687,
+    metadata="dof-v0.6.0 z3=4/4 tracer=0.504"
+)
+# → {"tx_hash": "0x...", "chain": "conflux_testnet"}
 ```
 
 ---
 
-## Built By
+## Test the Conflux Integration
 
-**Juan Carlos Quiceno** ([@Cyber_paisa](https://twitter.com/Cyber_paisa)) -- Blockchain developer, Avalanche Ambassador, Colombia.
+```bash
+# Conflux-specific tests (9/9)
+python3 -m unittest tests.test_conflux_gateway tests.test_conflux_integration -v
 
-**DOF Agent #1686 (Enigma)** -- The first AI agent with deterministic observability. 238+ autonomous cycles. Zero human intervention required.
+# Full test suite (4,308 tests)
+python3 -m unittest discover -s tests
+
+# Run demo in dry-run (no wallet, no gas, 6/6 steps)
+python3 scripts/conflux_demo.py --dry-run
+```
 
 ---
 
-<div align="center">
+## Verified Metrics
 
-**DOF -- Deterministic Observability Framework**
+| Metric | Value | How to Verify |
+|---|---|---|
+| Tests passing | **4,308** | `python3 -m unittest discover -s tests` |
+| Z3 theorems proven | **4/4** | `python3 scripts/conflux_demo.py --dry-run` |
+| Z3 proof time | **34.8ms** | `logs/z3_proofs.json` |
+| Autonomous cycles logged | **238+** | `logs/daemon/cycles.jsonl` |
+| On-chain proofs (Conflux) | **36+** | [ConfluxScan](https://evmtestnet.confluxscan.io/address/0x554cCa8ceBE30dF95CeeFfFBB9ede5bA7C7A9B83) |
+| On-chain proofs (all chains) | **80+** | 8 chains active |
+| LLM calls in governance path | **0** | `grep -rn "llm_call" core/governance.py` → 0 |
+| Gasless sponsorship | **Active** | [3 TXs confirmed](./CONFLUX_PROOF.md) |
+| Codebase | **57K+ LOC · 142 modules** | `find core/ -name "*.py" \| wc -l` |
 
-*Agent acted autonomously. Math proved it. Blockchain recorded it.*
+---
 
-**Synthesis Hackathon 2026**
+## Why DOF-MESH Stands Out
 
-[![Live Demo](https://img.shields.io/badge/Live_Demo-dof--agent--web.vercel.app-000?style=for-the-badge&logo=vercel)](https://dof-agent-web.vercel.app/)
-[![GitHub](https://img.shields.io/badge/GitHub-hackathon_branch-181717?style=for-the-badge&logo=github)](https://github.com/Cyberpaisa/deterministic-observability-framework)
-[![On-Chain](https://img.shields.io/badge/On--Chain_Proof-Basescan-3C3C3D?style=for-the-badge&logo=ethereum)](https://basescan.org/address/0x154a3F49a9d28FeCC1f6Db7573303F4D809A26F6)
+| What Judges Want to See | DOF-MESH |
+|---|---|
+| Real on-chain TX with meaningful payload | ✅ `conflux-hackathon z3=4/4` encoded in block 248,350,045 |
+| Native use of Conflux features | ✅ SponsorWhitelistControl — gasless proof registration |
+| Formal/mathematical verification | ✅ Z3 SMT, 4 theorems, not "pretty confident" |
+| Working code with tests | ✅ 4,308 tests, clone and run in 3 commands |
+| Autonomous operation evidence | ✅ 238+ cycles in logs, not a prepared demo |
+| Zero LLM in trust path | ✅ Governance is pure deterministic logic |
 
-</div>
+---
+
+## Full On-Chain Evidence
+
+All transaction hashes, block numbers, decoded payloads, and gasless verification:
+
+**→ [CONFLUX_PROOF.md](./CONFLUX_PROOF.md)**
+
+---
+
+## Contact
+
+**Cyber Paisa** — Enigma Group, Medellín, Colombia  
+GitHub: [Cyberpaisa/deterministic-observability-framework](https://github.com/Cyberpaisa/deterministic-observability-framework)  
+Site: [dofmesh.com](https://dofmesh.com) · X: [@Cyber_paisa](https://x.com/Cyber_paisa)
+
+---
+
+> *"Agent acted autonomously. Math proved it. Blockchain recorded it. On Conflux."*
